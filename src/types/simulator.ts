@@ -1,4 +1,4 @@
-export type AppMode = 'learn' | 'sandbox';
+export type AppMode = 'learn' | 'sandbox' | 'progress';
 
 export interface ChapterData {
   id: number;
@@ -39,7 +39,7 @@ export interface ModuleData {
   };
   validFormulas: string[];
   acceptedAnswers: (string | number)[];
-  hints: string[];
+  hints: string[]; // Now 3-level progressive: conceptual → technical → blueprint
   explanation: string;
   samplePlaceholder?: string;
   theory: {
@@ -48,6 +48,11 @@ export interface ModuleData {
     syntax: string;
     example: string;
   };
+  // NEW v3.0 fields
+  skillsLearned: string[];       // e.g. ['Fungsi SUM', 'Range Reference']
+  jobRelevance: string[];        // e.g. ['Akuntan', 'Admin Kantor', 'HRD']
+  realWorldExample: string;      // Real-world workplace scenario paragraph
+  prerequisiteModules: number[]; // Module IDs that should be done first
 }
 
 export interface EvaluationResult {
@@ -88,4 +93,28 @@ export interface CheatSheetItem {
   example: string;
   useCase: string;
   tips: string;
+}
+
+// NEW v3.0: Skill tracking types
+export interface SkillDimension {
+  label: string;
+  chapterId: number;
+  completedCount: number;
+  totalCount: number;
+  percentage: number;
+}
+
+export type UserLevel = 'Pemula' | 'Menengah' | 'Mahir';
+
+export function getUserLevel(completedCount: number, totalModules: number): UserLevel {
+  const pct = (completedCount / totalModules) * 100;
+  if (pct >= 71) return 'Mahir';
+  if (pct >= 31) return 'Menengah';
+  return 'Pemula';
+}
+
+export function getLevelEmoji(level: UserLevel): string {
+  if (level === 'Mahir') return '🏆';
+  if (level === 'Menengah') return '📈';
+  return '🌱';
 }

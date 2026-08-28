@@ -74,7 +74,15 @@ export const MODULES: ModuleData[] = [
     ],
     validFormulas: ['=B2+C2', '=C2+B2', '=SUM(B2:C2)', '=SUM(B2,C2)', '=SUM(B2+C2)', '=SUM(B2 + C2)'],
     acceptedAnswers: [40000],
-    hints: ['Ketik =B2+C2 pada sel D2 lalu tekan Enter.'],
+    skillsLearned: ['Operator Penjumlahan (+)', 'Referensi Sel Absolut', 'Kalkulasi Dasar'],
+    jobRelevance: ['Kasir', 'Admin Keuangan', 'Staff Finance'],
+    realWorldExample: 'Seorang Kasir sering kali harus menghitung total pembelian secara manual ketika sistem bermasalah.',
+    prerequisiteModules: [],
+    hints: [
+      'Pikirkan tentang operasi aritmatika apa yang tepat untuk menggabungkan dua nilai pengeluaran.',
+      'Gunakan operator penjumlahan (+) di antara dua sel target.',
+      'Ketik =B2+C2 pada sel D2 lalu tekan Enter.'
+    ],
     explanation: 'Rumus =B2+C2 menjumlahkan Rp25.000 + Rp15.000 = Rp40.000.',
     samplePlaceholder: '=B2+C2',
     theory: {
@@ -108,7 +116,15 @@ export const MODULES: ModuleData[] = [
     ],
     validFormulas: ['=B2-C2'],
     acceptedAnswers: [1300000],
-    hints: ['Gunakan tanda minus (-). Ketik =B2-C2 lalu tekan Enter.'],
+    skillsLearned: ['Operator Pengurangan (-)', 'Kalkulasi Selisih', 'Logika Arus Kas'],
+    jobRelevance: ['Admin Keuangan', 'Akuntan', 'Bendahara'],
+    realWorldExample: 'Seorang Admin Keuangan perlu menghitung sisa budget bulanan divisi dengan mengurangi pengeluaran dari total anggaran.',
+    prerequisiteModules: [1],
+    hints: [
+      'Pikirkan tentang operasi aritmatika untuk mencari selisih.',
+      'Gunakan operator minus (-) untuk mengurangi pemasukan dengan pengeluaran.',
+      'Ketik =B2-C2 lalu tekan Enter.'
+    ],
     explanation: 'Rumus =B2-C2 menghasilkan sisa tabungan Rp1.300.000.',
     samplePlaceholder: '=B2-C2',
     theory: {
@@ -142,7 +158,15 @@ export const MODULES: ModuleData[] = [
     ],
     validFormulas: ['=B2*C2', '=C2*B2', '=PRODUCT(B2:C2)', '=PRODUCT(B2,C2)'],
     acceptedAnswers: [70000],
-    hints: ['Di Excel perkalian memakai bintang (*). Ketik =B2*C2.'],
+    skillsLearned: ['Operator Perkalian (*)', 'Kalkulasi Subtotal', 'Range Reference Sederhana'],
+    jobRelevance: ['Purchasing', 'Admin Gudang', 'Kasir'],
+    realWorldExample: 'Staf Purchasing menghitung subtotal biaya pengadaan barang dengan mengalikan jumlah barang pesanan dengan harga satuan supplier.',
+    prerequisiteModules: [1],
+    hints: [
+      'Pikirkan operasi matematika untuk mencari total harga dari jumlah dikali satuan.',
+      'Gunakan operator bintang (*) untuk perkalian di Excel.',
+      'Ketik =B2*C2 lalu tekan Enter.'
+    ],
     explanation: '5 Kg x Rp14.000 = Rp70.000.',
     samplePlaceholder: '=B2*C2',
     theory: {
@@ -176,7 +200,15 @@ export const MODULES: ModuleData[] = [
     ],
     validFormulas: ['=B2/C2'],
     acceptedAnswers: [50000],
-    hints: ['Gunakan garis miring (/). Ketik =B2/C2.'],
+    skillsLearned: ['Operator Pembagian (/)', 'Kalkulasi Rata-Rata Manual', 'Split Cost'],
+    jobRelevance: ['Manajer Operasional', 'HRD', 'Sekretaris'],
+    realWorldExample: 'Manajer Operasional membagi total tagihan katering harian ke seluruh karyawan untuk mengetahui porsi biaya konsumsi per orang.',
+    prerequisiteModules: [1, 2, 3],
+    hints: [
+      'Pikirkan operasi matematika untuk membagi total tagihan secara adil.',
+      'Gunakan garis miring (/) untuk pembagian di Excel.',
+      'Ketik =B2/C2 lalu tekan Enter.'
+    ],
     explanation: 'Rp250.000 / 5 orang = Rp50.000.',
     samplePlaceholder: '=B2/C2',
     theory: {
@@ -210,7 +242,15 @@ export const MODULES: ModuleData[] = [
     ],
     validFormulas: ['=B2*C2', '=B2*20%', '=B2*0.2'],
     acceptedAnswers: [40000],
-    hints: ['Ketik =B2*C2 atau =B2*20%.'],
+    skillsLearned: ['Kalkulasi Persentase (%)', 'Menghitung Diskon', 'Tipe Data Desimal'],
+    jobRelevance: ['Sales', 'Marketing', 'Kasir'],
+    realWorldExample: 'Sales Marketing menghitung potongan harga akhir pada invoice setelah klien diberikan diskon promo khusus.',
+    prerequisiteModules: [3],
+    hints: [
+      'Pikirkan cara mengalikan harga asli dengan nilai persen.',
+      'Excel bisa langsung mengenali format persentase (%).',
+      'Ketik =B2*C2 atau =B2*20% lalu tekan Enter.'
+    ],
     explanation: 'Rp200.000 x 20% = Rp40.000.',
     samplePlaceholder: '=B2*C2',
     theory: {
@@ -244,7 +284,15 @@ export const MODULES: ModuleData[] = [
     ],
     validFormulas: ['=(B2+C2)*(1-D2)', '=(B2+C2)*0.9', '=(B2+C2)*90%'],
     acceptedAnswers: [225000],
-    hints: ['Gunakan kurung: =(B2+C2)*(1-D2)'],
+    skillsLearned: ['Hirarki Operasi Matematika', 'Penggunaan Tanda Kurung ()', 'Kalkulasi Multi-Tahap'],
+    jobRelevance: ['Financial Planner', 'Analis Kredit', 'Akuntan'],
+    realWorldExample: 'Financial Planner merancang simulasi pembayaran klien dengan memperhitungkan total tagihan lalu dipotong persentase keringanan.',
+    prerequisiteModules: [1, 2, 3, 4, 5],
+    hints: [
+      'Pastikan kamu mendahulukan penjumlahan sebelum melakukan perkalian diskon.',
+      'Gunakan tanda kurung () untuk mengelompokkan penjumlahan terlebih dahulu.',
+      'Ketik =(B2+C2)*(1-D2) lalu tekan Enter.'
+    ],
     explanation: '(Rp100.000 + Rp150.000) x 90% = Rp225.000.',
     samplePlaceholder: '=(B2+C2)*(1-D2)',
     theory: {
@@ -285,7 +333,15 @@ export const MODULES: ModuleData[] = [
     totalLabelRow: { label: 'Total Anggaran:', colSpan: 2 },
     validFormulas: ['=SUM(C2:C6)', '=SUM(C2,C3,C4,C5,C6)'],
     acceptedAnswers: [2500000],
-    hints: ['Ketik =SUM(C2:C6) lalu tekan Enter.'],
+    skillsLearned: ['Fungsi SUM', 'Range Reference Blok', 'Agregasi Dasar'],
+    jobRelevance: ['Bendahara', 'Admin Keuangan', 'Staff Finance'],
+    realWorldExample: 'Bendahara acara menghimpun seluruh pemasukan tiket dari puluhan baris secara kilat tanpa menjumlahkan satu per satu.',
+    prerequisiteModules: [1],
+    hints: [
+      'Gunakan fungsi bawaan Excel untuk menjumlahkan sekelompok data.',
+      'Gunakan fungsi SUM diikuti dengan range sel yang ingin dijumlahkan.',
+      'Ketik =SUM(C2:C6) lalu tekan Enter.'
+    ],
     explanation: 'Total penjumlahan seluruh anggaran = Rp2.500.000.',
     samplePlaceholder: '=SUM(C2:C6)',
     theory: {
@@ -321,7 +377,15 @@ export const MODULES: ModuleData[] = [
     totalLabelRow: { label: 'Rata-Rata Rapor:', colSpan: 2 },
     validFormulas: ['=AVERAGE(C2:C5)', '=AVERAGE(C2,C3,C4,C5)'],
     acceptedAnswers: [85],
-    hints: ['Ketik =AVERAGE(C2:C5).'],
+    skillsLearned: ['Fungsi AVERAGE', 'Mencari Nilai Rata-rata', 'Evaluasi Performa'],
+    jobRelevance: ['Guru', 'HRD', 'Manajer Operasional'],
+    realWorldExample: 'Guru mengevaluasi rata-rata nilai ujian matematika satu kelas untuk melihat performa secara keseluruhan.',
+    prerequisiteModules: [7],
+    hints: [
+      'Gunakan fungsi bawaan Excel untuk mencari rata-rata nilai ujian.',
+      'Fungsi AVERAGE dapat digunakan untuk mencari nilai tengah kelompok angka.',
+      'Ketik =AVERAGE(C2:C5) lalu tekan Enter.'
+    ],
     explanation: '(80 + 90 + 85 + 85) / 4 = 85.',
     samplePlaceholder: '=AVERAGE(C2:C5)',
     theory: {
@@ -358,7 +422,15 @@ export const MODULES: ModuleData[] = [
     totalLabelRow: { label: 'Tagihan Termahal:', colSpan: 1 },
     validFormulas: ['=MAX(B2:B7)'],
     acceptedAnswers: [350000],
-    hints: ['Ketik =MAX(B2:B7).'],
+    skillsLearned: ['Fungsi MAX', 'Fungsi MIN', 'Analisis Puncak Data'],
+    jobRelevance: ['Analis Data', 'Sales', 'Manajer Operasional'],
+    realWorldExample: 'Analis Data memantau rekor tertinggi omset harian dalam sebulan untuk mencari pola puncak hari penjualan.',
+    prerequisiteModules: [7],
+    hints: [
+      'Pikirkan fungsi untuk mencari nilai tertinggi dalam sekelompok angka.',
+      'Gunakan fungsi MAX untuk mencari angka terbesar dari range.',
+      'Ketik =MAX(B2:B7) lalu tekan Enter.'
+    ],
     explanation: 'Tagihan tertinggi adalah Rp350.000 pada bulan Maret.',
     samplePlaceholder: '=MAX(B2:B7)',
     theory: {
@@ -395,7 +467,15 @@ export const MODULES: ModuleData[] = [
     totalLabelRow: { label: 'Total yang Sudah Bernilai:', colSpan: 2 },
     validFormulas: ['=COUNT(C2:C6)'],
     acceptedAnswers: [4],
-    hints: ['Fungsi COUNT hanya menghitung angka. Ketik =COUNT(C2:C6).'],
+    skillsLearned: ['Fungsi COUNT', 'Menghitung Sel Numerik', 'Audit Kelengkapan'],
+    jobRelevance: ['HRD', 'Sekretaris', 'Guru'],
+    realWorldExample: 'HRD menghitung berapa banyak karyawan yang sudah menginput target KPI mereka dalam bentuk persentase angka di sistem rekap.',
+    prerequisiteModules: [7],
+    hints: [
+      'Pikirkan fungsi untuk menghitung berapa banyak sel yang hanya berisi nilai berupa angka.',
+      'Gunakan fungsi COUNT, jangan tertukar dengan fungsi agregasi lainnya.',
+      'Ketik =COUNT(C2:C6) lalu tekan Enter.'
+    ],
     explanation: 'Dari 5 siswa, ada 4 yang nilainya berupa angka.',
     samplePlaceholder: '=COUNT(C2:C6)',
     theory: {
@@ -432,7 +512,15 @@ export const MODULES: ModuleData[] = [
     totalLabelRow: { label: 'Total Peserta Terdaftar:', colSpan: 1 },
     validFormulas: ['=COUNTA(B2:B6)'],
     acceptedAnswers: [5],
-    hints: ['Gunakan =COUNTA(B2:B6) untuk menghitung sel teks non-kosong.'],
+    skillsLearned: ['Fungsi COUNTA', 'Menghitung Sel Terisi', 'Audit Absensi'],
+    jobRelevance: ['Sekretaris', 'HRD', 'Data Entry'],
+    realWorldExample: 'Sekretaris menghitung jumlah peserta meeting yang hadir dengan menghitung baris tanda tangan yang terisi teks di spreadsheet daftar hadir.',
+    prerequisiteModules: [10],
+    hints: [
+      'Pikirkan fungsi yang bisa menghitung segala tipe karakter yang tidak kosong.',
+      'Gunakan fungsi COUNTA (Count All) untuk menghitung sel berisi teks/angka.',
+      'Ketik =COUNTA(B2:B6) lalu tekan Enter.'
+    ],
     explanation: 'Ada 5 peserta yang terdaftar.',
     samplePlaceholder: '=COUNTA(B2:B6)',
     theory: {
@@ -469,7 +557,15 @@ export const MODULES: ModuleData[] = [
     totalLabelRow: { label: 'Jumlah yang Belum Kumpul:', colSpan: 2 },
     validFormulas: ['=COUNTBLANK(C2:C6)'],
     acceptedAnswers: [2],
-    hints: ['Ketik =COUNTBLANK(C2:C6).'],
+    skillsLearned: ['Fungsi COUNTBLANK', 'Audit Sel Kosong', 'Pengecekan Data'],
+    jobRelevance: ['Admin Gudang', 'Data Entry', 'HRD'],
+    realWorldExample: 'Admin Gudang memeriksa baris barang masuk yang belum diberikan kode serial number (sel kosong) agar segera ditindaklanjuti.',
+    prerequisiteModules: [10, 11],
+    hints: [
+      'Pikirkan fungsi untuk menghitung berapa sel yang benar-benar tidak terisi.',
+      'Gunakan fungsi COUNTBLANK untuk menargetkan baris kosong.',
+      'Ketik =COUNTBLANK(C2:C6) lalu tekan Enter.'
+    ],
     explanation: 'Terdapat 2 siswa yang belum mengumpulkan tugas (sel kosong).',
     samplePlaceholder: '=COUNTBLANK(C2:C6)',
     theory: {
@@ -506,7 +602,15 @@ export const MODULES: ModuleData[] = [
     totalLabelRow: { label: 'Skor Juara 2 (Tertinggi ke-2):', colSpan: 2 },
     validFormulas: ['=LARGE(C2:C6, 2)', '=LARGE(C2:C6,2)'],
     acceptedAnswers: [91],
-    hints: ['Format: =LARGE(rentang, ranking). Ketik =LARGE(C2:C6, 2).'],
+    skillsLearned: ['Fungsi LARGE', 'Peringkat N-Tertinggi', 'Ranking Parsial'],
+    jobRelevance: ['Manajer Operasional', 'Sales', 'Guru'],
+    realWorldExample: 'Manajer Sales mencari sales person dengan performa tertinggi kedua untuk diberikan apresiasi Runner Up of the Month.',
+    prerequisiteModules: [9],
+    hints: [
+      'Pikirkan fungsi yang bisa mencari nilai terbesar sesuai urutan peringkat tertentu.',
+      'Gunakan fungsi LARGE dengan argumen kedua berupa angka peringkat (2).',
+      'Ketik =LARGE(C2:C6, 2) lalu tekan Enter.'
+    ],
     explanation: 'Skor tertinggi #1 adalah 98 (Siti), tertinggi #2 adalah 91 (Andi).',
     samplePlaceholder: '=LARGE(C2:C6, 2)',
     theory: {
@@ -542,7 +646,15 @@ export const MODULES: ModuleData[] = [
     totalLabelRow: { label: 'Tercepat ke-2 (Detik):', colSpan: 2 },
     validFormulas: ['=SMALL(C2:C5, 2)', '=SMALL(C2:C5,2)'],
     acceptedAnswers: [11.8],
-    hints: ['Ketik =SMALL(C2:C5, 2).'],
+    skillsLearned: ['Fungsi SMALL', 'Peringkat N-Terendah', 'Evaluasi Cost Minimum'],
+    jobRelevance: ['Purchasing', 'Manajer Operasional', 'Analis Data'],
+    realWorldExample: 'Staf Purchasing membandingkan penawaran vendor dan mengambil harga tender paling murah kedua sebagai cadangan.',
+    prerequisiteModules: [9],
+    hints: [
+      'Pikirkan fungsi yang bisa mencari nilai terkecil pada urutan peringkat tertentu.',
+      'Gunakan fungsi SMALL dengan argumen kedua berupa angka peringkat (2).',
+      'Ketik =SMALL(C2:C5, 2) lalu tekan Enter.'
+    ],
     explanation: 'Waktu tercepat ke-1 adalah 11.2, tercepat ke-2 adalah 11.8 detik.',
     samplePlaceholder: '=SMALL(C2:C5, 2)',
     theory: {
@@ -578,7 +690,15 @@ export const MODULES: ModuleData[] = [
     ],
     validFormulas: ['=PROPER(A2)'],
     acceptedAnswers: ['Budi Santoso'],
-    hints: ['Ketik =PROPER(A2).'],
+    skillsLearned: ['Fungsi PROPER', 'Manipulasi String Teks', 'Pembersihan Data'],
+    jobRelevance: ['Data Entry', 'HRD', 'Customer Service'],
+    realWorldExample: 'Data Entry merapikan database pelanggan dari form online yang sering diinput dengan huruf kecil menjadi berawalan huruf besar.',
+    prerequisiteModules: [],
+    hints: [
+      'Gunakan fungsi teks untuk membuat huruf pertama setiap kata menjadi kapital.',
+      'Fungsi PROPER merapikan teks menjadi format nama yang baku.',
+      'Ketik =PROPER(A2) lalu tekan Enter.'
+    ],
     explanation: 'Mengubah "budi santoso" menjadi "Budi Santoso".',
     samplePlaceholder: '=PROPER(A2)',
     theory: {
@@ -610,7 +730,15 @@ export const MODULES: ModuleData[] = [
     ],
     validFormulas: ['=UPPER(A2)'],
     acceptedAnswers: ['BJU-01'],
-    hints: ['Ketik =UPPER(A2).'],
+    skillsLearned: ['Fungsi UPPER', 'Kapitalisasi Karakter', 'Standardisasi Kode'],
+    jobRelevance: ['Data Entry', 'HRD', 'Admin Gudang'],
+    realWorldExample: 'Staf HRD mengubah ribuan data pelamar menjadi format huruf kapital semua untuk disesuaikan dengan format sistem.',
+    prerequisiteModules: [15],
+    hints: [
+      'Gunakan fungsi teks untuk membuat seluruh string menjadi huruf besar semua.',
+      'Fungsi UPPER mengkapitalisasi seluruh teks pada sel yang dipilih.',
+      'Ketik =UPPER(A2) lalu tekan Enter.'
+    ],
     explanation: 'Mengubah "bju-01" menjadi "BJU-01".',
     samplePlaceholder: '=UPPER(A2)',
     theory: {
@@ -643,7 +771,15 @@ export const MODULES: ModuleData[] = [
     ],
     validFormulas: ['=A2&" "&B2', '=A2 & " " & B2', '=CONCAT(A2, " ", B2)'],
     acceptedAnswers: ['Ahmad Dahlan'],
-    hints: ['Ketik =A2 & " " & B2.'],
+    skillsLearned: ['Operator Ampersand (&)', 'Penggabungan String', 'Pembuatan Spasi'],
+    jobRelevance: ['Customer Service', 'Admin Keuangan', 'HRD'],
+    realWorldExample: 'Customer Service menggabungkan kolom Nama Depan dan Nama Belakang pelanggan menjadi satu kolom untuk pencetakan kartu member.',
+    prerequisiteModules: [],
+    hints: [
+      'Pikirkan simbol apa yang bisa menggabungkan dua teks secara instan tanpa rumus yang panjang.',
+      'Gunakan simbol & untuk menyatukan A2, spasi (" "), dan B2.',
+      'Ketik =A2 & " " & B2 lalu tekan Enter.'
+    ],
     explanation: 'Menggabungkan Ahmad + spasi + Dahlan = Ahmad Dahlan.',
     samplePlaceholder: '=A2 & " " & B2',
     theory: {
@@ -681,7 +817,15 @@ export const MODULES: ModuleData[] = [
       '=A2 & "-" & B2 & "-" & C2',
     ],
     acceptedAnswers: ['JKT-01-99'],
-    hints: ['Ketik =CONCAT(A2, "-", B2, "-", C2) atau =A2 & "-" & B2 & "-" & C2.'],
+    skillsLearned: ['Fungsi CONCAT', 'Penggabungan Multi-Sel', 'Pembuatan Barcode'],
+    jobRelevance: ['Admin Gudang', 'Data Entry', 'Purchasing'],
+    realWorldExample: 'Admin Gudang merangkai kode wilayah, tahun masuk, dan nomor urut menjadi satu string barcode inventaris yang unik.',
+    prerequisiteModules: [17],
+    hints: [
+      'Pikirkan fungsi modern Excel untuk merangkai banyak sel/teks berjejer.',
+      'Fungsi CONCAT atau CONCATENATE menyambung argumen dengan pembatas string.',
+      'Ketik =CONCAT(A2, "-", B2, "-", C2) lalu tekan Enter.'
+    ],
     explanation: 'Hasil barcode utuh: JKT-01-99.',
     samplePlaceholder: '=CONCAT(A2, "-", B2, "-", C2)',
     theory: {
@@ -713,7 +857,15 @@ export const MODULES: ModuleData[] = [
     ],
     validFormulas: ['=LEFT(A2, 3)', '=LEFT(A2,3)'],
     acceptedAnswers: ['JKT'],
-    hints: ['Ketik =LEFT(A2, 3).'],
+    skillsLearned: ['Fungsi LEFT', 'Ekstraksi String Kiri', 'Parsing Kode Wilayah'],
+    jobRelevance: ['Data Entry', 'Admin Gudang', 'Analis Data'],
+    realWorldExample: 'Staf Logistik mengambil 3 huruf pertama dari nomor resi pengiriman untuk mengetahui kode bandara tujuan.',
+    prerequisiteModules: [],
+    hints: [
+      'Pikirkan fungsi untuk memotong sejumlah teks dari arah paling kiri.',
+      'Fungsi LEFT mengambil karakter dari awal string sebanyak argumen kedua.',
+      'Ketik =LEFT(A2, 3) lalu tekan Enter.'
+    ],
     explanation: 'Mengambil 3 huruf paling kiri dari "JKT-0891" yaitu "JKT".',
     samplePlaceholder: '=LEFT(A2, 3)',
     theory: {
@@ -745,7 +897,15 @@ export const MODULES: ModuleData[] = [
     ],
     validFormulas: ['=RIGHT(A2, 3)', '=RIGHT(A2,3)'],
     acceptedAnswers: ['889'],
-    hints: ['Ketik =RIGHT(A2, 3).'],
+    skillsLearned: ['Fungsi RIGHT', 'Ekstraksi String Kanan', 'Parsing Nomor Urut'],
+    jobRelevance: ['Admin Keuangan', 'Analis Kredit', 'Purchasing'],
+    realWorldExample: 'Analis Kredit mengambil 4 digit terakhir dari nomor kartu kredit nasabah untuk ditampilkan sebagai penanda di resi.',
+    prerequisiteModules: [19],
+    hints: [
+      'Pikirkan fungsi untuk memotong sejumlah teks dari arah paling kanan ujung.',
+      'Fungsi RIGHT mengambil karakter dari akhir string sebanyak argumen kedua.',
+      'Ketik =RIGHT(A2, 3) lalu tekan Enter.'
+    ],
     explanation: 'Mengambil 3 digit paling kanan dari invoice = "889".',
     samplePlaceholder: '=RIGHT(A2, 3)',
     theory: {
@@ -776,7 +936,15 @@ export const MODULES: ModuleData[] = [
     ],
     validFormulas: ['=MID(A2, 6, 4)', '=MID(A2,6,4)'],
     acceptedAnswers: ['2026'],
-    hints: ['Format MID(sel, posisi_awal, panjang). Ketik =MID(A2, 6, 4).'],
+    skillsLearned: ['Fungsi MID', 'Ekstraksi Karakter Tengah', 'Parsing NIK/KTP'],
+    jobRelevance: ['HRD', 'Data Entry', 'Sekretaris'],
+    realWorldExample: 'Admin HRD mengambil karakter tertentu di tengah deretan NIK karyawan untuk mengekstrak data tahun lahir mereka secara otomatis.',
+    prerequisiteModules: [19, 20],
+    hints: [
+      'Pikirkan fungsi untuk mengambil potongan teks yang terletak di tengah-tengah.',
+      'Gunakan fungsi MID dengan menentukan posisi mulai huruf dan panjang potongannya.',
+      'Ketik =MID(A2, 6, 4) lalu tekan Enter.'
+    ],
     explanation: 'Mengambil 4 karakter mulai posisi ke-6 = "2026".',
     samplePlaceholder: '=MID(A2, 6, 4)',
     theory: {
@@ -807,7 +975,15 @@ export const MODULES: ModuleData[] = [
     ],
     validFormulas: ['=TRIM(A2)'],
     acceptedAnswers: ['Belajar Excel'],
-    hints: ['Ketik =TRIM(A2).'],
+    skillsLearned: ['Fungsi TRIM', 'Pembersihan Spasi', 'Validasi Data'],
+    jobRelevance: ['Analis Data', 'HRD', 'Admin Keuangan'],
+    realWorldExample: 'Analis Data membersihkan hasil ekspor data CSV yang berantakan karena mengandung banyak spasi tambahan yang merusak VLOOKUP.',
+    prerequisiteModules: [],
+    hints: [
+      'Gunakan fungsi untuk menghapus semua spasi berlebih dari string teks.',
+      'Fungsi TRIM menyisakan hanya satu spasi di antara kata.',
+      'Ketik =TRIM(A2) lalu tekan Enter.'
+    ],
     explanation: 'TRIM menghapus semua spasi di awal/akhir dan menyisakan satu spasi antar kata.',
     samplePlaceholder: '=TRIM(A2)',
     theory: {
@@ -849,7 +1025,15 @@ export const MODULES: ModuleData[] = [
       '=IF(C2<75, "REMIDI", "LULUS")',
     ],
     acceptedAnswers: ['LULUS'],
-    hints: ['Ketik =IF(C2>=75, "LULUS", "REMIDI").'],
+    skillsLearned: ['Fungsi IF', 'Logika Percabangan Dasar', 'Otomatisasi Status'],
+    jobRelevance: ['Guru', 'HRD', 'Admin Keuangan'],
+    realWorldExample: 'Guru menggunakan IF untuk menentukan status "Lulus" atau "Remidi" ribuan siswa secara otomatis berdasarkan nilai akhir mereka.',
+    prerequisiteModules: [],
+    hints: [
+      'Pikirkan fungsi logika dasar Excel yang berarti "JIKA".',
+      'Format IF membutuhkan kondisi, apa yang terjadi jika benar, dan jika salah.',
+      'Ketik =IF(C2>=75, "LULUS", "REMIDI") lalu tekan Enter.'
+    ],
     explanation: 'Nilai 82 >= 75 maka bernilai TRUE -> "LULUS".',
     samplePlaceholder: '=IF(C2>=75, "LULUS", "REMIDI")',
     theory: {
@@ -885,7 +1069,15 @@ export const MODULES: ModuleData[] = [
       '=IF(C2>=85, "A", IF(C2>=70, "B", "C"))',
     ],
     acceptedAnswers: ['A'],
-    hints: ['Ketik =IF(C2>=85, "A", IF(C2>=70, "B", "C")).'],
+    skillsLearned: ['Nested IF', 'Percabangan Multi-Kondisi', 'Logika Bertingkat'],
+    jobRelevance: ['Guru', 'Sales', 'HRD'],
+    realWorldExample: 'Manajer Sales memberikan grade bonus (A, B, C) untuk performa staf berdasarkan multi-level pencapaian target bulanan.',
+    prerequisiteModules: [23],
+    hints: [
+      'Kamu bisa meletakkan fungsi IF lain di dalam bagian "jika salah" dari IF pertama.',
+      'Susun kondisi IF dari nilai yang paling tinggi terlebih dahulu.',
+      'Ketik =IF(C2>=85, "A", IF(C2>=70, "B", "C")) lalu tekan Enter.'
+    ],
     explanation: 'Karena nilai 90 >= 85, maka menghasilkan grade "A".',
     samplePlaceholder: '=IF(C2>=85, "A", IF(C2>=70, "B", "C"))',
     theory: {
@@ -921,7 +1113,15 @@ export const MODULES: ModuleData[] = [
       '=IF(B2>=90,IF(C2>=100,"Bonus","Tidak"),"Tidak")',
     ],
     acceptedAnswers: ['Bonus'],
-    hints: ['Ketik =IF(B2>=90, IF(C2>=100, "Bonus", "Tidak"), "Tidak").'],
+    skillsLearned: ['Fungsi IF & AND', 'Logika Multi-Syarat', 'Evaluasi Kompleks'],
+    jobRelevance: ['HRD', 'Manajer Operasional', 'Sales'],
+    realWorldExample: 'HRD menentukan karyawan yang berhak menerima bonus akhir tahun jika memenuhi syarat performa DAN presensi 100%.',
+    prerequisiteModules: [23, 24],
+    hints: [
+      'Gunakan IF bersarang atau gabungkan dengan fungsi AND untuk menguji dua kondisi.',
+      'Dalam Nested IF, buat IF pertama mengecek B2>=90, dan IF di dalamnya mengecek C2>=100.',
+      'Ketik =IF(B2>=90, IF(C2>=100, "Bonus", "Tidak"), "Tidak") lalu tekan Enter.'
+    ],
     explanation: 'Presensi 95% (>=90) dan Unit 120 (>=100) keduanya lolos -> "Bonus".',
     samplePlaceholder: '=IF(B2>=90, IF(C2>=100, "Bonus", "Tidak"), "Tidak")',
     theory: {
@@ -958,7 +1158,15 @@ export const MODULES: ModuleData[] = [
     totalLabelRow: { label: 'Total Hadir:', colSpan: 2 },
     validFormulas: ['=COUNTIF(C2:C6, "Hadir")', '=COUNTIF(C2:C6,"Hadir")'],
     acceptedAnswers: [4],
-    hints: ['Ketik =COUNTIF(C2:C6, "Hadir").'],
+    skillsLearned: ['Fungsi COUNTIF', 'Penghitungan Bersyarat', 'Audit Filter'],
+    jobRelevance: ['Sekretaris', 'HRD', 'Quality Control'],
+    realWorldExample: 'Staf QC menghitung secara otomatis berapa banyak produk di pabrik yang dilabeli status "REJECT" dari ribuan daftar inspeksi.',
+    prerequisiteModules: [10, 23],
+    hints: [
+      'Gunakan fungsi turunan COUNT yang memiliki akhiran "IF" untuk memberikan kriteria spesifik.',
+      'Jangan lupa mengapit kriteria teks "Hadir" dengan tanda kutip ganda.',
+      'Ketik =COUNTIF(C2:C6, "Hadir") lalu tekan Enter.'
+    ],
     explanation: 'Ada 4 siswa yang berstatus Hadir.',
     samplePlaceholder: '=COUNTIF(C2:C6, "Hadir")',
     theory: {
@@ -999,7 +1207,15 @@ export const MODULES: ModuleData[] = [
       '=SUMIF(B2:B7,"Makanan",C2:C7)',
     ],
     acceptedAnswers: [95000],
-    hints: ['Ketik =SUMIF(B2:B7, "Makanan", C2:C7).'],
+    skillsLearned: ['Fungsi SUMIF', 'Penjumlahan Kategori', 'Rekapitulasi Keuangan'],
+    jobRelevance: ['Akuntan', 'Admin Keuangan', 'Bendahara'],
+    realWorldExample: 'Akuntan merangkum buku kas besar dengan menjumlahkan khusus pengeluaran divisi "Marketing" dari ratusan baris transaksi.',
+    prerequisiteModules: [7, 26],
+    hints: [
+      'Gunakan fungsi turunan SUM yang memiliki akhiran "IF" untuk memberikan kriteria.',
+      'Urutan SUMIF: range_kategori, kriteria("Makanan"), range_yang_dijumlahkan.',
+      'Ketik =SUMIF(B2:B7, "Makanan", C2:C7) lalu tekan Enter.'
+    ],
     explanation: 'Total pos makanan: Rp25.000 + Rp35.000 + Rp35.000 = Rp95.000.',
     samplePlaceholder: '=SUMIF(B2:B7, "Makanan", C2:C7)',
     theory: {
@@ -1039,7 +1255,15 @@ export const MODULES: ModuleData[] = [
       '=AVERAGEIF(B2:B6,"IPA",C2:C6)',
     ],
     acceptedAnswers: [85],
-    hints: ['Ketik =AVERAGEIF(B2:B6, "IPA", C2:C6).'],
+    skillsLearned: ['Fungsi AVERAGEIF', 'Rata-Rata Tersegmentasi', 'Evaluasi Kategori'],
+    jobRelevance: ['Guru', 'HRD', 'Analis Data'],
+    realWorldExample: 'HRD mengevaluasi skor tes masuk khusus pelamar dari universitas "Negeri" tanpa menghitung rata-rata pelamar lain.',
+    prerequisiteModules: [8, 27],
+    hints: [
+      'Fungsi ini mirip dengan SUMIF, namun untuk mencari nilai tengah (rata-rata).',
+      'Urutan AVERAGEIF: range_kategori, kriteria("IPA"), range_yang_dirataratakan.',
+      'Ketik =AVERAGEIF(B2:B6, "IPA", C2:C6) lalu tekan Enter.'
+    ],
     explanation: 'Nilai IPA: 80, 90, 85 -> Rata-rata = 85.',
     samplePlaceholder: '=AVERAGEIF(B2:B6, "IPA", C2:C6)',
     theory: {
@@ -1076,7 +1300,15 @@ export const MODULES: ModuleData[] = [
     totalLabelRow: { label: 'Jumlah Siswa Nilai >= 85:', colSpan: 2 },
     validFormulas: ['=COUNTIF(C2:C6, ">=85")', '=COUNTIF(C2:C6,">=85")'],
     acceptedAnswers: [3],
-    hints: ['Ketik =COUNTIF(C2:C6, ">=85").'],
+    skillsLearned: ['Logika Operator Pembanding', 'COUNTIF Lanjutan', 'Analisis Ambang Batas'],
+    jobRelevance: ['Manajer Operasional', 'Quality Control', 'HRD'],
+    realWorldExample: 'Manajer Operasional menghitung berapa hari dalam sebulan pengiriman paket mengalami keterlambatan (>3 hari) untuk evaluasi kurir.',
+    prerequisiteModules: [26],
+    hints: [
+      'COUNTIF tidak hanya bisa mencari teks sama persis, tapi juga kriteria lebih besar/kecil.',
+      'Pastikan simbol perbandingan >= ikut masuk ke dalam tanda kutip string ">=85".',
+      'Ketik =COUNTIF(C2:C6, ">=85") lalu tekan Enter.'
+    ],
     explanation: 'Ada 3 siswa dengan nilai >= 85 (Siti 95, Andi 88, Eko 90).',
     samplePlaceholder: '=COUNTIF(C2:C6, ">=85")',
     theory: {
@@ -1112,7 +1344,15 @@ export const MODULES: ModuleData[] = [
     totalLabelRow: { label: 'Total Transaksi >= Rp100k:', colSpan: 1 },
     validFormulas: ['=SUMIF(B2:B6, ">=100000")', '=SUMIF(B2:B6,">=100000")'],
     acceptedAnswers: [470000],
-    hints: ['Ketik =SUMIF(B2:B6, ">=100000").'],
+    skillsLearned: ['SUMIF 2 Argumen', 'Filter Transaksi', 'Kriteria Numerik'],
+    jobRelevance: ['Akuntan', 'Sales', 'Admin Keuangan'],
+    realWorldExample: 'Sales memfilter dan menjumlahkan total pendapatan khusus dari transaksi "High Ticket" yang nilainya di atas Rp10.000.000.',
+    prerequisiteModules: [27, 29],
+    hints: [
+      'Jika range kriteria dan range angka adalah kolom yang sama, SUMIF cukup butuh 2 argumen.',
+      'Sama seperti sebelumnya, apit kriteria ">=100000" dengan tanda kutip ganda.',
+      'Ketik =SUMIF(B2:B6, ">=100000") lalu tekan Enter.'
+    ],
     explanation: 'Transaksi >= 100k: 150.000 + 200.000 + 120.000 = Rp470.000.',
     samplePlaceholder: '=SUMIF(B2:B6, ">=100000")',
     theory: {
@@ -1158,7 +1398,15 @@ export const MODULES: ModuleData[] = [
       '=VLOOKUP(A2,D2:F4,3,0)',
     ],
     acceptedAnswers: [16000],
-    hints: ['Ketik =VLOOKUP(A2, D2:F4, 3, FALSE).'],
+    skillsLearned: ['Fungsi VLOOKUP', 'Pencarian Tabel Reference', 'Relasi Antar Data'],
+    jobRelevance: ['Admin Gudang', 'Kasir', 'Admin Keuangan'],
+    realWorldExample: 'Staf Admin Gudang menarik harga dan nama barang secara otomatis dari tabel database pusat hanya dengan mengetikkan kode SKU di nota.',
+    prerequisiteModules: [1, 7],
+    hints: [
+      'Pikirkan fungsi klasik Excel untuk mencari data secara vertikal (kolom).',
+      'VLOOKUP butuh: sel yang dicari, tabel referensi, nomor kolom hasil, dan kecocokan persis (FALSE).',
+      'Ketik =VLOOKUP(A2, D2:F4, 3, FALSE) lalu tekan Enter.'
+    ],
     explanation: 'Mencari "BRG-02" di tabel D2:F4 dan mengambil nilai kolom ke-3 yaitu Rp16.000.',
     samplePlaceholder: '=VLOOKUP(A2, D2:F4, 3, FALSE)',
     theory: {
@@ -1197,7 +1445,15 @@ export const MODULES: ModuleData[] = [
       '=XLOOKUP(A2,D2:D4,E2:E4)',
     ],
     acceptedAnswers: ['0819-8765-4321'],
-    hints: ['Ketik =XLOOKUP(A2, D2:D4, E2:E4).'],
+    skillsLearned: ['Fungsi XLOOKUP', 'Pencarian Dua Arah', 'Pemetaan Data Dinamis'],
+    jobRelevance: ['Data Entry', 'HRD', 'Purchasing'],
+    realWorldExample: 'Staf HRD mencari nomor kontak karyawan tanpa harus memikirkan urutan kolom seperti pada VLOOKUP.',
+    prerequisiteModules: [31],
+    hints: [
+      'Gunakan fungsi pencarian modern pengganti VLOOKUP.',
+      'XLOOKUP butuh: sel yang dicari, range tempat mencari, dan range hasil.',
+      'Ketik =XLOOKUP(A2, D2:D4, E2:E4) lalu tekan Enter.'
+    ],
     explanation: 'Mencocokkan Siti Rahma pada D2:D4 dan mengambil "0819-8765-4321" dari E2:E4.',
     samplePlaceholder: '=XLOOKUP(A2, D2:D4, E2:E4)',
     theory: {
@@ -1234,7 +1490,15 @@ export const MODULES: ModuleData[] = [
       '=XLOOKUP(A2,D2:D3,E2:E3,"Tidak Ditemukan")',
     ],
     acceptedAnswers: ['Tidak Ditemukan'],
-    hints: ['Ketik =XLOOKUP(A2, D2:D3, E2:E3, "Tidak Ditemukan").'],
+    skillsLearned: ['XLOOKUP Lanjutan', 'Error Handling (#N/A)', 'Kondisi Data Tidak Ditemukan'],
+    jobRelevance: ['Analis Data', 'Manajer Operasional', 'Quality Control'],
+    realWorldExample: 'Analis Data menggunakan XLOOKUP untuk mendeteksi barang yang tidak terdaftar dan langsung melabelinya dengan "UNREGISTERED".',
+    prerequisiteModules: [32],
+    hints: [
+      'XLOOKUP memiliki parameter ke-4 khusus untuk menangani nilai yang tidak ditemukan.',
+      'Masukkan teks pengganti pada argumen keempat.',
+      'Ketik =XLOOKUP(A2, D2:D3, E2:E3, "Tidak Ditemukan") lalu tekan Enter.'
+    ],
     explanation: 'Karena Rian tidak ada di database, XLOOKUP mengembalikan "Tidak Ditemukan".',
     samplePlaceholder: '=XLOOKUP(A2, D2:D3, E2:E3, "Tidak Ditemukan")',
     theory: {
@@ -1268,7 +1532,15 @@ export const MODULES: ModuleData[] = [
     ],
     validFormulas: ['=MATCH("Bandung", A2:A5, 0)', '=MATCH("Bandung",A2:A5,0)'],
     acceptedAnswers: [3],
-    hints: ['Ketik =MATCH("Bandung", A2:A5, 0).'],
+    skillsLearned: ['Fungsi MATCH', 'Pencarian Posisi (Index)', 'Pemetaan Urutan'],
+    jobRelevance: ['Analis Data', 'Sekretaris', 'Logistik'],
+    realWorldExample: 'Staf Logistik mencari urutan rute pengiriman kota pada daftar untuk menentukan prioritas keberangkatan armada.',
+    prerequisiteModules: [31],
+    hints: [
+      'Gunakan fungsi untuk mencari nomor urut suatu nilai di dalam rentang data.',
+      'Fungsi MATCH mengembalikan posisi angka, pastikan exact match (0).',
+      'Ketik =MATCH("Bandung", A2:A5, 0) lalu tekan Enter.'
+    ],
     explanation: 'Bandung berada pada posisi baris ke-3 di dalam rentang A2:A5.',
     samplePlaceholder: '=MATCH("Bandung", A2:A5, 0)',
     theory: {
@@ -1301,7 +1573,15 @@ export const MODULES: ModuleData[] = [
     ],
     validFormulas: ['=INDEX(A2:A4, 2)', '=INDEX(A2:A4,2)'],
     acceptedAnswers: ['Malang'],
-    hints: ['Ketik =INDEX(A2:A4, 2).'],
+    skillsLearned: ['Fungsi INDEX', 'Ekstraksi Nilai Berdasarkan Posisi', 'Manipulasi Array Sederhana'],
+    jobRelevance: ['Analis Data', 'Admin Keuangan', 'Manajer Operasional'],
+    realWorldExample: 'Admin mengambil nama pemenang undian bulanan yang berada di urutan ke-2 dari daftar list peserta.',
+    prerequisiteModules: [34],
+    hints: [
+      'Gunakan fungsi untuk mengekstrak isi teks/angka berdasarkan posisi urutannya.',
+      'Fungsi INDEX mengambil rentang dan nomor urut.',
+      'Ketik =INDEX(A2:A4, 2) lalu tekan Enter.'
+    ],
     explanation: 'Baris ke-2 dari A2:A4 adalah "Malang".',
     samplePlaceholder: '=INDEX(A2:A4, 2)',
     theory: {
@@ -1340,7 +1620,15 @@ export const MODULES: ModuleData[] = [
       '=XLOOKUP(A2, D2:D4, E2:E4)',
     ],
     acceptedAnswers: [6500000],
-    hints: ['Ketik =INDEX(E2:E4, MATCH(A2, D2:D4, 0)).'],
+    skillsLearned: ['Kombinasi INDEX MATCH', 'Lookup Kiri/Kanan', 'Otomatisasi Lanjutan'],
+    jobRelevance: ['Analis Keuangan', 'Data Entry', 'Staf IT'],
+    realWorldExample: 'Analis Keuangan membuat dashboard pencarian yang jauh lebih ringan dan fleksibel dibanding VLOOKUP pada ribuan baris data.',
+    prerequisiteModules: [34, 35],
+    hints: [
+      'Kombinasikan fungsi INDEX dan MATCH. MATCH akan mencari posisinya, INDEX akan mengambil datanya.',
+      'Masukkan MATCH di argumen kedua dari INDEX.',
+      'Ketik =INDEX(E2:E4, MATCH(A2, D2:D4, 0)) lalu tekan Enter.'
+    ],
     explanation: 'MATCH menemukan Andi di baris ke-2, lalu INDEX mengambil gaji baris ke-2 = Rp6.500.000.',
     samplePlaceholder: '=INDEX(E2:E4, MATCH(A2, D2:D4, 0))',
     theory: {
@@ -1378,7 +1666,15 @@ export const MODULES: ModuleData[] = [
     totalLabelRow: { label: 'Laba Bersih Usaha (Net Profit):', colSpan: 1 },
     validFormulas: ['=B2-B3-B4', '=B2-(B3+B4)'],
     acceptedAnswers: [12000000],
-    hints: ['Ketik =B2-B3-B4.'],
+    skillsLearned: ['Logika Finansial', 'Laporan Laba Rugi', 'Aritmatika Kompleks'],
+    jobRelevance: ['Akuntan', 'Bendahara', 'Analis Bisnis'],
+    realWorldExample: 'Akuntan merumuskan laporan laba rugi perusahaan dengan mengurangkan total omset dengan HPP dan beban operasional.',
+    prerequisiteModules: [1, 2, 6],
+    hints: [
+      'Gunakan logika pengurangan beruntun untuk menghitung nilai bersih.',
+      'Kamu bisa mengurangi B2 dengan B3 lalu B4.',
+      'Ketik =B2-B3-B4 lalu tekan Enter.'
+    ],
     explanation: 'Rp50.000.000 - Rp30.000.000 - Rp8.000.000 = Rp12.000.000.',
     samplePlaceholder: '=B2-B3-B4',
     theory: {
@@ -1411,7 +1707,15 @@ export const MODULES: ModuleData[] = [
     totalLabelRow: { label: 'Net Profit Margin (%):', colSpan: 1 },
     validFormulas: ['=B3/B2'],
     acceptedAnswers: [0.24],
-    hints: ['Ketik =B3/B2 (Hasilnya 0.24 atau 24%).'],
+    skillsLearned: ['Kalkulasi Rasio Laba', 'Net Profit Margin (%)', 'Analisis Performa Bisnis'],
+    jobRelevance: ['Manajer Keuangan', 'Business Analyst', 'Investor'],
+    realWorldExample: 'Business Analyst menghitung rasio Net Profit Margin setiap kuartal untuk melihat efisiensi biaya terhadap pendapatan total.',
+    prerequisiteModules: [4, 5, 37],
+    hints: [
+      'Pikirkan cara menghitung rasio atau persentase suatu bagian terhadap total.',
+      'Membagi laba bersih dengan total omset menggunakan (/).',
+      'Ketik =B3/B2 lalu tekan Enter.'
+    ],
     explanation: 'Rp12.000.000 / Rp50.000.000 = 0.24 (24% Profit Margin).',
     samplePlaceholder: '=B3/B2',
     theory: {
@@ -1445,7 +1749,15 @@ export const MODULES: ModuleData[] = [
     totalLabelRow: { label: 'Angsuran Cicilan per Bulan (Rp):', colSpan: 1 },
     validFormulas: ['=PMT(B3, B4, B2)', '=PMT(B3,B4,B2)'],
     acceptedAnswers: [1066185],
-    hints: ['Ketik =PMT(B3, B4, B2).'],
+    skillsLearned: ['Fungsi Finansial PMT', 'Simulasi Kredit', 'Manajemen Utang'],
+    jobRelevance: ['Financial Planner', 'Analis Kredit Bank', 'Staf KPR'],
+    realWorldExample: 'Financial Planner menyusun simulasi cicilan bulanan KPR klien untuk melihat kesanggupan bayar setiap bulan.',
+    prerequisiteModules: [6],
+    hints: [
+      'Gunakan fungsi finansial khusus Excel untuk menghitung cicilan atau anuitas bulanan.',
+      'Fungsi PMT membutuhkan persentase bunga bulanan, jumlah bulan tenor, dan total utang.',
+      'Ketik =PMT(B3, B4, B2) lalu tekan Enter.'
+    ],
     explanation: 'Cicilan per bulan adalah Rp1.066.185.',
     samplePlaceholder: '=PMT(B3, B4, B2)',
     theory: {
@@ -1479,7 +1791,15 @@ export const MODULES: ModuleData[] = [
     totalLabelRow: { label: 'Target BEP Impas (Unit):', colSpan: 1 },
     validFormulas: ['=B2/(B3-B4)', '=B2 / (B3 - B4)'],
     acceptedAnswers: [500],
-    hints: ['Ketik =B2/(B3-B4).'],
+    skillsLearned: ['Analisis Titik Impas (BEP)', 'Simulasi Operasional', 'Break Even Point Unit'],
+    jobRelevance: ['Manajer Operasional', 'Business Analyst', 'Owner Usaha'],
+    realWorldExample: 'Pemilik Usaha menganalisis berapa jumlah minimum porsi makanan yang harus terjual bulan ini agar bisa menutup modal dan bayar sewa.',
+    prerequisiteModules: [2, 4, 6],
+    hints: [
+      'Hitung selisih harga jual dengan biaya variabel, lalu bagikan dengan biaya tetap.',
+      'Gunakan tanda kurung untuk mendahulukan operasi pengurangan harga dan biaya.',
+      'Ketik =B2/(B3-B4) lalu tekan Enter.'
+    ],
     explanation: 'BEP = Rp10.000.000 / (Rp50.000 - Rp30.000) = 500 Unit terjual agar tidak rugi.',
     samplePlaceholder: '=B2/(B3-B4)',
     theory: {
