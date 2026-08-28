@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ExcelSimulator MVP</title>
+<style>
+  body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f3f4f6; display: flex; justify-content: center; padding: 40px; }
+  .app-container { background: white; padding: 30px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); max-width: 600px; width: 100%; }
+  h2 { color: #107c41; margin-top: 0; }
+  p.task { color: #555; font-size: 14px; margin-bottom: 20px; }
+  table { width: 100%; border-collapse: collapse; margin-bottom: 20px; font-size: 14px; }
+  th, td { border: 1px solid #ddd; padding: 10px; text-align: left; }
+  th { background-color: #f8f9fa; color: #333; }
+  .cell-label { background-color: #e9ecef; color: #666; font-weight: bold; text-align: center; width: 40px; }
+  .input-area { display: flex; gap: 10px; margin-bottom: 15px; }
+  input[type="text"] { flex: 1; padding: 10px; border: 2px solid #ccc; border-radius: 6px; font-size: 16px; font-family: monospace; }
+  button { background-color: #107c41; color: white; border: none; padding: 10px 20px; border-radius: 6px; cursor: pointer; font-weight: bold; }
+  button:hover { background-color: #0b5c2f; }
+  #resultMessage { font-weight: bold; padding: 10px; border-radius: 6px; display: none; margin-top: 10px; }
+</style>
+</head>
+<body>
+
+<div class="app-container">
+  <h2>ExcelSimulator: Level 1</h2>
+  <p class="task"><strong>Studi Kasus:</strong> Hitung total stok sepatu pada sel <strong>D5</strong> menggunakan fungsi SUM.</p>
+
+  <table>
+    <tr>
+      <td class="cell-label"></td><th class="cell-label">A</th><th class="cell-label">B</th><th class="cell-label">C</th><th class="cell-label">D</th>
+    </tr>
+    <tr><td class="cell-label">1</td><th>ID Produk</th><th>Merek</th><th>Model</th><th>Stok</th></tr>
+    <tr><td class="cell-label">2</td><td>VN-01</td><td>Vans</td><td>Old Skool</td><td>20</td></tr>
+    <tr><td class="cell-label">3</td><td>PM-01</td><td>Puma</td><td>Suede</td><td>15</td></tr>
+    <tr><td class="cell-label">4</td><td>VN-02</td><td>Vans</td><td>Authentic</td><td>24</td></tr>
+    <tr>
+      <td class="cell-label">5</td><td colspan="3" style="text-align: right; font-weight: bold;">Total Stok:</td>
+      <td id="targetCell" style="background-color: #e8f5e9; font-weight: bold;">?</td>
+    </tr>
+  </table>
+
+  <div class="input-area">
+    <input type="text" id="excelFormula" placeholder="=SUM(...)">
+    <button onclick="checkAnswer()" id="btnSubmit">Eksekusi</button>
+  </div>
+  
+  <div id="resultMessage"></div>
+</div>
+
+<script>
+  async function checkAnswer() {
+    const userInput = document.getElementById("excelFormula").value;
+    const resultMsg = document.getElementById("resultMessage");
+    const targetCell = document.getElementById("targetCell");
+    const btn = document.getElementById("btnSubmit");
+
+    btn.innerText = "Loading...";
+    
+    try {
+      // Mengirim rumus ke backend app.py
+      const response = await fetch('/api/evaluate', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ rumus: userInput })
+      });
+      
+      const data = await response.json();
+      resultMsg.style.display = "block";
+      resultMsg.innerHTML = data.pesan;
+
+      if (data.status === "sukses") {
+        resultMsg.style.backgroundColor = "#d4edda";
+        resultMsg.style.color = "#155724";
+        targetCell.innerHTML = data.hasil; // Akan menampilkan angka 59 dari server
+      } else {
+        resultMsg.style.backgroundColor = "#f8d7da";
+        resultMsg.style.color = "#721c24";
+        targetCell.innerHTML = "?";
+      }
+    } catch (error) {
+      alert("Terjadi kesalahan pada server.");
+    } finally {
+      btn.innerText = "Eksekusi";
+    }
+  }
+</script>
+
+</body>
+</html>
