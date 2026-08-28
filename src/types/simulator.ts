@@ -1,40 +1,33 @@
-export type TrackId = 'aritmatika' | 'agregasi' | 'teks' | 'logika' | 'lookup';
+export type AppMode = 'learn' | 'sandbox';
 
-export interface TrackData {
-  id: TrackId;
-  number: number;
+export interface ChapterData {
+  id: number;
   title: string;
   description: string;
   iconName: string;
-  levelIds: number[];
+  moduleIds: number[];
 }
 
 export interface TableColumn {
   key: string;
   label: string;
-  letter: string; // e.g. 'A', 'B', 'C', 'D'
+  letter: string; // 'A', 'B', 'C', etc.
 }
 
 export interface TableRow {
-  rowNumber: number; // e.g. 2, 3, 4
+  rowNumber: number; // 2, 3, 4, etc.
   values: Record<string, string | number>;
 }
 
-export interface LevelData {
+export interface ModuleData {
   id: number;
-  trackId: TrackId;
+  chapterId: number;
   title: string;
   category: string;
-  difficulty: 'Mudah' | 'Menengah' | 'Lanjutan';
+  difficulty: 'Pemula' | 'Menengah' | 'Lanjutan';
   scenario: string;
   objective: string;
-  theory: {
-    concept: string;
-    whyItMatters: string;
-    syntax: string;
-    example: string;
-  };
-  targetCell: string; // e.g. 'D5'
+  targetCell: string; // e.g. 'D2'
   targetRowNumber: number;
   targetColKey: string;
   targetColLetter: string;
@@ -44,11 +37,17 @@ export interface LevelData {
     label: string;
     colSpan: number;
   };
-  validFormulas: string[]; // Normalized canonical formulas
+  validFormulas: string[];
   acceptedAnswers: (string | number)[];
   hints: string[];
   explanation: string;
   samplePlaceholder?: string;
+  theory: {
+    concept: string;
+    whyItMatters: string;
+    syntax: string;
+    example: string;
+  };
 }
 
 export interface EvaluationResult {
@@ -56,6 +55,28 @@ export interface EvaluationResult {
   message: string;
   calculatedValue?: string | number;
   details?: string;
+}
+
+export interface CellPosition {
+  col: string; // 'A', 'B', etc.
+  row: number; // 1, 2, 3, etc.
+}
+
+export interface GridCell {
+  raw: string | number;
+  display: string | number;
+  isTarget?: boolean;
+  isHeader?: boolean;
+}
+
+export type SheetGridData = Record<string, string | number>;
+
+export interface SandboxTemplate {
+  id: string;
+  name: string;
+  description: string;
+  columns: TableColumn[];
+  rows: TableRow[];
 }
 
 export interface CheatSheetItem {
