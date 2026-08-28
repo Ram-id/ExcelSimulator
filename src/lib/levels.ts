@@ -76,7 +76,17 @@ export const LEVELS: LevelData[] = [
       { rowNumber: 3, values: { hari: "Selasa", makan: 30000, transport: 15000, total: 45000 } },
       { rowNumber: 4, values: { hari: "Rabu", makan: 22000, transport: 15000, total: 37000 } },
     ],
-    validFormulas: ["=B2+C2", "=C2+B2", "=SUM(B2:C2)", "=SUM(B2,C2)"],
+    validFormulas: [
+      "=B2+C2",
+      "=C2+B2",
+      "=SUM(B2:C2)",
+      "=SUM(B2,C2)",
+      "=SUM(B2+C2)",
+      "=SUM(B2 + C2)",
+      "=SUM(C2+B2)",
+      "=SUM(C2 + B2)",
+      "=(B2+C2)"
+    ],
     acceptedAnswers: [40000],
     hints: [
       "Awali rumus dengan tanda sama dengan (=).",
