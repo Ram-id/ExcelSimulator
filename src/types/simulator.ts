@@ -1,3 +1,14 @@
+export type TrackId = 'aritmatika' | 'agregasi' | 'teks' | 'logika' | 'lookup';
+
+export interface TrackData {
+  id: TrackId;
+  number: number;
+  title: string;
+  description: string;
+  iconName: string;
+  levelIds: number[];
+}
+
 export interface TableColumn {
   key: string;
   label: string;
@@ -11,11 +22,18 @@ export interface TableRow {
 
 export interface LevelData {
   id: number;
+  trackId: TrackId;
   title: string;
   category: string;
   difficulty: 'Mudah' | 'Menengah' | 'Lanjutan';
   scenario: string;
   objective: string;
+  theory: {
+    concept: string;
+    whyItMatters: string;
+    syntax: string;
+    example: string;
+  };
   targetCell: string; // e.g. 'D5'
   targetRowNumber: number;
   targetColKey: string;
@@ -38,4 +56,15 @@ export interface EvaluationResult {
   message: string;
   calculatedValue?: string | number;
   details?: string;
+}
+
+export interface CheatSheetItem {
+  id: string;
+  category: string;
+  name: string;
+  syntax: string;
+  description: string;
+  example: string;
+  useCase: string;
+  tips: string;
 }

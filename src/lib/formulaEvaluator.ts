@@ -2,18 +2,31 @@ import { LevelData, EvaluationResult } from '@/types/simulator';
 
 export function normalizeFormula(formula: string): string {
   let cleaned = formula.trim();
-  // Standardize quotes
+  
+  // Standardize single quotes to double quotes for string literals
   cleaned = cleaned.replace(/['']/g, '"');
-  // Upper-case formula keywords and cell letters while preserving inner quoted strings
-  // Example: =countif(c2:c5, "Lunas") -> =COUNTIF(C2:C5, "LUNAS")
-  const parts = cleaned.split(/("[^"]*")/g);
-  for (let i = 0; i < parts.length; i++) {
+  
+  // Replace semicolons (used in some regional Excel setups) with commas
+  // but preserve inside string literals
+  const tokens = cleaned.split(/("[^"]*")/g);
+  for (let i = 0; i < tokens.length; i++) {
     // Even indices are outside quotes
     if (i % 2 === 0) {
-      parts[i] = parts[i].toUpperCase();
+      tokens[i] = tokens[i].replace(/;/g, ',').toUpperCase();
     } else {
       // Inside quotes: standardize to uppercase for comparison
-      parts[i] = parts[i].toUpperCase();
+      tokens[i] = tokens[i].toUpperCase();
+    }
+  }
+  return tokens.join('');
+}
+
+function stripSpaces(str: string): string {
+  // Strip spaces outside string literals
+  const parts = str.split(/("[^"]*")/g);
+  for (let i = 0; i < parts.length; i++) {
+    if (i % 2 === 0) {
+      parts[i] = parts[i].replace(/\s+/g, '');
     }
   }
   return parts.join('');
@@ -42,35 +55,42 @@ export function evaluateFormula(userInput: string, level: LevelData): Evaluation
   if (openCount !== closeCount) {
     return {
       status: 'error',
-      message: '❌ Tanda kurung buka dan kurung tutup tidak seimbang.'
+      message: '❌ Tanda kurung buka "(" dan kurung tutup ")" tidak seimbang. Pastikan setiap kurung buka memiliki pasangan kurung tutup.'
+    };
+  }
+
+  // Check balanced quotes
+  const quoteCount = (rawInput.match(/["']/g) || []).length;
+  if (quoteCount % 2 !== 0) {
+    return {
+      status: 'error',
+      message: '❌ Tanda petik teks belum ditutup dengan benar.'
     };
   }
 
   const normalizedInput = normalizeFormula(rawInput);
+  const strippedInput = stripSpaces(normalizedInput);
 
-  // Normalize canonical list
-  const normalizedValid = level.validFormulas.map(f => normalizeFormula(f));
+  // Normalize all valid formulas
+  const normalizedValidList = level.validFormulas.map(f => normalizeFormula(f));
+  const strippedValidList = normalizedValidList.map(f => stripSpaces(f));
 
-  // Check if direct match with or without space
-  const isMatch = normalizedValid.some(valid => {
-    // Strict comparison
-    if (valid === normalizedInput) return true;
-    // Strip all whitespaces comparison
-    if (valid.replace(/\s+/g, '') === normalizedInput.replace(/\s+/g, '')) return true;
-    return false;
-  });
+  // Check direct or stripped match
+  const isMatch = strippedValidList.some(valid => valid === strippedInput);
 
   if (isMatch) {
     const calculatedValue = level.acceptedAnswers[0];
     return {
       status: 'success',
-      message: '🎉 Jawaban Benar! Rumus berhasil dieksekusi dengan tepat.',
+      message: '🎉 Luar Biasa! Rumus kamu 100% benar dan berhasil dieksekusi.',
       calculatedValue: calculatedValue,
       details: level.explanation
     };
   }
 
-  // Check if function name matches but wrong range/syntax
+  // Helpful diagnostic errors for beginners:
+
+  // 1. Function name mistyped or wrong function
   const funcMatch = normalizedInput.match(/^=([A-Z]+)\(/);
   if (funcMatch) {
     const usedFunction = funcMatch[1];
@@ -79,18 +99,41 @@ export function evaluateFormula(userInput: string, level: LevelData): Evaluation
     if (expectedFunc && usedFunction !== expectedFunc) {
       return {
         status: 'error',
-        message: `❌ Kamu menggunakan fungsi =${usedFunction}(). Pada level ini coba gunakan fungsi =${expectedFunc}().`
+        message: `❌ Kamu menggunakan fungsi =${usedFunction}(). Pada materi level ini, gunakan fungsi =${expectedFunc}().`
+      };
+    }
+
+    // Specific function checks:
+    if (usedFunction === 'VLOOKUP' && !normalizedInput.includes('FALSE') && !normalizedInput.includes('0')) {
+      return {
+        status: 'warning',
+        message: '💡 Tips VLOOKUP: Tambahkan argumen FALSE (atau 0) di akhir rumus untuk memastikan pencarian persis (Exact Match).'
+      };
+    }
+
+    if (usedFunction === 'IF' && !normalizedInput.includes('"') && !normalizedInput.includes("'")) {
+      return {
+        status: 'warning',
+        message: '💡 Tips IF: Nilai teks (seperti "LULUS" atau "REMIDI") harus diapit oleh tanda petik dua (").'
       };
     }
 
     return {
       status: 'error',
-      message: `❌ Argumen atau rentang sel tidak tepat. Periksa kembali baris & kolom yang kamu pilih!`
+      message: `❌ Argumen, rentang sel, atau kriteria di dalam =${usedFunction}() belum tepat. Periksa petunjuk atau lihat contoh sintaks!`
+    };
+  }
+
+  // 2. Arithmetic operator mistakes
+  if (['+', '-', '*', '/'].some(op => normalizedInput.includes(op))) {
+    return {
+      status: 'error',
+      message: `❌ Periksa kembali alamat sel atau operator matematika yang kamu masukkan.`
     };
   }
 
   return {
     status: 'error',
-    message: '❌ Sintaks rumus tidak valid atau belum sesuai dengan instruksi soal.'
+    message: '❌ Format rumus belum tepat. Pastikan mengetik sesuai instruksi soal atau klik tombol "Lihat Petunjuk".'
   };
 }

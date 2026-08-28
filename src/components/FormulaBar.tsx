@@ -1,7 +1,8 @@
 'use client';
 
-import React, { useRef, useEffect } from 'react';
-import { Play, CornerDownLeft, X, FunctionSquare } from 'lucide-react';
+import React, { useRef } from 'react';
+import { Play, X } from 'lucide-react';
+import { FormulaHelperTooltip } from './FormulaHelperTooltip';
 
 interface FormulaBarProps {
   activeCell: string;
@@ -16,7 +17,7 @@ interface FormulaBarProps {
 export const FormulaBar: React.FC<FormulaBarProps> = ({
   activeCell,
   formula,
-  placeholder = "=SUM(D2:D4)",
+  placeholder = "=B2+C2",
   isEvaluating,
   onFormulaChange,
   onSubmit,
@@ -32,7 +33,7 @@ export const FormulaBar: React.FC<FormulaBarProps> = ({
   };
 
   return (
-    <div className="bg-white border-b border-gray-200 px-4 py-2 flex items-center gap-2 shadow-xs">
+    <div className="bg-white border-b border-gray-200 px-4 py-2 flex items-center gap-2 shadow-xs relative">
       {/* Active Cell Box (Name Box) */}
       <div className="w-16 sm:w-20 px-2 py-1.5 bg-gray-50 border border-gray-300 rounded text-center text-xs font-bold font-mono text-gray-700 shadow-inner">
         {activeCell}
@@ -43,8 +44,11 @@ export const FormulaBar: React.FC<FormulaBarProps> = ({
         <span className="text-gray-500 font-sans not-italic text-xs font-bold mr-1">fx</span>
       </div>
 
-      {/* Formula Input */}
+      {/* Formula Input Area */}
       <div className="flex-1 relative flex items-center">
+        {/* Dynamic Syntax Helper Tooltip */}
+        <FormulaHelperTooltip formula={formula} />
+
         <input
           ref={inputRef}
           type="text"
