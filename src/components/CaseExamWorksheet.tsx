@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect, useRef, useCallback } from 'react';
+import React, { useState, useEffect, useRef, useCallback, useMemo } from 'react';
 import confetti from 'canvas-confetti';
 import {
   CaseExamData,
@@ -10,7 +10,7 @@ import {
   TableColumn,
   TableRow,
 } from '@/types/simulator';
-import { evaluateFormulaValue, expandCellRange } from '@/lib/formulaEngine';
+import { evaluateFormulaValue } from '@/lib/formulaEngine';
 import { FormulaAutocomplete } from './FormulaAutocomplete';
 import {
   ArrowLeft,
@@ -25,6 +25,8 @@ import {
   AlertCircle,
   HelpCircle,
   FileSpreadsheet,
+  Layers,
+  Filter,
 } from 'lucide-react';
 
 interface CaseExamWorksheetProps {
@@ -44,27 +46,33 @@ export const CaseExamWorksheet: React.FC<CaseExamWorksheetProps> = ({
 }) => {
   const [activeSheetIndex, setActiveSheetIndex] = useState(0);
   const [cellData, setCellData] = useState<Record<string, string | number>>({});
-  const [activeCell, setActiveCell] = useState<string>('D2');
+  const [activeCell, setActiveCell] = useState<string>('F3');
   const [isEditing, setIsEditing] = useState<boolean>(false);
   const [editValue, setEditValue] = useState<string>('');
   const [evaluationResult, setEvaluationResult] = useState<CaseExamResult | null>(existingResult || null);
   const [showSolutionModal, setShowSolutionModal] = useState<boolean>(false);
   const [showResultModal, setShowResultModal] = useState<boolean>(false);
+  const [levelFilter, setLevelFilter] = useState<string>('ALL');
 
   const currentSheet = exam.sheets[activeSheetIndex] || exam.sheets[0];
   const targetCols = currentSheet.targetColumns || [];
-  const targetKeys = new Set(targetCols.map((tc) => tc.key));
+  const targetKeys = useMemo(() => new Set(targetCols.map((tc) => tc.key)), [targetCols]);
 
   const cellInputRef = useRef<HTMLInputElement>(null);
 
-  // Initialize sheet cellData
+  // Initialize sheet cellData with full cross-sheet keys
   useEffect(() => {
     const initial: Record<string, string | number> = {};
-    exam.sheets.forEach((sh) => {
+    exam.sheets.forEach((sh, shIdx) => {
       sh.rows.forEach((r) => {
         sh.columns.forEach((c) => {
-          const ref = `${c.letter}${r.rowNumber}`;
-          initial[ref] = r.values[c.key];
+          const rawVal = r.values[c.key];
+          const cellRef = `${c.letter}${r.rowNumber}`;
+          initial[`'${sh.name}'!${cellRef}`] = rawVal;
+          initial[`${sh.name}!${cellRef}`] = rawVal;
+          if (shIdx === 0) {
+            initial[cellRef] = rawVal;
+          }
         });
       });
     });
@@ -72,7 +80,7 @@ export const CaseExamWorksheet: React.FC<CaseExamWorksheetProps> = ({
 
     // Default select first target cell
     if (targetCols.length > 0) {
-      const firstTarget = `${targetCols[0].letter}2`;
+      const firstTarget = `${targetCols[0].letter}3`;
       setActiveCell(firstTarget);
     }
   }, [exam]);
@@ -109,7 +117,13 @@ export const CaseExamWorksheet: React.FC<CaseExamWorksheetProps> = ({
 
   const handleCommitEdit = (cellRef: string, value: string) => {
     const trimmed = value.trim();
-    setCellData((prev) => ({ ...prev, [cellRef]: trimmed }));
+    setCellData((prev) => {
+      const next = { ...prev };
+      next[cellRef] = trimmed;
+      next[`'${currentSheet.name}'!${cellRef}`] = trimmed;
+      next[`${currentSheet.name}!${cellRef}`] = trimmed;
+      return next;
+    });
     setIsEditing(false);
   };
 
@@ -162,7 +176,11 @@ export const CaseExamWorksheet: React.FC<CaseExamWorksheetProps> = ({
         case 'F2':
           e.preventDefault();
           setIsEditing(true);
-          setEditValue(cellData[activeCell] !== undefined && cellData[activeCell] !== '?' ? String(cellData[activeCell]) : '');
+          setEditValue(
+            cellData[activeCell] !== undefined && cellData[activeCell] !== '?'
+              ? String(cellData[activeCell])
+              : ''
+          );
           return;
         case 'Delete':
         case 'Backspace':
@@ -183,7 +201,6 @@ export const CaseExamWorksheet: React.FC<CaseExamWorksheetProps> = ({
 
   // AUTOMATIC GRADING
   const handleGradeExam = () => {
-    // Commit active edit if currently editing
     if (isEditing) {
       handleCommitEdit(activeCell, editValue);
     }
@@ -196,9 +213,20 @@ export const CaseExamWorksheet: React.FC<CaseExamWorksheetProps> = ({
       const tgCols = sh.targetColumns || [];
       tgCols.forEach((tc) => {
         sh.rows.forEach((r) => {
+          // Skip example rows (with points: 0 or game: Contoh)
+          if (r.values.points === 0 || String(r.values.game || '').toLowerCase().includes('contoh')) {
+            return;
+          }
+
           totalCells++;
           const cellRef = `${tc.letter}${r.rowNumber}`;
-          const userRaw = cellData[cellRef] !== undefined ? cellData[cellRef] : r.values[tc.key];
+          const userRaw =
+            cellData[cellRef] !== undefined
+              ? cellData[cellRef]
+              : cellData[`'${sh.name}'!${cellRef}`] !== undefined
+              ? cellData[`'${sh.name}'!${cellRef}`]
+              : r.values[tc.key];
+
           const expected = tc.expectedRowAnswers[r.rowNumber];
 
           let isCorrect = false;
@@ -210,7 +238,6 @@ export const CaseExamWorksheet: React.FC<CaseExamWorksheetProps> = ({
               calculatedVal = evaluateFormulaValue(userStr, cellData);
             }
 
-            // Check match with expected
             if (Array.isArray(expected)) {
               isCorrect = expected.some(
                 (exp) =>
@@ -221,7 +248,7 @@ export const CaseExamWorksheet: React.FC<CaseExamWorksheetProps> = ({
               const calcStr = String(calculatedVal).trim().toUpperCase();
               isCorrect = calcStr === expectedStr;
 
-              // Number float tolerance
+              // Number tolerance
               if (!isCorrect && !isNaN(Number(calculatedVal)) && !isNaN(Number(expected))) {
                 isCorrect = Math.abs(Number(calculatedVal) - Number(expected)) < 0.01;
               }
@@ -276,25 +303,22 @@ export const CaseExamWorksheet: React.FC<CaseExamWorksheetProps> = ({
     onFinishExam(result);
   };
 
-  const handleRetake = () => {
-    const initial: Record<string, string | number> = {};
-    exam.sheets.forEach((sh) => {
-      sh.rows.forEach((r) => {
-        sh.columns.forEach((c) => {
-          const ref = `${c.letter}${r.rowNumber}`;
-          initial[ref] = r.values[c.key];
-        });
-      });
-    });
-    setCellData(initial);
-    setEvaluationResult(null);
-    setShowResultModal(false);
-  };
+  // Filtered rows for current sheet
+  const displayRows = useMemo(() => {
+    if (levelFilter === 'ALL' || !currentSheet.columns.some((c) => c.key === 'level')) {
+      return currentSheet.rows;
+    }
+    return currentSheet.rows.filter(
+      (r) =>
+        r.values.points === 0 || // keep header / example
+        String(r.values.level || '').toUpperCase() === levelFilter.toUpperCase()
+    );
+  }, [currentSheet, levelFilter]);
 
   return (
     <div className="space-y-3 pb-8">
-      {/* Top Bar with Back Button and Main Actions */}
-      <div className="bg-white rounded-xl border border-gray-200 px-4 py-2.5 shadow-xs flex items-center justify-between gap-3">
+      {/* Top Bar */}
+      <div className="bg-white rounded-xl border border-gray-200 px-4 py-2.5 shadow-2xs flex flex-wrap items-center justify-between gap-3">
         <button
           onClick={onBack}
           className="flex items-center gap-1.5 text-xs font-semibold text-gray-600 hover:text-gray-900 transition-colors"
@@ -313,10 +337,10 @@ export const CaseExamWorksheet: React.FC<CaseExamWorksheetProps> = ({
             <span>Kunci Jawaban</span>
           </button>
 
-          {/* CEK HASIL JAWABAN (Prominent Action matching Screenshot 2) */}
+          {/* CEK HASIL JAWABAN */}
           <button
             onClick={handleGradeExam}
-            className="flex items-center gap-1.5 px-4 py-1.5 bg-[#107c41] hover:bg-[#0b5c2f] text-white text-xs font-bold rounded-lg shadow-sm transition-all animate-pulse"
+            className="flex items-center gap-1.5 px-4 py-1.5 bg-[#107c41] hover:bg-[#0b5c2f] text-white text-xs font-bold rounded-lg shadow-xs transition-all animate-pulse"
           >
             <CheckCircle2 className="w-4 h-4" />
             <span>Cek Hasil Jawaban</span>
@@ -325,19 +349,20 @@ export const CaseExamWorksheet: React.FC<CaseExamWorksheetProps> = ({
       </div>
 
       {/* TOP INSTRUCTION PANEL (Matching Screenshot 2 Style) */}
-      <div className="bg-white rounded-2xl border-2 border-emerald-800 shadow-md overflow-hidden">
+      <div className="bg-white rounded-2xl border-2 border-emerald-800 shadow-sm overflow-hidden">
         {/* Teal Header */}
-        <div className="bg-[#0f6b38] text-white py-2 text-center font-bold text-sm tracking-wide">
-          Instruksi Kasus
+        <div className="bg-[#0f6b38] text-white py-2 px-4 flex items-center justify-between font-bold text-sm tracking-wide">
+          <span>Instruksi Turnamen & Studi Kasus</span>
+          <span className="text-xs text-emerald-200 font-mono">{exam.code}</span>
         </div>
 
         {/* Instruction Body */}
-        <div className="p-4 sm:p-5 bg-gradient-to-b from-emerald-50/40 to-white">
+        <div className="p-4 sm:p-5 bg-gradient-to-b from-emerald-50/30 to-white">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 items-start">
             {/* Left Instructions */}
             <div className="lg:col-span-8 space-y-3">
               <div>
-                <span className="font-bold text-emerald-900 text-sm block">
+                <span className="font-bold text-emerald-950 text-sm block">
                   {exam.instructions.title}
                 </span>
                 <p className="text-xs text-gray-700 mt-1 italic">
@@ -347,7 +372,7 @@ export const CaseExamWorksheet: React.FC<CaseExamWorksheetProps> = ({
 
               {/* Point-by-point rules */}
               <div className="space-y-1.5 pt-1">
-                <span className="text-[11px] font-bold text-gray-800 block">Tugas Soal :</span>
+                <span className="text-[11px] font-bold text-gray-800 block">Panduan Pengerjaan :</span>
                 {exam.instructions.points.map((pt, idx) => (
                   <div key={idx} className="text-xs text-slate-800 flex items-start gap-1.5">
                     <span className="font-bold text-emerald-700">{idx + 1}.</span>
@@ -359,7 +384,10 @@ export const CaseExamWorksheet: React.FC<CaseExamWorksheetProps> = ({
               {/* Warning Notice in Red (matching screenshot 2) */}
               <div className="pt-2 text-rose-700 font-semibold text-xs italic flex items-center gap-1.5">
                 <AlertCircle className="w-4 h-4 shrink-0" />
-                <span>{exam.instructions.notice || 'Dilarang mengubah struktur tabel. Isi rumus pada tabel yang telah disediakan.'}</span>
+                <span>
+                  {exam.instructions.notice ||
+                    'Dilarang mengubah tabel referensi. Tulis formula langsung pada lembar pengerjaan.'}
+                </span>
               </div>
             </div>
 
@@ -373,7 +401,9 @@ export const CaseExamWorksheet: React.FC<CaseExamWorksheetProps> = ({
                   <thead>
                     <tr className="border-b border-sky-200 text-sky-800 font-semibold">
                       {exam.instructions.helperTable.headers.map((h, i) => (
-                        <th key={i} className="py-1 px-1">{h}</th>
+                        <th key={i} className="py-1 px-1">
+                          {h}
+                        </th>
                       ))}
                     </tr>
                   </thead>
@@ -381,7 +411,9 @@ export const CaseExamWorksheet: React.FC<CaseExamWorksheetProps> = ({
                     {exam.instructions.helperTable.rows.map((r, i) => (
                       <tr key={i} className="border-b border-sky-100 text-sky-900">
                         {r.map((val, vi) => (
-                          <td key={vi} className="py-1 px-1 font-mono">{String(val)}</td>
+                          <td key={vi} className="py-1 px-1 font-mono">
+                            {String(val)}
+                          </td>
                         ))}
                       </tr>
                     ))}
@@ -395,14 +427,20 @@ export const CaseExamWorksheet: React.FC<CaseExamWorksheetProps> = ({
 
       {/* FORMULA BAR */}
       <div className="bg-white border border-gray-300 rounded-xl px-3 py-1.5 flex items-center gap-2 shadow-2xs">
-        <div className="w-14 px-1.5 py-1 bg-gray-50 border border-gray-300 rounded text-center text-[11px] font-bold font-mono text-gray-700">
+        <div className="w-16 px-1.5 py-1 bg-gray-50 border border-gray-300 rounded text-center text-[11px] font-bold font-mono text-gray-700">
           {activeCell}
         </div>
         <div className="text-gray-400 font-serif italic font-bold text-sm select-none">fx</div>
         <div className="flex-1 relative">
           <input
             type="text"
-            value={isEditing ? editValue : cellData[activeCell] !== undefined ? String(cellData[activeCell]) : ''}
+            value={
+              isEditing
+                ? editValue
+                : cellData[activeCell] !== undefined
+                ? String(cellData[activeCell])
+                : ''
+            }
             onChange={(e) => {
               setIsEditing(true);
               setEditValue(e.target.value);
@@ -410,7 +448,7 @@ export const CaseExamWorksheet: React.FC<CaseExamWorksheetProps> = ({
             onKeyDown={(e) => {
               if (e.key === 'Enter') handleCommitEdit(activeCell, editValue);
             }}
-            placeholder="Ketik rumus di sini atau langsung di sel..."
+            placeholder="Ketik rumus Excel (misal =INDEX('Desk Layout'!A1:G11, C3, D3))"
             className="w-full px-2.5 py-1 text-xs font-mono border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#107c41] bg-white text-gray-900"
           />
           {isEditing && (
@@ -428,15 +466,37 @@ export const CaseExamWorksheet: React.FC<CaseExamWorksheetProps> = ({
         </button>
       </div>
 
-      {/* MAIN SPREADSHEET (Matching Screenshot 2 Table Style) */}
+      {/* LEVEL FILTER TABS (When on Questions sheet) */}
+      {currentSheet.columns.some((c) => c.key === 'level') && (
+        <div className="flex items-center gap-1.5 overflow-x-auto pb-1 text-xs">
+          <span className="text-gray-500 font-semibold text-[11px] flex items-center gap-1 mr-1">
+            <Filter className="w-3 h-3" /> Filter Level:
+          </span>
+          {['ALL', 'Level 1', 'Level 2', 'Level 3', 'Bonus'].map((lvl) => (
+            <button
+              key={lvl}
+              onClick={() => setLevelFilter(lvl)}
+              className={`px-2.5 py-1 rounded-md text-[11px] font-bold transition-all ${
+                levelFilter === lvl
+                  ? 'bg-slate-900 text-white shadow-2xs'
+                  : 'bg-white border border-gray-200 text-gray-600 hover:bg-gray-50'
+              }`}
+            >
+              {lvl === 'ALL' ? 'Semua Level' : lvl}
+            </button>
+          ))}
+        </div>
+      )}
+
+      {/* MAIN SPREADSHEET TABLE */}
       <div
         className="bg-white rounded-xl border border-gray-300 shadow-sm overflow-hidden select-none focus:outline-none"
         tabIndex={0}
         onKeyDown={handleTableKeyDown}
       >
-        <div className="overflow-x-auto min-h-[320px]">
+        <div className="overflow-x-auto min-h-[340px] max-h-[500px]">
           <table className="w-full border-collapse text-xs font-mono">
-            <thead>
+            <thead className="sticky top-0 z-10">
               {/* Row 1: Column Letters */}
               <tr className="bg-gray-100 border-b border-gray-300 text-gray-500 font-bold text-center text-[10px]">
                 <th className="w-10 py-1 px-1 border-r border-gray-300 bg-gray-200/80"></th>
@@ -455,7 +515,7 @@ export const CaseExamWorksheet: React.FC<CaseExamWorksheetProps> = ({
                   return (
                     <th
                       key={col.key}
-                      className={`py-2 px-3 border-r border-emerald-900 min-w-[120px] ${
+                      className={`py-2 px-3 border-r border-emerald-900 min-w-[110px] ${
                         isTarget ? 'bg-[#094d26] text-amber-200' : ''
                       }`}
                     >
@@ -466,8 +526,11 @@ export const CaseExamWorksheet: React.FC<CaseExamWorksheetProps> = ({
               </tr>
             </thead>
             <tbody>
-              {currentSheet.rows.map((row) => (
-                <tr key={row.rowNumber} className="border-b border-gray-200 hover:bg-slate-50/50 transition-colors">
+              {displayRows.map((row) => (
+                <tr
+                  key={row.rowNumber}
+                  className="border-b border-gray-200 hover:bg-slate-50/60 transition-colors"
+                >
                   {/* Row Number */}
                   <td className="py-2 px-1 border-r border-gray-300 font-bold text-center select-none font-mono text-[11px] bg-gray-100 text-gray-500">
                     {row.rowNumber}
@@ -480,13 +543,18 @@ export const CaseExamWorksheet: React.FC<CaseExamWorksheetProps> = ({
                     const isSelected = activeCell === cellRef;
                     const isCellCurrentlyEditing = isEditing && isSelected;
 
-                    const rawVal = cellData[cellRef] !== undefined ? cellData[cellRef] : row.values[col.key];
+                    const rawVal =
+                      cellData[cellRef] !== undefined
+                        ? cellData[cellRef]
+                        : cellData[`'${currentSheet.name}'!${cellRef}`] !== undefined
+                        ? cellData[`'${currentSheet.name}'!${cellRef}`]
+                        : row.values[col.key];
+
                     const displayVal =
                       rawVal !== undefined && String(rawVal).startsWith('=')
                         ? evaluateFormulaValue(rawVal, cellData)
                         : rawVal;
 
-                    // Evaluation state
                     const evalRow = evaluationResult?.evaluations.find((e) => e.cellRef === cellRef);
 
                     return (
@@ -500,18 +568,16 @@ export const CaseExamWorksheet: React.FC<CaseExamWorksheetProps> = ({
                               ? evalRow.isCorrect
                                 ? 'bg-emerald-100 text-emerald-950 font-bold'
                                 : 'bg-rose-100 text-rose-950 font-semibold'
-                              : 'bg-emerald-50/50 text-slate-800'
+                              : 'bg-emerald-50/50 text-slate-900 font-medium'
                             : 'text-gray-700'
-                        } ${isSelected ? 'ring-2 ring-[#107c41] bg-emerald-50/30' : ''}`}
+                        } ${isSelected ? 'ring-2 ring-[#107c41] bg-emerald-50/40' : ''}`}
                       >
-                        {/* Target Indicator */}
                         {isTarget && !evalRow && rawVal === '?' && !isCellCurrentlyEditing && (
-                          <span className="text-[10px] text-amber-700 bg-amber-100/80 px-1.5 py-0.5 rounded font-sans font-semibold">
+                          <span className="text-[10px] text-amber-700 bg-amber-100/90 px-1.5 py-0.5 rounded font-sans font-semibold">
                             ✎ Isi Rumus
                           </span>
                         )}
 
-                        {/* In-Cell Input Box */}
                         {isCellCurrentlyEditing ? (
                           <div className="relative z-20 -m-1">
                             <input
@@ -535,7 +601,13 @@ export const CaseExamWorksheet: React.FC<CaseExamWorksheetProps> = ({
                           </div>
                         ) : (
                           <div className="flex items-center justify-between">
-                            <span className={typeof displayVal === 'number' ? 'text-right w-full block' : ''}>
+                            <span
+                              className={
+                                typeof displayVal === 'number'
+                                  ? 'text-right w-full block'
+                                  : 'truncate max-w-[200px]'
+                              }
+                            >
                               {displayVal !== undefined && displayVal !== '?' ? String(displayVal) : ''}
                             </span>
                             {evalRow && (
@@ -558,16 +630,23 @@ export const CaseExamWorksheet: React.FC<CaseExamWorksheetProps> = ({
           </table>
         </div>
 
-        {/* BOTTOM SHEET TABS (Matching Screenshot 2 bottom tabs) */}
-        <div className="bg-gray-200 px-2 py-1 border-t border-gray-300 flex items-center gap-1 overflow-x-auto text-xs">
+        {/* BOTTOM MULTI-SHEET TABS */}
+        <div className="bg-gray-200 px-2 py-1.5 border-t border-gray-300 flex items-center gap-1.5 overflow-x-auto text-xs">
+          <span className="text-gray-500 font-bold text-[10px] uppercase px-1 flex items-center gap-1">
+            <Layers className="w-3 h-3" /> Sheets:
+          </span>
           {exam.sheets.map((sh, idx) => (
             <button
               key={sh.id}
-              onClick={() => setActiveSheetIndex(idx)}
-              className={`px-3 py-1 rounded-t-md font-bold text-xs flex items-center gap-1.5 transition-all ${
+              onClick={() => {
+                setActiveSheetIndex(idx);
+                const firstCol = sh.columns[0]?.letter || 'A';
+                setActiveCell(`${firstCol}2`);
+              }}
+              className={`px-3 py-1.5 rounded-md font-bold text-xs flex items-center gap-1.5 transition-all ${
                 activeSheetIndex === idx
-                  ? 'bg-white text-[#107c41] border-t-2 border-[#107c41] shadow-2xs'
-                  : 'bg-gray-100 text-gray-600 hover:bg-gray-50'
+                  ? 'bg-white text-[#107c41] border border-gray-300 shadow-2xs ring-1 ring-emerald-400'
+                  : 'bg-gray-100 text-gray-600 hover:bg-white hover:text-gray-900 border border-transparent'
               }`}
             >
               <FileSpreadsheet className="w-3.5 h-3.5" />
@@ -577,20 +656,20 @@ export const CaseExamWorksheet: React.FC<CaseExamWorksheetProps> = ({
         </div>
       </div>
 
-      {/* RESULT MODAL (After Clicking Cek Hasil Jawaban) */}
+      {/* RESULT MODAL */}
       {showResultModal && evaluationResult && (
         <div className="fixed inset-0 bg-black/60 backdrop-blur-xs z-50 flex items-center justify-center p-4">
           <div className="bg-white rounded-2xl shadow-2xl max-w-lg w-full p-6 space-y-4 animate-fade-in">
-            {/* Header */}
             <div className="text-center space-y-2">
               <div className="text-5xl">{evaluationResult.passed ? '🏆' : '📝'}</div>
               <h3 className="text-xl font-bold text-gray-900">
-                {evaluationResult.passed ? 'Selamat, Anda LULUS Kasus Ini!' : 'Hasil Evaluasi Jawaban'}
+                {evaluationResult.passed
+                  ? 'Selamat, Anda LULUS Tantangan Ini!'
+                  : 'Hasil Evaluasi Turnamen'}
               </h3>
               <p className="text-xs text-gray-500">{exam.title}</p>
             </div>
 
-            {/* Score Grid */}
             <div className="grid grid-cols-3 gap-2 bg-slate-50 border border-slate-200 rounded-xl p-3.5 text-center">
               <div>
                 <div className="text-2xl font-bold text-[#107c41]">{evaluationResult.score}%</div>
@@ -600,7 +679,7 @@ export const CaseExamWorksheet: React.FC<CaseExamWorksheetProps> = ({
                 <div className="text-2xl font-bold text-blue-600">
                   {evaluationResult.correctCells}/{evaluationResult.totalCells}
                 </div>
-                <div className="text-[10px] text-gray-400 font-semibold uppercase">Sel Benar</div>
+                <div className="text-[10px] text-gray-400 font-semibold uppercase">Jawaban Benar</div>
               </div>
               <div>
                 <div
@@ -614,7 +693,6 @@ export const CaseExamWorksheet: React.FC<CaseExamWorksheetProps> = ({
               </div>
             </div>
 
-            {/* Actions */}
             <div className="space-y-2 pt-2">
               {evaluationResult.passed && (
                 <button
@@ -625,7 +703,7 @@ export const CaseExamWorksheet: React.FC<CaseExamWorksheetProps> = ({
                   className="w-full flex items-center justify-center gap-2 py-2.5 bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-white font-bold text-xs rounded-xl shadow-md transition-all"
                 >
                   <Trophy className="w-4 h-4" />
-                  <span>Unduh Sertifikat Kelulusan Kasus (PNG)</span>
+                  <span>Unduh Sertifikat Kelulusan Turnamen (PNG)</span>
                 </button>
               )}
 
@@ -660,7 +738,7 @@ export const CaseExamWorksheet: React.FC<CaseExamWorksheetProps> = ({
             <div className="flex items-center justify-between border-b border-gray-200 pb-3">
               <div>
                 <span className="text-[10px] font-bold text-blue-700 bg-blue-50 px-2 py-0.5 rounded border border-blue-200">
-                  Kunci Jawaban Resmi
+                  Kunci Jawaban Resmi Turnamen • {exam.code}
                 </span>
                 <h3 className="font-bold text-base text-gray-900 mt-1">{exam.title}</h3>
               </div>
@@ -675,9 +753,7 @@ export const CaseExamWorksheet: React.FC<CaseExamWorksheetProps> = ({
             <div className="space-y-3">
               {exam.solutionBlueprints.map((sol, idx) => (
                 <div key={idx} className="bg-slate-50 border border-slate-200 rounded-xl p-3.5 space-y-1.5 text-xs">
-                  <div className="flex items-center justify-between">
-                    <span className="font-bold text-slate-800 text-xs">Kolom: {sol.columnLabel}</span>
-                  </div>
+                  <span className="font-bold text-slate-800 text-xs block">{sol.columnLabel}</span>
                   <code className="text-[#107c41] font-mono font-bold bg-white px-2.5 py-1.5 rounded-lg border border-gray-200 block text-xs">
                     {sol.formula}
                   </code>
