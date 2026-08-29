@@ -583,8 +583,8 @@ export default function HomePage() {
       </div>
 
       <footer className="bg-white border-t border-gray-200 py-2 text-center text-[11px] text-gray-400 mt-auto">
-        ExcelSimulator v4.5 © {new Date().getFullYear()} • {session.displayName}{' '}
-        {session.isMaster ? '👑' : ''} • 40 Modul Belajar • 50 Kasus Ujian XL-Test • Sertifikat
+        ExcelSimulator © {new Date().getFullYear()} • {session.displayName}{' '}
+        {session.isMaster ? '👑' : ''} • 40 Modul Belajar • Studi Kasus & Turnamen Nyata • Sertifikat
       </footer>
 
       <CheatSheetModal isOpen={isCheatSheetOpen} onClose={() => setIsCheatSheetOpen(false)} />

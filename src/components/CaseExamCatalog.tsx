@@ -115,7 +115,7 @@ export const CaseExamCatalog: React.FC<CaseExamCatalogProps> = ({
           <div className="flex items-center gap-2">
             <h2 className="text-xl font-bold text-gray-900 flex items-center gap-2">
               <FileSpreadsheet className="w-6 h-6 text-[#107c41]" />
-              Latihan Soal Ujian Excel (50 Kasus Nyata)
+              Latihan Soal Ujian Excel ({exams.length} Kasus Nyata)
             </h2>
             {isMaster && (
               <span className="bg-amber-100 text-amber-900 border border-amber-300 text-[10px] px-2 py-0.5 rounded-full font-bold flex items-center gap-1">

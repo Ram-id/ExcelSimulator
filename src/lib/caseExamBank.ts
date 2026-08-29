@@ -5,7 +5,7 @@ export const CASE_EXAMS: CaseExamData[] = [
     "id": "EX-001",
     "number": 1,
     "code": "#SBEC001",
-    "title": "Championship Case \"Ujian Sekolah\" (ExcelArena.id / MEWC)",
+    "title": "Championship Turnamen \"Ujian Sekolah\" (MEWC / ExcelArena)",
     "category": "Kombinasi",
     "difficulty": "CHAMPIONSHIP",
     "difficultyStars": 5,
@@ -17,15 +17,15 @@ export const CASE_EXAMS: CaseExamData[] = [
     ],
     "instructions": {
       "title": "Championship Level - Turnamen \"Ujian Sekolah\" (Andi Setiadi)",
-      "description": "Selesaikan tantangan resmi turnamen Excel berdasarkan denah meja kelas (Sheet \"Desk Layout\") dan data nilai ujian siswa (Sheet \"Student Data\").",
+      "description": "Selesaikan tantangan resmi turnamen Excel berdasarkan denah meja kelas (Sheet \"Desk Layout\") dan data nilai ujian 77 siswa (Sheet \"Student Data\").",
       "points": [
-        "Level 1: Cari nama siswa yang duduk di baris dan kolom yang ditentukan. Contoh di R1C1 adalah Gita Firmansyah. Gunakan =INDEX('Desk Layout'!A1:G11, C3, D3).",
-        "Level 2: Cari total nilai siswa berdasarkan posisi meja R...C... dari sheet \"Student Data\". Contoh di R1C1 total nilai Gita = 399. Gunakan =XLOOKUP(E14, 'Student Data'!J2:J78, 'Student Data'!H2:H78).",
+        "Level 1: Cari nama siswa yang duduk di baris dan kolom yang ditentukan. Contoh di R1C1 adalah Gita Firmansyah. Gunakan formula =INDEX('Desk Layout'!A1:G11, C3, D3).",
+        "Level 2: Hitung total nilai siswa berdasarkan posisi meja R...C... dari sheet \"Student Data\". Contoh di R1C1 nilai Gita = 399. Gunakan =XLOOKUP(E9, 'Student Data'!J2:J78, 'Student Data'!H2:H78).",
         "Level 3: Hitung berapa banyak siswa yang namanya diawali huruf vokal (A, E, I, O, U) pada baris/kolom tertentu.",
         "Bonus Questions: Jawab pertanyaan analisis global untuk poin tambahan turnamen."
       ],
       "helperTable": {
-        "title": "Contoh Resmi Soal & Jawaban",
+        "title": "Contoh Resmi Pengerjaan",
         "headers": [
           "Level",
           "Parameter",
@@ -43,7 +43,7 @@ export const CASE_EXAMS: CaseExamData[] = [
             "Level 2",
             "Desk=R1C1",
             "399",
-            "=XLOOKUP(E14, 'Student Data'!J2:J78, 'Student Data'!H2:H78)"
+            "=XLOOKUP(E9, 'Student Data'!J2:J78, 'Student Data'!H2:H78)"
           ],
           [
             "Level 3",
@@ -53,7 +53,7 @@ export const CASE_EXAMS: CaseExamData[] = [
           ]
         ]
       },
-      "notice": "Gunakan sheet \"Desk Layout\" dan \"Student Data\" untuk mencari data. Tulis rumus di kolom Answer."
+      "notice": "Gunakan sheet \"Desk Layout\" dan \"Student Data\" untuk mencari data. Tulis rumus pada kolom Answer."
     },
     "sheets": [
       {
@@ -183,71 +183,6 @@ export const CASE_EXAMS: CaseExamData[] = [
           {
             "rowNumber": 8,
             "values": {
-              "level": "Level 1",
-              "game": "Game 6",
-              "row_param": 8,
-              "col_param": 2,
-              "desk_param": "R8C2",
-              "answer": "?",
-              "points": 3,
-              "hint": "Nama berawalan R dan berakhiran a"
-            }
-          },
-          {
-            "rowNumber": 9,
-            "values": {
-              "level": "Level 1",
-              "game": "Game 7",
-              "row_param": 6,
-              "col_param": 7,
-              "desk_param": "R6C7",
-              "answer": "?",
-              "points": 3,
-              "hint": "Nama berawalan C dan berakhiran i"
-            }
-          },
-          {
-            "rowNumber": 10,
-            "values": {
-              "level": "Level 1",
-              "game": "Game 8",
-              "row_param": 4,
-              "col_param": 4,
-              "desk_param": "R4C4",
-              "answer": "?",
-              "points": 3,
-              "hint": "Nama berawalan S dan berakhiran o"
-            }
-          },
-          {
-            "rowNumber": 11,
-            "values": {
-              "level": "Level 1",
-              "game": "Game 9",
-              "row_param": 3,
-              "col_param": 5,
-              "desk_param": "R3C5",
-              "answer": "?",
-              "points": 3,
-              "hint": "Nama berawalan A dan berakhiran f"
-            }
-          },
-          {
-            "rowNumber": 12,
-            "values": {
-              "level": "Level 1",
-              "game": "Game 10",
-              "row_param": 7,
-              "col_param": 2,
-              "desk_param": "R7C2",
-              "answer": "?",
-              "points": 3,
-              "hint": "Nama berawalan F dan berakhiran h"
-            }
-          },
-          {
-            "rowNumber": 13,
-            "values": {
               "level": "Level 2",
               "game": "Contoh2",
               "row_param": 1,
@@ -259,7 +194,7 @@ export const CASE_EXAMS: CaseExamData[] = [
             }
           },
           {
-            "rowNumber": 14,
+            "rowNumber": 9,
             "values": {
               "level": "Level 2",
               "game": "Game 16",
@@ -272,7 +207,7 @@ export const CASE_EXAMS: CaseExamData[] = [
             }
           },
           {
-            "rowNumber": 15,
+            "rowNumber": 10,
             "values": {
               "level": "Level 2",
               "game": "Game 17",
@@ -285,7 +220,7 @@ export const CASE_EXAMS: CaseExamData[] = [
             }
           },
           {
-            "rowNumber": 16,
+            "rowNumber": 11,
             "values": {
               "level": "Level 2",
               "game": "Game 18",
@@ -298,33 +233,7 @@ export const CASE_EXAMS: CaseExamData[] = [
             }
           },
           {
-            "rowNumber": 17,
-            "values": {
-              "level": "Level 2",
-              "game": "Game 19",
-              "row_param": 5,
-              "col_param": 2,
-              "desk_param": "R5C2",
-              "answer": "?",
-              "points": 5,
-              "hint": "Total skor siswa di R5C2"
-            }
-          },
-          {
-            "rowNumber": 18,
-            "values": {
-              "level": "Level 2",
-              "game": "Game 20",
-              "row_param": 3,
-              "col_param": 1,
-              "desk_param": "R3C1",
-              "answer": "?",
-              "points": 5,
-              "hint": "Total skor siswa di R3C1"
-            }
-          },
-          {
-            "rowNumber": 19,
+            "rowNumber": 12,
             "values": {
               "level": "Level 3",
               "game": "Contoh3",
@@ -337,7 +246,7 @@ export const CASE_EXAMS: CaseExamData[] = [
             }
           },
           {
-            "rowNumber": 20,
+            "rowNumber": 13,
             "values": {
               "level": "Level 3",
               "game": "Game 31",
@@ -350,7 +259,7 @@ export const CASE_EXAMS: CaseExamData[] = [
             }
           },
           {
-            "rowNumber": 21,
+            "rowNumber": 14,
             "values": {
               "level": "Level 3",
               "game": "Game 32",
@@ -363,20 +272,7 @@ export const CASE_EXAMS: CaseExamData[] = [
             }
           },
           {
-            "rowNumber": 22,
-            "values": {
-              "level": "Level 3",
-              "game": "Game 33",
-              "row_param": 3,
-              "col_param": 0,
-              "desk_param": "R3",
-              "answer": "?",
-              "points": 8,
-              "hint": "Jumlah nama huruf vokal di Baris 3"
-            }
-          },
-          {
-            "rowNumber": 23,
+            "rowNumber": 15,
             "values": {
               "level": "Bonus",
               "game": "Bonus 1",
@@ -387,19 +283,6 @@ export const CASE_EXAMS: CaseExamData[] = [
               "points": 50,
               "hint": "Siapa siswa dengan total nilai tertinggi (#1) di kelas?"
             }
-          },
-          {
-            "rowNumber": 24,
-            "values": {
-              "level": "Bonus",
-              "game": "Bonus 2",
-              "row_param": 0,
-              "col_param": 0,
-              "desk_param": "Kolom",
-              "answer": "?",
-              "points": 70,
-              "hint": "Kolom meja mana yang memiliki rata-rata nilai tertinggi? (Tulis angka kolom 1-7)"
-            }
           }
         ],
         "targetColumns": [
@@ -407,28 +290,19 @@ export const CASE_EXAMS: CaseExamData[] = [
             "key": "answer",
             "letter": "F",
             "label": "Answer (Jawaban Formula)",
-            "description": "Isi formula jawaban yang sesuai dengan level soal",
+            "description": "Isi formula jawaban sesuai level soal",
             "expectedRowAnswers": {
               "3": "Ivan Pratama",
               "4": "Abdul Malik",
               "5": "Rizki Maulana",
               "6": "Roy Prasetyo",
               "7": "Aulia Rahma",
-              "8": "Reza Maulana",
-              "9": "Citra Anggraini",
-              "10": "Susanto",
-              "11": "Abdul Latif",
-              "12": "Fitria Ningsih",
-              "14": 375,
-              "15": 385,
-              "16": 430,
-              "17": 430,
-              "18": 415,
-              "20": 0,
-              "21": 0,
-              "22": 2,
-              "23": "Yuni Lestari",
-              "24": 1
+              "9": 375,
+              "10": 385,
+              "11": 430,
+              "13": 0,
+              "14": 0,
+              "15": "Yuni Lestari"
             }
           }
         ]
@@ -1827,25 +1701,426 @@ export const CASE_EXAMS: CaseExamData[] = [
       {
         "columnLabel": "Level 1: Pencarian Nama",
         "formula": "=INDEX('Desk Layout'!A1:G11, C3, D3)",
-        "explanation": "Mengambil nama siswa dari koordinat Baris C dan Kolom D pada matriks denah meja"
+        "explanation": "Mengambil nama siswa dari koordinat Baris C dan Kolom D pada denah meja"
       },
       {
         "columnLabel": "Level 2: Total Skor Posisi",
-        "formula": "=XLOOKUP(E14, 'Student Data'!J2:J78, 'Student Data'!H2:H78)",
-        "explanation": "Mencocokkan posisi meja R...C... dengan kolom posisi di sheet Student Data dan mengambil Total Skor"
-      },
-      {
-        "columnLabel": "Level 3: Nama Huruf Vokal",
-        "formula": "=SUM(COUNTIF(range, {\"A*\",\"E*\",\"I*\",\"O*\",\"U*\"}))",
-        "explanation": "Menghitung nama yang dimulai dengan huruf vokal pada baris atau kolom terkait"
+        "formula": "=XLOOKUP(E9, 'Student Data'!J2:J78, 'Student Data'!H2:H78)",
+        "explanation": "Mencocokkan posisi meja R...C... dengan data nilai siswa"
       }
     ]
   },
   {
     "id": "EX-002",
     "number": 2,
+    "code": "#SBEM002",
+    "title": "Estimasi Biaya Renovasi Rumah & Pengadaan Material",
+    "category": "Aritmatika",
+    "difficulty": "PEMULA",
+    "difficultyStars": 1,
+    "tags": [
+      "Konstruksi",
+      "Anggaran",
+      "Aritmatika"
+    ],
+    "instructions": {
+      "title": "Pemula Level - Rencana Anggaran Biaya (RAB) Renovasi Rumah",
+      "description": "Hitung kebutuhan dana renovasi: Biaya Material (Qty * Harga Satuan), Ongkos Jasa Tukang (15% dari Biaya Material), dan Total Biaya Pengadaan.",
+      "points": [
+        "1. Kolom E (Biaya Material Rp): Kalikan Kebutuhan Qty (kolom C) dengan Harga Satuan (kolom D) -> =C2*D2.",
+        "2. Kolom F (Ongkos Tukang Rp): Hitung 15% dari Biaya Material -> =E2*0.15.",
+        "3. Kolom G (Total Biaya Rp): Jumlahkan Biaya Material + Ongkos Tukang -> =E2+F2."
+      ],
+      "helperTable": {
+        "title": "Rumus Kalkulasi RAB",
+        "headers": [
+          "Komponen",
+          "Rumus"
+        ],
+        "rows": [
+          [
+            "Biaya Material",
+            "=Qty * Harga Satuan"
+          ],
+          [
+            "Ongkos Tukang",
+            "=Biaya Material * 15%"
+          ],
+          [
+            "Total Biaya",
+            "=Biaya Material + Ongkos Tukang"
+          ]
+        ]
+      },
+      "notice": "Gunakan operator perkalian dan penjumlahan matematika pada sel-sel target."
+    },
+    "sheets": [
+      {
+        "id": "sheet_rab",
+        "name": "RAB Renovasi",
+        "columns": [
+          {
+            "key": "no",
+            "label": "No",
+            "letter": "A"
+          },
+          {
+            "key": "material",
+            "label": "Nama Material Bangunan",
+            "letter": "B"
+          },
+          {
+            "key": "qty",
+            "label": "Kebutuhan Qty",
+            "letter": "C"
+          },
+          {
+            "key": "harga",
+            "label": "Harga Satuan (Rp)",
+            "letter": "D"
+          },
+          {
+            "key": "biaya_mat",
+            "label": "Biaya Material (Rp)",
+            "letter": "E"
+          },
+          {
+            "key": "jasa",
+            "label": "Ongkos Tukang 15% (Rp)",
+            "letter": "F"
+          },
+          {
+            "key": "total",
+            "label": "Total Estimasi (Rp)",
+            "letter": "G"
+          }
+        ],
+        "rows": [
+          {
+            "rowNumber": 2,
+            "values": {
+              "no": 1,
+              "material": "Semen Gresik 50kg",
+              "qty": 40,
+              "harga": 68000,
+              "biaya_mat": "?",
+              "jasa": "?",
+              "total": "?"
+            }
+          },
+          {
+            "rowNumber": 3,
+            "values": {
+              "no": 2,
+              "material": "Pasir Cor (Truk 6m3)",
+              "qty": 3,
+              "harga": 1850000,
+              "biaya_mat": "?",
+              "jasa": "?",
+              "total": "?"
+            }
+          },
+          {
+            "rowNumber": 4,
+            "values": {
+              "no": 3,
+              "material": "Batu Bata Merah Oven",
+              "qty": 3000,
+              "harga": 900,
+              "biaya_mat": "?",
+              "jasa": "?",
+              "total": "?"
+            }
+          },
+          {
+            "rowNumber": 5,
+            "values": {
+              "no": 4,
+              "material": "Cat Tembok Dulux 20L",
+              "qty": 4,
+              "harga": 1450000,
+              "biaya_mat": "?",
+              "jasa": "?",
+              "total": "?"
+            }
+          },
+          {
+            "rowNumber": 6,
+            "values": {
+              "no": 5,
+              "material": "Keramik Granit 60x60 (Dus)",
+              "qty": 25,
+              "harga": 195000,
+              "biaya_mat": "?",
+              "jasa": "?",
+              "total": "?"
+            }
+          }
+        ],
+        "targetColumns": [
+          {
+            "key": "biaya_mat",
+            "letter": "E",
+            "label": "Biaya Material",
+            "description": "Qty * Harga Satuan",
+            "expectedRowAnswers": {
+              "2": 2720000,
+              "3": 5550000,
+              "4": 2700000,
+              "5": 5800000,
+              "6": 4875000
+            }
+          },
+          {
+            "key": "jasa",
+            "letter": "F",
+            "label": "Ongkos Tukang",
+            "description": "Biaya Material * 0.15",
+            "expectedRowAnswers": {
+              "2": 408000,
+              "3": 832500,
+              "4": 405000,
+              "5": 870000,
+              "6": 731250
+            }
+          },
+          {
+            "key": "total",
+            "letter": "G",
+            "label": "Total Estimasi",
+            "description": "Biaya Material + Ongkos Tukang",
+            "expectedRowAnswers": {
+              "2": 3128000,
+              "3": 6382500,
+              "4": 3105000,
+              "5": 6670000,
+              "6": 5606250
+            }
+          }
+        ]
+      }
+    ],
+    "passingScore": 70,
+    "solutionBlueprints": [
+      {
+        "columnLabel": "Biaya Material",
+        "formula": "=C2*D2",
+        "explanation": "Mengalikan jumlah kebutuhan material dengan harga per satuan"
+      },
+      {
+        "columnLabel": "Ongkos Tukang",
+        "formula": "=E2*0.15",
+        "explanation": "Menghitung 15% dari subtotal biaya material"
+      },
+      {
+        "columnLabel": "Total Estimasi",
+        "formula": "=E2+F2",
+        "explanation": "Menjumlahkan total biaya material dengan biaya ongkos jasa"
+      }
+    ]
+  },
+  {
+    "id": "EX-003",
+    "number": 3,
+    "code": "#SBEM003",
+    "title": "Pencatatan Stok Masuk & Keluar Gudang Elektronik",
+    "category": "Logika",
+    "difficulty": "PEMULA",
+    "difficultyStars": 2,
+    "tags": [
+      "Gudang",
+      "Inventaris",
+      "IF",
+      "Stok"
+    ],
+    "instructions": {
+      "title": "Pemula Level - Pengendalian Mutasi Stok & Reorder Point",
+      "description": "Departemen Inventory Gudang memerlukan kalkulasi Stok Akhir barang dan Status Pengadaan (Reorder).",
+      "points": [
+        "1. Kolom F (Stok Akhir Unit): Stok Awal + Barang Masuk - Barang Keluar -> =C2+D2-E2.",
+        "2. Kolom H (Status Reorder): Jika Stok Akhir <= Batas Minimum (kolom G) maka \"REORDER SEGERA\", jika tidak \"STOK AMAN\" -> =IF(F2<=G2, \"REORDER SEGERA\", \"STOK AMAN\")."
+      ],
+      "helperTable": {
+        "title": "Ketentuan Mutasi Stok",
+        "headers": [
+          "Komponen",
+          "Formula"
+        ],
+        "rows": [
+          [
+            "Stok Akhir",
+            "=Stok Awal + Masuk - Keluar"
+          ],
+          [
+            "Status Reorder",
+            "=IF(Stok Akhir <= Minimum, \"REORDER SEGERA\", \"STOK AMAN\")"
+          ]
+        ]
+      },
+      "notice": "Gunakan fungsi aritmatika dan fungsi logika IF pada kolom target."
+    },
+    "sheets": [
+      {
+        "id": "sheet_stock",
+        "name": "Mutasi Stok Gudang",
+        "columns": [
+          {
+            "key": "sku",
+            "label": "Kode SKU",
+            "letter": "A"
+          },
+          {
+            "key": "nama",
+            "label": "Nama Barang Elektronik",
+            "letter": "B"
+          },
+          {
+            "key": "awal",
+            "label": "Stok Awal",
+            "letter": "C"
+          },
+          {
+            "key": "masuk",
+            "label": "Barang Masuk",
+            "letter": "D"
+          },
+          {
+            "key": "keluar",
+            "label": "Barang Keluar",
+            "letter": "E"
+          },
+          {
+            "key": "akhir",
+            "label": "Stok Akhir",
+            "letter": "F"
+          },
+          {
+            "key": "min",
+            "label": "Batas Minimum",
+            "letter": "G"
+          },
+          {
+            "key": "status",
+            "label": "Status Pengadaan",
+            "letter": "H"
+          }
+        ],
+        "rows": [
+          {
+            "rowNumber": 2,
+            "values": {
+              "sku": "ELK-TV50",
+              "nama": "Smart TV 50 Inch 4K",
+              "awal": 25,
+              "masuk": 10,
+              "keluar": 22,
+              "akhir": "?",
+              "min": 15,
+              "status": "?"
+            }
+          },
+          {
+            "rowNumber": 3,
+            "values": {
+              "sku": "ELK-KLS2",
+              "nama": "Kulkas 2 Pintu Inverter",
+              "awal": 18,
+              "masuk": 8,
+              "keluar": 6,
+              "akhir": "?",
+              "min": 10,
+              "status": "?"
+            }
+          },
+          {
+            "rowNumber": 4,
+            "values": {
+              "sku": "ELK-MC01",
+              "nama": "Mesin Cuci Front Loading",
+              "awal": 12,
+              "masuk": 5,
+              "keluar": 14,
+              "akhir": "?",
+              "min": 8,
+              "status": "?"
+            }
+          },
+          {
+            "rowNumber": 5,
+            "values": {
+              "sku": "ELK-AC10",
+              "nama": "AC Split 1 PK Dual Inverter",
+              "awal": 30,
+              "masuk": 15,
+              "keluar": 38,
+              "akhir": "?",
+              "min": 12,
+              "status": "?"
+            }
+          },
+          {
+            "rowNumber": 6,
+            "values": {
+              "sku": "ELK-MW20",
+              "nama": "Microwave Grill 23L",
+              "awal": 40,
+              "masuk": 10,
+              "keluar": 15,
+              "akhir": "?",
+              "min": 20,
+              "status": "?"
+            }
+          }
+        ],
+        "targetColumns": [
+          {
+            "key": "akhir",
+            "letter": "F",
+            "label": "Stok Akhir",
+            "description": "Awal + Masuk - Keluar",
+            "expectedRowAnswers": {
+              "2": 13,
+              "3": 20,
+              "4": 3,
+              "5": 7,
+              "6": 35
+            }
+          },
+          {
+            "key": "status",
+            "letter": "H",
+            "label": "Status Pengadaan",
+            "description": "IF Stok Akhir <= Batas Minimum",
+            "expectedRowAnswers": {
+              "2": "REORDER SEGERA",
+              "3": "STOK AMAN",
+              "4": "REORDER SEGERA",
+              "5": "REORDER SEGERA",
+              "6": "STOK AMAN"
+            }
+          }
+        ]
+      }
+    ],
+    "passingScore": 70,
+    "solutionBlueprints": [
+      {
+        "columnLabel": "Stok Akhir",
+        "formula": "=C2+D2-E2",
+        "explanation": "Menghitung sisa stok fisik setelah mutasi masuk dan keluar"
+      },
+      {
+        "columnLabel": "Status Pengadaan",
+        "formula": "=IF(F2<=G2, \"REORDER SEGERA\", \"STOK AMAN\")",
+        "explanation": "Memeriksa apakah stok saat ini berada di bawah batas minimum pengadaan"
+      }
+    ]
+  },
+  {
+    "id": "EX-004",
+    "number": 4,
     "code": "#SBEX007",
-    "title": "Latihan Soal Data Pegawai dan Gaji (Payroll HRD)",
+    "title": "Data Pegawai & Gaji (Payroll HRD)",
     "category": "Lookup",
     "difficulty": "EXTREME",
     "difficultyStars": 4,
@@ -1860,7 +2135,7 @@ export const CASE_EXAMS: CaseExamData[] = [
       "description": "Departemen HRD memerlukan perhitungan lengkap Gaji Pokok, Tunjangan Jabatan, Uang Lembur, Potongan PPh 21, dan Gaji Bersih berdasarkan sheet acuan \"Tabel Tarif\".",
       "points": [
         "1. Kolom E (Gaji Pokok): Ambil dari sheet \"Tabel Tarif\" berdasarkan Golongan (kolom D) menggunakan =VLOOKUP(D2, 'Tabel Tarif'!A2:C5, 2, FALSE).",
-        "2. Kolom F (Tunjangan Jabatan): Ambil dari sheet \"Tabel Tarif\" berdasarkan Golongan menggunakan =VLOOKUP(D2, 'Tabel Tarif'!A2:C5, 3, FALSE).",
+        "2. Kolom F (Tunjangan): Ambil dari sheet \"Tabel Tarif\" berdasarkan Golongan menggunakan =VLOOKUP(D2, 'Tabel Tarif'!A2:C5, 3, FALSE).",
         "3. Kolom H (Uang Lembur): Jam Lembur * Rp 50.000 (=G2 * 50000).",
         "4. Kolom I (Gaji Kotor): Gaji Pokok + Tunjangan Jabatan + Uang Lembur (=E2 + F2 + H2).",
         "5. Kolom J (Potongan PPh 21 5%): 5% dari Gaji Kotor (=I2 * 0.05).",
@@ -2168,11 +2443,6 @@ export const CASE_EXAMS: CaseExamData[] = [
         "explanation": "Mengambil gaji pokok dari Tabel Tarif berdasarkan golongan"
       },
       {
-        "columnLabel": "Tunjangan",
-        "formula": "=VLOOKUP(D2, 'Tabel Tarif'!A2:C5, 3, FALSE)",
-        "explanation": "Mengambil tunjangan jabatan dari Tabel Tarif"
-      },
-      {
         "columnLabel": "Gaji Bersih",
         "formula": "=I2 - (I2 * 0.05)",
         "explanation": "Mengurangi gaji kotor dengan potongan pajak PPh 21 5%"
@@ -2180,10 +2450,10 @@ export const CASE_EXAMS: CaseExamData[] = [
     ]
   },
   {
-    "id": "EX-003",
-    "number": 3,
+    "id": "EX-005",
+    "number": 5,
     "code": "#SBEH010",
-    "title": "Latihan Soal Excel Game Seri A Liga Italy",
+    "title": "Game Seri A Liga Italy (Klasemen Sepak Bola)",
     "category": "Kombinasi",
     "difficulty": "MAHIR",
     "difficultyStars": 4,
@@ -2424,10 +2694,10 @@ export const CASE_EXAMS: CaseExamData[] = [
     ]
   },
   {
-    "id": "EX-004",
-    "number": 4,
+    "id": "EX-006",
+    "number": 6,
     "code": "#SBEM011",
-    "title": "Latihan Soal Excel Packing Dus Pesanan Gudang",
+    "title": "Packing Dus Pesanan Gudang E-Commerce",
     "category": "Statistik",
     "difficulty": "MENENGAH",
     "difficultyStars": 3,
@@ -2638,10 +2908,10 @@ export const CASE_EXAMS: CaseExamData[] = [
     ]
   },
   {
-    "id": "EX-005",
-    "number": 5,
+    "id": "EX-007",
+    "number": 7,
     "code": "#SBEC005",
-    "title": "File Latihan Championship Excel: EVE Online (MEWC 2023)",
+    "title": "Championship Excel: EVE Online Refining (MEWC 2023)",
     "category": "Kombinasi",
     "difficulty": "CHAMPIONSHIP",
     "difficultyStars": 5,
@@ -2843,423 +3113,275 @@ export const CASE_EXAMS: CaseExamData[] = [
     ]
   },
   {
-    "id": "EX-006",
-    "number": 6,
-    "code": "#SBEM006",
-    "title": "Simulasi Angsuran Kredit Rumah KPR (Bank PMT) (Studi Kasus #6)",
-    "category": "Keuangan",
-    "difficulty": "MAHIR",
-    "difficultyStars": 4,
-    "tags": [
-      "Cek Otomatis",
-      "Studi Kasus",
-      "Keuangan"
-    ],
-    "instructions": {
-      "title": "MAHIR Level - Simulasi Angsuran Kredit Rumah KPR (Bank PMT)",
-      "description": "Hitung cicilan per bulan menggunakan fungsi PMT.",
-      "points": [
-        "1. Periksa data pada tabel di bawah ini.",
-        "2. Tuliskan formula pada kolom target (E) sesuai aturan yang ditentukan.",
-        "3. Pastikan formula dapat diterapkan ke seluruh baris data.",
-        "4. Klik tombol \"Cek Hasil Jawaban\" untuk mengevaluasi kelulusan kasus."
-      ],
-      "helperTable": {
-        "title": "Ketentuan Rumus",
-        "headers": [
-          "Target Kolom",
-          "Formula Acuan"
-        ],
-        "rows": [
-          [
-            "Angsuran / Bulan (PMT)",
-            "=PMT(C2/12, D2*12, -B2)"
-          ]
-        ]
-      },
-      "notice": "Tulis rumus kalkulasi pada kolom yang telah disediakan."
-    },
-    "sheets": [
-      {
-        "id": "sheet_6",
-        "name": "Simulasi KPR",
-        "columns": [
-          {
-            "key": "deb",
-            "label": "Nama Debitur",
-            "letter": "A"
-          },
-          {
-            "key": "plafon",
-            "label": "Plafon Pinjaman (Rp)",
-            "letter": "B"
-          },
-          {
-            "key": "bunga",
-            "label": "Bunga Tahunan (%)",
-            "letter": "C"
-          },
-          {
-            "key": "tenor",
-            "label": "Tenor (Tahun)",
-            "letter": "D"
-          },
-          {
-            "key": "angsuran",
-            "label": "Angsuran / Bulan (PMT)",
-            "letter": "E"
-          }
-        ],
-        "rows": [
-          {
-            "rowNumber": 2,
-            "values": {
-              "deb": "Andi Pratama",
-              "plafon": 500000000,
-              "bunga": 0.08,
-              "tenor": 15,
-              "angsuran": "?"
-            }
-          },
-          {
-            "rowNumber": 3,
-            "values": {
-              "deb": "Citra Kirana",
-              "plafon": 350000000,
-              "bunga": 0.075,
-              "tenor": 10,
-              "angsuran": "?"
-            }
-          },
-          {
-            "rowNumber": 4,
-            "values": {
-              "deb": "Dimas Anggara",
-              "plafon": 800000000,
-              "bunga": 0.085,
-              "tenor": 20,
-              "angsuran": "?"
-            }
-          },
-          {
-            "rowNumber": 5,
-            "values": {
-              "deb": "Eka Saputra",
-              "plafon": 250000000,
-              "bunga": 0.07,
-              "tenor": 5,
-              "angsuran": "?"
-            }
-          }
-        ],
-        "targetColumns": [
-          {
-            "key": "angsuran",
-            "letter": "E",
-            "label": "Angsuran / Bulan (PMT)",
-            "description": "Hitung cicilan per bulan menggunakan fungsi PMT.",
-            "expectedRowAnswers": {
-              "2": 4778260,
-              "3": 4153835,
-              "4": 6942621,
-              "5": 4950371
-            }
-          }
-        ]
-      }
-    ],
-    "passingScore": 70,
-    "solutionBlueprints": [
-      {
-        "columnLabel": "Angsuran / Bulan (PMT)",
-        "formula": "=PMT(C2/12, D2*12, -B2)",
-        "explanation": "Hitung cicilan per bulan menggunakan fungsi PMT."
-      }
-    ]
-  },
-  {
-    "id": "EX-007",
-    "number": 7,
-    "code": "#SBEM007",
-    "title": "Rekonsiliasi Bank & Buku Kas Perusahaan (Studi Kasus #7)",
-    "category": "Kombinasi",
-    "difficulty": "EXTREME",
-    "difficultyStars": 5,
-    "tags": [
-      "Cek Otomatis",
-      "Studi Kasus",
-      "Kombinasi"
-    ],
-    "instructions": {
-      "title": "EXTREME Level - Rekonsiliasi Bank & Buku Kas Perusahaan",
-      "description": "Hitung selisih mutasi bank dan buku kas perusahaan.",
-      "points": [
-        "1. Periksa data pada tabel di bawah ini.",
-        "2. Tuliskan formula pada kolom target (E) sesuai aturan yang ditentukan.",
-        "3. Pastikan formula dapat diterapkan ke seluruh baris data.",
-        "4. Klik tombol \"Cek Hasil Jawaban\" untuk mengevaluasi kelulusan kasus."
-      ],
-      "helperTable": {
-        "title": "Ketentuan Rumus",
-        "headers": [
-          "Target Kolom",
-          "Formula Acuan"
-        ],
-        "rows": [
-          [
-            "Selisih (Rp)",
-            "=ABS(C2-D2)"
-          ]
-        ]
-      },
-      "notice": "Tulis rumus kalkulasi pada kolom yang telah disediakan."
-    },
-    "sheets": [
-      {
-        "id": "sheet_7",
-        "name": "Rekonsiliasi Kas",
-        "columns": [
-          {
-            "key": "tgl",
-            "label": "Tanggal",
-            "letter": "A"
-          },
-          {
-            "key": "ket",
-            "label": "Keterangan Transaksi",
-            "letter": "B"
-          },
-          {
-            "key": "bank",
-            "label": "Mutasi Bank (Rp)",
-            "letter": "C"
-          },
-          {
-            "key": "buku",
-            "label": "Buku Kas (Rp)",
-            "letter": "D"
-          },
-          {
-            "key": "selisih",
-            "label": "Selisih (Rp)",
-            "letter": "E"
-          },
-          {
-            "key": "status",
-            "label": "Status Audit",
-            "letter": "F"
-          }
-        ],
-        "rows": [
-          {
-            "rowNumber": 2,
-            "values": {
-              "tgl": "01/08/2026",
-              "ket": "Setoran Tunai Kasir Toko",
-              "bank": 15000000,
-              "buku": 15000000,
-              "selisih": "?",
-              "status": "?"
-            }
-          },
-          {
-            "rowNumber": 3,
-            "values": {
-              "tgl": "03/08/2026",
-              "ket": "Kliring Cek Vendor Supplier",
-              "bank": 8500000,
-              "buku": 8500000,
-              "selisih": "?",
-              "status": "?"
-            }
-          },
-          {
-            "rowNumber": 4,
-            "values": {
-              "tgl": "05/08/2026",
-              "ket": "Biaya Administrasi Bank Bulanan",
-              "bank": 25000,
-              "buku": 0,
-              "selisih": "?",
-              "status": "?"
-            }
-          },
-          {
-            "rowNumber": 5,
-            "values": {
-              "tgl": "07/08/2026",
-              "ket": "Pendapatan Jasa Giro Bunga",
-              "bank": 180000,
-              "buku": 0,
-              "selisih": "?",
-              "status": "?"
-            }
-          }
-        ],
-        "targetColumns": [
-          {
-            "key": "selisih",
-            "letter": "E",
-            "label": "Selisih (Rp)",
-            "description": "Hitung selisih mutasi bank dan buku kas perusahaan.",
-            "expectedRowAnswers": {
-              "2": 0,
-              "3": 0,
-              "4": 25000,
-              "5": 180000
-            }
-          }
-        ]
-      }
-    ],
-    "passingScore": 70,
-    "solutionBlueprints": [
-      {
-        "columnLabel": "Selisih (Rp)",
-        "formula": "=ABS(C2-D2)",
-        "explanation": "Hitung selisih mutasi bank dan buku kas perusahaan."
-      }
-    ]
-  },
-  {
     "id": "EX-008",
     "number": 8,
-    "code": "#SBEM008",
-    "title": "Pengolahan Nilai Rapor & Beasiswa Prestasi Siswa (Studi Kasus #8)",
-    "category": "Logika",
+    "code": "#SBEM012",
+    "title": "Tagihan Invoice & Kasir Retail Sembako (VLOOKUP & Diskon)",
+    "category": "Lookup",
     "difficulty": "MENENGAH",
     "difficultyStars": 3,
     "tags": [
-      "Cek Otomatis",
-      "Studi Kasus",
-      "Logika"
+      "Kasir",
+      "Retail",
+      "VLOOKUP",
+      "Invoice"
     ],
     "instructions": {
-      "title": "MENENGAH Level - Pengolahan Nilai Rapor & Beasiswa Prestasi Siswa",
-      "description": "Hitung nilai akhir berbobot 30% Tugas + 30% UTS + 40% UAS.",
+      "title": "Medium Level - Otomasi Tagihan Kasir & Lookup Daftar Harga",
+      "description": "Sistem kasir minimarket memerlukan penarikan Nama Produk & Harga dari sheet \"Daftar Harga\", kalkulasi Subtotal, Diskon Member, dan Total Bayar.",
       "points": [
-        "1. Periksa data pada tabel di bawah ini.",
-        "2. Tuliskan formula pada kolom target (F) sesuai aturan yang ditentukan.",
-        "3. Pastikan formula dapat diterapkan ke seluruh baris data.",
-        "4. Klik tombol \"Cek Hasil Jawaban\" untuk mengevaluasi kelulusan kasus."
+        "1. Kolom C (Nama Produk): Lookup dari sheet \"Daftar Harga\" berdasarkan Kode Barcode -> =VLOOKUP(B2, 'Daftar Harga'!A2:C6, 2, FALSE).",
+        "2. Kolom E (Harga Satuan Rp): Lookup dari sheet \"Daftar Harga\" -> =VLOOKUP(B2, 'Daftar Harga'!A2:C6, 3, FALSE).",
+        "3. Kolom F (Subtotal Rp): Qty * Harga Satuan -> =D2*E2.",
+        "4. Kolom H (Total Bayar Rp): Subtotal - Diskon Member -> =F2-G2."
       ],
       "helperTable": {
-        "title": "Ketentuan Rumus",
+        "title": "Daftar Barcode & Harga Standar",
         "headers": [
-          "Target Kolom",
-          "Formula Acuan"
+          "Barcode",
+          "Nama Produk",
+          "Harga"
         ],
         "rows": [
           [
-            "Nilai Akhir",
-            "=C2*0.3 + D2*0.3 + E2*0.4"
+            "BRC-01",
+            "Minyak Goreng Sania 2L",
+            "Rp 34.000"
+          ],
+          [
+            "BRC-02",
+            "Beras Ramos Super 5kg",
+            "Rp 74.000"
+          ],
+          [
+            "BRC-03",
+            "Gula Kristal Putih 1kg",
+            "Rp 17.500"
+          ],
+          [
+            "BRC-04",
+            "Susu Kental Manis Frisian",
+            "Rp 12.000"
+          ],
+          [
+            "BRC-05",
+            "Kopi Kapal Api Special 165g",
+            "Rp 15.000"
           ]
         ]
       },
-      "notice": "Tulis rumus kalkulasi pada kolom yang telah disediakan."
+      "notice": "Gunakan sheet \"Daftar Harga\" untuk rumus VLOOKUP."
     },
     "sheets": [
       {
-        "id": "sheet_8",
-        "name": "Rapor Siswa",
+        "id": "sheet_invoice",
+        "name": "Invoice Transaksi",
         "columns": [
           {
-            "key": "nis",
-            "label": "NIS",
+            "key": "no",
+            "label": "No",
+            "letter": "A"
+          },
+          {
+            "key": "barcode",
+            "label": "Barcode",
+            "letter": "B"
+          },
+          {
+            "key": "nama_barang",
+            "label": "Nama Produk",
+            "letter": "C"
+          },
+          {
+            "key": "qty",
+            "label": "Qty Beli",
+            "letter": "D"
+          },
+          {
+            "key": "harga",
+            "label": "Harga Satuan (Rp)",
+            "letter": "E"
+          },
+          {
+            "key": "subtotal",
+            "label": "Subtotal (Rp)",
+            "letter": "F"
+          },
+          {
+            "key": "diskon",
+            "label": "Diskon Member (Rp)",
+            "letter": "G"
+          },
+          {
+            "key": "total",
+            "label": "Total Bayar (Rp)",
+            "letter": "H"
+          }
+        ],
+        "rows": [
+          {
+            "rowNumber": 2,
+            "values": {
+              "no": 1,
+              "barcode": "BRC-01",
+              "nama_barang": "?",
+              "qty": 3,
+              "harga": "?",
+              "subtotal": "?",
+              "diskon": 5000,
+              "total": "?"
+            }
+          },
+          {
+            "rowNumber": 3,
+            "values": {
+              "no": 2,
+              "barcode": "BRC-02",
+              "nama_barang": "?",
+              "qty": 2,
+              "harga": "?",
+              "subtotal": "?",
+              "diskon": 10000,
+              "total": "?"
+            }
+          },
+          {
+            "rowNumber": 4,
+            "values": {
+              "no": 3,
+              "barcode": "BRC-03",
+              "nama_barang": "?",
+              "qty": 4,
+              "harga": "?",
+              "subtotal": "?",
+              "diskon": 0,
+              "total": "?"
+            }
+          },
+          {
+            "rowNumber": 5,
+            "values": {
+              "no": 4,
+              "barcode": "BRC-05",
+              "nama_barang": "?",
+              "qty": 5,
+              "harga": "?",
+              "subtotal": "?",
+              "diskon": 3000,
+              "total": "?"
+            }
+          }
+        ],
+        "targetColumns": [
+          {
+            "key": "nama_barang",
+            "letter": "C",
+            "label": "Nama Produk",
+            "description": "Lookup Nama Produk dari Daftar Harga",
+            "expectedRowAnswers": {
+              "2": "Minyak Goreng Sania 2L",
+              "3": "Beras Ramos Super 5kg",
+              "4": "Gula Kristal Putih 1kg",
+              "5": "Kopi Kapal Api Special 165g"
+            }
+          },
+          {
+            "key": "harga",
+            "letter": "E",
+            "label": "Harga Satuan",
+            "description": "Lookup Harga Satuan dari Daftar Harga",
+            "expectedRowAnswers": {
+              "2": 34000,
+              "3": 74000,
+              "4": 17500,
+              "5": 15000
+            }
+          },
+          {
+            "key": "subtotal",
+            "letter": "F",
+            "label": "Subtotal",
+            "description": "Qty * Harga Satuan",
+            "expectedRowAnswers": {
+              "2": 102000,
+              "3": 148000,
+              "4": 70000,
+              "5": 75000
+            }
+          },
+          {
+            "key": "total",
+            "letter": "H",
+            "label": "Total Bayar",
+            "description": "Subtotal - Diskon Member",
+            "expectedRowAnswers": {
+              "2": 97000,
+              "3": 138000,
+              "4": 70000,
+              "5": 72000
+            }
+          }
+        ]
+      },
+      {
+        "id": "sheet_harga",
+        "name": "Daftar Harga",
+        "columns": [
+          {
+            "key": "barcode",
+            "label": "Kode Barcode",
             "letter": "A"
           },
           {
             "key": "nama",
-            "label": "Nama Siswa",
+            "label": "Nama Produk",
             "letter": "B"
           },
           {
-            "key": "tugas",
-            "label": "Nilai Tugas (30%)",
+            "key": "harga",
+            "label": "Harga Satuan (Rp)",
             "letter": "C"
-          },
-          {
-            "key": "uts",
-            "label": "Nilai UTS (30%)",
-            "letter": "D"
-          },
-          {
-            "key": "uas",
-            "label": "Nilai UAS (40%)",
-            "letter": "E"
-          },
-          {
-            "key": "akhir",
-            "label": "Nilai Akhir",
-            "letter": "F"
-          },
-          {
-            "key": "beasiswa",
-            "label": "Status Beasiswa",
-            "letter": "G"
           }
         ],
         "rows": [
           {
             "rowNumber": 2,
             "values": {
-              "nis": "202601",
-              "nama": "Fajar Nugraha",
-              "tugas": 85,
-              "uts": 90,
-              "uas": 92,
-              "akhir": "?",
-              "beasiswa": "?"
+              "barcode": "BRC-01",
+              "nama": "Minyak Goreng Sania 2L",
+              "harga": 34000
             }
           },
           {
             "rowNumber": 3,
             "values": {
-              "nis": "202602",
-              "nama": "Gita Larasati",
-              "tugas": 75,
-              "uts": 80,
-              "uas": 78,
-              "akhir": "?",
-              "beasiswa": "?"
+              "barcode": "BRC-02",
+              "nama": "Beras Ramos Super 5kg",
+              "harga": 74000
             }
           },
           {
             "rowNumber": 4,
             "values": {
-              "nis": "202603",
-              "nama": "Hendra Gunawan",
-              "tugas": 90,
-              "uts": 95,
-              "uas": 94,
-              "akhir": "?",
-              "beasiswa": "?"
+              "barcode": "BRC-03",
+              "nama": "Gula Kristal Putih 1kg",
+              "harga": 17500
             }
           },
           {
             "rowNumber": 5,
             "values": {
-              "nis": "202604",
-              "nama": "Indah Permatasari",
-              "tugas": 60,
-              "uts": 65,
-              "uas": 70,
-              "akhir": "?",
-              "beasiswa": "?"
+              "barcode": "BRC-04",
+              "nama": "Susu Kental Manis Frisian",
+              "harga": 12000
             }
-          }
-        ],
-        "targetColumns": [
+          },
           {
-            "key": "akhir",
-            "letter": "F",
-            "label": "Nilai Akhir",
-            "description": "Hitung nilai akhir berbobot 30% Tugas + 30% UTS + 40% UAS.",
-            "expectedRowAnswers": {
-              "2": 89.3,
-              "3": 77.7,
-              "4": 93.1,
-              "5": 65.5
+            "rowNumber": 6,
+            "values": {
+              "barcode": "BRC-05",
+              "nama": "Kopi Kapal Api Special 165g",
+              "harga": 15000
             }
           }
         ]
@@ -3268,133 +3390,207 @@ export const CASE_EXAMS: CaseExamData[] = [
     "passingScore": 70,
     "solutionBlueprints": [
       {
-        "columnLabel": "Nilai Akhir",
-        "formula": "=C2*0.3 + D2*0.3 + E2*0.4",
-        "explanation": "Hitung nilai akhir berbobot 30% Tugas + 30% UTS + 40% UAS."
+        "columnLabel": "Nama Produk",
+        "formula": "=VLOOKUP(B2, 'Daftar Harga'!A2:C6, 2, FALSE)",
+        "explanation": "Mengambil nama produk dari sheet Daftar Harga"
+      },
+      {
+        "columnLabel": "Harga Satuan",
+        "formula": "=VLOOKUP(B2, 'Daftar Harga'!A2:C6, 3, FALSE)",
+        "explanation": "Mengambil harga satuan dari sheet Daftar Harga"
+      },
+      {
+        "columnLabel": "Total Bayar",
+        "formula": "=F2-G2",
+        "explanation": "Mengurangi subtotal dengan diskon member"
       }
     ]
   },
   {
     "id": "EX-009",
     "number": 9,
-    "code": "#SBEM009",
-    "title": "Simulasi Angsuran Kredit Rumah KPR (Bank PMT) (Studi Kasus #9)",
-    "category": "Keuangan",
-    "difficulty": "MAHIR",
-    "difficultyStars": 4,
+    "code": "#SBEM018",
+    "title": "Master DATEDIF Masa Kerja & Status Senioritas Karyawan",
+    "category": "Teks",
+    "difficulty": "MENENGAH",
+    "difficultyStars": 3,
     "tags": [
-      "Cek Otomatis",
-      "Studi Kasus",
-      "Keuangan"
+      "HRD",
+      "DATEDIF",
+      "Masa Kerja"
     ],
     "instructions": {
-      "title": "MAHIR Level - Simulasi Angsuran Kredit Rumah KPR (Bank PMT)",
-      "description": "Hitung cicilan per bulan menggunakan fungsi PMT.",
+      "title": "Medium Level - Kalkulasi Masa Kerja Pegawai (Tahun & Bulan)",
+      "description": "Departemen HRD memerlukan perhitungan lama masa kerja karyawan dari Tanggal Masuk (Join Date) ke Tanggal Evaluasi (Cut-off: 2026-08-01) menggunakan fungsi DATEDIF.",
       "points": [
-        "1. Periksa data pada tabel di bawah ini.",
-        "2. Tuliskan formula pada kolom target (E) sesuai aturan yang ditentukan.",
-        "3. Pastikan formula dapat diterapkan ke seluruh baris data.",
-        "4. Klik tombol \"Cek Hasil Jawaban\" untuk mengevaluasi kelulusan kasus."
+        "1. Kolom E (Masa Kerja Tahun): Gunakan =DATEDIF(C2, D2, \"Y\").",
+        "2. Kolom F (Masa Kerja Sisa Bulan): Gunakan =DATEDIF(C2, D2, \"YM\").",
+        "3. Kolom G (Status Senioritas): Jika Masa Kerja Tahun >= 5 maka \"SENIOR\", jika tidak \"JUNIOR\" -> =IF(E2>=5, \"SENIOR\", \"JUNIOR\")."
       ],
       "helperTable": {
-        "title": "Ketentuan Rumus",
+        "title": "Argumen Fungsi DATEDIF",
         "headers": [
-          "Target Kolom",
-          "Formula Acuan"
+          "Satuan",
+          "Kode Unit"
         ],
         "rows": [
           [
-            "Angsuran / Bulan (PMT)",
-            "=PMT(C2/12, D2*12, -B2)"
+            "Jumlah Tahun Penuh",
+            "\"Y\""
+          ],
+          [
+            "Jumlah Sisa Bulan",
+            "\"YM\""
+          ],
+          [
+            "Jumlah Hari Penuh",
+            "\"D\""
           ]
         ]
       },
-      "notice": "Tulis rumus kalkulasi pada kolom yang telah disediakan."
+      "notice": "Gunakan fungsi DATEDIF(Start_Date, End_Date, Unit) dan IF."
     },
     "sheets": [
       {
-        "id": "sheet_9",
-        "name": "Simulasi KPR",
+        "id": "sheet_datedif",
+        "name": "Masa Kerja Karyawan",
         "columns": [
           {
-            "key": "deb",
-            "label": "Nama Debitur",
+            "key": "nik",
+            "label": "NIK",
             "letter": "A"
           },
           {
-            "key": "plafon",
-            "label": "Plafon Pinjaman (Rp)",
+            "key": "nama",
+            "label": "Nama Karyawan",
             "letter": "B"
           },
           {
-            "key": "bunga",
-            "label": "Bunga Tahunan (%)",
+            "key": "join",
+            "label": "Tanggal Masuk",
             "letter": "C"
           },
           {
-            "key": "tenor",
-            "label": "Tenor (Tahun)",
+            "key": "eval",
+            "label": "Tanggal Evaluasi",
             "letter": "D"
           },
           {
-            "key": "angsuran",
-            "label": "Angsuran / Bulan (PMT)",
+            "key": "thn",
+            "label": "Masa Kerja (Tahun)",
             "letter": "E"
+          },
+          {
+            "key": "bln",
+            "label": "Sisa Masa (Bulan)",
+            "letter": "F"
+          },
+          {
+            "key": "senioritas",
+            "label": "Status Senioritas",
+            "letter": "G"
           }
         ],
         "rows": [
           {
             "rowNumber": 2,
             "values": {
-              "deb": "Andi Pratama",
-              "plafon": 500000000,
-              "bunga": 0.08,
-              "tenor": 15,
-              "angsuran": "?"
+              "nik": "KRY-01",
+              "nama": "Bambang Wijaya",
+              "join": "2016-03-15",
+              "eval": "2026-08-01",
+              "thn": "?",
+              "bln": "?",
+              "senioritas": "?"
             }
           },
           {
             "rowNumber": 3,
             "values": {
-              "deb": "Citra Kirana",
-              "plafon": 350000000,
-              "bunga": 0.075,
-              "tenor": 10,
-              "angsuran": "?"
+              "nik": "KRY-02",
+              "nama": "Lilis Suryani",
+              "join": "2023-01-10",
+              "eval": "2026-08-01",
+              "thn": "?",
+              "bln": "?",
+              "senioritas": "?"
             }
           },
           {
             "rowNumber": 4,
             "values": {
-              "deb": "Dimas Anggara",
-              "plafon": 800000000,
-              "bunga": 0.085,
-              "tenor": 20,
-              "angsuran": "?"
+              "nik": "KRY-03",
+              "nama": "Eko Purwanto",
+              "join": "2019-09-01",
+              "eval": "2026-08-01",
+              "thn": "?",
+              "bln": "?",
+              "senioritas": "?"
             }
           },
           {
             "rowNumber": 5,
             "values": {
-              "deb": "Eka Saputra",
-              "plafon": 250000000,
-              "bunga": 0.07,
-              "tenor": 5,
-              "angsuran": "?"
+              "nik": "KRY-04",
+              "nama": "Ratna Sari",
+              "join": "2024-05-20",
+              "eval": "2026-08-01",
+              "thn": "?",
+              "bln": "?",
+              "senioritas": "?"
+            }
+          },
+          {
+            "rowNumber": 6,
+            "values": {
+              "nik": "KRY-05",
+              "nama": "Tri Wahyuni",
+              "join": "2018-12-01",
+              "eval": "2026-08-01",
+              "thn": "?",
+              "bln": "?",
+              "senioritas": "?"
             }
           }
         ],
         "targetColumns": [
           {
-            "key": "angsuran",
+            "key": "thn",
             "letter": "E",
-            "label": "Angsuran / Bulan (PMT)",
-            "description": "Hitung cicilan per bulan menggunakan fungsi PMT.",
+            "label": "Masa Kerja (Tahun)",
+            "description": "DATEDIF(Join, Eval, \"Y\")",
             "expectedRowAnswers": {
-              "2": 4778260,
-              "3": 4153835,
-              "4": 6942621,
-              "5": 4950371
+              "2": 10,
+              "3": 3,
+              "4": 6,
+              "5": 2,
+              "6": 7
+            }
+          },
+          {
+            "key": "bln",
+            "letter": "F",
+            "label": "Sisa Masa (Bulan)",
+            "description": "DATEDIF(Join, Eval, \"YM\")",
+            "expectedRowAnswers": {
+              "2": 4,
+              "3": 6,
+              "4": 11,
+              "5": 2,
+              "6": 8
+            }
+          },
+          {
+            "key": "senioritas",
+            "letter": "G",
+            "label": "Status Senioritas",
+            "description": "IF(Tahun>=5, \"SENIOR\", \"JUNIOR\")",
+            "expectedRowAnswers": {
+              "2": "SENIOR",
+              "3": "JUNIOR",
+              "4": "SENIOR",
+              "5": "JUNIOR",
+              "6": "SENIOR"
             }
           }
         ]
@@ -3403,142 +3599,187 @@ export const CASE_EXAMS: CaseExamData[] = [
     "passingScore": 70,
     "solutionBlueprints": [
       {
-        "columnLabel": "Angsuran / Bulan (PMT)",
-        "formula": "=PMT(C2/12, D2*12, -B2)",
-        "explanation": "Hitung cicilan per bulan menggunakan fungsi PMT."
+        "columnLabel": "Masa Kerja (Tahun)",
+        "formula": "=DATEDIF(C2, D2, \"Y\")",
+        "explanation": "Menghitung selisih tahun penuh antara dua tanggal"
+      },
+      {
+        "columnLabel": "Status Senioritas",
+        "formula": "=IF(E2>=5, \"SENIOR\", \"JUNIOR\")",
+        "explanation": "Menguji apakah masa kerja karyawan sudah mencapai minimal 5 tahun"
       }
     ]
   },
   {
     "id": "EX-010",
     "number": 10,
-    "code": "#SBEM010",
-    "title": "Rekonsiliasi Bank & Buku Kas Perusahaan (Studi Kasus #10)",
-    "category": "Kombinasi",
-    "difficulty": "EXTREME",
-    "difficultyStars": 5,
+    "code": "#SBEM019",
+    "title": "Perhitungan Komisi Sales Otomotif Multi-Tier",
+    "category": "Logika",
+    "difficulty": "MENENGAH",
+    "difficultyStars": 3,
     "tags": [
-      "Cek Otomatis",
-      "Studi Kasus",
-      "Kombinasi"
+      "Sales",
+      "Komisi",
+      "IF Bertingkat"
     ],
     "instructions": {
-      "title": "EXTREME Level - Rekonsiliasi Bank & Buku Kas Perusahaan",
-      "description": "Hitung selisih mutasi bank dan buku kas perusahaan.",
+      "title": "Medium Level - Target Penjualan & Komisi Berjenjang Sales",
+      "description": "Manajer Penjualan memerlukan kalkulasi Persentase Capaian Target, Rate Komisi (% Berjenjang), dan Total Bonus Komisi yang diterima sales.",
       "points": [
-        "1. Periksa data pada tabel di bawah ini.",
-        "2. Tuliskan formula pada kolom target (E) sesuai aturan yang ditentukan.",
-        "3. Pastikan formula dapat diterapkan ke seluruh baris data.",
-        "4. Klik tombol \"Cek Hasil Jawaban\" untuk mengevaluasi kelulusan kasus."
+        "1. Kolom E (% Capaian): Realisasi Omset (kolom D) / Target Omset (kolom C) -> =D2/C2.",
+        "2. Kolom F (% Rate Komisi): Jika Capaian >= 1.0 (100%) maka 0.05 (5%), jika Capaian >= 0.8 (80%) maka 0.03 (3%), jika di bawah 80% maka 0.01 (1%) -> =IF(E2>=1, 0.05, IF(E2>=0.8, 0.03, 0.01)).",
+        "3. Kolom G (Nominal Komisi Rp): Realisasi Omset * % Rate Komisi -> =D2*F2."
       ],
       "helperTable": {
-        "title": "Ketentuan Rumus",
+        "title": "Tabel Skema Komisi Sales",
         "headers": [
-          "Target Kolom",
-          "Formula Acuan"
+          "Capaian Target",
+          "% Komisi"
         ],
         "rows": [
           [
-            "Selisih (Rp)",
-            "=ABS(C2-D2)"
+            ">= 100% Target",
+            "5% dari Omset"
+          ],
+          [
+            "80% - 99% Target",
+            "3% dari Omset"
+          ],
+          [
+            "< 80% Target",
+            "1% dari Omset"
           ]
         ]
       },
-      "notice": "Tulis rumus kalkulasi pada kolom yang telah disediakan."
+      "notice": "Gunakan pembagian untuk capaian dan fungsi IF bertingkat untuk rate komisi."
     },
     "sheets": [
       {
-        "id": "sheet_10",
-        "name": "Rekonsiliasi Kas",
+        "id": "sheet_komisi",
+        "name": "Komisi Sales",
         "columns": [
           {
-            "key": "tgl",
-            "label": "Tanggal",
+            "key": "id",
+            "label": "ID Sales",
             "letter": "A"
           },
           {
-            "key": "ket",
-            "label": "Keterangan Transaksi",
+            "key": "nama",
+            "label": "Nama Sales Representative",
             "letter": "B"
           },
           {
-            "key": "bank",
-            "label": "Mutasi Bank (Rp)",
+            "key": "target",
+            "label": "Target Omset (Rp)",
             "letter": "C"
           },
           {
-            "key": "buku",
-            "label": "Buku Kas (Rp)",
+            "key": "realisasi",
+            "label": "Realisasi Omset (Rp)",
             "letter": "D"
           },
           {
-            "key": "selisih",
-            "label": "Selisih (Rp)",
+            "key": "pct_capaian",
+            "label": "% Capaian",
             "letter": "E"
           },
           {
-            "key": "status",
-            "label": "Status Audit",
+            "key": "rate",
+            "label": "% Rate Komisi",
             "letter": "F"
+          },
+          {
+            "key": "komisi_rp",
+            "label": "Nominal Komisi (Rp)",
+            "letter": "G"
           }
         ],
         "rows": [
           {
             "rowNumber": 2,
             "values": {
-              "tgl": "01/08/2026",
-              "ket": "Setoran Tunai Kasir Toko",
-              "bank": 15000000,
-              "buku": 15000000,
-              "selisih": "?",
-              "status": "?"
+              "id": "SLS-01",
+              "nama": "Gilang Ramadhan",
+              "target": 200000000,
+              "realisasi": 240000000,
+              "pct_capaian": "?",
+              "rate": "?",
+              "komisi_rp": "?"
             }
           },
           {
             "rowNumber": 3,
             "values": {
-              "tgl": "03/08/2026",
-              "ket": "Kliring Cek Vendor Supplier",
-              "bank": 8500000,
-              "buku": 8500000,
-              "selisih": "?",
-              "status": "?"
+              "id": "SLS-02",
+              "nama": "Siska Handayani",
+              "target": 200000000,
+              "realisasi": 180000000,
+              "pct_capaian": "?",
+              "rate": "?",
+              "komisi_rp": "?"
             }
           },
           {
             "rowNumber": 4,
             "values": {
-              "tgl": "05/08/2026",
-              "ket": "Biaya Administrasi Bank Bulanan",
-              "bank": 25000,
-              "buku": 0,
-              "selisih": "?",
-              "status": "?"
+              "id": "SLS-03",
+              "nama": "Doni Setiawan",
+              "target": 150000000,
+              "realisasi": 105000000,
+              "pct_capaian": "?",
+              "rate": "?",
+              "komisi_rp": "?"
             }
           },
           {
             "rowNumber": 5,
             "values": {
-              "tgl": "07/08/2026",
-              "ket": "Pendapatan Jasa Giro Bunga",
-              "bank": 180000,
-              "buku": 0,
-              "selisih": "?",
-              "status": "?"
+              "id": "SLS-04",
+              "nama": "Niken Larasati",
+              "target": 250000000,
+              "realisasi": 275000000,
+              "pct_capaian": "?",
+              "rate": "?",
+              "komisi_rp": "?"
             }
           }
         ],
         "targetColumns": [
           {
-            "key": "selisih",
+            "key": "pct_capaian",
             "letter": "E",
-            "label": "Selisih (Rp)",
-            "description": "Hitung selisih mutasi bank dan buku kas perusahaan.",
+            "label": "% Capaian",
+            "description": "Realisasi / Target",
             "expectedRowAnswers": {
-              "2": 0,
-              "3": 0,
-              "4": 25000,
-              "5": 180000
+              "2": 1.2,
+              "3": 0.9,
+              "4": 0.7,
+              "5": 1.1
+            }
+          },
+          {
+            "key": "rate",
+            "letter": "F",
+            "label": "% Rate Komisi",
+            "description": "IF(Capaian>=1, 0.05, IF(Capaian>=0.8, 0.03, 0.01))",
+            "expectedRowAnswers": {
+              "2": 0.05,
+              "3": 0.03,
+              "4": 0.01,
+              "5": 0.05
+            }
+          },
+          {
+            "key": "komisi_rp",
+            "letter": "G",
+            "label": "Nominal Komisi",
+            "description": "Realisasi * Rate",
+            "expectedRowAnswers": {
+              "2": 12000000,
+              "3": 5400000,
+              "4": 1050000,
+              "5": 13750000
             }
           }
         ]
@@ -3547,87 +3788,100 @@ export const CASE_EXAMS: CaseExamData[] = [
     "passingScore": 70,
     "solutionBlueprints": [
       {
-        "columnLabel": "Selisih (Rp)",
-        "formula": "=ABS(C2-D2)",
-        "explanation": "Hitung selisih mutasi bank dan buku kas perusahaan."
+        "columnLabel": "% Capaian",
+        "formula": "=D2/C2",
+        "explanation": "Membagi realisasi penjualan dengan target yang ditetapkan"
+      },
+      {
+        "columnLabel": "% Rate Komisi",
+        "formula": "=IF(E2>=1, 0.05, IF(E2>=0.8, 0.03, 0.01))",
+        "explanation": "Menentukan persentase rate komisi berjenjang"
       }
     ]
   },
   {
     "id": "EX-011",
     "number": 11,
-    "code": "#SBEM011",
-    "title": "Pengolahan Nilai Rapor & Beasiswa Prestasi Siswa (Studi Kasus #11)",
-    "category": "Logika",
+    "code": "#SBEM021",
+    "title": "Kalkulasi HPP & Margin Keuntungan Menu Restoran F&B",
+    "category": "Aritmatika",
     "difficulty": "MENENGAH",
-    "difficultyStars": 3,
+    "difficultyStars": 2,
     "tags": [
-      "Cek Otomatis",
-      "Studi Kasus",
-      "Logika"
+      "F&B",
+      "Restoran",
+      "HPP",
+      "Margin"
     ],
     "instructions": {
-      "title": "MENENGAH Level - Pengolahan Nilai Rapor & Beasiswa Prestasi Siswa",
-      "description": "Hitung nilai akhir berbobot 30% Tugas + 30% UTS + 40% UAS.",
+      "title": "Medium Level - Analisis Margin Profit & Harga Jual Menu Cafe",
+      "description": "Manajer Restoran F&B menghitung Laba Kotor per porsi (Harga Jual - Biaya Bahan HPP) dan Persentase Margin Laba (% Profit Margin).",
       "points": [
-        "1. Periksa data pada tabel di bawah ini.",
-        "2. Tuliskan formula pada kolom target (F) sesuai aturan yang ditentukan.",
-        "3. Pastikan formula dapat diterapkan ke seluruh baris data.",
-        "4. Klik tombol \"Cek Hasil Jawaban\" untuk mengevaluasi kelulusan kasus."
+        "1. Kolom E (Laba Kotor Rp): Harga Jual (kolom D) - Biaya Bahan HPP (kolom C) -> =D2-C2.",
+        "2. Kolom F (% Margin Laba): Laba Kotor / Harga Jual -> =E2/D2.",
+        "3. Kolom G (Status Profitabilitas): Jika % Margin Laba >= 0.6 (60%) maka \"HIGH MARGIN\", jika tidak \"STANDARD MARGIN\" -> =IF(F2>=0.6, \"HIGH MARGIN\", \"STANDARD MARGIN\")."
       ],
       "helperTable": {
-        "title": "Ketentuan Rumus",
+        "title": "Rumus Keuangan Restoran",
         "headers": [
-          "Target Kolom",
-          "Formula Acuan"
+          "Indikator",
+          "Formula"
         ],
         "rows": [
           [
-            "Nilai Akhir",
-            "=C2*0.3 + D2*0.3 + E2*0.4"
+            "Laba Kotor",
+            "=Harga Jual - Biaya Bahan HPP"
+          ],
+          [
+            "% Margin Laba",
+            "=Laba Kotor / Harga Jual"
+          ],
+          [
+            "High Margin",
+            ">= 60% Margin"
           ]
         ]
       },
-      "notice": "Tulis rumus kalkulasi pada kolom yang telah disediakan."
+      "notice": "Gunakan operator aritmatika dan fungsi IF."
     },
     "sheets": [
       {
-        "id": "sheet_11",
-        "name": "Rapor Siswa",
+        "id": "sheet_fnb",
+        "name": "Menu & Margin Resto",
         "columns": [
           {
-            "key": "nis",
-            "label": "NIS",
+            "key": "kode",
+            "label": "Kode Menu",
             "letter": "A"
           },
           {
-            "key": "nama",
-            "label": "Nama Siswa",
+            "key": "nama_menu",
+            "label": "Nama Menu Makanan / Minuman",
             "letter": "B"
           },
           {
-            "key": "tugas",
-            "label": "Nilai Tugas (30%)",
+            "key": "hpp",
+            "label": "Biaya Bahan HPP (Rp)",
             "letter": "C"
           },
           {
-            "key": "uts",
-            "label": "Nilai UTS (30%)",
+            "key": "jual",
+            "label": "Harga Jual Menu (Rp)",
             "letter": "D"
           },
           {
-            "key": "uas",
-            "label": "Nilai UAS (40%)",
+            "key": "laba",
+            "label": "Laba Kotor (Rp)",
             "letter": "E"
           },
           {
-            "key": "akhir",
-            "label": "Nilai Akhir",
+            "key": "margin",
+            "label": "% Margin Laba",
             "letter": "F"
           },
           {
-            "key": "beasiswa",
-            "label": "Status Beasiswa",
+            "key": "status_margin",
+            "label": "Status Profitabilitas",
             "letter": "G"
           }
         ],
@@ -3635,63 +3889,87 @@ export const CASE_EXAMS: CaseExamData[] = [
           {
             "rowNumber": 2,
             "values": {
-              "nis": "202601",
-              "nama": "Fajar Nugraha",
-              "tugas": 85,
-              "uts": 90,
-              "uas": 92,
-              "akhir": "?",
-              "beasiswa": "?"
+              "kode": "MN-01",
+              "nama_menu": "Espresso Single Origin 30ml",
+              "hpp": 4500,
+              "jual": 25000,
+              "laba": "?",
+              "margin": "?",
+              "status_margin": "?"
             }
           },
           {
             "rowNumber": 3,
             "values": {
-              "nis": "202602",
-              "nama": "Gita Larasati",
-              "tugas": 75,
-              "uts": 80,
-              "uas": 78,
-              "akhir": "?",
-              "beasiswa": "?"
+              "kode": "MN-02",
+              "nama_menu": "Iced Caramel Macchiato 16oz",
+              "hpp": 11000,
+              "jual": 38000,
+              "laba": "?",
+              "margin": "?",
+              "status_margin": "?"
             }
           },
           {
             "rowNumber": 4,
             "values": {
-              "nis": "202603",
-              "nama": "Hendra Gunawan",
-              "tugas": 90,
-              "uts": 95,
-              "uas": 94,
-              "akhir": "?",
-              "beasiswa": "?"
+              "kode": "MN-03",
+              "nama_menu": "Sirloin Steak Meltique 200g",
+              "hpp": 65000,
+              "jual": 115000,
+              "laba": "?",
+              "margin": "?",
+              "status_margin": "?"
             }
           },
           {
             "rowNumber": 5,
             "values": {
-              "nis": "202604",
-              "nama": "Indah Permatasari",
-              "tugas": 60,
-              "uts": 65,
-              "uas": 70,
-              "akhir": "?",
-              "beasiswa": "?"
+              "kode": "MN-04",
+              "nama_menu": "Spaghetti Carbonara Creamy",
+              "hpp": 18000,
+              "jual": 42000,
+              "laba": "?",
+              "margin": "?",
+              "status_margin": "?"
             }
           }
         ],
         "targetColumns": [
           {
-            "key": "akhir",
-            "letter": "F",
-            "label": "Nilai Akhir",
-            "description": "Hitung nilai akhir berbobot 30% Tugas + 30% UTS + 40% UAS.",
+            "key": "laba",
+            "letter": "E",
+            "label": "Laba Kotor (Rp)",
+            "description": "Harga Jual - HPP",
             "expectedRowAnswers": {
-              "2": 89.3,
-              "3": 77.7,
-              "4": 93.1,
-              "5": 65.5
+              "2": 20500,
+              "3": 27000,
+              "4": 50000,
+              "5": 24000
+            }
+          },
+          {
+            "key": "margin",
+            "letter": "F",
+            "label": "% Margin Laba",
+            "description": "Laba Kotor / Harga Jual",
+            "expectedRowAnswers": {
+              "2": 0.82,
+              "3": 0.711,
+              "4": 0.435,
+              "5": 0.571
+            }
+          },
+          {
+            "key": "status_margin",
+            "letter": "G",
+            "label": "Status Profitabilitas",
+            "description": "IF(Margin>=0.6, \"HIGH MARGIN\", \"STANDARD MARGIN\")",
+            "expectedRowAnswers": {
+              "2": "HIGH MARGIN",
+              "3": "HIGH MARGIN",
+              "4": "STANDARD MARGIN",
+              "5": "STANDARD MARGIN"
             }
           }
         ]
@@ -3700,133 +3978,181 @@ export const CASE_EXAMS: CaseExamData[] = [
     "passingScore": 70,
     "solutionBlueprints": [
       {
-        "columnLabel": "Nilai Akhir",
-        "formula": "=C2*0.3 + D2*0.3 + E2*0.4",
-        "explanation": "Hitung nilai akhir berbobot 30% Tugas + 30% UTS + 40% UAS."
+        "columnLabel": "Laba Kotor",
+        "formula": "=D2-C2",
+        "explanation": "Mengurangi harga jual dengan biaya pokok bahan baku"
+      },
+      {
+        "columnLabel": "% Margin Laba",
+        "formula": "=E2/D2",
+        "explanation": "Menghitung persentase margin keuntungan dari harga jual"
       }
     ]
   },
   {
     "id": "EX-012",
     "number": 12,
-    "code": "#SBEM012",
-    "title": "Simulasi Angsuran Kredit Rumah KPR (Bank PMT) (Studi Kasus #12)",
-    "category": "Keuangan",
-    "difficulty": "MAHIR",
-    "difficultyStars": 4,
+    "code": "#SBEM022",
+    "title": "Pengolahan Nilai Rapor Siswa & Predikat Kelulusan",
+    "category": "Statistik",
+    "difficulty": "MENENGAH",
+    "difficultyStars": 3,
     "tags": [
-      "Cek Otomatis",
-      "Studi Kasus",
-      "Keuangan"
+      "Sekolah",
+      "Guru",
+      "Nilai",
+      "AVERAGE",
+      "IF"
     ],
     "instructions": {
-      "title": "MAHIR Level - Simulasi Angsuran Kredit Rumah KPR (Bank PMT)",
-      "description": "Hitung cicilan per bulan menggunakan fungsi PMT.",
+      "title": "Medium Level - Rekapitulasi Nilai Akademik Siswa",
+      "description": "Guru kelas merekapitulasi Rata-rata Nilai 4 mata pelajaran, Predikat Kelulusan (A/B/C), dan Status Kelulusan (LULUS jika Rata-rata >= 75).",
       "points": [
-        "1. Periksa data pada tabel di bawah ini.",
-        "2. Tuliskan formula pada kolom target (E) sesuai aturan yang ditentukan.",
-        "3. Pastikan formula dapat diterapkan ke seluruh baris data.",
-        "4. Klik tombol \"Cek Hasil Jawaban\" untuk mengevaluasi kelulusan kasus."
+        "1. Kolom G (Rata-rata Nilai): Hitung rata-rata nilai Matematika, IPA, B.Indo, B.Inggris -> =AVERAGE(C2:F2).",
+        "2. Kolom H (Status Kelulusan): Jika Rata-rata >= 75 maka \"LULUS\", jika tidak \"REMIDI\" -> =IF(G2>=75, \"LULUS\", \"REMIDI\")."
       ],
       "helperTable": {
-        "title": "Ketentuan Rumus",
+        "title": "Standar Kelulusan Kelas",
         "headers": [
-          "Target Kolom",
-          "Formula Acuan"
+          "Rata-Rata Nilai",
+          "Status"
         ],
         "rows": [
           [
-            "Angsuran / Bulan (PMT)",
-            "=PMT(C2/12, D2*12, -B2)"
+            ">= 75.0",
+            "LULUS"
+          ],
+          [
+            "< 75.0",
+            "REMIDI"
           ]
         ]
       },
-      "notice": "Tulis rumus kalkulasi pada kolom yang telah disediakan."
+      "notice": "Gunakan fungsi AVERAGE dan IF."
     },
     "sheets": [
       {
-        "id": "sheet_12",
-        "name": "Simulasi KPR",
+        "id": "sheet_rapor",
+        "name": "Rapor Akademik",
         "columns": [
           {
-            "key": "deb",
-            "label": "Nama Debitur",
+            "key": "nis",
+            "label": "NIS",
             "letter": "A"
           },
           {
-            "key": "plafon",
-            "label": "Plafon Pinjaman (Rp)",
+            "key": "nama",
+            "label": "Nama Siswa",
             "letter": "B"
           },
           {
-            "key": "bunga",
-            "label": "Bunga Tahunan (%)",
+            "key": "mat",
+            "label": "Matematika",
             "letter": "C"
           },
           {
-            "key": "tenor",
-            "label": "Tenor (Tahun)",
+            "key": "ipa",
+            "label": "IPA",
             "letter": "D"
           },
           {
-            "key": "angsuran",
-            "label": "Angsuran / Bulan (PMT)",
+            "key": "indo",
+            "label": "B. Indonesia",
             "letter": "E"
+          },
+          {
+            "key": "inggris",
+            "label": "B. Inggris",
+            "letter": "F"
+          },
+          {
+            "key": "rata",
+            "label": "Rata-Rata",
+            "letter": "G"
+          },
+          {
+            "key": "status",
+            "label": "Status Kelulusan",
+            "letter": "H"
           }
         ],
         "rows": [
           {
             "rowNumber": 2,
             "values": {
-              "deb": "Andi Pratama",
-              "plafon": 500000000,
-              "bunga": 0.08,
-              "tenor": 15,
-              "angsuran": "?"
+              "nis": "2026-01",
+              "nama": "Ahmad Fauzi Rahman",
+              "mat": 88,
+              "ipa": 82,
+              "indo": 90,
+              "inggris": 84,
+              "rata": "?",
+              "status": "?"
             }
           },
           {
             "rowNumber": 3,
             "values": {
-              "deb": "Citra Kirana",
-              "plafon": 350000000,
-              "bunga": 0.075,
-              "tenor": 10,
-              "angsuran": "?"
+              "nis": "2026-02",
+              "nama": "Citra Dewi Anggraini",
+              "mat": 68,
+              "ipa": 72,
+              "indo": 74,
+              "inggris": 70,
+              "rata": "?",
+              "status": "?"
             }
           },
           {
             "rowNumber": 4,
             "values": {
-              "deb": "Dimas Anggara",
-              "plafon": 800000000,
-              "bunga": 0.085,
-              "tenor": 20,
-              "angsuran": "?"
+              "nis": "2026-03",
+              "nama": "Dimas Bagas Pratama",
+              "mat": 92,
+              "ipa": 95,
+              "indo": 88,
+              "inggris": 91,
+              "rata": "?",
+              "status": "?"
             }
           },
           {
             "rowNumber": 5,
             "values": {
-              "deb": "Eka Saputra",
-              "plafon": 250000000,
-              "bunga": 0.07,
-              "tenor": 5,
-              "angsuran": "?"
+              "nis": "2026-04",
+              "nama": "Fitria Nur Hidayati",
+              "mat": 78,
+              "ipa": 80,
+              "indo": 85,
+              "inggris": 79,
+              "rata": "?",
+              "status": "?"
             }
           }
         ],
         "targetColumns": [
           {
-            "key": "angsuran",
-            "letter": "E",
-            "label": "Angsuran / Bulan (PMT)",
-            "description": "Hitung cicilan per bulan menggunakan fungsi PMT.",
+            "key": "rata",
+            "letter": "G",
+            "label": "Rata-Rata",
+            "description": "AVERAGE(C2:F2)",
             "expectedRowAnswers": {
-              "2": 4778260,
-              "3": 4153835,
-              "4": 6942621,
-              "5": 4950371
+              "2": 86,
+              "3": 71,
+              "4": 91.5,
+              "5": 80.5
+            }
+          },
+          {
+            "key": "status",
+            "letter": "H",
+            "label": "Status Kelulusan",
+            "description": "IF(Rata>=75, \"LULUS\", \"REMIDI\")",
+            "expectedRowAnswers": {
+              "2": "LULUS",
+              "3": "REMIDI",
+              "4": "LULUS",
+              "5": "LULUS"
             }
           }
         ]
@@ -3835,142 +4161,197 @@ export const CASE_EXAMS: CaseExamData[] = [
     "passingScore": 70,
     "solutionBlueprints": [
       {
-        "columnLabel": "Angsuran / Bulan (PMT)",
-        "formula": "=PMT(C2/12, D2*12, -B2)",
-        "explanation": "Hitung cicilan per bulan menggunakan fungsi PMT."
+        "columnLabel": "Rata-Rata",
+        "formula": "=AVERAGE(C2:F2)",
+        "explanation": "Menghitung nilai rata-rata dari 4 mata pelajaran"
+      },
+      {
+        "columnLabel": "Status Kelulusan",
+        "formula": "=IF(G2>=75, \"LULUS\", \"REMIDI\")",
+        "explanation": "Menguji apakah nilai rata-rata memenuhi KKM 75"
       }
     ]
   },
   {
     "id": "EX-013",
     "number": 13,
-    "code": "#SBEM013",
-    "title": "Rekonsiliasi Bank & Buku Kas Perusahaan (Studi Kasus #13)",
-    "category": "Kombinasi",
-    "difficulty": "EXTREME",
-    "difficultyStars": 5,
+    "code": "#SBEH009",
+    "title": "Simulasi Angsuran Kredit Rumah KPR Bank (PMT)",
+    "category": "Keuangan",
+    "difficulty": "MAHIR",
+    "difficultyStars": 4,
     "tags": [
-      "Cek Otomatis",
-      "Studi Kasus",
-      "Kombinasi"
+      "Perbankan",
+      "KPR",
+      "PMT",
+      "Keuangan"
     ],
     "instructions": {
-      "title": "EXTREME Level - Rekonsiliasi Bank & Buku Kas Perusahaan",
-      "description": "Hitung selisih mutasi bank dan buku kas perusahaan.",
+      "title": "Hard Level - Perhitungan Anuitas Cicilan Bulanan KPR",
+      "description": "Analis kredit bank memerlukan kalkulasi Angsuran Bulanan Debitur KPR berdasarkan Plafon Pinjaman, Suku Bunga Efektif per Tahun, dan Jangka Waktu Tenor.",
       "points": [
-        "1. Periksa data pada tabel di bawah ini.",
-        "2. Tuliskan formula pada kolom target (E) sesuai aturan yang ditentukan.",
-        "3. Pastikan formula dapat diterapkan ke seluruh baris data.",
-        "4. Klik tombol \"Cek Hasil Jawaban\" untuk mengevaluasi kelulusan kasus."
+        "1. Kolom F (Cicilan per Bulan Rp): Gunakan formula keuangan =PMT(BungaTahunan/12, TenorTahun*12, -PlafonPinjaman) -> =PMT(C2/12, D2*12, -B2).",
+        "2. Kolom G (Total Pembayaran Rp): Cicilan Bulanan * (Tenor * 12) -> =F2*D2*12.",
+        "3. Kolom H (Total Porsi Bunga Rp): Total Pembayaran - Plafon Pinjaman -> =G2-B2."
       ],
       "helperTable": {
-        "title": "Ketentuan Rumus",
+        "title": "Sintaks Fungsi PMT Excel",
         "headers": [
-          "Target Kolom",
-          "Formula Acuan"
+          "Argumen",
+          "Penjelasan"
         ],
         "rows": [
           [
-            "Selisih (Rp)",
-            "=ABS(C2-D2)"
+            "Rate",
+            "Bunga Tahunan / 12 bulan (C2/12)"
+          ],
+          [
+            "Nper",
+            "Jumlah Total Bulan Tenor (D2*12)"
+          ],
+          [
+            "Pv",
+            "-Plafon Pinjaman (-B2)"
           ]
         ]
       },
-      "notice": "Tulis rumus kalkulasi pada kolom yang telah disediakan."
+      "notice": "Gunakan tanda minus pada nilai plafon pinjaman di fungsi PMT agar hasil bernilai positif."
     },
     "sheets": [
       {
-        "id": "sheet_13",
-        "name": "Rekonsiliasi Kas",
+        "id": "sheet_kpr",
+        "name": "Simulasi KPR Bank",
         "columns": [
           {
-            "key": "tgl",
-            "label": "Tanggal",
+            "key": "no",
+            "label": "No",
             "letter": "A"
           },
           {
-            "key": "ket",
-            "label": "Keterangan Transaksi",
+            "key": "plafon",
+            "label": "Plafon Pinjaman (Rp)",
             "letter": "B"
           },
           {
-            "key": "bank",
-            "label": "Mutasi Bank (Rp)",
+            "key": "bunga",
+            "label": "Bunga Tahunan (%)",
             "letter": "C"
           },
           {
-            "key": "buku",
-            "label": "Buku Kas (Rp)",
+            "key": "tenor",
+            "label": "Tenor (Tahun)",
             "letter": "D"
           },
           {
-            "key": "selisih",
-            "label": "Selisih (Rp)",
+            "key": "debitur",
+            "label": "Nama Debitur",
             "letter": "E"
           },
           {
-            "key": "status",
-            "label": "Status Audit",
+            "key": "angsuran",
+            "label": "Angsuran / Bulan (Rp)",
             "letter": "F"
+          },
+          {
+            "key": "total_bayar",
+            "label": "Total Pembayaran (Rp)",
+            "letter": "G"
+          },
+          {
+            "key": "bunga_total",
+            "label": "Total Bunga (Rp)",
+            "letter": "H"
           }
         ],
         "rows": [
           {
             "rowNumber": 2,
             "values": {
-              "tgl": "01/08/2026",
-              "ket": "Setoran Tunai Kasir Toko",
-              "bank": 15000000,
-              "buku": 15000000,
-              "selisih": "?",
-              "status": "?"
+              "no": 1,
+              "plafon": 500000000,
+              "bunga": 0.08,
+              "tenor": 15,
+              "debitur": "Andi Pratama",
+              "angsuran": "?",
+              "total_bayar": "?",
+              "bunga_total": "?"
             }
           },
           {
             "rowNumber": 3,
             "values": {
-              "tgl": "03/08/2026",
-              "ket": "Kliring Cek Vendor Supplier",
-              "bank": 8500000,
-              "buku": 8500000,
-              "selisih": "?",
-              "status": "?"
+              "no": 2,
+              "plafon": 350000000,
+              "bunga": 0.075,
+              "tenor": 10,
+              "debitur": "Citra Kirana",
+              "angsuran": "?",
+              "total_bayar": "?",
+              "bunga_total": "?"
             }
           },
           {
             "rowNumber": 4,
             "values": {
-              "tgl": "05/08/2026",
-              "ket": "Biaya Administrasi Bank Bulanan",
-              "bank": 25000,
-              "buku": 0,
-              "selisih": "?",
-              "status": "?"
+              "no": 3,
+              "plafon": 800000000,
+              "bunga": 0.085,
+              "tenor": 20,
+              "debitur": "Dimas Anggara",
+              "angsuran": "?",
+              "total_bayar": "?",
+              "bunga_total": "?"
             }
           },
           {
             "rowNumber": 5,
             "values": {
-              "tgl": "07/08/2026",
-              "ket": "Pendapatan Jasa Giro Bunga",
-              "bank": 180000,
-              "buku": 0,
-              "selisih": "?",
-              "status": "?"
+              "no": 4,
+              "plafon": 250000000,
+              "bunga": 0.07,
+              "tenor": 5,
+              "debitur": "Eka Saputra",
+              "angsuran": "?",
+              "total_bayar": "?",
+              "bunga_total": "?"
             }
           }
         ],
         "targetColumns": [
           {
-            "key": "selisih",
-            "letter": "E",
-            "label": "Selisih (Rp)",
-            "description": "Hitung selisih mutasi bank dan buku kas perusahaan.",
+            "key": "angsuran",
+            "letter": "F",
+            "label": "Angsuran Bulanan",
+            "description": "PMT(Bunga/12, Tenor*12, -Plafon)",
             "expectedRowAnswers": {
-              "2": 0,
-              "3": 0,
-              "4": 25000,
-              "5": 180000
+              "2": 4778260,
+              "3": 4153835,
+              "4": 6942621,
+              "5": 4950371
+            }
+          },
+          {
+            "key": "total_bayar",
+            "letter": "G",
+            "label": "Total Pembayaran",
+            "description": "Angsuran * Tenor * 12",
+            "expectedRowAnswers": {
+              "2": 860086800,
+              "3": 498460200,
+              "4": 1666229040,
+              "5": 297022260
+            }
+          },
+          {
+            "key": "bunga_total",
+            "letter": "H",
+            "label": "Total Bunga",
+            "description": "Total Pembayaran - Plafon",
+            "expectedRowAnswers": {
+              "2": 360086800,
+              "3": 148460200,
+              "4": 866229040,
+              "5": 47022260
             }
           }
         ]
@@ -3979,151 +4360,175 @@ export const CASE_EXAMS: CaseExamData[] = [
     "passingScore": 70,
     "solutionBlueprints": [
       {
-        "columnLabel": "Selisih (Rp)",
-        "formula": "=ABS(C2-D2)",
-        "explanation": "Hitung selisih mutasi bank dan buku kas perusahaan."
+        "columnLabel": "Angsuran / Bulan",
+        "formula": "=PMT(C2/12, D2*12, -B2)",
+        "explanation": "Menghitung nilai angsuran anuitas bulanan tetap"
+      },
+      {
+        "columnLabel": "Total Bunga",
+        "formula": "=G2-B2",
+        "explanation": "Menghitung total porsi bunga yang dibayarkan selama masa tenor"
       }
     ]
   },
   {
     "id": "EX-014",
     "number": 14,
-    "code": "#SBEM014",
-    "title": "Pengolahan Nilai Rapor & Beasiswa Prestasi Siswa (Studi Kasus #14)",
-    "category": "Logika",
-    "difficulty": "MENENGAH",
-    "difficultyStars": 3,
+    "code": "#SBEX010",
+    "title": "Rekonsiliasi Mutasi Bank & Buku Kas Perusahaan",
+    "category": "Kombinasi",
+    "difficulty": "EXTREME",
+    "difficultyStars": 5,
     "tags": [
-      "Cek Otomatis",
-      "Studi Kasus",
-      "Logika"
+      "Akuntansi",
+      "Audit",
+      "Rekonsiliasi",
+      "Finance"
     ],
     "instructions": {
-      "title": "MENENGAH Level - Pengolahan Nilai Rapor & Beasiswa Prestasi Siswa",
-      "description": "Hitung nilai akhir berbobot 30% Tugas + 30% UTS + 40% UAS.",
+      "title": "Extreme Level - Audit Rekonsiliasi Selisih Kas Perusahaan",
+      "description": "Bagian akuntansi keuangan melakukan audit pencocokan mutasi antara Rekening Koran Bank dan Buku Kas Internal untuk menemukan selisih.",
       "points": [
-        "1. Periksa data pada tabel di bawah ini.",
-        "2. Tuliskan formula pada kolom target (F) sesuai aturan yang ditentukan.",
-        "3. Pastikan formula dapat diterapkan ke seluruh baris data.",
-        "4. Klik tombol \"Cek Hasil Jawaban\" untuk mengevaluasi kelulusan kasus."
+        "1. Kolom E (Selisih Rp): Nilai absolut selisih antara Mutasi Bank dan Buku Kas -> =ABS(C2-D2).",
+        "2. Kolom F (Status Verifikasi): Jika Selisih = 0 \"MATCH / SESUAI\", jika tidak \"PERLU PENYESUAIAN\" -> =IF(E2=0, \"MATCH / SESUAI\", \"PERLU PENYESUAIAN\")."
       ],
       "helperTable": {
-        "title": "Ketentuan Rumus",
+        "title": "Standar Audit Rekonsiliasi",
         "headers": [
-          "Target Kolom",
-          "Formula Acuan"
+          "Kondisi Selisih",
+          "Status"
         ],
         "rows": [
           [
-            "Nilai Akhir",
-            "=C2*0.3 + D2*0.3 + E2*0.4"
+            "Selisih = 0",
+            "MATCH / SESUAI"
+          ],
+          [
+            "Selisih > 0",
+            "PERLU PENYESUAIAN"
           ]
         ]
       },
-      "notice": "Tulis rumus kalkulasi pada kolom yang telah disediakan."
+      "notice": "Gunakan fungsi ABS untuk menghitung selisih positif dan IF untuk status audit."
     },
     "sheets": [
       {
-        "id": "sheet_14",
-        "name": "Rapor Siswa",
+        "id": "sheet_rekonsiliasi",
+        "name": "Rekonsiliasi Kas",
         "columns": [
           {
-            "key": "nis",
-            "label": "NIS",
+            "key": "tgl",
+            "label": "Tanggal",
             "letter": "A"
           },
           {
-            "key": "nama",
-            "label": "Nama Siswa",
+            "key": "ket",
+            "label": "Keterangan Transaksi",
             "letter": "B"
           },
           {
-            "key": "tugas",
-            "label": "Nilai Tugas (30%)",
+            "key": "bank",
+            "label": "Mutasi Bank (Rp)",
             "letter": "C"
           },
           {
-            "key": "uts",
-            "label": "Nilai UTS (30%)",
+            "key": "buku",
+            "label": "Buku Kas (Rp)",
             "letter": "D"
           },
           {
-            "key": "uas",
-            "label": "Nilai UAS (40%)",
+            "key": "selisih",
+            "label": "Selisih (Rp)",
             "letter": "E"
           },
           {
-            "key": "akhir",
-            "label": "Nilai Akhir",
+            "key": "status",
+            "label": "Status Verifikasi",
             "letter": "F"
-          },
-          {
-            "key": "beasiswa",
-            "label": "Status Beasiswa",
-            "letter": "G"
           }
         ],
         "rows": [
           {
             "rowNumber": 2,
             "values": {
-              "nis": "202601",
-              "nama": "Fajar Nugraha",
-              "tugas": 85,
-              "uts": 90,
-              "uas": 92,
-              "akhir": "?",
-              "beasiswa": "?"
+              "tgl": "01/08/2026",
+              "ket": "Setoran Tunai Omset Kasir Toko",
+              "bank": 15000000,
+              "buku": 15000000,
+              "selisih": "?",
+              "status": "?"
             }
           },
           {
             "rowNumber": 3,
             "values": {
-              "nis": "202602",
-              "nama": "Gita Larasati",
-              "tugas": 75,
-              "uts": 80,
-              "uas": 78,
-              "akhir": "?",
-              "beasiswa": "?"
+              "tgl": "03/08/2026",
+              "ket": "Pembayaran Kliring Cek Vendor",
+              "bank": 8500000,
+              "buku": 8500000,
+              "selisih": "?",
+              "status": "?"
             }
           },
           {
             "rowNumber": 4,
             "values": {
-              "nis": "202603",
-              "nama": "Hendra Gunawan",
-              "tugas": 90,
-              "uts": 95,
-              "uas": 94,
-              "akhir": "?",
-              "beasiswa": "?"
+              "tgl": "05/08/2026",
+              "ket": "Biaya Administrasi Bank Bulanan",
+              "bank": 25000,
+              "buku": 0,
+              "selisih": "?",
+              "status": "?"
             }
           },
           {
             "rowNumber": 5,
             "values": {
-              "nis": "202604",
-              "nama": "Indah Permatasari",
-              "tugas": 60,
-              "uts": 65,
-              "uas": 70,
-              "akhir": "?",
-              "beasiswa": "?"
+              "tgl": "07/08/2026",
+              "ket": "Pendapatan Bunga Jasa Giro",
+              "bank": 180000,
+              "buku": 0,
+              "selisih": "?",
+              "status": "?"
+            }
+          },
+          {
+            "rowNumber": 6,
+            "values": {
+              "tgl": "10/08/2026",
+              "ket": "Transfer Pembayaran Klien PT Jaya",
+              "bank": 42000000,
+              "buku": 42000000,
+              "selisih": "?",
+              "status": "?"
             }
           }
         ],
         "targetColumns": [
           {
-            "key": "akhir",
-            "letter": "F",
-            "label": "Nilai Akhir",
-            "description": "Hitung nilai akhir berbobot 30% Tugas + 30% UTS + 40% UAS.",
+            "key": "selisih",
+            "letter": "E",
+            "label": "Selisih",
+            "description": "ABS(Bank - Buku)",
             "expectedRowAnswers": {
-              "2": 89.3,
-              "3": 77.7,
-              "4": 93.1,
-              "5": 65.5
+              "2": 0,
+              "3": 0,
+              "4": 25000,
+              "5": 180000,
+              "6": 0
+            }
+          },
+          {
+            "key": "status",
+            "letter": "F",
+            "label": "Status Verifikasi",
+            "description": "IF(Selisih=0, \"MATCH / SESUAI\", \"PERLU PENYESUAIAN\")",
+            "expectedRowAnswers": {
+              "2": "MATCH / SESUAI",
+              "3": "MATCH / SESUAI",
+              "4": "PERLU PENYESUAIAN",
+              "5": "PERLU PENYESUAIAN",
+              "6": "MATCH / SESUAI"
             }
           }
         ]
@@ -4132,1861 +4537,246 @@ export const CASE_EXAMS: CaseExamData[] = [
     "passingScore": 70,
     "solutionBlueprints": [
       {
-        "columnLabel": "Nilai Akhir",
-        "formula": "=C2*0.3 + D2*0.3 + E2*0.4",
-        "explanation": "Hitung nilai akhir berbobot 30% Tugas + 30% UTS + 40% UAS."
+        "columnLabel": "Selisih",
+        "formula": "=ABS(C2-D2)",
+        "explanation": "Menghitung nilai mutlak selisih mutasi antara kedua rekening"
+      },
+      {
+        "columnLabel": "Status Verifikasi",
+        "formula": "=IF(E2=0, \"MATCH / SESUAI\", \"PERLU PENYESUAIAN\")",
+        "explanation": "Menguji apakah transaksi telah seimbang atau membutuhkan jurnal penyesuaian"
       }
     ]
   },
   {
     "id": "EX-015",
     "number": 15,
-    "code": "#SBEM015",
-    "title": "Simulasi Angsuran Kredit Rumah KPR (Bank PMT) (Studi Kasus #15)",
-    "category": "Keuangan",
-    "difficulty": "MAHIR",
-    "difficultyStars": 4,
-    "tags": [
-      "Cek Otomatis",
-      "Studi Kasus",
-      "Keuangan"
-    ],
-    "instructions": {
-      "title": "MAHIR Level - Simulasi Angsuran Kredit Rumah KPR (Bank PMT)",
-      "description": "Hitung cicilan per bulan menggunakan fungsi PMT.",
-      "points": [
-        "1. Periksa data pada tabel di bawah ini.",
-        "2. Tuliskan formula pada kolom target (E) sesuai aturan yang ditentukan.",
-        "3. Pastikan formula dapat diterapkan ke seluruh baris data.",
-        "4. Klik tombol \"Cek Hasil Jawaban\" untuk mengevaluasi kelulusan kasus."
-      ],
-      "helperTable": {
-        "title": "Ketentuan Rumus",
-        "headers": [
-          "Target Kolom",
-          "Formula Acuan"
-        ],
-        "rows": [
-          [
-            "Angsuran / Bulan (PMT)",
-            "=PMT(C2/12, D2*12, -B2)"
-          ]
-        ]
-      },
-      "notice": "Tulis rumus kalkulasi pada kolom yang telah disediakan."
-    },
-    "sheets": [
-      {
-        "id": "sheet_15",
-        "name": "Simulasi KPR",
-        "columns": [
-          {
-            "key": "deb",
-            "label": "Nama Debitur",
-            "letter": "A"
-          },
-          {
-            "key": "plafon",
-            "label": "Plafon Pinjaman (Rp)",
-            "letter": "B"
-          },
-          {
-            "key": "bunga",
-            "label": "Bunga Tahunan (%)",
-            "letter": "C"
-          },
-          {
-            "key": "tenor",
-            "label": "Tenor (Tahun)",
-            "letter": "D"
-          },
-          {
-            "key": "angsuran",
-            "label": "Angsuran / Bulan (PMT)",
-            "letter": "E"
-          }
-        ],
-        "rows": [
-          {
-            "rowNumber": 2,
-            "values": {
-              "deb": "Andi Pratama",
-              "plafon": 500000000,
-              "bunga": 0.08,
-              "tenor": 15,
-              "angsuran": "?"
-            }
-          },
-          {
-            "rowNumber": 3,
-            "values": {
-              "deb": "Citra Kirana",
-              "plafon": 350000000,
-              "bunga": 0.075,
-              "tenor": 10,
-              "angsuran": "?"
-            }
-          },
-          {
-            "rowNumber": 4,
-            "values": {
-              "deb": "Dimas Anggara",
-              "plafon": 800000000,
-              "bunga": 0.085,
-              "tenor": 20,
-              "angsuran": "?"
-            }
-          },
-          {
-            "rowNumber": 5,
-            "values": {
-              "deb": "Eka Saputra",
-              "plafon": 250000000,
-              "bunga": 0.07,
-              "tenor": 5,
-              "angsuran": "?"
-            }
-          }
-        ],
-        "targetColumns": [
-          {
-            "key": "angsuran",
-            "letter": "E",
-            "label": "Angsuran / Bulan (PMT)",
-            "description": "Hitung cicilan per bulan menggunakan fungsi PMT.",
-            "expectedRowAnswers": {
-              "2": 4778260,
-              "3": 4153835,
-              "4": 6942621,
-              "5": 4950371
-            }
-          }
-        ]
-      }
-    ],
-    "passingScore": 70,
-    "solutionBlueprints": [
-      {
-        "columnLabel": "Angsuran / Bulan (PMT)",
-        "formula": "=PMT(C2/12, D2*12, -B2)",
-        "explanation": "Hitung cicilan per bulan menggunakan fungsi PMT."
-      }
-    ]
-  },
-  {
-    "id": "EX-016",
-    "number": 16,
-    "code": "#SBEM016",
-    "title": "Rekonsiliasi Bank & Buku Kas Perusahaan (Studi Kasus #16)",
-    "category": "Kombinasi",
-    "difficulty": "EXTREME",
-    "difficultyStars": 5,
-    "tags": [
-      "Cek Otomatis",
-      "Studi Kasus",
-      "Kombinasi"
-    ],
-    "instructions": {
-      "title": "EXTREME Level - Rekonsiliasi Bank & Buku Kas Perusahaan",
-      "description": "Hitung selisih mutasi bank dan buku kas perusahaan.",
-      "points": [
-        "1. Periksa data pada tabel di bawah ini.",
-        "2. Tuliskan formula pada kolom target (E) sesuai aturan yang ditentukan.",
-        "3. Pastikan formula dapat diterapkan ke seluruh baris data.",
-        "4. Klik tombol \"Cek Hasil Jawaban\" untuk mengevaluasi kelulusan kasus."
-      ],
-      "helperTable": {
-        "title": "Ketentuan Rumus",
-        "headers": [
-          "Target Kolom",
-          "Formula Acuan"
-        ],
-        "rows": [
-          [
-            "Selisih (Rp)",
-            "=ABS(C2-D2)"
-          ]
-        ]
-      },
-      "notice": "Tulis rumus kalkulasi pada kolom yang telah disediakan."
-    },
-    "sheets": [
-      {
-        "id": "sheet_16",
-        "name": "Rekonsiliasi Kas",
-        "columns": [
-          {
-            "key": "tgl",
-            "label": "Tanggal",
-            "letter": "A"
-          },
-          {
-            "key": "ket",
-            "label": "Keterangan Transaksi",
-            "letter": "B"
-          },
-          {
-            "key": "bank",
-            "label": "Mutasi Bank (Rp)",
-            "letter": "C"
-          },
-          {
-            "key": "buku",
-            "label": "Buku Kas (Rp)",
-            "letter": "D"
-          },
-          {
-            "key": "selisih",
-            "label": "Selisih (Rp)",
-            "letter": "E"
-          },
-          {
-            "key": "status",
-            "label": "Status Audit",
-            "letter": "F"
-          }
-        ],
-        "rows": [
-          {
-            "rowNumber": 2,
-            "values": {
-              "tgl": "01/08/2026",
-              "ket": "Setoran Tunai Kasir Toko",
-              "bank": 15000000,
-              "buku": 15000000,
-              "selisih": "?",
-              "status": "?"
-            }
-          },
-          {
-            "rowNumber": 3,
-            "values": {
-              "tgl": "03/08/2026",
-              "ket": "Kliring Cek Vendor Supplier",
-              "bank": 8500000,
-              "buku": 8500000,
-              "selisih": "?",
-              "status": "?"
-            }
-          },
-          {
-            "rowNumber": 4,
-            "values": {
-              "tgl": "05/08/2026",
-              "ket": "Biaya Administrasi Bank Bulanan",
-              "bank": 25000,
-              "buku": 0,
-              "selisih": "?",
-              "status": "?"
-            }
-          },
-          {
-            "rowNumber": 5,
-            "values": {
-              "tgl": "07/08/2026",
-              "ket": "Pendapatan Jasa Giro Bunga",
-              "bank": 180000,
-              "buku": 0,
-              "selisih": "?",
-              "status": "?"
-            }
-          }
-        ],
-        "targetColumns": [
-          {
-            "key": "selisih",
-            "letter": "E",
-            "label": "Selisih (Rp)",
-            "description": "Hitung selisih mutasi bank dan buku kas perusahaan.",
-            "expectedRowAnswers": {
-              "2": 0,
-              "3": 0,
-              "4": 25000,
-              "5": 180000
-            }
-          }
-        ]
-      }
-    ],
-    "passingScore": 70,
-    "solutionBlueprints": [
-      {
-        "columnLabel": "Selisih (Rp)",
-        "formula": "=ABS(C2-D2)",
-        "explanation": "Hitung selisih mutasi bank dan buku kas perusahaan."
-      }
-    ]
-  },
-  {
-    "id": "EX-017",
-    "number": 17,
-    "code": "#SBEM017",
-    "title": "Pengolahan Nilai Rapor & Beasiswa Prestasi Siswa (Studi Kasus #17)",
-    "category": "Logika",
-    "difficulty": "MENENGAH",
-    "difficultyStars": 3,
-    "tags": [
-      "Cek Otomatis",
-      "Studi Kasus",
-      "Logika"
-    ],
-    "instructions": {
-      "title": "MENENGAH Level - Pengolahan Nilai Rapor & Beasiswa Prestasi Siswa",
-      "description": "Hitung nilai akhir berbobot 30% Tugas + 30% UTS + 40% UAS.",
-      "points": [
-        "1. Periksa data pada tabel di bawah ini.",
-        "2. Tuliskan formula pada kolom target (F) sesuai aturan yang ditentukan.",
-        "3. Pastikan formula dapat diterapkan ke seluruh baris data.",
-        "4. Klik tombol \"Cek Hasil Jawaban\" untuk mengevaluasi kelulusan kasus."
-      ],
-      "helperTable": {
-        "title": "Ketentuan Rumus",
-        "headers": [
-          "Target Kolom",
-          "Formula Acuan"
-        ],
-        "rows": [
-          [
-            "Nilai Akhir",
-            "=C2*0.3 + D2*0.3 + E2*0.4"
-          ]
-        ]
-      },
-      "notice": "Tulis rumus kalkulasi pada kolom yang telah disediakan."
-    },
-    "sheets": [
-      {
-        "id": "sheet_17",
-        "name": "Rapor Siswa",
-        "columns": [
-          {
-            "key": "nis",
-            "label": "NIS",
-            "letter": "A"
-          },
-          {
-            "key": "nama",
-            "label": "Nama Siswa",
-            "letter": "B"
-          },
-          {
-            "key": "tugas",
-            "label": "Nilai Tugas (30%)",
-            "letter": "C"
-          },
-          {
-            "key": "uts",
-            "label": "Nilai UTS (30%)",
-            "letter": "D"
-          },
-          {
-            "key": "uas",
-            "label": "Nilai UAS (40%)",
-            "letter": "E"
-          },
-          {
-            "key": "akhir",
-            "label": "Nilai Akhir",
-            "letter": "F"
-          },
-          {
-            "key": "beasiswa",
-            "label": "Status Beasiswa",
-            "letter": "G"
-          }
-        ],
-        "rows": [
-          {
-            "rowNumber": 2,
-            "values": {
-              "nis": "202601",
-              "nama": "Fajar Nugraha",
-              "tugas": 85,
-              "uts": 90,
-              "uas": 92,
-              "akhir": "?",
-              "beasiswa": "?"
-            }
-          },
-          {
-            "rowNumber": 3,
-            "values": {
-              "nis": "202602",
-              "nama": "Gita Larasati",
-              "tugas": 75,
-              "uts": 80,
-              "uas": 78,
-              "akhir": "?",
-              "beasiswa": "?"
-            }
-          },
-          {
-            "rowNumber": 4,
-            "values": {
-              "nis": "202603",
-              "nama": "Hendra Gunawan",
-              "tugas": 90,
-              "uts": 95,
-              "uas": 94,
-              "akhir": "?",
-              "beasiswa": "?"
-            }
-          },
-          {
-            "rowNumber": 5,
-            "values": {
-              "nis": "202604",
-              "nama": "Indah Permatasari",
-              "tugas": 60,
-              "uts": 65,
-              "uas": 70,
-              "akhir": "?",
-              "beasiswa": "?"
-            }
-          }
-        ],
-        "targetColumns": [
-          {
-            "key": "akhir",
-            "letter": "F",
-            "label": "Nilai Akhir",
-            "description": "Hitung nilai akhir berbobot 30% Tugas + 30% UTS + 40% UAS.",
-            "expectedRowAnswers": {
-              "2": 89.3,
-              "3": 77.7,
-              "4": 93.1,
-              "5": 65.5
-            }
-          }
-        ]
-      }
-    ],
-    "passingScore": 70,
-    "solutionBlueprints": [
-      {
-        "columnLabel": "Nilai Akhir",
-        "formula": "=C2*0.3 + D2*0.3 + E2*0.4",
-        "explanation": "Hitung nilai akhir berbobot 30% Tugas + 30% UTS + 40% UAS."
-      }
-    ]
-  },
-  {
-    "id": "EX-018",
-    "number": 18,
-    "code": "#SBEM018",
-    "title": "Simulasi Angsuran Kredit Rumah KPR (Bank PMT) (Studi Kasus #18)",
-    "category": "Keuangan",
-    "difficulty": "MAHIR",
-    "difficultyStars": 4,
-    "tags": [
-      "Cek Otomatis",
-      "Studi Kasus",
-      "Keuangan"
-    ],
-    "instructions": {
-      "title": "MAHIR Level - Simulasi Angsuran Kredit Rumah KPR (Bank PMT)",
-      "description": "Hitung cicilan per bulan menggunakan fungsi PMT.",
-      "points": [
-        "1. Periksa data pada tabel di bawah ini.",
-        "2. Tuliskan formula pada kolom target (E) sesuai aturan yang ditentukan.",
-        "3. Pastikan formula dapat diterapkan ke seluruh baris data.",
-        "4. Klik tombol \"Cek Hasil Jawaban\" untuk mengevaluasi kelulusan kasus."
-      ],
-      "helperTable": {
-        "title": "Ketentuan Rumus",
-        "headers": [
-          "Target Kolom",
-          "Formula Acuan"
-        ],
-        "rows": [
-          [
-            "Angsuran / Bulan (PMT)",
-            "=PMT(C2/12, D2*12, -B2)"
-          ]
-        ]
-      },
-      "notice": "Tulis rumus kalkulasi pada kolom yang telah disediakan."
-    },
-    "sheets": [
-      {
-        "id": "sheet_18",
-        "name": "Simulasi KPR",
-        "columns": [
-          {
-            "key": "deb",
-            "label": "Nama Debitur",
-            "letter": "A"
-          },
-          {
-            "key": "plafon",
-            "label": "Plafon Pinjaman (Rp)",
-            "letter": "B"
-          },
-          {
-            "key": "bunga",
-            "label": "Bunga Tahunan (%)",
-            "letter": "C"
-          },
-          {
-            "key": "tenor",
-            "label": "Tenor (Tahun)",
-            "letter": "D"
-          },
-          {
-            "key": "angsuran",
-            "label": "Angsuran / Bulan (PMT)",
-            "letter": "E"
-          }
-        ],
-        "rows": [
-          {
-            "rowNumber": 2,
-            "values": {
-              "deb": "Andi Pratama",
-              "plafon": 500000000,
-              "bunga": 0.08,
-              "tenor": 15,
-              "angsuran": "?"
-            }
-          },
-          {
-            "rowNumber": 3,
-            "values": {
-              "deb": "Citra Kirana",
-              "plafon": 350000000,
-              "bunga": 0.075,
-              "tenor": 10,
-              "angsuran": "?"
-            }
-          },
-          {
-            "rowNumber": 4,
-            "values": {
-              "deb": "Dimas Anggara",
-              "plafon": 800000000,
-              "bunga": 0.085,
-              "tenor": 20,
-              "angsuran": "?"
-            }
-          },
-          {
-            "rowNumber": 5,
-            "values": {
-              "deb": "Eka Saputra",
-              "plafon": 250000000,
-              "bunga": 0.07,
-              "tenor": 5,
-              "angsuran": "?"
-            }
-          }
-        ],
-        "targetColumns": [
-          {
-            "key": "angsuran",
-            "letter": "E",
-            "label": "Angsuran / Bulan (PMT)",
-            "description": "Hitung cicilan per bulan menggunakan fungsi PMT.",
-            "expectedRowAnswers": {
-              "2": 4778260,
-              "3": 4153835,
-              "4": 6942621,
-              "5": 4950371
-            }
-          }
-        ]
-      }
-    ],
-    "passingScore": 70,
-    "solutionBlueprints": [
-      {
-        "columnLabel": "Angsuran / Bulan (PMT)",
-        "formula": "=PMT(C2/12, D2*12, -B2)",
-        "explanation": "Hitung cicilan per bulan menggunakan fungsi PMT."
-      }
-    ]
-  },
-  {
-    "id": "EX-019",
-    "number": 19,
-    "code": "#SBEM019",
-    "title": "Rekonsiliasi Bank & Buku Kas Perusahaan (Studi Kasus #19)",
-    "category": "Kombinasi",
-    "difficulty": "EXTREME",
-    "difficultyStars": 5,
-    "tags": [
-      "Cek Otomatis",
-      "Studi Kasus",
-      "Kombinasi"
-    ],
-    "instructions": {
-      "title": "EXTREME Level - Rekonsiliasi Bank & Buku Kas Perusahaan",
-      "description": "Hitung selisih mutasi bank dan buku kas perusahaan.",
-      "points": [
-        "1. Periksa data pada tabel di bawah ini.",
-        "2. Tuliskan formula pada kolom target (E) sesuai aturan yang ditentukan.",
-        "3. Pastikan formula dapat diterapkan ke seluruh baris data.",
-        "4. Klik tombol \"Cek Hasil Jawaban\" untuk mengevaluasi kelulusan kasus."
-      ],
-      "helperTable": {
-        "title": "Ketentuan Rumus",
-        "headers": [
-          "Target Kolom",
-          "Formula Acuan"
-        ],
-        "rows": [
-          [
-            "Selisih (Rp)",
-            "=ABS(C2-D2)"
-          ]
-        ]
-      },
-      "notice": "Tulis rumus kalkulasi pada kolom yang telah disediakan."
-    },
-    "sheets": [
-      {
-        "id": "sheet_19",
-        "name": "Rekonsiliasi Kas",
-        "columns": [
-          {
-            "key": "tgl",
-            "label": "Tanggal",
-            "letter": "A"
-          },
-          {
-            "key": "ket",
-            "label": "Keterangan Transaksi",
-            "letter": "B"
-          },
-          {
-            "key": "bank",
-            "label": "Mutasi Bank (Rp)",
-            "letter": "C"
-          },
-          {
-            "key": "buku",
-            "label": "Buku Kas (Rp)",
-            "letter": "D"
-          },
-          {
-            "key": "selisih",
-            "label": "Selisih (Rp)",
-            "letter": "E"
-          },
-          {
-            "key": "status",
-            "label": "Status Audit",
-            "letter": "F"
-          }
-        ],
-        "rows": [
-          {
-            "rowNumber": 2,
-            "values": {
-              "tgl": "01/08/2026",
-              "ket": "Setoran Tunai Kasir Toko",
-              "bank": 15000000,
-              "buku": 15000000,
-              "selisih": "?",
-              "status": "?"
-            }
-          },
-          {
-            "rowNumber": 3,
-            "values": {
-              "tgl": "03/08/2026",
-              "ket": "Kliring Cek Vendor Supplier",
-              "bank": 8500000,
-              "buku": 8500000,
-              "selisih": "?",
-              "status": "?"
-            }
-          },
-          {
-            "rowNumber": 4,
-            "values": {
-              "tgl": "05/08/2026",
-              "ket": "Biaya Administrasi Bank Bulanan",
-              "bank": 25000,
-              "buku": 0,
-              "selisih": "?",
-              "status": "?"
-            }
-          },
-          {
-            "rowNumber": 5,
-            "values": {
-              "tgl": "07/08/2026",
-              "ket": "Pendapatan Jasa Giro Bunga",
-              "bank": 180000,
-              "buku": 0,
-              "selisih": "?",
-              "status": "?"
-            }
-          }
-        ],
-        "targetColumns": [
-          {
-            "key": "selisih",
-            "letter": "E",
-            "label": "Selisih (Rp)",
-            "description": "Hitung selisih mutasi bank dan buku kas perusahaan.",
-            "expectedRowAnswers": {
-              "2": 0,
-              "3": 0,
-              "4": 25000,
-              "5": 180000
-            }
-          }
-        ]
-      }
-    ],
-    "passingScore": 70,
-    "solutionBlueprints": [
-      {
-        "columnLabel": "Selisih (Rp)",
-        "formula": "=ABS(C2-D2)",
-        "explanation": "Hitung selisih mutasi bank dan buku kas perusahaan."
-      }
-    ]
-  },
-  {
-    "id": "EX-020",
-    "number": 20,
-    "code": "#SBEM020",
-    "title": "Pengolahan Nilai Rapor & Beasiswa Prestasi Siswa (Studi Kasus #20)",
-    "category": "Logika",
-    "difficulty": "MENENGAH",
-    "difficultyStars": 3,
-    "tags": [
-      "Cek Otomatis",
-      "Studi Kasus",
-      "Logika"
-    ],
-    "instructions": {
-      "title": "MENENGAH Level - Pengolahan Nilai Rapor & Beasiswa Prestasi Siswa",
-      "description": "Hitung nilai akhir berbobot 30% Tugas + 30% UTS + 40% UAS.",
-      "points": [
-        "1. Periksa data pada tabel di bawah ini.",
-        "2. Tuliskan formula pada kolom target (F) sesuai aturan yang ditentukan.",
-        "3. Pastikan formula dapat diterapkan ke seluruh baris data.",
-        "4. Klik tombol \"Cek Hasil Jawaban\" untuk mengevaluasi kelulusan kasus."
-      ],
-      "helperTable": {
-        "title": "Ketentuan Rumus",
-        "headers": [
-          "Target Kolom",
-          "Formula Acuan"
-        ],
-        "rows": [
-          [
-            "Nilai Akhir",
-            "=C2*0.3 + D2*0.3 + E2*0.4"
-          ]
-        ]
-      },
-      "notice": "Tulis rumus kalkulasi pada kolom yang telah disediakan."
-    },
-    "sheets": [
-      {
-        "id": "sheet_20",
-        "name": "Rapor Siswa",
-        "columns": [
-          {
-            "key": "nis",
-            "label": "NIS",
-            "letter": "A"
-          },
-          {
-            "key": "nama",
-            "label": "Nama Siswa",
-            "letter": "B"
-          },
-          {
-            "key": "tugas",
-            "label": "Nilai Tugas (30%)",
-            "letter": "C"
-          },
-          {
-            "key": "uts",
-            "label": "Nilai UTS (30%)",
-            "letter": "D"
-          },
-          {
-            "key": "uas",
-            "label": "Nilai UAS (40%)",
-            "letter": "E"
-          },
-          {
-            "key": "akhir",
-            "label": "Nilai Akhir",
-            "letter": "F"
-          },
-          {
-            "key": "beasiswa",
-            "label": "Status Beasiswa",
-            "letter": "G"
-          }
-        ],
-        "rows": [
-          {
-            "rowNumber": 2,
-            "values": {
-              "nis": "202601",
-              "nama": "Fajar Nugraha",
-              "tugas": 85,
-              "uts": 90,
-              "uas": 92,
-              "akhir": "?",
-              "beasiswa": "?"
-            }
-          },
-          {
-            "rowNumber": 3,
-            "values": {
-              "nis": "202602",
-              "nama": "Gita Larasati",
-              "tugas": 75,
-              "uts": 80,
-              "uas": 78,
-              "akhir": "?",
-              "beasiswa": "?"
-            }
-          },
-          {
-            "rowNumber": 4,
-            "values": {
-              "nis": "202603",
-              "nama": "Hendra Gunawan",
-              "tugas": 90,
-              "uts": 95,
-              "uas": 94,
-              "akhir": "?",
-              "beasiswa": "?"
-            }
-          },
-          {
-            "rowNumber": 5,
-            "values": {
-              "nis": "202604",
-              "nama": "Indah Permatasari",
-              "tugas": 60,
-              "uts": 65,
-              "uas": 70,
-              "akhir": "?",
-              "beasiswa": "?"
-            }
-          }
-        ],
-        "targetColumns": [
-          {
-            "key": "akhir",
-            "letter": "F",
-            "label": "Nilai Akhir",
-            "description": "Hitung nilai akhir berbobot 30% Tugas + 30% UTS + 40% UAS.",
-            "expectedRowAnswers": {
-              "2": 89.3,
-              "3": 77.7,
-              "4": 93.1,
-              "5": 65.5
-            }
-          }
-        ]
-      }
-    ],
-    "passingScore": 70,
-    "solutionBlueprints": [
-      {
-        "columnLabel": "Nilai Akhir",
-        "formula": "=C2*0.3 + D2*0.3 + E2*0.4",
-        "explanation": "Hitung nilai akhir berbobot 30% Tugas + 30% UTS + 40% UAS."
-      }
-    ]
-  },
-  {
-    "id": "EX-021",
-    "number": 21,
-    "code": "#SBEM021",
-    "title": "Simulasi Angsuran Kredit Rumah KPR (Bank PMT) (Studi Kasus #21)",
-    "category": "Keuangan",
-    "difficulty": "MAHIR",
-    "difficultyStars": 4,
-    "tags": [
-      "Cek Otomatis",
-      "Studi Kasus",
-      "Keuangan"
-    ],
-    "instructions": {
-      "title": "MAHIR Level - Simulasi Angsuran Kredit Rumah KPR (Bank PMT)",
-      "description": "Hitung cicilan per bulan menggunakan fungsi PMT.",
-      "points": [
-        "1. Periksa data pada tabel di bawah ini.",
-        "2. Tuliskan formula pada kolom target (E) sesuai aturan yang ditentukan.",
-        "3. Pastikan formula dapat diterapkan ke seluruh baris data.",
-        "4. Klik tombol \"Cek Hasil Jawaban\" untuk mengevaluasi kelulusan kasus."
-      ],
-      "helperTable": {
-        "title": "Ketentuan Rumus",
-        "headers": [
-          "Target Kolom",
-          "Formula Acuan"
-        ],
-        "rows": [
-          [
-            "Angsuran / Bulan (PMT)",
-            "=PMT(C2/12, D2*12, -B2)"
-          ]
-        ]
-      },
-      "notice": "Tulis rumus kalkulasi pada kolom yang telah disediakan."
-    },
-    "sheets": [
-      {
-        "id": "sheet_21",
-        "name": "Simulasi KPR",
-        "columns": [
-          {
-            "key": "deb",
-            "label": "Nama Debitur",
-            "letter": "A"
-          },
-          {
-            "key": "plafon",
-            "label": "Plafon Pinjaman (Rp)",
-            "letter": "B"
-          },
-          {
-            "key": "bunga",
-            "label": "Bunga Tahunan (%)",
-            "letter": "C"
-          },
-          {
-            "key": "tenor",
-            "label": "Tenor (Tahun)",
-            "letter": "D"
-          },
-          {
-            "key": "angsuran",
-            "label": "Angsuran / Bulan (PMT)",
-            "letter": "E"
-          }
-        ],
-        "rows": [
-          {
-            "rowNumber": 2,
-            "values": {
-              "deb": "Andi Pratama",
-              "plafon": 500000000,
-              "bunga": 0.08,
-              "tenor": 15,
-              "angsuran": "?"
-            }
-          },
-          {
-            "rowNumber": 3,
-            "values": {
-              "deb": "Citra Kirana",
-              "plafon": 350000000,
-              "bunga": 0.075,
-              "tenor": 10,
-              "angsuran": "?"
-            }
-          },
-          {
-            "rowNumber": 4,
-            "values": {
-              "deb": "Dimas Anggara",
-              "plafon": 800000000,
-              "bunga": 0.085,
-              "tenor": 20,
-              "angsuran": "?"
-            }
-          },
-          {
-            "rowNumber": 5,
-            "values": {
-              "deb": "Eka Saputra",
-              "plafon": 250000000,
-              "bunga": 0.07,
-              "tenor": 5,
-              "angsuran": "?"
-            }
-          }
-        ],
-        "targetColumns": [
-          {
-            "key": "angsuran",
-            "letter": "E",
-            "label": "Angsuran / Bulan (PMT)",
-            "description": "Hitung cicilan per bulan menggunakan fungsi PMT.",
-            "expectedRowAnswers": {
-              "2": 4778260,
-              "3": 4153835,
-              "4": 6942621,
-              "5": 4950371
-            }
-          }
-        ]
-      }
-    ],
-    "passingScore": 70,
-    "solutionBlueprints": [
-      {
-        "columnLabel": "Angsuran / Bulan (PMT)",
-        "formula": "=PMT(C2/12, D2*12, -B2)",
-        "explanation": "Hitung cicilan per bulan menggunakan fungsi PMT."
-      }
-    ]
-  },
-  {
-    "id": "EX-022",
-    "number": 22,
-    "code": "#SBEM022",
-    "title": "Rekonsiliasi Bank & Buku Kas Perusahaan (Studi Kasus #22)",
-    "category": "Kombinasi",
-    "difficulty": "EXTREME",
-    "difficultyStars": 5,
-    "tags": [
-      "Cek Otomatis",
-      "Studi Kasus",
-      "Kombinasi"
-    ],
-    "instructions": {
-      "title": "EXTREME Level - Rekonsiliasi Bank & Buku Kas Perusahaan",
-      "description": "Hitung selisih mutasi bank dan buku kas perusahaan.",
-      "points": [
-        "1. Periksa data pada tabel di bawah ini.",
-        "2. Tuliskan formula pada kolom target (E) sesuai aturan yang ditentukan.",
-        "3. Pastikan formula dapat diterapkan ke seluruh baris data.",
-        "4. Klik tombol \"Cek Hasil Jawaban\" untuk mengevaluasi kelulusan kasus."
-      ],
-      "helperTable": {
-        "title": "Ketentuan Rumus",
-        "headers": [
-          "Target Kolom",
-          "Formula Acuan"
-        ],
-        "rows": [
-          [
-            "Selisih (Rp)",
-            "=ABS(C2-D2)"
-          ]
-        ]
-      },
-      "notice": "Tulis rumus kalkulasi pada kolom yang telah disediakan."
-    },
-    "sheets": [
-      {
-        "id": "sheet_22",
-        "name": "Rekonsiliasi Kas",
-        "columns": [
-          {
-            "key": "tgl",
-            "label": "Tanggal",
-            "letter": "A"
-          },
-          {
-            "key": "ket",
-            "label": "Keterangan Transaksi",
-            "letter": "B"
-          },
-          {
-            "key": "bank",
-            "label": "Mutasi Bank (Rp)",
-            "letter": "C"
-          },
-          {
-            "key": "buku",
-            "label": "Buku Kas (Rp)",
-            "letter": "D"
-          },
-          {
-            "key": "selisih",
-            "label": "Selisih (Rp)",
-            "letter": "E"
-          },
-          {
-            "key": "status",
-            "label": "Status Audit",
-            "letter": "F"
-          }
-        ],
-        "rows": [
-          {
-            "rowNumber": 2,
-            "values": {
-              "tgl": "01/08/2026",
-              "ket": "Setoran Tunai Kasir Toko",
-              "bank": 15000000,
-              "buku": 15000000,
-              "selisih": "?",
-              "status": "?"
-            }
-          },
-          {
-            "rowNumber": 3,
-            "values": {
-              "tgl": "03/08/2026",
-              "ket": "Kliring Cek Vendor Supplier",
-              "bank": 8500000,
-              "buku": 8500000,
-              "selisih": "?",
-              "status": "?"
-            }
-          },
-          {
-            "rowNumber": 4,
-            "values": {
-              "tgl": "05/08/2026",
-              "ket": "Biaya Administrasi Bank Bulanan",
-              "bank": 25000,
-              "buku": 0,
-              "selisih": "?",
-              "status": "?"
-            }
-          },
-          {
-            "rowNumber": 5,
-            "values": {
-              "tgl": "07/08/2026",
-              "ket": "Pendapatan Jasa Giro Bunga",
-              "bank": 180000,
-              "buku": 0,
-              "selisih": "?",
-              "status": "?"
-            }
-          }
-        ],
-        "targetColumns": [
-          {
-            "key": "selisih",
-            "letter": "E",
-            "label": "Selisih (Rp)",
-            "description": "Hitung selisih mutasi bank dan buku kas perusahaan.",
-            "expectedRowAnswers": {
-              "2": 0,
-              "3": 0,
-              "4": 25000,
-              "5": 180000
-            }
-          }
-        ]
-      }
-    ],
-    "passingScore": 70,
-    "solutionBlueprints": [
-      {
-        "columnLabel": "Selisih (Rp)",
-        "formula": "=ABS(C2-D2)",
-        "explanation": "Hitung selisih mutasi bank dan buku kas perusahaan."
-      }
-    ]
-  },
-  {
-    "id": "EX-023",
-    "number": 23,
-    "code": "#SBEM023",
-    "title": "Pengolahan Nilai Rapor & Beasiswa Prestasi Siswa (Studi Kasus #23)",
-    "category": "Logika",
-    "difficulty": "MENENGAH",
-    "difficultyStars": 3,
-    "tags": [
-      "Cek Otomatis",
-      "Studi Kasus",
-      "Logika"
-    ],
-    "instructions": {
-      "title": "MENENGAH Level - Pengolahan Nilai Rapor & Beasiswa Prestasi Siswa",
-      "description": "Hitung nilai akhir berbobot 30% Tugas + 30% UTS + 40% UAS.",
-      "points": [
-        "1. Periksa data pada tabel di bawah ini.",
-        "2. Tuliskan formula pada kolom target (F) sesuai aturan yang ditentukan.",
-        "3. Pastikan formula dapat diterapkan ke seluruh baris data.",
-        "4. Klik tombol \"Cek Hasil Jawaban\" untuk mengevaluasi kelulusan kasus."
-      ],
-      "helperTable": {
-        "title": "Ketentuan Rumus",
-        "headers": [
-          "Target Kolom",
-          "Formula Acuan"
-        ],
-        "rows": [
-          [
-            "Nilai Akhir",
-            "=C2*0.3 + D2*0.3 + E2*0.4"
-          ]
-        ]
-      },
-      "notice": "Tulis rumus kalkulasi pada kolom yang telah disediakan."
-    },
-    "sheets": [
-      {
-        "id": "sheet_23",
-        "name": "Rapor Siswa",
-        "columns": [
-          {
-            "key": "nis",
-            "label": "NIS",
-            "letter": "A"
-          },
-          {
-            "key": "nama",
-            "label": "Nama Siswa",
-            "letter": "B"
-          },
-          {
-            "key": "tugas",
-            "label": "Nilai Tugas (30%)",
-            "letter": "C"
-          },
-          {
-            "key": "uts",
-            "label": "Nilai UTS (30%)",
-            "letter": "D"
-          },
-          {
-            "key": "uas",
-            "label": "Nilai UAS (40%)",
-            "letter": "E"
-          },
-          {
-            "key": "akhir",
-            "label": "Nilai Akhir",
-            "letter": "F"
-          },
-          {
-            "key": "beasiswa",
-            "label": "Status Beasiswa",
-            "letter": "G"
-          }
-        ],
-        "rows": [
-          {
-            "rowNumber": 2,
-            "values": {
-              "nis": "202601",
-              "nama": "Fajar Nugraha",
-              "tugas": 85,
-              "uts": 90,
-              "uas": 92,
-              "akhir": "?",
-              "beasiswa": "?"
-            }
-          },
-          {
-            "rowNumber": 3,
-            "values": {
-              "nis": "202602",
-              "nama": "Gita Larasati",
-              "tugas": 75,
-              "uts": 80,
-              "uas": 78,
-              "akhir": "?",
-              "beasiswa": "?"
-            }
-          },
-          {
-            "rowNumber": 4,
-            "values": {
-              "nis": "202603",
-              "nama": "Hendra Gunawan",
-              "tugas": 90,
-              "uts": 95,
-              "uas": 94,
-              "akhir": "?",
-              "beasiswa": "?"
-            }
-          },
-          {
-            "rowNumber": 5,
-            "values": {
-              "nis": "202604",
-              "nama": "Indah Permatasari",
-              "tugas": 60,
-              "uts": 65,
-              "uas": 70,
-              "akhir": "?",
-              "beasiswa": "?"
-            }
-          }
-        ],
-        "targetColumns": [
-          {
-            "key": "akhir",
-            "letter": "F",
-            "label": "Nilai Akhir",
-            "description": "Hitung nilai akhir berbobot 30% Tugas + 30% UTS + 40% UAS.",
-            "expectedRowAnswers": {
-              "2": 89.3,
-              "3": 77.7,
-              "4": 93.1,
-              "5": 65.5
-            }
-          }
-        ]
-      }
-    ],
-    "passingScore": 70,
-    "solutionBlueprints": [
-      {
-        "columnLabel": "Nilai Akhir",
-        "formula": "=C2*0.3 + D2*0.3 + E2*0.4",
-        "explanation": "Hitung nilai akhir berbobot 30% Tugas + 30% UTS + 40% UAS."
-      }
-    ]
-  },
-  {
-    "id": "EX-024",
-    "number": 24,
-    "code": "#SBEM024",
-    "title": "Simulasi Angsuran Kredit Rumah KPR (Bank PMT) (Studi Kasus #24)",
-    "category": "Keuangan",
-    "difficulty": "MAHIR",
-    "difficultyStars": 4,
-    "tags": [
-      "Cek Otomatis",
-      "Studi Kasus",
-      "Keuangan"
-    ],
-    "instructions": {
-      "title": "MAHIR Level - Simulasi Angsuran Kredit Rumah KPR (Bank PMT)",
-      "description": "Hitung cicilan per bulan menggunakan fungsi PMT.",
-      "points": [
-        "1. Periksa data pada tabel di bawah ini.",
-        "2. Tuliskan formula pada kolom target (E) sesuai aturan yang ditentukan.",
-        "3. Pastikan formula dapat diterapkan ke seluruh baris data.",
-        "4. Klik tombol \"Cek Hasil Jawaban\" untuk mengevaluasi kelulusan kasus."
-      ],
-      "helperTable": {
-        "title": "Ketentuan Rumus",
-        "headers": [
-          "Target Kolom",
-          "Formula Acuan"
-        ],
-        "rows": [
-          [
-            "Angsuran / Bulan (PMT)",
-            "=PMT(C2/12, D2*12, -B2)"
-          ]
-        ]
-      },
-      "notice": "Tulis rumus kalkulasi pada kolom yang telah disediakan."
-    },
-    "sheets": [
-      {
-        "id": "sheet_24",
-        "name": "Simulasi KPR",
-        "columns": [
-          {
-            "key": "deb",
-            "label": "Nama Debitur",
-            "letter": "A"
-          },
-          {
-            "key": "plafon",
-            "label": "Plafon Pinjaman (Rp)",
-            "letter": "B"
-          },
-          {
-            "key": "bunga",
-            "label": "Bunga Tahunan (%)",
-            "letter": "C"
-          },
-          {
-            "key": "tenor",
-            "label": "Tenor (Tahun)",
-            "letter": "D"
-          },
-          {
-            "key": "angsuran",
-            "label": "Angsuran / Bulan (PMT)",
-            "letter": "E"
-          }
-        ],
-        "rows": [
-          {
-            "rowNumber": 2,
-            "values": {
-              "deb": "Andi Pratama",
-              "plafon": 500000000,
-              "bunga": 0.08,
-              "tenor": 15,
-              "angsuran": "?"
-            }
-          },
-          {
-            "rowNumber": 3,
-            "values": {
-              "deb": "Citra Kirana",
-              "plafon": 350000000,
-              "bunga": 0.075,
-              "tenor": 10,
-              "angsuran": "?"
-            }
-          },
-          {
-            "rowNumber": 4,
-            "values": {
-              "deb": "Dimas Anggara",
-              "plafon": 800000000,
-              "bunga": 0.085,
-              "tenor": 20,
-              "angsuran": "?"
-            }
-          },
-          {
-            "rowNumber": 5,
-            "values": {
-              "deb": "Eka Saputra",
-              "plafon": 250000000,
-              "bunga": 0.07,
-              "tenor": 5,
-              "angsuran": "?"
-            }
-          }
-        ],
-        "targetColumns": [
-          {
-            "key": "angsuran",
-            "letter": "E",
-            "label": "Angsuran / Bulan (PMT)",
-            "description": "Hitung cicilan per bulan menggunakan fungsi PMT.",
-            "expectedRowAnswers": {
-              "2": 4778260,
-              "3": 4153835,
-              "4": 6942621,
-              "5": 4950371
-            }
-          }
-        ]
-      }
-    ],
-    "passingScore": 70,
-    "solutionBlueprints": [
-      {
-        "columnLabel": "Angsuran / Bulan (PMT)",
-        "formula": "=PMT(C2/12, D2*12, -B2)",
-        "explanation": "Hitung cicilan per bulan menggunakan fungsi PMT."
-      }
-    ]
-  },
-  {
-    "id": "EX-025",
-    "number": 25,
     "code": "#SBEM025",
-    "title": "Rekonsiliasi Bank & Buku Kas Perusahaan (Studi Kasus #25)",
-    "category": "Kombinasi",
-    "difficulty": "EXTREME",
-    "difficultyStars": 5,
-    "tags": [
-      "Cek Otomatis",
-      "Studi Kasus",
-      "Kombinasi"
-    ],
-    "instructions": {
-      "title": "EXTREME Level - Rekonsiliasi Bank & Buku Kas Perusahaan",
-      "description": "Hitung selisih mutasi bank dan buku kas perusahaan.",
-      "points": [
-        "1. Periksa data pada tabel di bawah ini.",
-        "2. Tuliskan formula pada kolom target (E) sesuai aturan yang ditentukan.",
-        "3. Pastikan formula dapat diterapkan ke seluruh baris data.",
-        "4. Klik tombol \"Cek Hasil Jawaban\" untuk mengevaluasi kelulusan kasus."
-      ],
-      "helperTable": {
-        "title": "Ketentuan Rumus",
-        "headers": [
-          "Target Kolom",
-          "Formula Acuan"
-        ],
-        "rows": [
-          [
-            "Selisih (Rp)",
-            "=ABS(C2-D2)"
-          ]
-        ]
-      },
-      "notice": "Tulis rumus kalkulasi pada kolom yang telah disediakan."
-    },
-    "sheets": [
-      {
-        "id": "sheet_25",
-        "name": "Rekonsiliasi Kas",
-        "columns": [
-          {
-            "key": "tgl",
-            "label": "Tanggal",
-            "letter": "A"
-          },
-          {
-            "key": "ket",
-            "label": "Keterangan Transaksi",
-            "letter": "B"
-          },
-          {
-            "key": "bank",
-            "label": "Mutasi Bank (Rp)",
-            "letter": "C"
-          },
-          {
-            "key": "buku",
-            "label": "Buku Kas (Rp)",
-            "letter": "D"
-          },
-          {
-            "key": "selisih",
-            "label": "Selisih (Rp)",
-            "letter": "E"
-          },
-          {
-            "key": "status",
-            "label": "Status Audit",
-            "letter": "F"
-          }
-        ],
-        "rows": [
-          {
-            "rowNumber": 2,
-            "values": {
-              "tgl": "01/08/2026",
-              "ket": "Setoran Tunai Kasir Toko",
-              "bank": 15000000,
-              "buku": 15000000,
-              "selisih": "?",
-              "status": "?"
-            }
-          },
-          {
-            "rowNumber": 3,
-            "values": {
-              "tgl": "03/08/2026",
-              "ket": "Kliring Cek Vendor Supplier",
-              "bank": 8500000,
-              "buku": 8500000,
-              "selisih": "?",
-              "status": "?"
-            }
-          },
-          {
-            "rowNumber": 4,
-            "values": {
-              "tgl": "05/08/2026",
-              "ket": "Biaya Administrasi Bank Bulanan",
-              "bank": 25000,
-              "buku": 0,
-              "selisih": "?",
-              "status": "?"
-            }
-          },
-          {
-            "rowNumber": 5,
-            "values": {
-              "tgl": "07/08/2026",
-              "ket": "Pendapatan Jasa Giro Bunga",
-              "bank": 180000,
-              "buku": 0,
-              "selisih": "?",
-              "status": "?"
-            }
-          }
-        ],
-        "targetColumns": [
-          {
-            "key": "selisih",
-            "letter": "E",
-            "label": "Selisih (Rp)",
-            "description": "Hitung selisih mutasi bank dan buku kas perusahaan.",
-            "expectedRowAnswers": {
-              "2": 0,
-              "3": 0,
-              "4": 25000,
-              "5": 180000
-            }
-          }
-        ]
-      }
-    ],
-    "passingScore": 70,
-    "solutionBlueprints": [
-      {
-        "columnLabel": "Selisih (Rp)",
-        "formula": "=ABS(C2-D2)",
-        "explanation": "Hitung selisih mutasi bank dan buku kas perusahaan."
-      }
-    ]
-  },
-  {
-    "id": "EX-026",
-    "number": 26,
-    "code": "#SBEM026",
-    "title": "Pengolahan Nilai Rapor & Beasiswa Prestasi Siswa (Studi Kasus #26)",
-    "category": "Logika",
+    "title": "Tarif Kamar Hotel & Kalkulasi Tagihan Tamu Menginap",
+    "category": "Lookup",
     "difficulty": "MENENGAH",
     "difficultyStars": 3,
     "tags": [
-      "Cek Otomatis",
-      "Studi Kasus",
-      "Logika"
+      "Perhotelan",
+      "VLOOKUP",
+      "Tagihan"
     ],
     "instructions": {
-      "title": "MENENGAH Level - Pengolahan Nilai Rapor & Beasiswa Prestasi Siswa",
-      "description": "Hitung nilai akhir berbobot 30% Tugas + 30% UTS + 40% UAS.",
+      "title": "Medium Level - Reservasi Kamar & Tagihan Hotel",
+      "description": "Resepsionis hotel memerlukan penarikan Tarif Kamar per Malam dari sheet \"Master Tarif\", perhitungan Biaya Kamar (Tarif * Malam), Biaya Tambahan Extra Bed, dan Total Tagihan.",
       "points": [
-        "1. Periksa data pada tabel di bawah ini.",
-        "2. Tuliskan formula pada kolom target (F) sesuai aturan yang ditentukan.",
-        "3. Pastikan formula dapat diterapkan ke seluruh baris data.",
-        "4. Klik tombol \"Cek Hasil Jawaban\" untuk mengevaluasi kelulusan kasus."
+        "1. Kolom D (Tarif per Malam Rp): Lookup dari sheet \"Master Tarif\" berdasarkan Tipe Kamar (kolom C) -> =VLOOKUP(C2, 'Master Tarif'!A2:B5, 2, FALSE).",
+        "2. Kolom F (Biaya Kamar Rp): Tarif per Malam * Lama Malam (kolom E) -> =D2*E2.",
+        "3. Kolom H (Total Tagihan Rp): Biaya Kamar + Biaya Extra Bed (kolom G) -> =F2+G2."
       ],
       "helperTable": {
-        "title": "Ketentuan Rumus",
+        "title": "Tabel Tarif Kamar",
         "headers": [
-          "Target Kolom",
-          "Formula Acuan"
+          "Tipe Kamar",
+          "Tarif per Malam"
         ],
         "rows": [
           [
-            "Nilai Akhir",
-            "=C2*0.3 + D2*0.3 + E2*0.4"
+            "Standard Room",
+            "Rp 450.000"
+          ],
+          [
+            "Deluxe Room",
+            "Rp 750.000"
+          ],
+          [
+            "Executive Suite",
+            "Rp 1.250.000"
+          ],
+          [
+            "Presidential Suite",
+            "Rp 3.500.000"
           ]
         ]
       },
-      "notice": "Tulis rumus kalkulasi pada kolom yang telah disediakan."
+      "notice": "Gunakan sheet \"Master Tarif\" untuk rumus VLOOKUP."
     },
     "sheets": [
       {
-        "id": "sheet_26",
-        "name": "Rapor Siswa",
+        "id": "sheet_tamu",
+        "name": "Reservasi Tamu",
         "columns": [
           {
-            "key": "nis",
-            "label": "NIS",
+            "key": "res_id",
+            "label": "ID Booking",
             "letter": "A"
           },
           {
-            "key": "nama",
-            "label": "Nama Siswa",
+            "key": "tamu",
+            "label": "Nama Tamu Hotel",
             "letter": "B"
           },
           {
-            "key": "tugas",
-            "label": "Nilai Tugas (30%)",
+            "key": "tipe",
+            "label": "Tipe Kamar",
             "letter": "C"
           },
           {
-            "key": "uts",
-            "label": "Nilai UTS (30%)",
+            "key": "tarif",
+            "label": "Tarif / Malam (Rp)",
             "letter": "D"
           },
           {
-            "key": "uas",
-            "label": "Nilai UAS (40%)",
+            "key": "malam",
+            "label": "Lama (Malam)",
             "letter": "E"
           },
           {
-            "key": "akhir",
-            "label": "Nilai Akhir",
+            "key": "biaya_kamar",
+            "label": "Biaya Kamar (Rp)",
             "letter": "F"
           },
           {
-            "key": "beasiswa",
-            "label": "Status Beasiswa",
+            "key": "extra",
+            "label": "Extra Bed (Rp)",
             "letter": "G"
+          },
+          {
+            "key": "total",
+            "label": "Total Tagihan (Rp)",
+            "letter": "H"
           }
         ],
         "rows": [
           {
             "rowNumber": 2,
             "values": {
-              "nis": "202601",
-              "nama": "Fajar Nugraha",
-              "tugas": 85,
-              "uts": 90,
-              "uas": 92,
-              "akhir": "?",
-              "beasiswa": "?"
+              "res_id": "BK-101",
+              "tamu": "Ir. Soekarno Wibowo",
+              "tipe": "Deluxe Room",
+              "tarif": "?",
+              "malam": 3,
+              "biaya_kamar": "?",
+              "extra": 200000,
+              "total": "?"
             }
           },
           {
             "rowNumber": 3,
             "values": {
-              "nis": "202602",
-              "nama": "Gita Larasati",
-              "tugas": 75,
-              "uts": 80,
-              "uas": 78,
-              "akhir": "?",
-              "beasiswa": "?"
+              "res_id": "BK-102",
+              "tamu": "Dra. Megawati Santoso",
+              "tipe": "Executive Suite",
+              "tarif": "?",
+              "malam": 2,
+              "biaya_kamar": "?",
+              "extra": 0,
+              "total": "?"
             }
           },
           {
             "rowNumber": 4,
             "values": {
-              "nis": "202603",
-              "nama": "Hendra Gunawan",
-              "tugas": 90,
-              "uts": 95,
-              "uas": 94,
-              "akhir": "?",
-              "beasiswa": "?"
+              "res_id": "BK-103",
+              "tamu": "Dr. Habibie Rahman",
+              "tipe": "Presidential Suite",
+              "tarif": "?",
+              "malam": 4,
+              "biaya_kamar": "?",
+              "extra": 500000,
+              "total": "?"
             }
           },
           {
             "rowNumber": 5,
             "values": {
-              "nis": "202604",
-              "nama": "Indah Permatasari",
-              "tugas": 60,
-              "uts": 65,
-              "uas": 70,
-              "akhir": "?",
-              "beasiswa": "?"
+              "res_id": "BK-104",
+              "tamu": "Kusuma Wardani, S.E.",
+              "tipe": "Standard Room",
+              "tarif": "?",
+              "malam": 1,
+              "biaya_kamar": "?",
+              "extra": 0,
+              "total": "?"
             }
           }
         ],
         "targetColumns": [
           {
-            "key": "akhir",
+            "key": "tarif",
+            "letter": "D",
+            "label": "Tarif per Malam",
+            "description": "VLOOKUP dari Master Tarif",
+            "expectedRowAnswers": {
+              "2": 750000,
+              "3": 1250000,
+              "4": 3500000,
+              "5": 450000
+            }
+          },
+          {
+            "key": "biaya_kamar",
             "letter": "F",
-            "label": "Nilai Akhir",
-            "description": "Hitung nilai akhir berbobot 30% Tugas + 30% UTS + 40% UAS.",
+            "label": "Biaya Kamar",
+            "description": "Tarif * Malam",
             "expectedRowAnswers": {
-              "2": 89.3,
-              "3": 77.7,
-              "4": 93.1,
-              "5": 65.5
+              "2": 2250000,
+              "3": 2500000,
+              "4": 14000000,
+              "5": 450000
+            }
+          },
+          {
+            "key": "total",
+            "letter": "H",
+            "label": "Total Tagihan",
+            "description": "Biaya Kamar + Extra Bed",
+            "expectedRowAnswers": {
+              "2": 2450000,
+              "3": 2500000,
+              "4": 14500000,
+              "5": 450000
             }
           }
         ]
-      }
-    ],
-    "passingScore": 70,
-    "solutionBlueprints": [
-      {
-        "columnLabel": "Nilai Akhir",
-        "formula": "=C2*0.3 + D2*0.3 + E2*0.4",
-        "explanation": "Hitung nilai akhir berbobot 30% Tugas + 30% UTS + 40% UAS."
-      }
-    ]
-  },
-  {
-    "id": "EX-027",
-    "number": 27,
-    "code": "#SBEM027",
-    "title": "Simulasi Angsuran Kredit Rumah KPR (Bank PMT) (Studi Kasus #27)",
-    "category": "Keuangan",
-    "difficulty": "MAHIR",
-    "difficultyStars": 4,
-    "tags": [
-      "Cek Otomatis",
-      "Studi Kasus",
-      "Keuangan"
-    ],
-    "instructions": {
-      "title": "MAHIR Level - Simulasi Angsuran Kredit Rumah KPR (Bank PMT)",
-      "description": "Hitung cicilan per bulan menggunakan fungsi PMT.",
-      "points": [
-        "1. Periksa data pada tabel di bawah ini.",
-        "2. Tuliskan formula pada kolom target (E) sesuai aturan yang ditentukan.",
-        "3. Pastikan formula dapat diterapkan ke seluruh baris data.",
-        "4. Klik tombol \"Cek Hasil Jawaban\" untuk mengevaluasi kelulusan kasus."
-      ],
-      "helperTable": {
-        "title": "Ketentuan Rumus",
-        "headers": [
-          "Target Kolom",
-          "Formula Acuan"
-        ],
-        "rows": [
-          [
-            "Angsuran / Bulan (PMT)",
-            "=PMT(C2/12, D2*12, -B2)"
-          ]
-        ]
       },
-      "notice": "Tulis rumus kalkulasi pada kolom yang telah disediakan."
-    },
-    "sheets": [
       {
-        "id": "sheet_27",
-        "name": "Simulasi KPR",
+        "id": "sheet_master_hotel",
+        "name": "Master Tarif",
         "columns": [
           {
-            "key": "deb",
-            "label": "Nama Debitur",
+            "key": "tipe",
+            "label": "Tipe Kamar",
             "letter": "A"
           },
           {
-            "key": "plafon",
-            "label": "Plafon Pinjaman (Rp)",
+            "key": "tarif",
+            "label": "Tarif per Malam (Rp)",
             "letter": "B"
-          },
-          {
-            "key": "bunga",
-            "label": "Bunga Tahunan (%)",
-            "letter": "C"
-          },
-          {
-            "key": "tenor",
-            "label": "Tenor (Tahun)",
-            "letter": "D"
-          },
-          {
-            "key": "angsuran",
-            "label": "Angsuran / Bulan (PMT)",
-            "letter": "E"
           }
         ],
         "rows": [
           {
             "rowNumber": 2,
             "values": {
-              "deb": "Andi Pratama",
-              "plafon": 500000000,
-              "bunga": 0.08,
-              "tenor": 15,
-              "angsuran": "?"
+              "tipe": "Standard Room",
+              "tarif": 450000
             }
           },
           {
             "rowNumber": 3,
             "values": {
-              "deb": "Citra Kirana",
-              "plafon": 350000000,
-              "bunga": 0.075,
-              "tenor": 10,
-              "angsuran": "?"
+              "tipe": "Deluxe Room",
+              "tarif": 750000
             }
           },
           {
             "rowNumber": 4,
             "values": {
-              "deb": "Dimas Anggara",
-              "plafon": 800000000,
-              "bunga": 0.085,
-              "tenor": 20,
-              "angsuran": "?"
+              "tipe": "Executive Suite",
+              "tarif": 1250000
             }
           },
           {
             "rowNumber": 5,
             "values": {
-              "deb": "Eka Saputra",
-              "plafon": 250000000,
-              "bunga": 0.07,
-              "tenor": 5,
-              "angsuran": "?"
-            }
-          }
-        ],
-        "targetColumns": [
-          {
-            "key": "angsuran",
-            "letter": "E",
-            "label": "Angsuran / Bulan (PMT)",
-            "description": "Hitung cicilan per bulan menggunakan fungsi PMT.",
-            "expectedRowAnswers": {
-              "2": 4778260,
-              "3": 4153835,
-              "4": 6942621,
-              "5": 4950371
+              "tipe": "Presidential Suite",
+              "tarif": 3500000
             }
           }
         ]
@@ -5995,3330 +4785,14 @@ export const CASE_EXAMS: CaseExamData[] = [
     "passingScore": 70,
     "solutionBlueprints": [
       {
-        "columnLabel": "Angsuran / Bulan (PMT)",
-        "formula": "=PMT(C2/12, D2*12, -B2)",
-        "explanation": "Hitung cicilan per bulan menggunakan fungsi PMT."
-      }
-    ]
-  },
-  {
-    "id": "EX-028",
-    "number": 28,
-    "code": "#SBEM028",
-    "title": "Rekonsiliasi Bank & Buku Kas Perusahaan (Studi Kasus #28)",
-    "category": "Kombinasi",
-    "difficulty": "EXTREME",
-    "difficultyStars": 5,
-    "tags": [
-      "Cek Otomatis",
-      "Studi Kasus",
-      "Kombinasi"
-    ],
-    "instructions": {
-      "title": "EXTREME Level - Rekonsiliasi Bank & Buku Kas Perusahaan",
-      "description": "Hitung selisih mutasi bank dan buku kas perusahaan.",
-      "points": [
-        "1. Periksa data pada tabel di bawah ini.",
-        "2. Tuliskan formula pada kolom target (E) sesuai aturan yang ditentukan.",
-        "3. Pastikan formula dapat diterapkan ke seluruh baris data.",
-        "4. Klik tombol \"Cek Hasil Jawaban\" untuk mengevaluasi kelulusan kasus."
-      ],
-      "helperTable": {
-        "title": "Ketentuan Rumus",
-        "headers": [
-          "Target Kolom",
-          "Formula Acuan"
-        ],
-        "rows": [
-          [
-            "Selisih (Rp)",
-            "=ABS(C2-D2)"
-          ]
-        ]
+        "columnLabel": "Tarif / Malam",
+        "formula": "=VLOOKUP(C2, 'Master Tarif'!A2:B5, 2, FALSE)",
+        "explanation": "Mengambil tarif harian dari tabel Master Tarif"
       },
-      "notice": "Tulis rumus kalkulasi pada kolom yang telah disediakan."
-    },
-    "sheets": [
       {
-        "id": "sheet_28",
-        "name": "Rekonsiliasi Kas",
-        "columns": [
-          {
-            "key": "tgl",
-            "label": "Tanggal",
-            "letter": "A"
-          },
-          {
-            "key": "ket",
-            "label": "Keterangan Transaksi",
-            "letter": "B"
-          },
-          {
-            "key": "bank",
-            "label": "Mutasi Bank (Rp)",
-            "letter": "C"
-          },
-          {
-            "key": "buku",
-            "label": "Buku Kas (Rp)",
-            "letter": "D"
-          },
-          {
-            "key": "selisih",
-            "label": "Selisih (Rp)",
-            "letter": "E"
-          },
-          {
-            "key": "status",
-            "label": "Status Audit",
-            "letter": "F"
-          }
-        ],
-        "rows": [
-          {
-            "rowNumber": 2,
-            "values": {
-              "tgl": "01/08/2026",
-              "ket": "Setoran Tunai Kasir Toko",
-              "bank": 15000000,
-              "buku": 15000000,
-              "selisih": "?",
-              "status": "?"
-            }
-          },
-          {
-            "rowNumber": 3,
-            "values": {
-              "tgl": "03/08/2026",
-              "ket": "Kliring Cek Vendor Supplier",
-              "bank": 8500000,
-              "buku": 8500000,
-              "selisih": "?",
-              "status": "?"
-            }
-          },
-          {
-            "rowNumber": 4,
-            "values": {
-              "tgl": "05/08/2026",
-              "ket": "Biaya Administrasi Bank Bulanan",
-              "bank": 25000,
-              "buku": 0,
-              "selisih": "?",
-              "status": "?"
-            }
-          },
-          {
-            "rowNumber": 5,
-            "values": {
-              "tgl": "07/08/2026",
-              "ket": "Pendapatan Jasa Giro Bunga",
-              "bank": 180000,
-              "buku": 0,
-              "selisih": "?",
-              "status": "?"
-            }
-          }
-        ],
-        "targetColumns": [
-          {
-            "key": "selisih",
-            "letter": "E",
-            "label": "Selisih (Rp)",
-            "description": "Hitung selisih mutasi bank dan buku kas perusahaan.",
-            "expectedRowAnswers": {
-              "2": 0,
-              "3": 0,
-              "4": 25000,
-              "5": 180000
-            }
-          }
-        ]
-      }
-    ],
-    "passingScore": 70,
-    "solutionBlueprints": [
-      {
-        "columnLabel": "Selisih (Rp)",
-        "formula": "=ABS(C2-D2)",
-        "explanation": "Hitung selisih mutasi bank dan buku kas perusahaan."
-      }
-    ]
-  },
-  {
-    "id": "EX-029",
-    "number": 29,
-    "code": "#SBEM029",
-    "title": "Pengolahan Nilai Rapor & Beasiswa Prestasi Siswa (Studi Kasus #29)",
-    "category": "Logika",
-    "difficulty": "MENENGAH",
-    "difficultyStars": 3,
-    "tags": [
-      "Cek Otomatis",
-      "Studi Kasus",
-      "Logika"
-    ],
-    "instructions": {
-      "title": "MENENGAH Level - Pengolahan Nilai Rapor & Beasiswa Prestasi Siswa",
-      "description": "Hitung nilai akhir berbobot 30% Tugas + 30% UTS + 40% UAS.",
-      "points": [
-        "1. Periksa data pada tabel di bawah ini.",
-        "2. Tuliskan formula pada kolom target (F) sesuai aturan yang ditentukan.",
-        "3. Pastikan formula dapat diterapkan ke seluruh baris data.",
-        "4. Klik tombol \"Cek Hasil Jawaban\" untuk mengevaluasi kelulusan kasus."
-      ],
-      "helperTable": {
-        "title": "Ketentuan Rumus",
-        "headers": [
-          "Target Kolom",
-          "Formula Acuan"
-        ],
-        "rows": [
-          [
-            "Nilai Akhir",
-            "=C2*0.3 + D2*0.3 + E2*0.4"
-          ]
-        ]
-      },
-      "notice": "Tulis rumus kalkulasi pada kolom yang telah disediakan."
-    },
-    "sheets": [
-      {
-        "id": "sheet_29",
-        "name": "Rapor Siswa",
-        "columns": [
-          {
-            "key": "nis",
-            "label": "NIS",
-            "letter": "A"
-          },
-          {
-            "key": "nama",
-            "label": "Nama Siswa",
-            "letter": "B"
-          },
-          {
-            "key": "tugas",
-            "label": "Nilai Tugas (30%)",
-            "letter": "C"
-          },
-          {
-            "key": "uts",
-            "label": "Nilai UTS (30%)",
-            "letter": "D"
-          },
-          {
-            "key": "uas",
-            "label": "Nilai UAS (40%)",
-            "letter": "E"
-          },
-          {
-            "key": "akhir",
-            "label": "Nilai Akhir",
-            "letter": "F"
-          },
-          {
-            "key": "beasiswa",
-            "label": "Status Beasiswa",
-            "letter": "G"
-          }
-        ],
-        "rows": [
-          {
-            "rowNumber": 2,
-            "values": {
-              "nis": "202601",
-              "nama": "Fajar Nugraha",
-              "tugas": 85,
-              "uts": 90,
-              "uas": 92,
-              "akhir": "?",
-              "beasiswa": "?"
-            }
-          },
-          {
-            "rowNumber": 3,
-            "values": {
-              "nis": "202602",
-              "nama": "Gita Larasati",
-              "tugas": 75,
-              "uts": 80,
-              "uas": 78,
-              "akhir": "?",
-              "beasiswa": "?"
-            }
-          },
-          {
-            "rowNumber": 4,
-            "values": {
-              "nis": "202603",
-              "nama": "Hendra Gunawan",
-              "tugas": 90,
-              "uts": 95,
-              "uas": 94,
-              "akhir": "?",
-              "beasiswa": "?"
-            }
-          },
-          {
-            "rowNumber": 5,
-            "values": {
-              "nis": "202604",
-              "nama": "Indah Permatasari",
-              "tugas": 60,
-              "uts": 65,
-              "uas": 70,
-              "akhir": "?",
-              "beasiswa": "?"
-            }
-          }
-        ],
-        "targetColumns": [
-          {
-            "key": "akhir",
-            "letter": "F",
-            "label": "Nilai Akhir",
-            "description": "Hitung nilai akhir berbobot 30% Tugas + 30% UTS + 40% UAS.",
-            "expectedRowAnswers": {
-              "2": 89.3,
-              "3": 77.7,
-              "4": 93.1,
-              "5": 65.5
-            }
-          }
-        ]
-      }
-    ],
-    "passingScore": 70,
-    "solutionBlueprints": [
-      {
-        "columnLabel": "Nilai Akhir",
-        "formula": "=C2*0.3 + D2*0.3 + E2*0.4",
-        "explanation": "Hitung nilai akhir berbobot 30% Tugas + 30% UTS + 40% UAS."
-      }
-    ]
-  },
-  {
-    "id": "EX-030",
-    "number": 30,
-    "code": "#SBEM030",
-    "title": "Simulasi Angsuran Kredit Rumah KPR (Bank PMT) (Studi Kasus #30)",
-    "category": "Keuangan",
-    "difficulty": "MAHIR",
-    "difficultyStars": 4,
-    "tags": [
-      "Cek Otomatis",
-      "Studi Kasus",
-      "Keuangan"
-    ],
-    "instructions": {
-      "title": "MAHIR Level - Simulasi Angsuran Kredit Rumah KPR (Bank PMT)",
-      "description": "Hitung cicilan per bulan menggunakan fungsi PMT.",
-      "points": [
-        "1. Periksa data pada tabel di bawah ini.",
-        "2. Tuliskan formula pada kolom target (E) sesuai aturan yang ditentukan.",
-        "3. Pastikan formula dapat diterapkan ke seluruh baris data.",
-        "4. Klik tombol \"Cek Hasil Jawaban\" untuk mengevaluasi kelulusan kasus."
-      ],
-      "helperTable": {
-        "title": "Ketentuan Rumus",
-        "headers": [
-          "Target Kolom",
-          "Formula Acuan"
-        ],
-        "rows": [
-          [
-            "Angsuran / Bulan (PMT)",
-            "=PMT(C2/12, D2*12, -B2)"
-          ]
-        ]
-      },
-      "notice": "Tulis rumus kalkulasi pada kolom yang telah disediakan."
-    },
-    "sheets": [
-      {
-        "id": "sheet_30",
-        "name": "Simulasi KPR",
-        "columns": [
-          {
-            "key": "deb",
-            "label": "Nama Debitur",
-            "letter": "A"
-          },
-          {
-            "key": "plafon",
-            "label": "Plafon Pinjaman (Rp)",
-            "letter": "B"
-          },
-          {
-            "key": "bunga",
-            "label": "Bunga Tahunan (%)",
-            "letter": "C"
-          },
-          {
-            "key": "tenor",
-            "label": "Tenor (Tahun)",
-            "letter": "D"
-          },
-          {
-            "key": "angsuran",
-            "label": "Angsuran / Bulan (PMT)",
-            "letter": "E"
-          }
-        ],
-        "rows": [
-          {
-            "rowNumber": 2,
-            "values": {
-              "deb": "Andi Pratama",
-              "plafon": 500000000,
-              "bunga": 0.08,
-              "tenor": 15,
-              "angsuran": "?"
-            }
-          },
-          {
-            "rowNumber": 3,
-            "values": {
-              "deb": "Citra Kirana",
-              "plafon": 350000000,
-              "bunga": 0.075,
-              "tenor": 10,
-              "angsuran": "?"
-            }
-          },
-          {
-            "rowNumber": 4,
-            "values": {
-              "deb": "Dimas Anggara",
-              "plafon": 800000000,
-              "bunga": 0.085,
-              "tenor": 20,
-              "angsuran": "?"
-            }
-          },
-          {
-            "rowNumber": 5,
-            "values": {
-              "deb": "Eka Saputra",
-              "plafon": 250000000,
-              "bunga": 0.07,
-              "tenor": 5,
-              "angsuran": "?"
-            }
-          }
-        ],
-        "targetColumns": [
-          {
-            "key": "angsuran",
-            "letter": "E",
-            "label": "Angsuran / Bulan (PMT)",
-            "description": "Hitung cicilan per bulan menggunakan fungsi PMT.",
-            "expectedRowAnswers": {
-              "2": 4778260,
-              "3": 4153835,
-              "4": 6942621,
-              "5": 4950371
-            }
-          }
-        ]
-      }
-    ],
-    "passingScore": 70,
-    "solutionBlueprints": [
-      {
-        "columnLabel": "Angsuran / Bulan (PMT)",
-        "formula": "=PMT(C2/12, D2*12, -B2)",
-        "explanation": "Hitung cicilan per bulan menggunakan fungsi PMT."
-      }
-    ]
-  },
-  {
-    "id": "EX-031",
-    "number": 31,
-    "code": "#SBEM031",
-    "title": "Rekonsiliasi Bank & Buku Kas Perusahaan (Studi Kasus #31)",
-    "category": "Kombinasi",
-    "difficulty": "EXTREME",
-    "difficultyStars": 5,
-    "tags": [
-      "Cek Otomatis",
-      "Studi Kasus",
-      "Kombinasi"
-    ],
-    "instructions": {
-      "title": "EXTREME Level - Rekonsiliasi Bank & Buku Kas Perusahaan",
-      "description": "Hitung selisih mutasi bank dan buku kas perusahaan.",
-      "points": [
-        "1. Periksa data pada tabel di bawah ini.",
-        "2. Tuliskan formula pada kolom target (E) sesuai aturan yang ditentukan.",
-        "3. Pastikan formula dapat diterapkan ke seluruh baris data.",
-        "4. Klik tombol \"Cek Hasil Jawaban\" untuk mengevaluasi kelulusan kasus."
-      ],
-      "helperTable": {
-        "title": "Ketentuan Rumus",
-        "headers": [
-          "Target Kolom",
-          "Formula Acuan"
-        ],
-        "rows": [
-          [
-            "Selisih (Rp)",
-            "=ABS(C2-D2)"
-          ]
-        ]
-      },
-      "notice": "Tulis rumus kalkulasi pada kolom yang telah disediakan."
-    },
-    "sheets": [
-      {
-        "id": "sheet_31",
-        "name": "Rekonsiliasi Kas",
-        "columns": [
-          {
-            "key": "tgl",
-            "label": "Tanggal",
-            "letter": "A"
-          },
-          {
-            "key": "ket",
-            "label": "Keterangan Transaksi",
-            "letter": "B"
-          },
-          {
-            "key": "bank",
-            "label": "Mutasi Bank (Rp)",
-            "letter": "C"
-          },
-          {
-            "key": "buku",
-            "label": "Buku Kas (Rp)",
-            "letter": "D"
-          },
-          {
-            "key": "selisih",
-            "label": "Selisih (Rp)",
-            "letter": "E"
-          },
-          {
-            "key": "status",
-            "label": "Status Audit",
-            "letter": "F"
-          }
-        ],
-        "rows": [
-          {
-            "rowNumber": 2,
-            "values": {
-              "tgl": "01/08/2026",
-              "ket": "Setoran Tunai Kasir Toko",
-              "bank": 15000000,
-              "buku": 15000000,
-              "selisih": "?",
-              "status": "?"
-            }
-          },
-          {
-            "rowNumber": 3,
-            "values": {
-              "tgl": "03/08/2026",
-              "ket": "Kliring Cek Vendor Supplier",
-              "bank": 8500000,
-              "buku": 8500000,
-              "selisih": "?",
-              "status": "?"
-            }
-          },
-          {
-            "rowNumber": 4,
-            "values": {
-              "tgl": "05/08/2026",
-              "ket": "Biaya Administrasi Bank Bulanan",
-              "bank": 25000,
-              "buku": 0,
-              "selisih": "?",
-              "status": "?"
-            }
-          },
-          {
-            "rowNumber": 5,
-            "values": {
-              "tgl": "07/08/2026",
-              "ket": "Pendapatan Jasa Giro Bunga",
-              "bank": 180000,
-              "buku": 0,
-              "selisih": "?",
-              "status": "?"
-            }
-          }
-        ],
-        "targetColumns": [
-          {
-            "key": "selisih",
-            "letter": "E",
-            "label": "Selisih (Rp)",
-            "description": "Hitung selisih mutasi bank dan buku kas perusahaan.",
-            "expectedRowAnswers": {
-              "2": 0,
-              "3": 0,
-              "4": 25000,
-              "5": 180000
-            }
-          }
-        ]
-      }
-    ],
-    "passingScore": 70,
-    "solutionBlueprints": [
-      {
-        "columnLabel": "Selisih (Rp)",
-        "formula": "=ABS(C2-D2)",
-        "explanation": "Hitung selisih mutasi bank dan buku kas perusahaan."
-      }
-    ]
-  },
-  {
-    "id": "EX-032",
-    "number": 32,
-    "code": "#SBEM032",
-    "title": "Pengolahan Nilai Rapor & Beasiswa Prestasi Siswa (Studi Kasus #32)",
-    "category": "Logika",
-    "difficulty": "MENENGAH",
-    "difficultyStars": 3,
-    "tags": [
-      "Cek Otomatis",
-      "Studi Kasus",
-      "Logika"
-    ],
-    "instructions": {
-      "title": "MENENGAH Level - Pengolahan Nilai Rapor & Beasiswa Prestasi Siswa",
-      "description": "Hitung nilai akhir berbobot 30% Tugas + 30% UTS + 40% UAS.",
-      "points": [
-        "1. Periksa data pada tabel di bawah ini.",
-        "2. Tuliskan formula pada kolom target (F) sesuai aturan yang ditentukan.",
-        "3. Pastikan formula dapat diterapkan ke seluruh baris data.",
-        "4. Klik tombol \"Cek Hasil Jawaban\" untuk mengevaluasi kelulusan kasus."
-      ],
-      "helperTable": {
-        "title": "Ketentuan Rumus",
-        "headers": [
-          "Target Kolom",
-          "Formula Acuan"
-        ],
-        "rows": [
-          [
-            "Nilai Akhir",
-            "=C2*0.3 + D2*0.3 + E2*0.4"
-          ]
-        ]
-      },
-      "notice": "Tulis rumus kalkulasi pada kolom yang telah disediakan."
-    },
-    "sheets": [
-      {
-        "id": "sheet_32",
-        "name": "Rapor Siswa",
-        "columns": [
-          {
-            "key": "nis",
-            "label": "NIS",
-            "letter": "A"
-          },
-          {
-            "key": "nama",
-            "label": "Nama Siswa",
-            "letter": "B"
-          },
-          {
-            "key": "tugas",
-            "label": "Nilai Tugas (30%)",
-            "letter": "C"
-          },
-          {
-            "key": "uts",
-            "label": "Nilai UTS (30%)",
-            "letter": "D"
-          },
-          {
-            "key": "uas",
-            "label": "Nilai UAS (40%)",
-            "letter": "E"
-          },
-          {
-            "key": "akhir",
-            "label": "Nilai Akhir",
-            "letter": "F"
-          },
-          {
-            "key": "beasiswa",
-            "label": "Status Beasiswa",
-            "letter": "G"
-          }
-        ],
-        "rows": [
-          {
-            "rowNumber": 2,
-            "values": {
-              "nis": "202601",
-              "nama": "Fajar Nugraha",
-              "tugas": 85,
-              "uts": 90,
-              "uas": 92,
-              "akhir": "?",
-              "beasiswa": "?"
-            }
-          },
-          {
-            "rowNumber": 3,
-            "values": {
-              "nis": "202602",
-              "nama": "Gita Larasati",
-              "tugas": 75,
-              "uts": 80,
-              "uas": 78,
-              "akhir": "?",
-              "beasiswa": "?"
-            }
-          },
-          {
-            "rowNumber": 4,
-            "values": {
-              "nis": "202603",
-              "nama": "Hendra Gunawan",
-              "tugas": 90,
-              "uts": 95,
-              "uas": 94,
-              "akhir": "?",
-              "beasiswa": "?"
-            }
-          },
-          {
-            "rowNumber": 5,
-            "values": {
-              "nis": "202604",
-              "nama": "Indah Permatasari",
-              "tugas": 60,
-              "uts": 65,
-              "uas": 70,
-              "akhir": "?",
-              "beasiswa": "?"
-            }
-          }
-        ],
-        "targetColumns": [
-          {
-            "key": "akhir",
-            "letter": "F",
-            "label": "Nilai Akhir",
-            "description": "Hitung nilai akhir berbobot 30% Tugas + 30% UTS + 40% UAS.",
-            "expectedRowAnswers": {
-              "2": 89.3,
-              "3": 77.7,
-              "4": 93.1,
-              "5": 65.5
-            }
-          }
-        ]
-      }
-    ],
-    "passingScore": 70,
-    "solutionBlueprints": [
-      {
-        "columnLabel": "Nilai Akhir",
-        "formula": "=C2*0.3 + D2*0.3 + E2*0.4",
-        "explanation": "Hitung nilai akhir berbobot 30% Tugas + 30% UTS + 40% UAS."
-      }
-    ]
-  },
-  {
-    "id": "EX-033",
-    "number": 33,
-    "code": "#SBEM033",
-    "title": "Simulasi Angsuran Kredit Rumah KPR (Bank PMT) (Studi Kasus #33)",
-    "category": "Keuangan",
-    "difficulty": "MAHIR",
-    "difficultyStars": 4,
-    "tags": [
-      "Cek Otomatis",
-      "Studi Kasus",
-      "Keuangan"
-    ],
-    "instructions": {
-      "title": "MAHIR Level - Simulasi Angsuran Kredit Rumah KPR (Bank PMT)",
-      "description": "Hitung cicilan per bulan menggunakan fungsi PMT.",
-      "points": [
-        "1. Periksa data pada tabel di bawah ini.",
-        "2. Tuliskan formula pada kolom target (E) sesuai aturan yang ditentukan.",
-        "3. Pastikan formula dapat diterapkan ke seluruh baris data.",
-        "4. Klik tombol \"Cek Hasil Jawaban\" untuk mengevaluasi kelulusan kasus."
-      ],
-      "helperTable": {
-        "title": "Ketentuan Rumus",
-        "headers": [
-          "Target Kolom",
-          "Formula Acuan"
-        ],
-        "rows": [
-          [
-            "Angsuran / Bulan (PMT)",
-            "=PMT(C2/12, D2*12, -B2)"
-          ]
-        ]
-      },
-      "notice": "Tulis rumus kalkulasi pada kolom yang telah disediakan."
-    },
-    "sheets": [
-      {
-        "id": "sheet_33",
-        "name": "Simulasi KPR",
-        "columns": [
-          {
-            "key": "deb",
-            "label": "Nama Debitur",
-            "letter": "A"
-          },
-          {
-            "key": "plafon",
-            "label": "Plafon Pinjaman (Rp)",
-            "letter": "B"
-          },
-          {
-            "key": "bunga",
-            "label": "Bunga Tahunan (%)",
-            "letter": "C"
-          },
-          {
-            "key": "tenor",
-            "label": "Tenor (Tahun)",
-            "letter": "D"
-          },
-          {
-            "key": "angsuran",
-            "label": "Angsuran / Bulan (PMT)",
-            "letter": "E"
-          }
-        ],
-        "rows": [
-          {
-            "rowNumber": 2,
-            "values": {
-              "deb": "Andi Pratama",
-              "plafon": 500000000,
-              "bunga": 0.08,
-              "tenor": 15,
-              "angsuran": "?"
-            }
-          },
-          {
-            "rowNumber": 3,
-            "values": {
-              "deb": "Citra Kirana",
-              "plafon": 350000000,
-              "bunga": 0.075,
-              "tenor": 10,
-              "angsuran": "?"
-            }
-          },
-          {
-            "rowNumber": 4,
-            "values": {
-              "deb": "Dimas Anggara",
-              "plafon": 800000000,
-              "bunga": 0.085,
-              "tenor": 20,
-              "angsuran": "?"
-            }
-          },
-          {
-            "rowNumber": 5,
-            "values": {
-              "deb": "Eka Saputra",
-              "plafon": 250000000,
-              "bunga": 0.07,
-              "tenor": 5,
-              "angsuran": "?"
-            }
-          }
-        ],
-        "targetColumns": [
-          {
-            "key": "angsuran",
-            "letter": "E",
-            "label": "Angsuran / Bulan (PMT)",
-            "description": "Hitung cicilan per bulan menggunakan fungsi PMT.",
-            "expectedRowAnswers": {
-              "2": 4778260,
-              "3": 4153835,
-              "4": 6942621,
-              "5": 4950371
-            }
-          }
-        ]
-      }
-    ],
-    "passingScore": 70,
-    "solutionBlueprints": [
-      {
-        "columnLabel": "Angsuran / Bulan (PMT)",
-        "formula": "=PMT(C2/12, D2*12, -B2)",
-        "explanation": "Hitung cicilan per bulan menggunakan fungsi PMT."
-      }
-    ]
-  },
-  {
-    "id": "EX-034",
-    "number": 34,
-    "code": "#SBEM034",
-    "title": "Rekonsiliasi Bank & Buku Kas Perusahaan (Studi Kasus #34)",
-    "category": "Kombinasi",
-    "difficulty": "EXTREME",
-    "difficultyStars": 5,
-    "tags": [
-      "Cek Otomatis",
-      "Studi Kasus",
-      "Kombinasi"
-    ],
-    "instructions": {
-      "title": "EXTREME Level - Rekonsiliasi Bank & Buku Kas Perusahaan",
-      "description": "Hitung selisih mutasi bank dan buku kas perusahaan.",
-      "points": [
-        "1. Periksa data pada tabel di bawah ini.",
-        "2. Tuliskan formula pada kolom target (E) sesuai aturan yang ditentukan.",
-        "3. Pastikan formula dapat diterapkan ke seluruh baris data.",
-        "4. Klik tombol \"Cek Hasil Jawaban\" untuk mengevaluasi kelulusan kasus."
-      ],
-      "helperTable": {
-        "title": "Ketentuan Rumus",
-        "headers": [
-          "Target Kolom",
-          "Formula Acuan"
-        ],
-        "rows": [
-          [
-            "Selisih (Rp)",
-            "=ABS(C2-D2)"
-          ]
-        ]
-      },
-      "notice": "Tulis rumus kalkulasi pada kolom yang telah disediakan."
-    },
-    "sheets": [
-      {
-        "id": "sheet_34",
-        "name": "Rekonsiliasi Kas",
-        "columns": [
-          {
-            "key": "tgl",
-            "label": "Tanggal",
-            "letter": "A"
-          },
-          {
-            "key": "ket",
-            "label": "Keterangan Transaksi",
-            "letter": "B"
-          },
-          {
-            "key": "bank",
-            "label": "Mutasi Bank (Rp)",
-            "letter": "C"
-          },
-          {
-            "key": "buku",
-            "label": "Buku Kas (Rp)",
-            "letter": "D"
-          },
-          {
-            "key": "selisih",
-            "label": "Selisih (Rp)",
-            "letter": "E"
-          },
-          {
-            "key": "status",
-            "label": "Status Audit",
-            "letter": "F"
-          }
-        ],
-        "rows": [
-          {
-            "rowNumber": 2,
-            "values": {
-              "tgl": "01/08/2026",
-              "ket": "Setoran Tunai Kasir Toko",
-              "bank": 15000000,
-              "buku": 15000000,
-              "selisih": "?",
-              "status": "?"
-            }
-          },
-          {
-            "rowNumber": 3,
-            "values": {
-              "tgl": "03/08/2026",
-              "ket": "Kliring Cek Vendor Supplier",
-              "bank": 8500000,
-              "buku": 8500000,
-              "selisih": "?",
-              "status": "?"
-            }
-          },
-          {
-            "rowNumber": 4,
-            "values": {
-              "tgl": "05/08/2026",
-              "ket": "Biaya Administrasi Bank Bulanan",
-              "bank": 25000,
-              "buku": 0,
-              "selisih": "?",
-              "status": "?"
-            }
-          },
-          {
-            "rowNumber": 5,
-            "values": {
-              "tgl": "07/08/2026",
-              "ket": "Pendapatan Jasa Giro Bunga",
-              "bank": 180000,
-              "buku": 0,
-              "selisih": "?",
-              "status": "?"
-            }
-          }
-        ],
-        "targetColumns": [
-          {
-            "key": "selisih",
-            "letter": "E",
-            "label": "Selisih (Rp)",
-            "description": "Hitung selisih mutasi bank dan buku kas perusahaan.",
-            "expectedRowAnswers": {
-              "2": 0,
-              "3": 0,
-              "4": 25000,
-              "5": 180000
-            }
-          }
-        ]
-      }
-    ],
-    "passingScore": 70,
-    "solutionBlueprints": [
-      {
-        "columnLabel": "Selisih (Rp)",
-        "formula": "=ABS(C2-D2)",
-        "explanation": "Hitung selisih mutasi bank dan buku kas perusahaan."
-      }
-    ]
-  },
-  {
-    "id": "EX-035",
-    "number": 35,
-    "code": "#SBEM035",
-    "title": "Pengolahan Nilai Rapor & Beasiswa Prestasi Siswa (Studi Kasus #35)",
-    "category": "Logika",
-    "difficulty": "MENENGAH",
-    "difficultyStars": 3,
-    "tags": [
-      "Cek Otomatis",
-      "Studi Kasus",
-      "Logika"
-    ],
-    "instructions": {
-      "title": "MENENGAH Level - Pengolahan Nilai Rapor & Beasiswa Prestasi Siswa",
-      "description": "Hitung nilai akhir berbobot 30% Tugas + 30% UTS + 40% UAS.",
-      "points": [
-        "1. Periksa data pada tabel di bawah ini.",
-        "2. Tuliskan formula pada kolom target (F) sesuai aturan yang ditentukan.",
-        "3. Pastikan formula dapat diterapkan ke seluruh baris data.",
-        "4. Klik tombol \"Cek Hasil Jawaban\" untuk mengevaluasi kelulusan kasus."
-      ],
-      "helperTable": {
-        "title": "Ketentuan Rumus",
-        "headers": [
-          "Target Kolom",
-          "Formula Acuan"
-        ],
-        "rows": [
-          [
-            "Nilai Akhir",
-            "=C2*0.3 + D2*0.3 + E2*0.4"
-          ]
-        ]
-      },
-      "notice": "Tulis rumus kalkulasi pada kolom yang telah disediakan."
-    },
-    "sheets": [
-      {
-        "id": "sheet_35",
-        "name": "Rapor Siswa",
-        "columns": [
-          {
-            "key": "nis",
-            "label": "NIS",
-            "letter": "A"
-          },
-          {
-            "key": "nama",
-            "label": "Nama Siswa",
-            "letter": "B"
-          },
-          {
-            "key": "tugas",
-            "label": "Nilai Tugas (30%)",
-            "letter": "C"
-          },
-          {
-            "key": "uts",
-            "label": "Nilai UTS (30%)",
-            "letter": "D"
-          },
-          {
-            "key": "uas",
-            "label": "Nilai UAS (40%)",
-            "letter": "E"
-          },
-          {
-            "key": "akhir",
-            "label": "Nilai Akhir",
-            "letter": "F"
-          },
-          {
-            "key": "beasiswa",
-            "label": "Status Beasiswa",
-            "letter": "G"
-          }
-        ],
-        "rows": [
-          {
-            "rowNumber": 2,
-            "values": {
-              "nis": "202601",
-              "nama": "Fajar Nugraha",
-              "tugas": 85,
-              "uts": 90,
-              "uas": 92,
-              "akhir": "?",
-              "beasiswa": "?"
-            }
-          },
-          {
-            "rowNumber": 3,
-            "values": {
-              "nis": "202602",
-              "nama": "Gita Larasati",
-              "tugas": 75,
-              "uts": 80,
-              "uas": 78,
-              "akhir": "?",
-              "beasiswa": "?"
-            }
-          },
-          {
-            "rowNumber": 4,
-            "values": {
-              "nis": "202603",
-              "nama": "Hendra Gunawan",
-              "tugas": 90,
-              "uts": 95,
-              "uas": 94,
-              "akhir": "?",
-              "beasiswa": "?"
-            }
-          },
-          {
-            "rowNumber": 5,
-            "values": {
-              "nis": "202604",
-              "nama": "Indah Permatasari",
-              "tugas": 60,
-              "uts": 65,
-              "uas": 70,
-              "akhir": "?",
-              "beasiswa": "?"
-            }
-          }
-        ],
-        "targetColumns": [
-          {
-            "key": "akhir",
-            "letter": "F",
-            "label": "Nilai Akhir",
-            "description": "Hitung nilai akhir berbobot 30% Tugas + 30% UTS + 40% UAS.",
-            "expectedRowAnswers": {
-              "2": 89.3,
-              "3": 77.7,
-              "4": 93.1,
-              "5": 65.5
-            }
-          }
-        ]
-      }
-    ],
-    "passingScore": 70,
-    "solutionBlueprints": [
-      {
-        "columnLabel": "Nilai Akhir",
-        "formula": "=C2*0.3 + D2*0.3 + E2*0.4",
-        "explanation": "Hitung nilai akhir berbobot 30% Tugas + 30% UTS + 40% UAS."
-      }
-    ]
-  },
-  {
-    "id": "EX-036",
-    "number": 36,
-    "code": "#SBEM036",
-    "title": "Simulasi Angsuran Kredit Rumah KPR (Bank PMT) (Studi Kasus #36)",
-    "category": "Keuangan",
-    "difficulty": "MAHIR",
-    "difficultyStars": 4,
-    "tags": [
-      "Cek Otomatis",
-      "Studi Kasus",
-      "Keuangan"
-    ],
-    "instructions": {
-      "title": "MAHIR Level - Simulasi Angsuran Kredit Rumah KPR (Bank PMT)",
-      "description": "Hitung cicilan per bulan menggunakan fungsi PMT.",
-      "points": [
-        "1. Periksa data pada tabel di bawah ini.",
-        "2. Tuliskan formula pada kolom target (E) sesuai aturan yang ditentukan.",
-        "3. Pastikan formula dapat diterapkan ke seluruh baris data.",
-        "4. Klik tombol \"Cek Hasil Jawaban\" untuk mengevaluasi kelulusan kasus."
-      ],
-      "helperTable": {
-        "title": "Ketentuan Rumus",
-        "headers": [
-          "Target Kolom",
-          "Formula Acuan"
-        ],
-        "rows": [
-          [
-            "Angsuran / Bulan (PMT)",
-            "=PMT(C2/12, D2*12, -B2)"
-          ]
-        ]
-      },
-      "notice": "Tulis rumus kalkulasi pada kolom yang telah disediakan."
-    },
-    "sheets": [
-      {
-        "id": "sheet_36",
-        "name": "Simulasi KPR",
-        "columns": [
-          {
-            "key": "deb",
-            "label": "Nama Debitur",
-            "letter": "A"
-          },
-          {
-            "key": "plafon",
-            "label": "Plafon Pinjaman (Rp)",
-            "letter": "B"
-          },
-          {
-            "key": "bunga",
-            "label": "Bunga Tahunan (%)",
-            "letter": "C"
-          },
-          {
-            "key": "tenor",
-            "label": "Tenor (Tahun)",
-            "letter": "D"
-          },
-          {
-            "key": "angsuran",
-            "label": "Angsuran / Bulan (PMT)",
-            "letter": "E"
-          }
-        ],
-        "rows": [
-          {
-            "rowNumber": 2,
-            "values": {
-              "deb": "Andi Pratama",
-              "plafon": 500000000,
-              "bunga": 0.08,
-              "tenor": 15,
-              "angsuran": "?"
-            }
-          },
-          {
-            "rowNumber": 3,
-            "values": {
-              "deb": "Citra Kirana",
-              "plafon": 350000000,
-              "bunga": 0.075,
-              "tenor": 10,
-              "angsuran": "?"
-            }
-          },
-          {
-            "rowNumber": 4,
-            "values": {
-              "deb": "Dimas Anggara",
-              "plafon": 800000000,
-              "bunga": 0.085,
-              "tenor": 20,
-              "angsuran": "?"
-            }
-          },
-          {
-            "rowNumber": 5,
-            "values": {
-              "deb": "Eka Saputra",
-              "plafon": 250000000,
-              "bunga": 0.07,
-              "tenor": 5,
-              "angsuran": "?"
-            }
-          }
-        ],
-        "targetColumns": [
-          {
-            "key": "angsuran",
-            "letter": "E",
-            "label": "Angsuran / Bulan (PMT)",
-            "description": "Hitung cicilan per bulan menggunakan fungsi PMT.",
-            "expectedRowAnswers": {
-              "2": 4778260,
-              "3": 4153835,
-              "4": 6942621,
-              "5": 4950371
-            }
-          }
-        ]
-      }
-    ],
-    "passingScore": 70,
-    "solutionBlueprints": [
-      {
-        "columnLabel": "Angsuran / Bulan (PMT)",
-        "formula": "=PMT(C2/12, D2*12, -B2)",
-        "explanation": "Hitung cicilan per bulan menggunakan fungsi PMT."
-      }
-    ]
-  },
-  {
-    "id": "EX-037",
-    "number": 37,
-    "code": "#SBEM037",
-    "title": "Rekonsiliasi Bank & Buku Kas Perusahaan (Studi Kasus #37)",
-    "category": "Kombinasi",
-    "difficulty": "EXTREME",
-    "difficultyStars": 5,
-    "tags": [
-      "Cek Otomatis",
-      "Studi Kasus",
-      "Kombinasi"
-    ],
-    "instructions": {
-      "title": "EXTREME Level - Rekonsiliasi Bank & Buku Kas Perusahaan",
-      "description": "Hitung selisih mutasi bank dan buku kas perusahaan.",
-      "points": [
-        "1. Periksa data pada tabel di bawah ini.",
-        "2. Tuliskan formula pada kolom target (E) sesuai aturan yang ditentukan.",
-        "3. Pastikan formula dapat diterapkan ke seluruh baris data.",
-        "4. Klik tombol \"Cek Hasil Jawaban\" untuk mengevaluasi kelulusan kasus."
-      ],
-      "helperTable": {
-        "title": "Ketentuan Rumus",
-        "headers": [
-          "Target Kolom",
-          "Formula Acuan"
-        ],
-        "rows": [
-          [
-            "Selisih (Rp)",
-            "=ABS(C2-D2)"
-          ]
-        ]
-      },
-      "notice": "Tulis rumus kalkulasi pada kolom yang telah disediakan."
-    },
-    "sheets": [
-      {
-        "id": "sheet_37",
-        "name": "Rekonsiliasi Kas",
-        "columns": [
-          {
-            "key": "tgl",
-            "label": "Tanggal",
-            "letter": "A"
-          },
-          {
-            "key": "ket",
-            "label": "Keterangan Transaksi",
-            "letter": "B"
-          },
-          {
-            "key": "bank",
-            "label": "Mutasi Bank (Rp)",
-            "letter": "C"
-          },
-          {
-            "key": "buku",
-            "label": "Buku Kas (Rp)",
-            "letter": "D"
-          },
-          {
-            "key": "selisih",
-            "label": "Selisih (Rp)",
-            "letter": "E"
-          },
-          {
-            "key": "status",
-            "label": "Status Audit",
-            "letter": "F"
-          }
-        ],
-        "rows": [
-          {
-            "rowNumber": 2,
-            "values": {
-              "tgl": "01/08/2026",
-              "ket": "Setoran Tunai Kasir Toko",
-              "bank": 15000000,
-              "buku": 15000000,
-              "selisih": "?",
-              "status": "?"
-            }
-          },
-          {
-            "rowNumber": 3,
-            "values": {
-              "tgl": "03/08/2026",
-              "ket": "Kliring Cek Vendor Supplier",
-              "bank": 8500000,
-              "buku": 8500000,
-              "selisih": "?",
-              "status": "?"
-            }
-          },
-          {
-            "rowNumber": 4,
-            "values": {
-              "tgl": "05/08/2026",
-              "ket": "Biaya Administrasi Bank Bulanan",
-              "bank": 25000,
-              "buku": 0,
-              "selisih": "?",
-              "status": "?"
-            }
-          },
-          {
-            "rowNumber": 5,
-            "values": {
-              "tgl": "07/08/2026",
-              "ket": "Pendapatan Jasa Giro Bunga",
-              "bank": 180000,
-              "buku": 0,
-              "selisih": "?",
-              "status": "?"
-            }
-          }
-        ],
-        "targetColumns": [
-          {
-            "key": "selisih",
-            "letter": "E",
-            "label": "Selisih (Rp)",
-            "description": "Hitung selisih mutasi bank dan buku kas perusahaan.",
-            "expectedRowAnswers": {
-              "2": 0,
-              "3": 0,
-              "4": 25000,
-              "5": 180000
-            }
-          }
-        ]
-      }
-    ],
-    "passingScore": 70,
-    "solutionBlueprints": [
-      {
-        "columnLabel": "Selisih (Rp)",
-        "formula": "=ABS(C2-D2)",
-        "explanation": "Hitung selisih mutasi bank dan buku kas perusahaan."
-      }
-    ]
-  },
-  {
-    "id": "EX-038",
-    "number": 38,
-    "code": "#SBEM038",
-    "title": "Pengolahan Nilai Rapor & Beasiswa Prestasi Siswa (Studi Kasus #38)",
-    "category": "Logika",
-    "difficulty": "MENENGAH",
-    "difficultyStars": 3,
-    "tags": [
-      "Cek Otomatis",
-      "Studi Kasus",
-      "Logika"
-    ],
-    "instructions": {
-      "title": "MENENGAH Level - Pengolahan Nilai Rapor & Beasiswa Prestasi Siswa",
-      "description": "Hitung nilai akhir berbobot 30% Tugas + 30% UTS + 40% UAS.",
-      "points": [
-        "1. Periksa data pada tabel di bawah ini.",
-        "2. Tuliskan formula pada kolom target (F) sesuai aturan yang ditentukan.",
-        "3. Pastikan formula dapat diterapkan ke seluruh baris data.",
-        "4. Klik tombol \"Cek Hasil Jawaban\" untuk mengevaluasi kelulusan kasus."
-      ],
-      "helperTable": {
-        "title": "Ketentuan Rumus",
-        "headers": [
-          "Target Kolom",
-          "Formula Acuan"
-        ],
-        "rows": [
-          [
-            "Nilai Akhir",
-            "=C2*0.3 + D2*0.3 + E2*0.4"
-          ]
-        ]
-      },
-      "notice": "Tulis rumus kalkulasi pada kolom yang telah disediakan."
-    },
-    "sheets": [
-      {
-        "id": "sheet_38",
-        "name": "Rapor Siswa",
-        "columns": [
-          {
-            "key": "nis",
-            "label": "NIS",
-            "letter": "A"
-          },
-          {
-            "key": "nama",
-            "label": "Nama Siswa",
-            "letter": "B"
-          },
-          {
-            "key": "tugas",
-            "label": "Nilai Tugas (30%)",
-            "letter": "C"
-          },
-          {
-            "key": "uts",
-            "label": "Nilai UTS (30%)",
-            "letter": "D"
-          },
-          {
-            "key": "uas",
-            "label": "Nilai UAS (40%)",
-            "letter": "E"
-          },
-          {
-            "key": "akhir",
-            "label": "Nilai Akhir",
-            "letter": "F"
-          },
-          {
-            "key": "beasiswa",
-            "label": "Status Beasiswa",
-            "letter": "G"
-          }
-        ],
-        "rows": [
-          {
-            "rowNumber": 2,
-            "values": {
-              "nis": "202601",
-              "nama": "Fajar Nugraha",
-              "tugas": 85,
-              "uts": 90,
-              "uas": 92,
-              "akhir": "?",
-              "beasiswa": "?"
-            }
-          },
-          {
-            "rowNumber": 3,
-            "values": {
-              "nis": "202602",
-              "nama": "Gita Larasati",
-              "tugas": 75,
-              "uts": 80,
-              "uas": 78,
-              "akhir": "?",
-              "beasiswa": "?"
-            }
-          },
-          {
-            "rowNumber": 4,
-            "values": {
-              "nis": "202603",
-              "nama": "Hendra Gunawan",
-              "tugas": 90,
-              "uts": 95,
-              "uas": 94,
-              "akhir": "?",
-              "beasiswa": "?"
-            }
-          },
-          {
-            "rowNumber": 5,
-            "values": {
-              "nis": "202604",
-              "nama": "Indah Permatasari",
-              "tugas": 60,
-              "uts": 65,
-              "uas": 70,
-              "akhir": "?",
-              "beasiswa": "?"
-            }
-          }
-        ],
-        "targetColumns": [
-          {
-            "key": "akhir",
-            "letter": "F",
-            "label": "Nilai Akhir",
-            "description": "Hitung nilai akhir berbobot 30% Tugas + 30% UTS + 40% UAS.",
-            "expectedRowAnswers": {
-              "2": 89.3,
-              "3": 77.7,
-              "4": 93.1,
-              "5": 65.5
-            }
-          }
-        ]
-      }
-    ],
-    "passingScore": 70,
-    "solutionBlueprints": [
-      {
-        "columnLabel": "Nilai Akhir",
-        "formula": "=C2*0.3 + D2*0.3 + E2*0.4",
-        "explanation": "Hitung nilai akhir berbobot 30% Tugas + 30% UTS + 40% UAS."
-      }
-    ]
-  },
-  {
-    "id": "EX-039",
-    "number": 39,
-    "code": "#SBEM039",
-    "title": "Simulasi Angsuran Kredit Rumah KPR (Bank PMT) (Studi Kasus #39)",
-    "category": "Keuangan",
-    "difficulty": "MAHIR",
-    "difficultyStars": 4,
-    "tags": [
-      "Cek Otomatis",
-      "Studi Kasus",
-      "Keuangan"
-    ],
-    "instructions": {
-      "title": "MAHIR Level - Simulasi Angsuran Kredit Rumah KPR (Bank PMT)",
-      "description": "Hitung cicilan per bulan menggunakan fungsi PMT.",
-      "points": [
-        "1. Periksa data pada tabel di bawah ini.",
-        "2. Tuliskan formula pada kolom target (E) sesuai aturan yang ditentukan.",
-        "3. Pastikan formula dapat diterapkan ke seluruh baris data.",
-        "4. Klik tombol \"Cek Hasil Jawaban\" untuk mengevaluasi kelulusan kasus."
-      ],
-      "helperTable": {
-        "title": "Ketentuan Rumus",
-        "headers": [
-          "Target Kolom",
-          "Formula Acuan"
-        ],
-        "rows": [
-          [
-            "Angsuran / Bulan (PMT)",
-            "=PMT(C2/12, D2*12, -B2)"
-          ]
-        ]
-      },
-      "notice": "Tulis rumus kalkulasi pada kolom yang telah disediakan."
-    },
-    "sheets": [
-      {
-        "id": "sheet_39",
-        "name": "Simulasi KPR",
-        "columns": [
-          {
-            "key": "deb",
-            "label": "Nama Debitur",
-            "letter": "A"
-          },
-          {
-            "key": "plafon",
-            "label": "Plafon Pinjaman (Rp)",
-            "letter": "B"
-          },
-          {
-            "key": "bunga",
-            "label": "Bunga Tahunan (%)",
-            "letter": "C"
-          },
-          {
-            "key": "tenor",
-            "label": "Tenor (Tahun)",
-            "letter": "D"
-          },
-          {
-            "key": "angsuran",
-            "label": "Angsuran / Bulan (PMT)",
-            "letter": "E"
-          }
-        ],
-        "rows": [
-          {
-            "rowNumber": 2,
-            "values": {
-              "deb": "Andi Pratama",
-              "plafon": 500000000,
-              "bunga": 0.08,
-              "tenor": 15,
-              "angsuran": "?"
-            }
-          },
-          {
-            "rowNumber": 3,
-            "values": {
-              "deb": "Citra Kirana",
-              "plafon": 350000000,
-              "bunga": 0.075,
-              "tenor": 10,
-              "angsuran": "?"
-            }
-          },
-          {
-            "rowNumber": 4,
-            "values": {
-              "deb": "Dimas Anggara",
-              "plafon": 800000000,
-              "bunga": 0.085,
-              "tenor": 20,
-              "angsuran": "?"
-            }
-          },
-          {
-            "rowNumber": 5,
-            "values": {
-              "deb": "Eka Saputra",
-              "plafon": 250000000,
-              "bunga": 0.07,
-              "tenor": 5,
-              "angsuran": "?"
-            }
-          }
-        ],
-        "targetColumns": [
-          {
-            "key": "angsuran",
-            "letter": "E",
-            "label": "Angsuran / Bulan (PMT)",
-            "description": "Hitung cicilan per bulan menggunakan fungsi PMT.",
-            "expectedRowAnswers": {
-              "2": 4778260,
-              "3": 4153835,
-              "4": 6942621,
-              "5": 4950371
-            }
-          }
-        ]
-      }
-    ],
-    "passingScore": 70,
-    "solutionBlueprints": [
-      {
-        "columnLabel": "Angsuran / Bulan (PMT)",
-        "formula": "=PMT(C2/12, D2*12, -B2)",
-        "explanation": "Hitung cicilan per bulan menggunakan fungsi PMT."
-      }
-    ]
-  },
-  {
-    "id": "EX-040",
-    "number": 40,
-    "code": "#SBEM040",
-    "title": "Rekonsiliasi Bank & Buku Kas Perusahaan (Studi Kasus #40)",
-    "category": "Kombinasi",
-    "difficulty": "EXTREME",
-    "difficultyStars": 5,
-    "tags": [
-      "Cek Otomatis",
-      "Studi Kasus",
-      "Kombinasi"
-    ],
-    "instructions": {
-      "title": "EXTREME Level - Rekonsiliasi Bank & Buku Kas Perusahaan",
-      "description": "Hitung selisih mutasi bank dan buku kas perusahaan.",
-      "points": [
-        "1. Periksa data pada tabel di bawah ini.",
-        "2. Tuliskan formula pada kolom target (E) sesuai aturan yang ditentukan.",
-        "3. Pastikan formula dapat diterapkan ke seluruh baris data.",
-        "4. Klik tombol \"Cek Hasil Jawaban\" untuk mengevaluasi kelulusan kasus."
-      ],
-      "helperTable": {
-        "title": "Ketentuan Rumus",
-        "headers": [
-          "Target Kolom",
-          "Formula Acuan"
-        ],
-        "rows": [
-          [
-            "Selisih (Rp)",
-            "=ABS(C2-D2)"
-          ]
-        ]
-      },
-      "notice": "Tulis rumus kalkulasi pada kolom yang telah disediakan."
-    },
-    "sheets": [
-      {
-        "id": "sheet_40",
-        "name": "Rekonsiliasi Kas",
-        "columns": [
-          {
-            "key": "tgl",
-            "label": "Tanggal",
-            "letter": "A"
-          },
-          {
-            "key": "ket",
-            "label": "Keterangan Transaksi",
-            "letter": "B"
-          },
-          {
-            "key": "bank",
-            "label": "Mutasi Bank (Rp)",
-            "letter": "C"
-          },
-          {
-            "key": "buku",
-            "label": "Buku Kas (Rp)",
-            "letter": "D"
-          },
-          {
-            "key": "selisih",
-            "label": "Selisih (Rp)",
-            "letter": "E"
-          },
-          {
-            "key": "status",
-            "label": "Status Audit",
-            "letter": "F"
-          }
-        ],
-        "rows": [
-          {
-            "rowNumber": 2,
-            "values": {
-              "tgl": "01/08/2026",
-              "ket": "Setoran Tunai Kasir Toko",
-              "bank": 15000000,
-              "buku": 15000000,
-              "selisih": "?",
-              "status": "?"
-            }
-          },
-          {
-            "rowNumber": 3,
-            "values": {
-              "tgl": "03/08/2026",
-              "ket": "Kliring Cek Vendor Supplier",
-              "bank": 8500000,
-              "buku": 8500000,
-              "selisih": "?",
-              "status": "?"
-            }
-          },
-          {
-            "rowNumber": 4,
-            "values": {
-              "tgl": "05/08/2026",
-              "ket": "Biaya Administrasi Bank Bulanan",
-              "bank": 25000,
-              "buku": 0,
-              "selisih": "?",
-              "status": "?"
-            }
-          },
-          {
-            "rowNumber": 5,
-            "values": {
-              "tgl": "07/08/2026",
-              "ket": "Pendapatan Jasa Giro Bunga",
-              "bank": 180000,
-              "buku": 0,
-              "selisih": "?",
-              "status": "?"
-            }
-          }
-        ],
-        "targetColumns": [
-          {
-            "key": "selisih",
-            "letter": "E",
-            "label": "Selisih (Rp)",
-            "description": "Hitung selisih mutasi bank dan buku kas perusahaan.",
-            "expectedRowAnswers": {
-              "2": 0,
-              "3": 0,
-              "4": 25000,
-              "5": 180000
-            }
-          }
-        ]
-      }
-    ],
-    "passingScore": 70,
-    "solutionBlueprints": [
-      {
-        "columnLabel": "Selisih (Rp)",
-        "formula": "=ABS(C2-D2)",
-        "explanation": "Hitung selisih mutasi bank dan buku kas perusahaan."
-      }
-    ]
-  },
-  {
-    "id": "EX-041",
-    "number": 41,
-    "code": "#SBEM041",
-    "title": "Pengolahan Nilai Rapor & Beasiswa Prestasi Siswa (Studi Kasus #41)",
-    "category": "Logika",
-    "difficulty": "MENENGAH",
-    "difficultyStars": 3,
-    "tags": [
-      "Cek Otomatis",
-      "Studi Kasus",
-      "Logika"
-    ],
-    "instructions": {
-      "title": "MENENGAH Level - Pengolahan Nilai Rapor & Beasiswa Prestasi Siswa",
-      "description": "Hitung nilai akhir berbobot 30% Tugas + 30% UTS + 40% UAS.",
-      "points": [
-        "1. Periksa data pada tabel di bawah ini.",
-        "2. Tuliskan formula pada kolom target (F) sesuai aturan yang ditentukan.",
-        "3. Pastikan formula dapat diterapkan ke seluruh baris data.",
-        "4. Klik tombol \"Cek Hasil Jawaban\" untuk mengevaluasi kelulusan kasus."
-      ],
-      "helperTable": {
-        "title": "Ketentuan Rumus",
-        "headers": [
-          "Target Kolom",
-          "Formula Acuan"
-        ],
-        "rows": [
-          [
-            "Nilai Akhir",
-            "=C2*0.3 + D2*0.3 + E2*0.4"
-          ]
-        ]
-      },
-      "notice": "Tulis rumus kalkulasi pada kolom yang telah disediakan."
-    },
-    "sheets": [
-      {
-        "id": "sheet_41",
-        "name": "Rapor Siswa",
-        "columns": [
-          {
-            "key": "nis",
-            "label": "NIS",
-            "letter": "A"
-          },
-          {
-            "key": "nama",
-            "label": "Nama Siswa",
-            "letter": "B"
-          },
-          {
-            "key": "tugas",
-            "label": "Nilai Tugas (30%)",
-            "letter": "C"
-          },
-          {
-            "key": "uts",
-            "label": "Nilai UTS (30%)",
-            "letter": "D"
-          },
-          {
-            "key": "uas",
-            "label": "Nilai UAS (40%)",
-            "letter": "E"
-          },
-          {
-            "key": "akhir",
-            "label": "Nilai Akhir",
-            "letter": "F"
-          },
-          {
-            "key": "beasiswa",
-            "label": "Status Beasiswa",
-            "letter": "G"
-          }
-        ],
-        "rows": [
-          {
-            "rowNumber": 2,
-            "values": {
-              "nis": "202601",
-              "nama": "Fajar Nugraha",
-              "tugas": 85,
-              "uts": 90,
-              "uas": 92,
-              "akhir": "?",
-              "beasiswa": "?"
-            }
-          },
-          {
-            "rowNumber": 3,
-            "values": {
-              "nis": "202602",
-              "nama": "Gita Larasati",
-              "tugas": 75,
-              "uts": 80,
-              "uas": 78,
-              "akhir": "?",
-              "beasiswa": "?"
-            }
-          },
-          {
-            "rowNumber": 4,
-            "values": {
-              "nis": "202603",
-              "nama": "Hendra Gunawan",
-              "tugas": 90,
-              "uts": 95,
-              "uas": 94,
-              "akhir": "?",
-              "beasiswa": "?"
-            }
-          },
-          {
-            "rowNumber": 5,
-            "values": {
-              "nis": "202604",
-              "nama": "Indah Permatasari",
-              "tugas": 60,
-              "uts": 65,
-              "uas": 70,
-              "akhir": "?",
-              "beasiswa": "?"
-            }
-          }
-        ],
-        "targetColumns": [
-          {
-            "key": "akhir",
-            "letter": "F",
-            "label": "Nilai Akhir",
-            "description": "Hitung nilai akhir berbobot 30% Tugas + 30% UTS + 40% UAS.",
-            "expectedRowAnswers": {
-              "2": 89.3,
-              "3": 77.7,
-              "4": 93.1,
-              "5": 65.5
-            }
-          }
-        ]
-      }
-    ],
-    "passingScore": 70,
-    "solutionBlueprints": [
-      {
-        "columnLabel": "Nilai Akhir",
-        "formula": "=C2*0.3 + D2*0.3 + E2*0.4",
-        "explanation": "Hitung nilai akhir berbobot 30% Tugas + 30% UTS + 40% UAS."
-      }
-    ]
-  },
-  {
-    "id": "EX-042",
-    "number": 42,
-    "code": "#SBEM042",
-    "title": "Simulasi Angsuran Kredit Rumah KPR (Bank PMT) (Studi Kasus #42)",
-    "category": "Keuangan",
-    "difficulty": "MAHIR",
-    "difficultyStars": 4,
-    "tags": [
-      "Cek Otomatis",
-      "Studi Kasus",
-      "Keuangan"
-    ],
-    "instructions": {
-      "title": "MAHIR Level - Simulasi Angsuran Kredit Rumah KPR (Bank PMT)",
-      "description": "Hitung cicilan per bulan menggunakan fungsi PMT.",
-      "points": [
-        "1. Periksa data pada tabel di bawah ini.",
-        "2. Tuliskan formula pada kolom target (E) sesuai aturan yang ditentukan.",
-        "3. Pastikan formula dapat diterapkan ke seluruh baris data.",
-        "4. Klik tombol \"Cek Hasil Jawaban\" untuk mengevaluasi kelulusan kasus."
-      ],
-      "helperTable": {
-        "title": "Ketentuan Rumus",
-        "headers": [
-          "Target Kolom",
-          "Formula Acuan"
-        ],
-        "rows": [
-          [
-            "Angsuran / Bulan (PMT)",
-            "=PMT(C2/12, D2*12, -B2)"
-          ]
-        ]
-      },
-      "notice": "Tulis rumus kalkulasi pada kolom yang telah disediakan."
-    },
-    "sheets": [
-      {
-        "id": "sheet_42",
-        "name": "Simulasi KPR",
-        "columns": [
-          {
-            "key": "deb",
-            "label": "Nama Debitur",
-            "letter": "A"
-          },
-          {
-            "key": "plafon",
-            "label": "Plafon Pinjaman (Rp)",
-            "letter": "B"
-          },
-          {
-            "key": "bunga",
-            "label": "Bunga Tahunan (%)",
-            "letter": "C"
-          },
-          {
-            "key": "tenor",
-            "label": "Tenor (Tahun)",
-            "letter": "D"
-          },
-          {
-            "key": "angsuran",
-            "label": "Angsuran / Bulan (PMT)",
-            "letter": "E"
-          }
-        ],
-        "rows": [
-          {
-            "rowNumber": 2,
-            "values": {
-              "deb": "Andi Pratama",
-              "plafon": 500000000,
-              "bunga": 0.08,
-              "tenor": 15,
-              "angsuran": "?"
-            }
-          },
-          {
-            "rowNumber": 3,
-            "values": {
-              "deb": "Citra Kirana",
-              "plafon": 350000000,
-              "bunga": 0.075,
-              "tenor": 10,
-              "angsuran": "?"
-            }
-          },
-          {
-            "rowNumber": 4,
-            "values": {
-              "deb": "Dimas Anggara",
-              "plafon": 800000000,
-              "bunga": 0.085,
-              "tenor": 20,
-              "angsuran": "?"
-            }
-          },
-          {
-            "rowNumber": 5,
-            "values": {
-              "deb": "Eka Saputra",
-              "plafon": 250000000,
-              "bunga": 0.07,
-              "tenor": 5,
-              "angsuran": "?"
-            }
-          }
-        ],
-        "targetColumns": [
-          {
-            "key": "angsuran",
-            "letter": "E",
-            "label": "Angsuran / Bulan (PMT)",
-            "description": "Hitung cicilan per bulan menggunakan fungsi PMT.",
-            "expectedRowAnswers": {
-              "2": 4778260,
-              "3": 4153835,
-              "4": 6942621,
-              "5": 4950371
-            }
-          }
-        ]
-      }
-    ],
-    "passingScore": 70,
-    "solutionBlueprints": [
-      {
-        "columnLabel": "Angsuran / Bulan (PMT)",
-        "formula": "=PMT(C2/12, D2*12, -B2)",
-        "explanation": "Hitung cicilan per bulan menggunakan fungsi PMT."
-      }
-    ]
-  },
-  {
-    "id": "EX-043",
-    "number": 43,
-    "code": "#SBEM043",
-    "title": "Rekonsiliasi Bank & Buku Kas Perusahaan (Studi Kasus #43)",
-    "category": "Kombinasi",
-    "difficulty": "EXTREME",
-    "difficultyStars": 5,
-    "tags": [
-      "Cek Otomatis",
-      "Studi Kasus",
-      "Kombinasi"
-    ],
-    "instructions": {
-      "title": "EXTREME Level - Rekonsiliasi Bank & Buku Kas Perusahaan",
-      "description": "Hitung selisih mutasi bank dan buku kas perusahaan.",
-      "points": [
-        "1. Periksa data pada tabel di bawah ini.",
-        "2. Tuliskan formula pada kolom target (E) sesuai aturan yang ditentukan.",
-        "3. Pastikan formula dapat diterapkan ke seluruh baris data.",
-        "4. Klik tombol \"Cek Hasil Jawaban\" untuk mengevaluasi kelulusan kasus."
-      ],
-      "helperTable": {
-        "title": "Ketentuan Rumus",
-        "headers": [
-          "Target Kolom",
-          "Formula Acuan"
-        ],
-        "rows": [
-          [
-            "Selisih (Rp)",
-            "=ABS(C2-D2)"
-          ]
-        ]
-      },
-      "notice": "Tulis rumus kalkulasi pada kolom yang telah disediakan."
-    },
-    "sheets": [
-      {
-        "id": "sheet_43",
-        "name": "Rekonsiliasi Kas",
-        "columns": [
-          {
-            "key": "tgl",
-            "label": "Tanggal",
-            "letter": "A"
-          },
-          {
-            "key": "ket",
-            "label": "Keterangan Transaksi",
-            "letter": "B"
-          },
-          {
-            "key": "bank",
-            "label": "Mutasi Bank (Rp)",
-            "letter": "C"
-          },
-          {
-            "key": "buku",
-            "label": "Buku Kas (Rp)",
-            "letter": "D"
-          },
-          {
-            "key": "selisih",
-            "label": "Selisih (Rp)",
-            "letter": "E"
-          },
-          {
-            "key": "status",
-            "label": "Status Audit",
-            "letter": "F"
-          }
-        ],
-        "rows": [
-          {
-            "rowNumber": 2,
-            "values": {
-              "tgl": "01/08/2026",
-              "ket": "Setoran Tunai Kasir Toko",
-              "bank": 15000000,
-              "buku": 15000000,
-              "selisih": "?",
-              "status": "?"
-            }
-          },
-          {
-            "rowNumber": 3,
-            "values": {
-              "tgl": "03/08/2026",
-              "ket": "Kliring Cek Vendor Supplier",
-              "bank": 8500000,
-              "buku": 8500000,
-              "selisih": "?",
-              "status": "?"
-            }
-          },
-          {
-            "rowNumber": 4,
-            "values": {
-              "tgl": "05/08/2026",
-              "ket": "Biaya Administrasi Bank Bulanan",
-              "bank": 25000,
-              "buku": 0,
-              "selisih": "?",
-              "status": "?"
-            }
-          },
-          {
-            "rowNumber": 5,
-            "values": {
-              "tgl": "07/08/2026",
-              "ket": "Pendapatan Jasa Giro Bunga",
-              "bank": 180000,
-              "buku": 0,
-              "selisih": "?",
-              "status": "?"
-            }
-          }
-        ],
-        "targetColumns": [
-          {
-            "key": "selisih",
-            "letter": "E",
-            "label": "Selisih (Rp)",
-            "description": "Hitung selisih mutasi bank dan buku kas perusahaan.",
-            "expectedRowAnswers": {
-              "2": 0,
-              "3": 0,
-              "4": 25000,
-              "5": 180000
-            }
-          }
-        ]
-      }
-    ],
-    "passingScore": 70,
-    "solutionBlueprints": [
-      {
-        "columnLabel": "Selisih (Rp)",
-        "formula": "=ABS(C2-D2)",
-        "explanation": "Hitung selisih mutasi bank dan buku kas perusahaan."
-      }
-    ]
-  },
-  {
-    "id": "EX-044",
-    "number": 44,
-    "code": "#SBEM044",
-    "title": "Pengolahan Nilai Rapor & Beasiswa Prestasi Siswa (Studi Kasus #44)",
-    "category": "Logika",
-    "difficulty": "MENENGAH",
-    "difficultyStars": 3,
-    "tags": [
-      "Cek Otomatis",
-      "Studi Kasus",
-      "Logika"
-    ],
-    "instructions": {
-      "title": "MENENGAH Level - Pengolahan Nilai Rapor & Beasiswa Prestasi Siswa",
-      "description": "Hitung nilai akhir berbobot 30% Tugas + 30% UTS + 40% UAS.",
-      "points": [
-        "1. Periksa data pada tabel di bawah ini.",
-        "2. Tuliskan formula pada kolom target (F) sesuai aturan yang ditentukan.",
-        "3. Pastikan formula dapat diterapkan ke seluruh baris data.",
-        "4. Klik tombol \"Cek Hasil Jawaban\" untuk mengevaluasi kelulusan kasus."
-      ],
-      "helperTable": {
-        "title": "Ketentuan Rumus",
-        "headers": [
-          "Target Kolom",
-          "Formula Acuan"
-        ],
-        "rows": [
-          [
-            "Nilai Akhir",
-            "=C2*0.3 + D2*0.3 + E2*0.4"
-          ]
-        ]
-      },
-      "notice": "Tulis rumus kalkulasi pada kolom yang telah disediakan."
-    },
-    "sheets": [
-      {
-        "id": "sheet_44",
-        "name": "Rapor Siswa",
-        "columns": [
-          {
-            "key": "nis",
-            "label": "NIS",
-            "letter": "A"
-          },
-          {
-            "key": "nama",
-            "label": "Nama Siswa",
-            "letter": "B"
-          },
-          {
-            "key": "tugas",
-            "label": "Nilai Tugas (30%)",
-            "letter": "C"
-          },
-          {
-            "key": "uts",
-            "label": "Nilai UTS (30%)",
-            "letter": "D"
-          },
-          {
-            "key": "uas",
-            "label": "Nilai UAS (40%)",
-            "letter": "E"
-          },
-          {
-            "key": "akhir",
-            "label": "Nilai Akhir",
-            "letter": "F"
-          },
-          {
-            "key": "beasiswa",
-            "label": "Status Beasiswa",
-            "letter": "G"
-          }
-        ],
-        "rows": [
-          {
-            "rowNumber": 2,
-            "values": {
-              "nis": "202601",
-              "nama": "Fajar Nugraha",
-              "tugas": 85,
-              "uts": 90,
-              "uas": 92,
-              "akhir": "?",
-              "beasiswa": "?"
-            }
-          },
-          {
-            "rowNumber": 3,
-            "values": {
-              "nis": "202602",
-              "nama": "Gita Larasati",
-              "tugas": 75,
-              "uts": 80,
-              "uas": 78,
-              "akhir": "?",
-              "beasiswa": "?"
-            }
-          },
-          {
-            "rowNumber": 4,
-            "values": {
-              "nis": "202603",
-              "nama": "Hendra Gunawan",
-              "tugas": 90,
-              "uts": 95,
-              "uas": 94,
-              "akhir": "?",
-              "beasiswa": "?"
-            }
-          },
-          {
-            "rowNumber": 5,
-            "values": {
-              "nis": "202604",
-              "nama": "Indah Permatasari",
-              "tugas": 60,
-              "uts": 65,
-              "uas": 70,
-              "akhir": "?",
-              "beasiswa": "?"
-            }
-          }
-        ],
-        "targetColumns": [
-          {
-            "key": "akhir",
-            "letter": "F",
-            "label": "Nilai Akhir",
-            "description": "Hitung nilai akhir berbobot 30% Tugas + 30% UTS + 40% UAS.",
-            "expectedRowAnswers": {
-              "2": 89.3,
-              "3": 77.7,
-              "4": 93.1,
-              "5": 65.5
-            }
-          }
-        ]
-      }
-    ],
-    "passingScore": 70,
-    "solutionBlueprints": [
-      {
-        "columnLabel": "Nilai Akhir",
-        "formula": "=C2*0.3 + D2*0.3 + E2*0.4",
-        "explanation": "Hitung nilai akhir berbobot 30% Tugas + 30% UTS + 40% UAS."
-      }
-    ]
-  },
-  {
-    "id": "EX-045",
-    "number": 45,
-    "code": "#SBEM045",
-    "title": "Simulasi Angsuran Kredit Rumah KPR (Bank PMT) (Studi Kasus #45)",
-    "category": "Keuangan",
-    "difficulty": "MAHIR",
-    "difficultyStars": 4,
-    "tags": [
-      "Cek Otomatis",
-      "Studi Kasus",
-      "Keuangan"
-    ],
-    "instructions": {
-      "title": "MAHIR Level - Simulasi Angsuran Kredit Rumah KPR (Bank PMT)",
-      "description": "Hitung cicilan per bulan menggunakan fungsi PMT.",
-      "points": [
-        "1. Periksa data pada tabel di bawah ini.",
-        "2. Tuliskan formula pada kolom target (E) sesuai aturan yang ditentukan.",
-        "3. Pastikan formula dapat diterapkan ke seluruh baris data.",
-        "4. Klik tombol \"Cek Hasil Jawaban\" untuk mengevaluasi kelulusan kasus."
-      ],
-      "helperTable": {
-        "title": "Ketentuan Rumus",
-        "headers": [
-          "Target Kolom",
-          "Formula Acuan"
-        ],
-        "rows": [
-          [
-            "Angsuran / Bulan (PMT)",
-            "=PMT(C2/12, D2*12, -B2)"
-          ]
-        ]
-      },
-      "notice": "Tulis rumus kalkulasi pada kolom yang telah disediakan."
-    },
-    "sheets": [
-      {
-        "id": "sheet_45",
-        "name": "Simulasi KPR",
-        "columns": [
-          {
-            "key": "deb",
-            "label": "Nama Debitur",
-            "letter": "A"
-          },
-          {
-            "key": "plafon",
-            "label": "Plafon Pinjaman (Rp)",
-            "letter": "B"
-          },
-          {
-            "key": "bunga",
-            "label": "Bunga Tahunan (%)",
-            "letter": "C"
-          },
-          {
-            "key": "tenor",
-            "label": "Tenor (Tahun)",
-            "letter": "D"
-          },
-          {
-            "key": "angsuran",
-            "label": "Angsuran / Bulan (PMT)",
-            "letter": "E"
-          }
-        ],
-        "rows": [
-          {
-            "rowNumber": 2,
-            "values": {
-              "deb": "Andi Pratama",
-              "plafon": 500000000,
-              "bunga": 0.08,
-              "tenor": 15,
-              "angsuran": "?"
-            }
-          },
-          {
-            "rowNumber": 3,
-            "values": {
-              "deb": "Citra Kirana",
-              "plafon": 350000000,
-              "bunga": 0.075,
-              "tenor": 10,
-              "angsuran": "?"
-            }
-          },
-          {
-            "rowNumber": 4,
-            "values": {
-              "deb": "Dimas Anggara",
-              "plafon": 800000000,
-              "bunga": 0.085,
-              "tenor": 20,
-              "angsuran": "?"
-            }
-          },
-          {
-            "rowNumber": 5,
-            "values": {
-              "deb": "Eka Saputra",
-              "plafon": 250000000,
-              "bunga": 0.07,
-              "tenor": 5,
-              "angsuran": "?"
-            }
-          }
-        ],
-        "targetColumns": [
-          {
-            "key": "angsuran",
-            "letter": "E",
-            "label": "Angsuran / Bulan (PMT)",
-            "description": "Hitung cicilan per bulan menggunakan fungsi PMT.",
-            "expectedRowAnswers": {
-              "2": 4778260,
-              "3": 4153835,
-              "4": 6942621,
-              "5": 4950371
-            }
-          }
-        ]
-      }
-    ],
-    "passingScore": 70,
-    "solutionBlueprints": [
-      {
-        "columnLabel": "Angsuran / Bulan (PMT)",
-        "formula": "=PMT(C2/12, D2*12, -B2)",
-        "explanation": "Hitung cicilan per bulan menggunakan fungsi PMT."
-      }
-    ]
-  },
-  {
-    "id": "EX-046",
-    "number": 46,
-    "code": "#SBEM046",
-    "title": "Rekonsiliasi Bank & Buku Kas Perusahaan (Studi Kasus #46)",
-    "category": "Kombinasi",
-    "difficulty": "EXTREME",
-    "difficultyStars": 5,
-    "tags": [
-      "Cek Otomatis",
-      "Studi Kasus",
-      "Kombinasi"
-    ],
-    "instructions": {
-      "title": "EXTREME Level - Rekonsiliasi Bank & Buku Kas Perusahaan",
-      "description": "Hitung selisih mutasi bank dan buku kas perusahaan.",
-      "points": [
-        "1. Periksa data pada tabel di bawah ini.",
-        "2. Tuliskan formula pada kolom target (E) sesuai aturan yang ditentukan.",
-        "3. Pastikan formula dapat diterapkan ke seluruh baris data.",
-        "4. Klik tombol \"Cek Hasil Jawaban\" untuk mengevaluasi kelulusan kasus."
-      ],
-      "helperTable": {
-        "title": "Ketentuan Rumus",
-        "headers": [
-          "Target Kolom",
-          "Formula Acuan"
-        ],
-        "rows": [
-          [
-            "Selisih (Rp)",
-            "=ABS(C2-D2)"
-          ]
-        ]
-      },
-      "notice": "Tulis rumus kalkulasi pada kolom yang telah disediakan."
-    },
-    "sheets": [
-      {
-        "id": "sheet_46",
-        "name": "Rekonsiliasi Kas",
-        "columns": [
-          {
-            "key": "tgl",
-            "label": "Tanggal",
-            "letter": "A"
-          },
-          {
-            "key": "ket",
-            "label": "Keterangan Transaksi",
-            "letter": "B"
-          },
-          {
-            "key": "bank",
-            "label": "Mutasi Bank (Rp)",
-            "letter": "C"
-          },
-          {
-            "key": "buku",
-            "label": "Buku Kas (Rp)",
-            "letter": "D"
-          },
-          {
-            "key": "selisih",
-            "label": "Selisih (Rp)",
-            "letter": "E"
-          },
-          {
-            "key": "status",
-            "label": "Status Audit",
-            "letter": "F"
-          }
-        ],
-        "rows": [
-          {
-            "rowNumber": 2,
-            "values": {
-              "tgl": "01/08/2026",
-              "ket": "Setoran Tunai Kasir Toko",
-              "bank": 15000000,
-              "buku": 15000000,
-              "selisih": "?",
-              "status": "?"
-            }
-          },
-          {
-            "rowNumber": 3,
-            "values": {
-              "tgl": "03/08/2026",
-              "ket": "Kliring Cek Vendor Supplier",
-              "bank": 8500000,
-              "buku": 8500000,
-              "selisih": "?",
-              "status": "?"
-            }
-          },
-          {
-            "rowNumber": 4,
-            "values": {
-              "tgl": "05/08/2026",
-              "ket": "Biaya Administrasi Bank Bulanan",
-              "bank": 25000,
-              "buku": 0,
-              "selisih": "?",
-              "status": "?"
-            }
-          },
-          {
-            "rowNumber": 5,
-            "values": {
-              "tgl": "07/08/2026",
-              "ket": "Pendapatan Jasa Giro Bunga",
-              "bank": 180000,
-              "buku": 0,
-              "selisih": "?",
-              "status": "?"
-            }
-          }
-        ],
-        "targetColumns": [
-          {
-            "key": "selisih",
-            "letter": "E",
-            "label": "Selisih (Rp)",
-            "description": "Hitung selisih mutasi bank dan buku kas perusahaan.",
-            "expectedRowAnswers": {
-              "2": 0,
-              "3": 0,
-              "4": 25000,
-              "5": 180000
-            }
-          }
-        ]
-      }
-    ],
-    "passingScore": 70,
-    "solutionBlueprints": [
-      {
-        "columnLabel": "Selisih (Rp)",
-        "formula": "=ABS(C2-D2)",
-        "explanation": "Hitung selisih mutasi bank dan buku kas perusahaan."
-      }
-    ]
-  },
-  {
-    "id": "EX-047",
-    "number": 47,
-    "code": "#SBEM047",
-    "title": "Pengolahan Nilai Rapor & Beasiswa Prestasi Siswa (Studi Kasus #47)",
-    "category": "Logika",
-    "difficulty": "MENENGAH",
-    "difficultyStars": 3,
-    "tags": [
-      "Cek Otomatis",
-      "Studi Kasus",
-      "Logika"
-    ],
-    "instructions": {
-      "title": "MENENGAH Level - Pengolahan Nilai Rapor & Beasiswa Prestasi Siswa",
-      "description": "Hitung nilai akhir berbobot 30% Tugas + 30% UTS + 40% UAS.",
-      "points": [
-        "1. Periksa data pada tabel di bawah ini.",
-        "2. Tuliskan formula pada kolom target (F) sesuai aturan yang ditentukan.",
-        "3. Pastikan formula dapat diterapkan ke seluruh baris data.",
-        "4. Klik tombol \"Cek Hasil Jawaban\" untuk mengevaluasi kelulusan kasus."
-      ],
-      "helperTable": {
-        "title": "Ketentuan Rumus",
-        "headers": [
-          "Target Kolom",
-          "Formula Acuan"
-        ],
-        "rows": [
-          [
-            "Nilai Akhir",
-            "=C2*0.3 + D2*0.3 + E2*0.4"
-          ]
-        ]
-      },
-      "notice": "Tulis rumus kalkulasi pada kolom yang telah disediakan."
-    },
-    "sheets": [
-      {
-        "id": "sheet_47",
-        "name": "Rapor Siswa",
-        "columns": [
-          {
-            "key": "nis",
-            "label": "NIS",
-            "letter": "A"
-          },
-          {
-            "key": "nama",
-            "label": "Nama Siswa",
-            "letter": "B"
-          },
-          {
-            "key": "tugas",
-            "label": "Nilai Tugas (30%)",
-            "letter": "C"
-          },
-          {
-            "key": "uts",
-            "label": "Nilai UTS (30%)",
-            "letter": "D"
-          },
-          {
-            "key": "uas",
-            "label": "Nilai UAS (40%)",
-            "letter": "E"
-          },
-          {
-            "key": "akhir",
-            "label": "Nilai Akhir",
-            "letter": "F"
-          },
-          {
-            "key": "beasiswa",
-            "label": "Status Beasiswa",
-            "letter": "G"
-          }
-        ],
-        "rows": [
-          {
-            "rowNumber": 2,
-            "values": {
-              "nis": "202601",
-              "nama": "Fajar Nugraha",
-              "tugas": 85,
-              "uts": 90,
-              "uas": 92,
-              "akhir": "?",
-              "beasiswa": "?"
-            }
-          },
-          {
-            "rowNumber": 3,
-            "values": {
-              "nis": "202602",
-              "nama": "Gita Larasati",
-              "tugas": 75,
-              "uts": 80,
-              "uas": 78,
-              "akhir": "?",
-              "beasiswa": "?"
-            }
-          },
-          {
-            "rowNumber": 4,
-            "values": {
-              "nis": "202603",
-              "nama": "Hendra Gunawan",
-              "tugas": 90,
-              "uts": 95,
-              "uas": 94,
-              "akhir": "?",
-              "beasiswa": "?"
-            }
-          },
-          {
-            "rowNumber": 5,
-            "values": {
-              "nis": "202604",
-              "nama": "Indah Permatasari",
-              "tugas": 60,
-              "uts": 65,
-              "uas": 70,
-              "akhir": "?",
-              "beasiswa": "?"
-            }
-          }
-        ],
-        "targetColumns": [
-          {
-            "key": "akhir",
-            "letter": "F",
-            "label": "Nilai Akhir",
-            "description": "Hitung nilai akhir berbobot 30% Tugas + 30% UTS + 40% UAS.",
-            "expectedRowAnswers": {
-              "2": 89.3,
-              "3": 77.7,
-              "4": 93.1,
-              "5": 65.5
-            }
-          }
-        ]
-      }
-    ],
-    "passingScore": 70,
-    "solutionBlueprints": [
-      {
-        "columnLabel": "Nilai Akhir",
-        "formula": "=C2*0.3 + D2*0.3 + E2*0.4",
-        "explanation": "Hitung nilai akhir berbobot 30% Tugas + 30% UTS + 40% UAS."
-      }
-    ]
-  },
-  {
-    "id": "EX-048",
-    "number": 48,
-    "code": "#SBEM048",
-    "title": "Simulasi Angsuran Kredit Rumah KPR (Bank PMT) (Studi Kasus #48)",
-    "category": "Keuangan",
-    "difficulty": "MAHIR",
-    "difficultyStars": 4,
-    "tags": [
-      "Cek Otomatis",
-      "Studi Kasus",
-      "Keuangan"
-    ],
-    "instructions": {
-      "title": "MAHIR Level - Simulasi Angsuran Kredit Rumah KPR (Bank PMT)",
-      "description": "Hitung cicilan per bulan menggunakan fungsi PMT.",
-      "points": [
-        "1. Periksa data pada tabel di bawah ini.",
-        "2. Tuliskan formula pada kolom target (E) sesuai aturan yang ditentukan.",
-        "3. Pastikan formula dapat diterapkan ke seluruh baris data.",
-        "4. Klik tombol \"Cek Hasil Jawaban\" untuk mengevaluasi kelulusan kasus."
-      ],
-      "helperTable": {
-        "title": "Ketentuan Rumus",
-        "headers": [
-          "Target Kolom",
-          "Formula Acuan"
-        ],
-        "rows": [
-          [
-            "Angsuran / Bulan (PMT)",
-            "=PMT(C2/12, D2*12, -B2)"
-          ]
-        ]
-      },
-      "notice": "Tulis rumus kalkulasi pada kolom yang telah disediakan."
-    },
-    "sheets": [
-      {
-        "id": "sheet_48",
-        "name": "Simulasi KPR",
-        "columns": [
-          {
-            "key": "deb",
-            "label": "Nama Debitur",
-            "letter": "A"
-          },
-          {
-            "key": "plafon",
-            "label": "Plafon Pinjaman (Rp)",
-            "letter": "B"
-          },
-          {
-            "key": "bunga",
-            "label": "Bunga Tahunan (%)",
-            "letter": "C"
-          },
-          {
-            "key": "tenor",
-            "label": "Tenor (Tahun)",
-            "letter": "D"
-          },
-          {
-            "key": "angsuran",
-            "label": "Angsuran / Bulan (PMT)",
-            "letter": "E"
-          }
-        ],
-        "rows": [
-          {
-            "rowNumber": 2,
-            "values": {
-              "deb": "Andi Pratama",
-              "plafon": 500000000,
-              "bunga": 0.08,
-              "tenor": 15,
-              "angsuran": "?"
-            }
-          },
-          {
-            "rowNumber": 3,
-            "values": {
-              "deb": "Citra Kirana",
-              "plafon": 350000000,
-              "bunga": 0.075,
-              "tenor": 10,
-              "angsuran": "?"
-            }
-          },
-          {
-            "rowNumber": 4,
-            "values": {
-              "deb": "Dimas Anggara",
-              "plafon": 800000000,
-              "bunga": 0.085,
-              "tenor": 20,
-              "angsuran": "?"
-            }
-          },
-          {
-            "rowNumber": 5,
-            "values": {
-              "deb": "Eka Saputra",
-              "plafon": 250000000,
-              "bunga": 0.07,
-              "tenor": 5,
-              "angsuran": "?"
-            }
-          }
-        ],
-        "targetColumns": [
-          {
-            "key": "angsuran",
-            "letter": "E",
-            "label": "Angsuran / Bulan (PMT)",
-            "description": "Hitung cicilan per bulan menggunakan fungsi PMT.",
-            "expectedRowAnswers": {
-              "2": 4778260,
-              "3": 4153835,
-              "4": 6942621,
-              "5": 4950371
-            }
-          }
-        ]
-      }
-    ],
-    "passingScore": 70,
-    "solutionBlueprints": [
-      {
-        "columnLabel": "Angsuran / Bulan (PMT)",
-        "formula": "=PMT(C2/12, D2*12, -B2)",
-        "explanation": "Hitung cicilan per bulan menggunakan fungsi PMT."
-      }
-    ]
-  },
-  {
-    "id": "EX-049",
-    "number": 49,
-    "code": "#SBEM049",
-    "title": "Rekonsiliasi Bank & Buku Kas Perusahaan (Studi Kasus #49)",
-    "category": "Kombinasi",
-    "difficulty": "EXTREME",
-    "difficultyStars": 5,
-    "tags": [
-      "Cek Otomatis",
-      "Studi Kasus",
-      "Kombinasi"
-    ],
-    "instructions": {
-      "title": "EXTREME Level - Rekonsiliasi Bank & Buku Kas Perusahaan",
-      "description": "Hitung selisih mutasi bank dan buku kas perusahaan.",
-      "points": [
-        "1. Periksa data pada tabel di bawah ini.",
-        "2. Tuliskan formula pada kolom target (E) sesuai aturan yang ditentukan.",
-        "3. Pastikan formula dapat diterapkan ke seluruh baris data.",
-        "4. Klik tombol \"Cek Hasil Jawaban\" untuk mengevaluasi kelulusan kasus."
-      ],
-      "helperTable": {
-        "title": "Ketentuan Rumus",
-        "headers": [
-          "Target Kolom",
-          "Formula Acuan"
-        ],
-        "rows": [
-          [
-            "Selisih (Rp)",
-            "=ABS(C2-D2)"
-          ]
-        ]
-      },
-      "notice": "Tulis rumus kalkulasi pada kolom yang telah disediakan."
-    },
-    "sheets": [
-      {
-        "id": "sheet_49",
-        "name": "Rekonsiliasi Kas",
-        "columns": [
-          {
-            "key": "tgl",
-            "label": "Tanggal",
-            "letter": "A"
-          },
-          {
-            "key": "ket",
-            "label": "Keterangan Transaksi",
-            "letter": "B"
-          },
-          {
-            "key": "bank",
-            "label": "Mutasi Bank (Rp)",
-            "letter": "C"
-          },
-          {
-            "key": "buku",
-            "label": "Buku Kas (Rp)",
-            "letter": "D"
-          },
-          {
-            "key": "selisih",
-            "label": "Selisih (Rp)",
-            "letter": "E"
-          },
-          {
-            "key": "status",
-            "label": "Status Audit",
-            "letter": "F"
-          }
-        ],
-        "rows": [
-          {
-            "rowNumber": 2,
-            "values": {
-              "tgl": "01/08/2026",
-              "ket": "Setoran Tunai Kasir Toko",
-              "bank": 15000000,
-              "buku": 15000000,
-              "selisih": "?",
-              "status": "?"
-            }
-          },
-          {
-            "rowNumber": 3,
-            "values": {
-              "tgl": "03/08/2026",
-              "ket": "Kliring Cek Vendor Supplier",
-              "bank": 8500000,
-              "buku": 8500000,
-              "selisih": "?",
-              "status": "?"
-            }
-          },
-          {
-            "rowNumber": 4,
-            "values": {
-              "tgl": "05/08/2026",
-              "ket": "Biaya Administrasi Bank Bulanan",
-              "bank": 25000,
-              "buku": 0,
-              "selisih": "?",
-              "status": "?"
-            }
-          },
-          {
-            "rowNumber": 5,
-            "values": {
-              "tgl": "07/08/2026",
-              "ket": "Pendapatan Jasa Giro Bunga",
-              "bank": 180000,
-              "buku": 0,
-              "selisih": "?",
-              "status": "?"
-            }
-          }
-        ],
-        "targetColumns": [
-          {
-            "key": "selisih",
-            "letter": "E",
-            "label": "Selisih (Rp)",
-            "description": "Hitung selisih mutasi bank dan buku kas perusahaan.",
-            "expectedRowAnswers": {
-              "2": 0,
-              "3": 0,
-              "4": 25000,
-              "5": 180000
-            }
-          }
-        ]
-      }
-    ],
-    "passingScore": 70,
-    "solutionBlueprints": [
-      {
-        "columnLabel": "Selisih (Rp)",
-        "formula": "=ABS(C2-D2)",
-        "explanation": "Hitung selisih mutasi bank dan buku kas perusahaan."
-      }
-    ]
-  },
-  {
-    "id": "EX-050",
-    "number": 50,
-    "code": "#SBEM050",
-    "title": "Pengolahan Nilai Rapor & Beasiswa Prestasi Siswa (Studi Kasus #50)",
-    "category": "Logika",
-    "difficulty": "MENENGAH",
-    "difficultyStars": 3,
-    "tags": [
-      "Cek Otomatis",
-      "Studi Kasus",
-      "Logika"
-    ],
-    "instructions": {
-      "title": "MENENGAH Level - Pengolahan Nilai Rapor & Beasiswa Prestasi Siswa",
-      "description": "Hitung nilai akhir berbobot 30% Tugas + 30% UTS + 40% UAS.",
-      "points": [
-        "1. Periksa data pada tabel di bawah ini.",
-        "2. Tuliskan formula pada kolom target (F) sesuai aturan yang ditentukan.",
-        "3. Pastikan formula dapat diterapkan ke seluruh baris data.",
-        "4. Klik tombol \"Cek Hasil Jawaban\" untuk mengevaluasi kelulusan kasus."
-      ],
-      "helperTable": {
-        "title": "Ketentuan Rumus",
-        "headers": [
-          "Target Kolom",
-          "Formula Acuan"
-        ],
-        "rows": [
-          [
-            "Nilai Akhir",
-            "=C2*0.3 + D2*0.3 + E2*0.4"
-          ]
-        ]
-      },
-      "notice": "Tulis rumus kalkulasi pada kolom yang telah disediakan."
-    },
-    "sheets": [
-      {
-        "id": "sheet_50",
-        "name": "Rapor Siswa",
-        "columns": [
-          {
-            "key": "nis",
-            "label": "NIS",
-            "letter": "A"
-          },
-          {
-            "key": "nama",
-            "label": "Nama Siswa",
-            "letter": "B"
-          },
-          {
-            "key": "tugas",
-            "label": "Nilai Tugas (30%)",
-            "letter": "C"
-          },
-          {
-            "key": "uts",
-            "label": "Nilai UTS (30%)",
-            "letter": "D"
-          },
-          {
-            "key": "uas",
-            "label": "Nilai UAS (40%)",
-            "letter": "E"
-          },
-          {
-            "key": "akhir",
-            "label": "Nilai Akhir",
-            "letter": "F"
-          },
-          {
-            "key": "beasiswa",
-            "label": "Status Beasiswa",
-            "letter": "G"
-          }
-        ],
-        "rows": [
-          {
-            "rowNumber": 2,
-            "values": {
-              "nis": "202601",
-              "nama": "Fajar Nugraha",
-              "tugas": 85,
-              "uts": 90,
-              "uas": 92,
-              "akhir": "?",
-              "beasiswa": "?"
-            }
-          },
-          {
-            "rowNumber": 3,
-            "values": {
-              "nis": "202602",
-              "nama": "Gita Larasati",
-              "tugas": 75,
-              "uts": 80,
-              "uas": 78,
-              "akhir": "?",
-              "beasiswa": "?"
-            }
-          },
-          {
-            "rowNumber": 4,
-            "values": {
-              "nis": "202603",
-              "nama": "Hendra Gunawan",
-              "tugas": 90,
-              "uts": 95,
-              "uas": 94,
-              "akhir": "?",
-              "beasiswa": "?"
-            }
-          },
-          {
-            "rowNumber": 5,
-            "values": {
-              "nis": "202604",
-              "nama": "Indah Permatasari",
-              "tugas": 60,
-              "uts": 65,
-              "uas": 70,
-              "akhir": "?",
-              "beasiswa": "?"
-            }
-          }
-        ],
-        "targetColumns": [
-          {
-            "key": "akhir",
-            "letter": "F",
-            "label": "Nilai Akhir",
-            "description": "Hitung nilai akhir berbobot 30% Tugas + 30% UTS + 40% UAS.",
-            "expectedRowAnswers": {
-              "2": 89.3,
-              "3": 77.7,
-              "4": 93.1,
-              "5": 65.5
-            }
-          }
-        ]
-      }
-    ],
-    "passingScore": 70,
-    "solutionBlueprints": [
-      {
-        "columnLabel": "Nilai Akhir",
-        "formula": "=C2*0.3 + D2*0.3 + E2*0.4",
-        "explanation": "Hitung nilai akhir berbobot 30% Tugas + 30% UTS + 40% UAS."
+        "columnLabel": "Total Tagihan",
+        "formula": "=F2+G2",
+        "explanation": "Menjumlahkan biaya sewa kamar dengan biaya fasilitas tambahan"
       }
     ]
   }
