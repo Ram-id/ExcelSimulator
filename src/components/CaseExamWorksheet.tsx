@@ -309,9 +309,7 @@ export const CaseExamWorksheet: React.FC<CaseExamWorksheetProps> = ({
       return currentSheet.rows;
     }
     return currentSheet.rows.filter(
-      (r) =>
-        r.values.points === 0 || // keep header / example
-        String(r.values.level || '').toUpperCase() === levelFilter.toUpperCase()
+      (r) => String(r.values.level || '').toUpperCase() === levelFilter.toUpperCase()
     );
   }, [currentSheet, levelFilter]);
 
@@ -485,6 +483,27 @@ export const CaseExamWorksheet: React.FC<CaseExamWorksheetProps> = ({
               {lvl === 'ALL' ? 'Semua Level' : lvl}
             </button>
           ))}
+        </div>
+      )}
+
+      {/* Helper Guidance Banner for Questions Sheet */}
+      {currentSheet.id === 'sheet_questions' && (
+        <div className="bg-emerald-50 border border-emerald-200 rounded-xl p-2.5 text-xs text-emerald-950 flex flex-col md:flex-row items-start md:items-center justify-between gap-2 shadow-2xs">
+          <div className="flex items-center gap-2">
+            <span className="bg-[#107c41] text-white text-[10px] font-bold px-2 py-0.5 rounded-md">💡 Petunjuk Cepat</span>
+            <span className="text-[11px]">
+              Klik sel kuning di kolom <strong>Answer (F)</strong> untuk mengisi jawaban (bisa ketik nama langsung atau gunakan rumus <code className="bg-white px-1 py-0.5 rounded border border-emerald-300 font-mono text-[10px]">=INDEX(&apos;Desk Layout&apos;!A1:G11, C3, D3)</code>).
+            </span>
+          </div>
+          <div className="flex items-center gap-1.5 shrink-0 text-[11px] text-emerald-800 font-semibold">
+            <span>Lihat denah di 👉</span>
+            <button
+              onClick={() => setActiveSheetIndex(1)}
+              className="bg-white border border-emerald-400 hover:bg-emerald-100 text-[#107c41] px-2.5 py-0.5 rounded-md font-bold transition-all shadow-2xs cursor-pointer"
+            >
+              [Desk Layout]
+            </button>
+          </div>
         </div>
       )}
 
