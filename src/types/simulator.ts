@@ -117,7 +117,7 @@ export function getLevelEmoji(level: UserLevel): string {
   return '🌱';
 }
 
-// ===== v4.0: Auth & Exam Types =====
+// ===== Auth Types =====
 
 export interface UserAccount {
   username: string;
@@ -133,9 +133,92 @@ export interface UserSession {
   isMaster?: boolean;
 }
 
+// ===== 50 Case-Based Exam Types (XL-Test Style) =====
+
+export type CaseDifficulty = 'PEMULA' | 'MENENGAH' | 'MAHIR' | 'EXTREME' | 'CHAMPIONSHIP';
+
+export interface CaseHelperTable {
+  title: string;
+  headers: string[];
+  rows: (string | number)[][];
+}
+
+export interface CaseInstruction {
+  title: string;
+  description: string;
+  points: string[];
+  helperTable?: CaseHelperTable;
+  notice?: string;
+}
+
+export interface CaseTargetColumn {
+  key: string;
+  letter: string;
+  label: string;
+  description: string;
+  sampleFormula?: string;
+  validFormulaPatterns?: string[];
+  // Mapping row number -> accepted value (or array of accepted values)
+  expectedRowAnswers: Record<number, string | number | (string | number)[]>;
+}
+
+export interface CaseSheet {
+  id: string;
+  name: string; // e.g. 'XL-Test', 'Daftar Nama', 'Data Master'
+  columns: TableColumn[];
+  rows: TableRow[];
+  targetColumns?: CaseTargetColumn[];
+}
+
+export interface CaseSolutionBlueprint {
+  columnLabel: string;
+  formula: string;
+  explanation: string;
+}
+
+export interface CaseExamData {
+  id: string; // e.g. 'EX-001'
+  number: number; // 1 to 50
+  code: string; // e.g. '#SBEM011'
+  title: string;
+  category: 'Aritmatika' | 'Statistik' | 'Teks' | 'Logika' | 'Lookup' | 'Keuangan' | 'Kombinasi';
+  difficulty: CaseDifficulty;
+  difficultyStars: number; // 1 to 5
+  tags: string[];
+  instructions: CaseInstruction;
+  sheets: CaseSheet[];
+  passingScore: number; // typically 70
+  solutionBlueprints: CaseSolutionBlueprint[];
+}
+
+export interface CaseRowEvaluation {
+  cellRef: string;
+  rowNumber: number;
+  columnKey: string;
+  userValue: string | number;
+  expectedValue: string | number;
+  isCorrect: boolean;
+  userFormula?: string;
+}
+
+export interface CaseExamResult {
+  examId: string;
+  examNumber: number;
+  examCode: string;
+  examTitle: string;
+  score: number; // 0 - 100
+  totalCells: number;
+  correctCells: number;
+  passed: boolean;
+  evaluations: CaseRowEvaluation[];
+  completedAt: string;
+  predikat: 'Gagal' | 'Cukup' | 'Baik' | 'Sangat Baik';
+}
+
+// Legacy Exam types kept for backward compatibility if needed
 export interface ExamQuestion {
   id: number;
-  chapterId: number; // 1-6 for chapter exams, 0 for final
+  chapterId: number;
   question: string;
   type: 'multiple_choice' | 'formula' | 'fill_value';
   options?: string[];
@@ -149,14 +232,14 @@ export interface ExamQuestion {
 }
 
 export interface ExamData {
-  id: string; // 'exam_ch1', 'exam_ch2', ..., 'exam_final'
+  id: string;
   title: string;
-  chapterId: number; // 1-6, or 0 for final
+  chapterId: number;
   description: string;
   questions: ExamQuestion[];
   totalPoints: number;
-  passingScore: number; // minimum to pass (e.g. 70)
-  timeLimit?: number; // minutes, undefined = unlimited
+  passingScore: number;
+  timeLimit?: number;
 }
 
 export interface UserAnswer {
@@ -177,7 +260,7 @@ export interface ExamResult {
   predikat: 'Gagal' | 'Cukup' | 'Baik' | 'Sangat Baik';
 }
 
-export function getPredikat(percentage: number): ExamResult['predikat'] {
+export function getPredikat(percentage: number): 'Gagal' | 'Cukup' | 'Baik' | 'Sangat Baik' {
   if (percentage >= 90) return 'Sangat Baik';
   if (percentage >= 80) return 'Baik';
   if (percentage >= 70) return 'Cukup';

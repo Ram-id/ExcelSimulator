@@ -1,29 +1,36 @@
 'use client';
 
 import React, { useRef, useCallback } from 'react';
-import { ExamResult, ExamData } from '@/types/simulator';
 import { Download, X, Trophy, Award } from 'lucide-react';
 
 interface CertificateProps {
-  examResult: ExamResult;
-  exam: ExamData;
+  title: string;
+  code?: string;
+  score: number;
+  predikat: string;
+  completedAt: string;
   displayName: string;
   username: string;
+  isFinal?: boolean;
   onClose: () => void;
 }
 
 export const Certificate: React.FC<CertificateProps> = ({
-  examResult,
-  exam,
+  title,
+  code,
+  score,
+  predikat,
+  completedAt,
   displayName,
   username,
+  isFinal = false,
   onClose,
 }) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
-  const isFinal = exam.chapterId === 0;
-  const certId = `EXSIM-${new Date(examResult.completedAt).getFullYear()}-${username.toUpperCase().slice(0, 4)}-${isFinal ? 'F' : `B${exam.chapterId}`}${examResult.percentage}`;
-  const dateStr = new Date(examResult.completedAt).toLocaleDateString('id-ID', {
+  const cleanUser = (username || 'USER').replace(/[^a-zA-Z0-9]/g, '').toUpperCase().slice(0, 5);
+  const certId = `EXSIM-${new Date(completedAt || Date.now()).getFullYear()}-${cleanUser}-${code || 'CASE'}-${score}`;
+  const dateStr = new Date(completedAt || Date.now()).toLocaleDateString('id-ID', {
     day: 'numeric',
     month: 'long',
     year: 'numeric',
@@ -56,7 +63,12 @@ export const Certificate: React.FC<CertificateProps> = ({
     ctx.strokeRect(35, 35, w - 70, h - 70);
 
     // Corner decorations
-    const corners = [[50, 50], [w - 50, 50], [50, h - 50], [w - 50, h - 50]];
+    const corners = [
+      [50, 50],
+      [w - 50, 50],
+      [50, h - 50],
+      [w - 50, h - 50],
+    ];
     corners.forEach(([cx, cy]) => {
       ctx.fillStyle = isFinal ? '#d4a017' : '#107c41';
       ctx.beginPath();
@@ -76,16 +88,16 @@ export const Certificate: React.FC<CertificateProps> = ({
     ctx.textAlign = 'center';
     ctx.fillText(isFinal ? '🏆' : '📊', w / 2, 120);
 
-    // "SERTIFIKAT" title
+    // "SERTIFIKAT KELULUSAN" title
     ctx.fillStyle = accentColor;
-    ctx.font = 'bold 42px Arial, Helvetica, sans-serif';
+    ctx.font = 'bold 40px Arial, Helvetica, sans-serif';
     ctx.textAlign = 'center';
-    ctx.fillText('SERTIFIKAT KELULUSAN', w / 2, 175);
+    ctx.fillText('SERTIFIKAT KELULUSAN STUDI KASUS', w / 2, 175);
 
     // Subtitle
     ctx.fillStyle = '#6b7280';
-    ctx.font = '18px Arial, Helvetica, sans-serif';
-    ctx.fillText('ExcelSimulator — Platform Belajar Rumus Excel Interaktif', w / 2, 210);
+    ctx.font = '17px Arial, Helvetica, sans-serif';
+    ctx.fillText('ExcelSimulator — Platform Praktik & Ujian Rumus Excel Interaktif', w / 2, 210);
 
     // Divider
     ctx.strokeStyle = '#e5e7eb';
@@ -117,18 +129,14 @@ export const Certificate: React.FC<CertificateProps> = ({
     // Description
     ctx.fillStyle = '#374151';
     ctx.font = '16px Arial, Helvetica, sans-serif';
-    if (isFinal) {
-      ctx.fillText('Telah menyelesaikan seluruh program pembelajaran rumus Microsoft Excel', w / 2, 395);
-      ctx.fillText('dan lulus Ujian Akhir Komprehensif ExcelSimulator', w / 2, 420);
-    } else {
-      ctx.fillText(`Telah menyelesaikan dan lulus ujian`, w / 2, 395);
-      ctx.font = 'bold 18px Arial, Helvetica, sans-serif';
-      ctx.fillStyle = accentColor;
-      ctx.fillText(exam.title, w / 2, 425);
-    }
+    ctx.fillText('Telah menyelesaikan dan berhasil lulus evaluasi lembar kerja:', w / 2, 395);
 
-    // Score section
-    const scoreY = isFinal ? 480 : 470;
+    ctx.font = 'bold 20px Arial, Helvetica, sans-serif';
+    ctx.fillStyle = accentColor;
+    ctx.fillText(title, w / 2, 425);
+
+    // Score box
+    const scoreY = 475;
     ctx.fillStyle = '#f3f4f6';
     ctx.beginPath();
     ctx.roundRect(w / 2 - 250, scoreY - 10, 500, 60, 10);
@@ -136,21 +144,14 @@ export const Certificate: React.FC<CertificateProps> = ({
 
     ctx.fillStyle = '#111827';
     ctx.font = 'bold 22px Arial, Helvetica, sans-serif';
-    ctx.fillText(`Skor: ${examResult.percentage}%`, w / 2 - 100, scoreY + 30);
+    ctx.fillText(`Skor: ${score}%`, w / 2 - 100, scoreY + 30);
 
     ctx.fillStyle = accentColor;
     ctx.font = 'bold 22px Arial, Helvetica, sans-serif';
-    ctx.fillText(`Predikat: ${examResult.predikat}`, w / 2 + 100, scoreY + 30);
-
-    // Module & exam info
-    if (isFinal) {
-      ctx.fillStyle = '#6b7280';
-      ctx.font = '14px Arial, Helvetica, sans-serif';
-      ctx.fillText('40 Modul Pembelajaran • 7 Ujian • 6 Bab Kompetensi', w / 2, scoreY + 80);
-    }
+    ctx.fillText(`Predikat: ${predikat}`, w / 2 + 100, scoreY + 30);
 
     // Date
-    const dateY = isFinal ? scoreY + 120 : scoreY + 100;
+    const dateY = scoreY + 115;
     ctx.fillStyle = '#6b7280';
     ctx.font = '14px Arial, Helvetica, sans-serif';
     ctx.fillText(`Diterbitkan pada: ${dateStr}`, w / 2, dateY);
@@ -167,10 +168,9 @@ export const Certificate: React.FC<CertificateProps> = ({
     // Footer
     ctx.fillStyle = '#9ca3af';
     ctx.font = '11px Arial, Helvetica, sans-serif';
-    ctx.fillText('ExcelSimulator © 2026 • Sertifikat ini dihasilkan secara otomatis oleh sistem', w / 2, h - 70);
-  }, [examResult, exam, displayName, username, isFinal, certId, dateStr]);
+    ctx.fillText('ExcelSimulator © 2026 • Terverifikasi otomatis oleh sistem kalkulasi formula ExcelSimulator', w / 2, h - 70);
+  }, [title, score, predikat, completedAt, displayName, isFinal, certId, dateStr]);
 
-  // Draw on mount
   React.useEffect(() => {
     drawCertificate();
   }, [drawCertificate]);
@@ -180,24 +180,24 @@ export const Certificate: React.FC<CertificateProps> = ({
     if (!canvas) return;
 
     const link = document.createElement('a');
-    link.download = `Sertifikat_${exam.title.replace(/\s+/g, '_')}_${displayName.replace(/\s+/g, '_')}.png`;
+    link.download = `Sertifikat_${title.replace(/[^a-zA-Z0-9]/g, '_')}_${displayName.replace(/\s+/g, '_')}.png`;
     link.href = canvas.toDataURL('image/png');
     link.click();
   };
 
   return (
-    <div className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 overflow-y-auto">
+    <div className="fixed inset-0 bg-black/60 backdrop-blur-xs z-50 flex items-center justify-center p-4 overflow-y-auto">
       <div className="bg-white rounded-2xl shadow-2xl max-w-4xl w-full overflow-hidden animate-fade-in">
         {/* Header */}
         <div className="flex items-center justify-between px-6 py-4 border-b border-gray-200 bg-gray-50">
           <h3 className="font-bold text-sm text-gray-900 flex items-center gap-2">
             {isFinal ? <Trophy className="w-5 h-5 text-amber-500" /> : <Award className="w-5 h-5 text-[#107c41]" />}
-            <span>Sertifikat — {exam.title}</span>
+            <span>Sertifikat Kelulusan — {title}</span>
           </h3>
           <div className="flex items-center gap-2">
             <button
               onClick={handleDownload}
-              className="flex items-center gap-1.5 px-4 py-2 bg-[#107c41] hover:bg-[#0b5c2f] text-white font-bold text-xs rounded-xl shadow-sm transition-all"
+              className="flex items-center gap-1.5 px-4 py-2 bg-[#107c41] hover:bg-[#0b5c2f] text-white font-bold text-xs rounded-xl shadow-xs transition-all"
             >
               <Download className="w-4 h-4" />
               <span>Download PNG</span>
