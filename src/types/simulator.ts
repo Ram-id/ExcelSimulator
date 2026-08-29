@@ -1,4 +1,4 @@
-export type AppMode = 'learn' | 'sandbox' | 'progress';
+export type AppMode = 'learn' | 'sandbox' | 'progress' | 'exam';
 
 export interface ChapterData {
   id: number;
@@ -11,11 +11,11 @@ export interface ChapterData {
 export interface TableColumn {
   key: string;
   label: string;
-  letter: string; // 'A', 'B', 'C', etc.
+  letter: string;
 }
 
 export interface TableRow {
-  rowNumber: number; // 2, 3, 4, etc.
+  rowNumber: number;
   values: Record<string, string | number>;
 }
 
@@ -27,7 +27,7 @@ export interface ModuleData {
   difficulty: 'Pemula' | 'Menengah' | 'Lanjutan';
   scenario: string;
   objective: string;
-  targetCell: string; // e.g. 'D2'
+  targetCell: string;
   targetRowNumber: number;
   targetColKey: string;
   targetColLetter: string;
@@ -39,7 +39,7 @@ export interface ModuleData {
   };
   validFormulas: string[];
   acceptedAnswers: (string | number)[];
-  hints: string[]; // Now 3-level progressive: conceptual → technical → blueprint
+  hints: string[];
   explanation: string;
   samplePlaceholder?: string;
   theory: {
@@ -48,11 +48,10 @@ export interface ModuleData {
     syntax: string;
     example: string;
   };
-  // NEW v3.0 fields
-  skillsLearned: string[];       // e.g. ['Fungsi SUM', 'Range Reference']
-  jobRelevance: string[];        // e.g. ['Akuntan', 'Admin Kantor', 'HRD']
-  realWorldExample: string;      // Real-world workplace scenario paragraph
-  prerequisiteModules: number[]; // Module IDs that should be done first
+  skillsLearned: string[];
+  jobRelevance: string[];
+  realWorldExample: string;
+  prerequisiteModules: number[];
 }
 
 export interface EvaluationResult {
@@ -63,8 +62,8 @@ export interface EvaluationResult {
 }
 
 export interface CellPosition {
-  col: string; // 'A', 'B', etc.
-  row: number; // 1, 2, 3, etc.
+  col: string;
+  row: number;
 }
 
 export interface GridCell {
@@ -95,7 +94,6 @@ export interface CheatSheetItem {
   tips: string;
 }
 
-// NEW v3.0: Skill tracking types
 export interface SkillDimension {
   label: string;
   chapterId: number;
@@ -117,4 +115,69 @@ export function getLevelEmoji(level: UserLevel): string {
   if (level === 'Mahir') return '🏆';
   if (level === 'Menengah') return '📈';
   return '🌱';
+}
+
+// ===== v4.0: Auth & Exam Types =====
+
+export interface UserAccount {
+  username: string;
+  displayName: string;
+  passwordHash: string;
+  createdAt: string;
+}
+
+export interface UserSession {
+  username: string;
+  displayName: string;
+}
+
+export interface ExamQuestion {
+  id: number;
+  chapterId: number; // 1-6 for chapter exams, 0 for final
+  question: string;
+  type: 'multiple_choice' | 'formula' | 'fill_value';
+  options?: string[];
+  columns?: TableColumn[];
+  rows?: TableRow[];
+  targetCell?: string;
+  correctAnswer: string | number;
+  acceptedFormulas?: string[];
+  explanation: string;
+  points: number;
+}
+
+export interface ExamData {
+  id: string; // 'exam_ch1', 'exam_ch2', ..., 'exam_final'
+  title: string;
+  chapterId: number; // 1-6, or 0 for final
+  description: string;
+  questions: ExamQuestion[];
+  totalPoints: number;
+  passingScore: number; // minimum to pass (e.g. 70)
+  timeLimit?: number; // minutes, undefined = unlimited
+}
+
+export interface UserAnswer {
+  questionId: number;
+  answer: string | number;
+  isCorrect: boolean;
+  pointsEarned: number;
+}
+
+export interface ExamResult {
+  examId: string;
+  score: number;
+  totalPoints: number;
+  percentage: number;
+  passed: boolean;
+  answers: UserAnswer[];
+  completedAt: string;
+  predikat: 'Gagal' | 'Cukup' | 'Baik' | 'Sangat Baik';
+}
+
+export function getPredikat(percentage: number): ExamResult['predikat'] {
+  if (percentage >= 90) return 'Sangat Baik';
+  if (percentage >= 80) return 'Baik';
+  if (percentage >= 70) return 'Cukup';
+  return 'Gagal';
 }
