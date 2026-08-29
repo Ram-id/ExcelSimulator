@@ -19,19 +19,18 @@ export const CASE_EXAMS: CaseExamData[] = [
       "title": "Championship Level - Turnamen \"Ujian Sekolah\" (Andi Setiadi)",
       "description": "Selesaikan tantangan resmi turnamen Excel berdasarkan denah meja kelas (Sheet \"Desk Layout\") dan data nilai ujian siswa (Sheet \"Student Data\").",
       "points": [
-        "Level 1 (Very Easy): Cari nama siswa yang duduk di baris dan kolom yang ditentukan. Gunakan formula seperti =INDEX('Desk Layout'!A1:G11, Row, Col).",
-        "Level 2 (Easy): Hitung total nilai siswa berdasarkan posisi meja R...C... dari sheet \"Student Data\".",
-        "Level 3 (Medium): Hitung berapa banyak siswa yang namanya diawali huruf vokal (A, E, I, O, U) pada baris/kolom tertentu.",
-        "Level 4 & 5: Hitung total nilai baris dan cari siswa dengan ranking tertentu.",
+        "Level 1: Cari nama siswa yang duduk di baris dan kolom yang ditentukan. Contoh di R1C1 adalah Gita Firmansyah. Gunakan =INDEX('Desk Layout'!A1:G11, C3, D3).",
+        "Level 2: Cari total nilai siswa berdasarkan posisi meja R...C... dari sheet \"Student Data\". Contoh di R1C1 total nilai Gita = 399. Gunakan =XLOOKUP(E14, 'Student Data'!J2:J78, 'Student Data'!H2:H78).",
+        "Level 3: Hitung berapa banyak siswa yang namanya diawali huruf vokal (A, E, I, O, U) pada baris/kolom tertentu.",
         "Bonus Questions: Jawab pertanyaan analisis global untuk poin tambahan turnamen."
       ],
       "helperTable": {
-        "title": "Contoh Resmi Pengerjaan",
+        "title": "Contoh Resmi Soal & Jawaban",
         "headers": [
           "Level",
           "Parameter",
-          "Target Jawaban",
-          "Rumus Contoh"
+          "Jawaban",
+          "Saran Rumus"
         ],
         "rows": [
           [
@@ -44,7 +43,7 @@ export const CASE_EXAMS: CaseExamData[] = [
             "Level 2",
             "Desk=R1C1",
             "399",
-            "=VLOOKUP('Gita Firmansyah', 'Student Data'!B2:H78, 7, FALSE)"
+            "=XLOOKUP(E14, 'Student Data'!J2:J78, 'Student Data'!H2:H78)"
           ],
           [
             "Level 3",
@@ -54,7 +53,7 @@ export const CASE_EXAMS: CaseExamData[] = [
           ]
         ]
       },
-      "notice": "Gunakan sheet \"Desk Layout\" dan \"Student Data\" untuk mencari data. Dilarang mengubah struktur tabel."
+      "notice": "Gunakan sheet \"Desk Layout\" dan \"Student Data\" untuk mencari data. Tulis rumus di kolom Answer."
     },
     "sheets": [
       {
@@ -1845,188 +1844,283 @@ export const CASE_EXAMS: CaseExamData[] = [
   {
     "id": "EX-002",
     "number": 2,
-    "code": "#SBEM001",
-    "title": "Latihan Soal Subtotal & Diskon Kasir Minimarket",
-    "category": "Aritmatika",
-    "difficulty": "PEMULA",
-    "difficultyStars": 1,
+    "code": "#SBEX007",
+    "title": "Latihan Soal Data Pegawai dan Gaji (Payroll HRD)",
+    "category": "Lookup",
+    "difficulty": "EXTREME",
+    "difficultyStars": 4,
     "tags": [
-      "Kasir",
-      "Aritmatika",
-      "Cek Otomatis",
-      "Spreadsheet Kasus"
+      "HRD",
+      "Payroll",
+      "VLOOKUP",
+      "IF"
     ],
     "instructions": {
-      "title": "PEMULA Level - Latihan Soal Subtotal & Diskon Kasir Minimarket",
-      "description": "Selesaikan lembar kerja kasus Latihan Soal Subtotal & Diskon Kasir Minimarket. Buka sheet utama untuk mengisi formula target sesuai data acuan pada sheet referensi.",
+      "title": "Extreme Level - Rekapitulasi Gaji & Tunjangan Pegawai",
+      "description": "Departemen HRD memerlukan perhitungan lengkap Gaji Pokok, Tunjangan Jabatan, Uang Lembur, Potongan PPh 21, dan Gaji Bersih berdasarkan sheet acuan \"Tabel Tarif\".",
       "points": [
-        "1. Periksa sheet \"Data Master\" untuk melihat tabel acuan harga/kategori/nama.",
-        "2. Tulis rumus Excel dinamis pada kolom target (Answer) di sheet \"XL-Test\".",
-        "3. Gunakan formula yang dapat diterapkan ke seluruh baris data.",
-        "4. Klik tombol \"Cek Hasil Jawaban\" di pojok kanan atas untuk mengevaluasi kelulusan."
+        "1. Kolom E (Gaji Pokok): Ambil dari sheet \"Tabel Tarif\" berdasarkan Golongan (kolom D) menggunakan =VLOOKUP(D2, 'Tabel Tarif'!A2:C5, 2, FALSE).",
+        "2. Kolom F (Tunjangan Jabatan): Ambil dari sheet \"Tabel Tarif\" berdasarkan Golongan menggunakan =VLOOKUP(D2, 'Tabel Tarif'!A2:C5, 3, FALSE).",
+        "3. Kolom H (Uang Lembur): Jam Lembur * Rp 50.000 (=G2 * 50000).",
+        "4. Kolom I (Gaji Kotor): Gaji Pokok + Tunjangan Jabatan + Uang Lembur (=E2 + F2 + H2).",
+        "5. Kolom J (Potongan PPh 21 5%): 5% dari Gaji Kotor (=I2 * 0.05).",
+        "6. Kolom K (Gaji Bersih): Gaji Kotor - Potongan PPh 21 (=I2 - J2)."
       ],
       "helperTable": {
-        "title": "Bantuan Referensi Standar",
+        "title": "Ketentuan Rumus Gaji",
         "headers": [
-          "Kategori Data",
-          "Formula Saran"
+          "Komponen",
+          "Formula"
         ],
         "rows": [
           [
-            "Pencarian Rujukan",
-            "VLOOKUP / XLOOKUP / INDEX-MATCH"
+            "Gaji Pokok",
+            "=VLOOKUP(D2, 'Tabel Tarif'!A2:C5, 2, FALSE)"
           ],
           [
-            "Kondisi & Logika",
-            "IF / IFS"
+            "Tunjangan",
+            "=VLOOKUP(D2, 'Tabel Tarif'!A2:C5, 3, FALSE)"
           ],
           [
-            "Perhitungan Angka",
-            "Operator Aritmatika / SUMIF / PMT"
+            "Uang Lembur",
+            "=Jam Lembur * 50000"
+          ],
+          [
+            "Gaji Bersih",
+            "=Gaji Kotor - PPh 21"
           ]
         ]
       },
-      "notice": "Dilarang mengubah tabel acuan. Tulis formula langsung pada tabel pengerjaan yang tersedia."
+      "notice": "Gunakan sheet \"Tabel Tarif\" untuk referensi tarif gaji dan tunjangan."
     },
     "sheets": [
       {
-        "id": "sheet_main",
-        "name": "XL-Test",
+        "id": "sheet_payroll",
+        "name": "Rekap Gaji Pegawai",
         "columns": [
           {
-            "key": "no",
-            "label": "No",
+            "key": "id",
+            "label": "ID Pegawai",
             "letter": "A"
           },
           {
-            "key": "item",
-            "label": "Item / Subjek",
+            "key": "nama",
+            "label": "Nama Pegawai",
             "letter": "B"
           },
           {
-            "key": "param1",
-            "label": "Parameter 1",
+            "key": "dept",
+            "label": "Departemen",
             "letter": "C"
           },
           {
-            "key": "param2",
-            "label": "Parameter 2",
+            "key": "gol",
+            "label": "Golongan",
             "letter": "D"
           },
           {
-            "key": "target_val",
-            "label": "Target Answer (Formula)",
+            "key": "gapok",
+            "label": "Gaji Pokok (Rp)",
             "letter": "E"
           },
           {
-            "key": "status",
-            "label": "Status Verifikasi",
+            "key": "tunjangan",
+            "label": "Tunjangan (Rp)",
             "letter": "F"
+          },
+          {
+            "key": "lembur_jam",
+            "label": "Jam Lembur",
+            "letter": "G"
+          },
+          {
+            "key": "lembur_rp",
+            "label": "Uang Lembur (Rp)",
+            "letter": "H"
+          },
+          {
+            "key": "gaji_kotor",
+            "label": "Gaji Kotor (Rp)",
+            "letter": "I"
+          },
+          {
+            "key": "pph",
+            "label": "PPh 21 5% (Rp)",
+            "letter": "J"
+          },
+          {
+            "key": "thp",
+            "label": "Gaji Bersih (THP)",
+            "letter": "K"
           }
         ],
         "rows": [
           {
             "rowNumber": 2,
             "values": {
-              "no": 1,
-              "item": "Kasus Uji Alpha",
-              "param1": 5000000,
-              "param2": 3500000,
-              "target_val": "?",
-              "status": "?"
+              "id": "EMP-001",
+              "nama": "Budi Santoso",
+              "dept": "Keuangan",
+              "gol": "IV",
+              "gapok": "?",
+              "tunjangan": "?",
+              "lembur_jam": 10,
+              "lembur_rp": "?",
+              "gaji_kotor": "?",
+              "pph": "?",
+              "thp": "?"
             }
           },
           {
             "rowNumber": 3,
             "values": {
-              "no": 2,
-              "item": "Kasus Uji Beta",
-              "param1": 8500000,
-              "param2": 7200000,
-              "target_val": "?",
-              "status": "?"
+              "id": "EMP-002",
+              "nama": "Siti Aminah",
+              "dept": "Pemasaran",
+              "gol": "III",
+              "gapok": "?",
+              "tunjangan": "?",
+              "lembur_jam": 5,
+              "lembur_rp": "?",
+              "gaji_kotor": "?",
+              "pph": "?",
+              "thp": "?"
             }
           },
           {
             "rowNumber": 4,
             "values": {
-              "no": 3,
-              "item": "Kasus Uji Gamma",
-              "param1": 6000000,
-              "param2": 5500000,
-              "target_val": "?",
-              "status": "?"
+              "id": "EMP-003",
+              "nama": "Rudi Hermawan",
+              "dept": "Teknologi IT",
+              "gol": "IV",
+              "gapok": "?",
+              "tunjangan": "?",
+              "lembur_jam": 12,
+              "lembur_rp": "?",
+              "gaji_kotor": "?",
+              "pph": "?",
+              "thp": "?"
             }
           },
           {
             "rowNumber": 5,
             "values": {
-              "no": 4,
-              "item": "Kasus Uji Delta",
-              "param1": 3000000,
-              "param2": 2400000,
-              "target_val": "?",
-              "status": "?"
+              "id": "EMP-004",
+              "nama": "Dewi Lestari",
+              "dept": "Sumber Daya HRD",
+              "gol": "II",
+              "gapok": "?",
+              "tunjangan": "?",
+              "lembur_jam": 0,
+              "lembur_rp": "?",
+              "gaji_kotor": "?",
+              "pph": "?",
+              "thp": "?"
             }
           },
           {
             "rowNumber": 6,
             "values": {
-              "no": 5,
-              "item": "Kasus Uji Epsilon",
-              "param1": 2500000,
-              "param2": 2100000,
-              "target_val": "?",
-              "status": "?"
+              "id": "EMP-005",
+              "nama": "Ahmad Fauzi",
+              "dept": "Operasional",
+              "gol": "III",
+              "gapok": "?",
+              "tunjangan": "?",
+              "lembur_jam": 8,
+              "lembur_rp": "?",
+              "gaji_kotor": "?",
+              "pph": "?",
+              "thp": "?"
             }
           }
         ],
         "targetColumns": [
           {
-            "key": "target_val",
+            "key": "gapok",
             "letter": "E",
-            "label": "Target Answer",
-            "description": "Kalkulasi selisih / rujukan: =C2-D2",
+            "label": "Gaji Pokok",
+            "description": "Lookup dari Tabel Tarif",
             "expectedRowAnswers": {
-              "2": 1500000,
-              "3": 1300000,
-              "4": 500000,
-              "5": 600000,
+              "2": 10000000,
+              "3": 7500000,
+              "4": 10000000,
+              "5": 5000000,
+              "6": 7500000
+            }
+          },
+          {
+            "key": "tunjangan",
+            "letter": "F",
+            "label": "Tunjangan",
+            "description": "Lookup dari Tabel Tarif",
+            "expectedRowAnswers": {
+              "2": 3500000,
+              "3": 2000000,
+              "4": 3500000,
+              "5": 1000000,
+              "6": 2000000
+            }
+          },
+          {
+            "key": "lembur_rp",
+            "letter": "H",
+            "label": "Uang Lembur",
+            "description": "Jam Lembur * 50000",
+            "expectedRowAnswers": {
+              "2": 500000,
+              "3": 250000,
+              "4": 600000,
+              "5": 0,
               "6": 400000
             }
           },
           {
-            "key": "status",
-            "letter": "F",
-            "label": "Status Verifikasi",
-            "description": "Jika target >= 500000 LULUS: =IF(E2>=500000, \"LULUS\", \"TIDAK LULUS\")",
+            "key": "gaji_kotor",
+            "letter": "I",
+            "label": "Gaji Kotor",
+            "description": "Gapok + Tunjangan + Lembur",
             "expectedRowAnswers": {
-              "2": "LULUS",
-              "3": "LULUS",
-              "4": "LULUS",
-              "5": "LULUS",
-              "6": "TIDAK LULUS"
+              "2": 14000000,
+              "3": 9750000,
+              "4": 14100000,
+              "5": 6000000,
+              "6": 9900000
+            }
+          },
+          {
+            "key": "thp",
+            "letter": "K",
+            "label": "Gaji Bersih",
+            "description": "Gaji Kotor - PPh 21 (5%)",
+            "expectedRowAnswers": {
+              "2": 13300000,
+              "3": 9262500,
+              "4": 13395000,
+              "5": 5700000,
+              "6": 9405000
             }
           }
         ]
       },
       {
-        "id": "sheet_master",
-        "name": "Data Master",
+        "id": "sheet_tarif",
+        "name": "Tabel Tarif",
         "columns": [
           {
-            "key": "kode",
-            "label": "Kode Referensi",
+            "key": "gol",
+            "label": "Golongan",
             "letter": "A"
           },
           {
-            "key": "nama_ref",
-            "label": "Nama Rujukan",
+            "key": "gapok",
+            "label": "Gaji Pokok Standar (Rp)",
             "letter": "B"
           },
           {
-            "key": "bobot",
-            "label": "Bobot Standar",
+            "key": "tunjangan",
+            "label": "Tunjangan Jabatan (Rp)",
             "letter": "C"
           }
         ],
@@ -2034,25 +2128,33 @@ export const CASE_EXAMS: CaseExamData[] = [
           {
             "rowNumber": 2,
             "values": {
-              "kode": "REF-01",
-              "nama_ref": "Kategori Standar 1",
-              "bobot": 1500000
+              "gol": "I",
+              "gapok": 3500000,
+              "tunjangan": 500000
             }
           },
           {
             "rowNumber": 3,
             "values": {
-              "kode": "REF-02",
-              "nama_ref": "Kategori Standar 2",
-              "bobot": 1300000
+              "gol": "II",
+              "gapok": 5000000,
+              "tunjangan": 1000000
             }
           },
           {
             "rowNumber": 4,
             "values": {
-              "kode": "REF-03",
-              "nama_ref": "Kategori Standar 3",
-              "bobot": 500000
+              "gol": "III",
+              "gapok": 7500000,
+              "tunjangan": 2000000
+            }
+          },
+          {
+            "rowNumber": 5,
+            "values": {
+              "gol": "IV",
+              "gapok": 10000000,
+              "tunjangan": 3500000
             }
           }
         ]
@@ -2061,228 +2163,242 @@ export const CASE_EXAMS: CaseExamData[] = [
     "passingScore": 70,
     "solutionBlueprints": [
       {
-        "columnLabel": "Target Answer",
-        "formula": "=C2-D2",
-        "explanation": "Menghitung nilai selisih antara Parameter 1 dan Parameter 2"
+        "columnLabel": "Gaji Pokok",
+        "formula": "=VLOOKUP(D2, 'Tabel Tarif'!A2:C5, 2, FALSE)",
+        "explanation": "Mengambil gaji pokok dari Tabel Tarif berdasarkan golongan"
       },
       {
-        "columnLabel": "Status Verifikasi",
-        "formula": "=IF(E2>=500000, \"LULUS\", \"TIDAK LULUS\")",
-        "explanation": "Menguji kondisi kelayakan batas nilai 500.000"
+        "columnLabel": "Tunjangan",
+        "formula": "=VLOOKUP(D2, 'Tabel Tarif'!A2:C5, 3, FALSE)",
+        "explanation": "Mengambil tunjangan jabatan dari Tabel Tarif"
+      },
+      {
+        "columnLabel": "Gaji Bersih",
+        "formula": "=I2 - (I2 * 0.05)",
+        "explanation": "Mengurangi gaji kotor dengan potongan pajak PPh 21 5%"
       }
     ]
   },
   {
     "id": "EX-003",
     "number": 3,
-    "code": "#SBEM002",
-    "title": "Laporan Laba Rugi Toko Roti Manis",
-    "category": "Aritmatika",
-    "difficulty": "PEMULA",
-    "difficultyStars": 1,
+    "code": "#SBEH010",
+    "title": "Latihan Soal Excel Game Seri A Liga Italy",
+    "category": "Kombinasi",
+    "difficulty": "MAHIR",
+    "difficultyStars": 4,
     "tags": [
-      "Toko",
-      "Laba Bersih",
-      "Cek Otomatis",
-      "Spreadsheet Kasus"
+      "Sports",
+      "Klasemen",
+      "SUM",
+      "IF"
     ],
     "instructions": {
-      "title": "PEMULA Level - Laporan Laba Rugi Toko Roti Manis",
-      "description": "Selesaikan lembar kerja kasus Laporan Laba Rugi Toko Roti Manis. Buka sheet utama untuk mengisi formula target sesuai data acuan pada sheet referensi.",
+      "title": "Hard Level - Kalkulasi Tabel Klasemen Seri A Liga Italy",
+      "description": "Hitung statistik klasemen pertandingan sepak bola: Total Main (P), Selisih Gol (GD), dan Total Poin (Pts) berdasarkan jumlah Menang (W=3 poin), Seri (D=1 poin), dan Kalah (L=0 poin).",
       "points": [
-        "1. Periksa sheet \"Data Master\" untuk melihat tabel acuan harga/kategori/nama.",
-        "2. Tulis rumus Excel dinamis pada kolom target (Answer) di sheet \"XL-Test\".",
-        "3. Gunakan formula yang dapat diterapkan ke seluruh baris data.",
-        "4. Klik tombol \"Cek Hasil Jawaban\" di pojok kanan atas untuk mengevaluasi kelulusan."
+        "1. Kolom F (P = Main): Jumlahkan pertandingan Menang + Seri + Kalah (=C2+D2+E2).",
+        "2. Kolom I (GD = Selisih Gol): Gol Memasukkan (GF) dikurangi Gol Kemasukan (GA) (=G2-H2).",
+        "3. Kolom J (Pts = Total Poin): (Menang * 3) + (Seri * 1) (=C2*3 + D2*1)."
       ],
       "helperTable": {
-        "title": "Bantuan Referensi Standar",
+        "title": "Aturan Poin Sepak Bola",
         "headers": [
-          "Kategori Data",
-          "Formula Saran"
+          "Hasil",
+          "Poin"
         ],
         "rows": [
           [
-            "Pencarian Rujukan",
-            "VLOOKUP / XLOOKUP / INDEX-MATCH"
+            "Menang (W)",
+            "3 Poin"
           ],
           [
-            "Kondisi & Logika",
-            "IF / IFS"
+            "Seri (D)",
+            "1 Poin"
           ],
           [
-            "Perhitungan Angka",
-            "Operator Aritmatika / SUMIF / PMT"
+            "Kalah (L)",
+            "0 Poin"
+          ],
+          [
+            "Selisih Gol (GD)",
+            "GF - GA"
           ]
         ]
       },
-      "notice": "Dilarang mengubah tabel acuan. Tulis formula langsung pada tabel pengerjaan yang tersedia."
+      "notice": "Tulis rumus kalkulasi klasemen pada kolom P, GD, dan Pts."
     },
     "sheets": [
       {
-        "id": "sheet_main",
-        "name": "XL-Test",
+        "id": "sheet_klasemen",
+        "name": "Klasemen Seri A",
         "columns": [
           {
-            "key": "no",
-            "label": "No",
+            "key": "pos",
+            "label": "Pos",
             "letter": "A"
           },
           {
-            "key": "item",
-            "label": "Item / Subjek",
+            "key": "klub",
+            "label": "Klub Sepak Bola",
             "letter": "B"
           },
           {
-            "key": "param1",
-            "label": "Parameter 1",
+            "key": "w",
+            "label": "Menang (W)",
             "letter": "C"
           },
           {
-            "key": "param2",
-            "label": "Parameter 2",
+            "key": "d",
+            "label": "Seri (D)",
             "letter": "D"
           },
           {
-            "key": "target_val",
-            "label": "Target Answer (Formula)",
+            "key": "l",
+            "label": "Kalah (L)",
             "letter": "E"
           },
           {
-            "key": "status",
-            "label": "Status Verifikasi",
+            "key": "p",
+            "label": "Main (P)",
             "letter": "F"
+          },
+          {
+            "key": "gf",
+            "label": "Gol Masuk (GF)",
+            "letter": "G"
+          },
+          {
+            "key": "ga",
+            "label": "Gol Kebobolan (GA)",
+            "letter": "H"
+          },
+          {
+            "key": "gd",
+            "label": "Selisih Gol (GD)",
+            "letter": "I"
+          },
+          {
+            "key": "pts",
+            "label": "Total Poin (Pts)",
+            "letter": "J"
           }
         ],
         "rows": [
           {
             "rowNumber": 2,
             "values": {
-              "no": 1,
-              "item": "Kasus Uji Alpha",
-              "param1": 5000000,
-              "param2": 3500000,
-              "target_val": "?",
-              "status": "?"
+              "pos": 1,
+              "klub": "Inter Milan",
+              "w": 28,
+              "d": 5,
+              "l": 3,
+              "p": "?",
+              "gf": 81,
+              "ga": 19,
+              "gd": "?",
+              "pts": "?"
             }
           },
           {
             "rowNumber": 3,
             "values": {
-              "no": 2,
-              "item": "Kasus Uji Beta",
-              "param1": 8500000,
-              "param2": 7200000,
-              "target_val": "?",
-              "status": "?"
+              "pos": 2,
+              "klub": "AC Milan",
+              "w": 22,
+              "d": 8,
+              "l": 6,
+              "p": "?",
+              "gf": 68,
+              "ga": 39,
+              "gd": "?",
+              "pts": "?"
             }
           },
           {
             "rowNumber": 4,
             "values": {
-              "no": 3,
-              "item": "Kasus Uji Gamma",
-              "param1": 6000000,
-              "param2": 5500000,
-              "target_val": "?",
-              "status": "?"
+              "pos": 3,
+              "klub": "Juventus",
+              "w": 19,
+              "d": 11,
+              "l": 6,
+              "p": "?",
+              "gf": 52,
+              "ga": 28,
+              "gd": "?",
+              "pts": "?"
             }
           },
           {
             "rowNumber": 5,
             "values": {
-              "no": 4,
-              "item": "Kasus Uji Delta",
-              "param1": 3000000,
-              "param2": 2400000,
-              "target_val": "?",
-              "status": "?"
+              "pos": 4,
+              "klub": "Atalanta",
+              "w": 20,
+              "d": 6,
+              "l": 10,
+              "p": "?",
+              "gf": 67,
+              "ga": 39,
+              "gd": "?",
+              "pts": "?"
             }
           },
           {
             "rowNumber": 6,
             "values": {
-              "no": 5,
-              "item": "Kasus Uji Epsilon",
-              "param1": 2500000,
-              "param2": 2100000,
-              "target_val": "?",
-              "status": "?"
+              "pos": 5,
+              "klub": "AS Roma",
+              "w": 18,
+              "d": 7,
+              "l": 11,
+              "p": "?",
+              "gf": 63,
+              "ga": 44,
+              "gd": "?",
+              "pts": "?"
             }
           }
         ],
         "targetColumns": [
           {
-            "key": "target_val",
-            "letter": "E",
-            "label": "Target Answer",
-            "description": "Kalkulasi selisih / rujukan: =C2-D2",
-            "expectedRowAnswers": {
-              "2": 1500000,
-              "3": 1300000,
-              "4": 500000,
-              "5": 600000,
-              "6": 400000
-            }
-          },
-          {
-            "key": "status",
+            "key": "p",
             "letter": "F",
-            "label": "Status Verifikasi",
-            "description": "Jika target >= 500000 LULUS: =IF(E2>=500000, \"LULUS\", \"TIDAK LULUS\")",
+            "label": "Main (P)",
+            "description": "Menang + Seri + Kalah",
             "expectedRowAnswers": {
-              "2": "LULUS",
-              "3": "LULUS",
-              "4": "LULUS",
-              "5": "LULUS",
-              "6": "TIDAK LULUS"
-            }
-          }
-        ]
-      },
-      {
-        "id": "sheet_master",
-        "name": "Data Master",
-        "columns": [
-          {
-            "key": "kode",
-            "label": "Kode Referensi",
-            "letter": "A"
-          },
-          {
-            "key": "nama_ref",
-            "label": "Nama Rujukan",
-            "letter": "B"
-          },
-          {
-            "key": "bobot",
-            "label": "Bobot Standar",
-            "letter": "C"
-          }
-        ],
-        "rows": [
-          {
-            "rowNumber": 2,
-            "values": {
-              "kode": "REF-01",
-              "nama_ref": "Kategori Standar 1",
-              "bobot": 1500000
+              "2": 36,
+              "3": 36,
+              "4": 36,
+              "5": 36,
+              "6": 36
             }
           },
           {
-            "rowNumber": 3,
-            "values": {
-              "kode": "REF-02",
-              "nama_ref": "Kategori Standar 2",
-              "bobot": 1300000
+            "key": "gd",
+            "letter": "I",
+            "label": "Selisih Gol (GD)",
+            "description": "GF - GA",
+            "expectedRowAnswers": {
+              "2": 62,
+              "3": 29,
+              "4": 24,
+              "5": 28,
+              "6": 19
             }
           },
           {
-            "rowNumber": 4,
-            "values": {
-              "kode": "REF-03",
-              "nama_ref": "Kategori Standar 3",
-              "bobot": 500000
+            "key": "pts",
+            "letter": "J",
+            "label": "Total Poin (Pts)",
+            "description": "(W * 3) + (D * 1)",
+            "expectedRowAnswers": {
+              "2": 89,
+              "3": 74,
+              "4": 68,
+              "5": 66,
+              "6": 61
             }
           }
         ]
@@ -2291,228 +2407,217 @@ export const CASE_EXAMS: CaseExamData[] = [
     "passingScore": 70,
     "solutionBlueprints": [
       {
-        "columnLabel": "Target Answer",
-        "formula": "=C2-D2",
-        "explanation": "Menghitung nilai selisih antara Parameter 1 dan Parameter 2"
+        "columnLabel": "Main (P)",
+        "formula": "=C2+D2+E2",
+        "explanation": "Menjumlahkan seluruh pertandingan yang telah dimainkan"
       },
       {
-        "columnLabel": "Status Verifikasi",
-        "formula": "=IF(E2>=500000, \"LULUS\", \"TIDAK LULUS\")",
-        "explanation": "Menguji kondisi kelayakan batas nilai 500.000"
+        "columnLabel": "Selisih Gol (GD)",
+        "formula": "=G2-H2",
+        "explanation": "Mengurangi gol memasukkan dengan gol kemasukan"
+      },
+      {
+        "columnLabel": "Total Poin (Pts)",
+        "formula": "=C2*3 + D2*1",
+        "explanation": "Menghitung total poin (3 poin menang, 1 poin seri)"
       }
     ]
   },
   {
     "id": "EX-004",
     "number": 4,
-    "code": "#SBEM003",
-    "title": "Kalkulasi Split Bill Makan Siang Kantor",
-    "category": "Aritmatika",
-    "difficulty": "PEMULA",
-    "difficultyStars": 1,
+    "code": "#SBEM011",
+    "title": "Latihan Soal Excel Packing Dus Pesanan Gudang",
+    "category": "Statistik",
+    "difficulty": "MENENGAH",
+    "difficultyStars": 3,
     "tags": [
-      "Keuangan",
-      "Split Bill",
-      "Cek Otomatis",
-      "Spreadsheet Kasus"
+      "Gudang",
+      "E-Commerce",
+      "Logistik"
     ],
     "instructions": {
-      "title": "PEMULA Level - Kalkulasi Split Bill Makan Siang Kantor",
-      "description": "Selesaikan lembar kerja kasus Kalkulasi Split Bill Makan Siang Kantor. Buka sheet utama untuk mengisi formula target sesuai data acuan pada sheet referensi.",
+      "title": "Medium Level - Manajemen Packing & Dimensi Barang Gudang",
+      "description": "Tim logistik e-commerce memerlukan kalkulasi Volume Pesanan (cm3), Berat Volume (Kg), dan Rekomendasi Ukuran Dus.",
       "points": [
-        "1. Periksa sheet \"Data Master\" untuk melihat tabel acuan harga/kategori/nama.",
-        "2. Tulis rumus Excel dinamis pada kolom target (Answer) di sheet \"XL-Test\".",
-        "3. Gunakan formula yang dapat diterapkan ke seluruh baris data.",
-        "4. Klik tombol \"Cek Hasil Jawaban\" di pojok kanan atas untuk mengevaluasi kelulusan."
+        "1. Kolom F (Volume Barang cm3): Panjang * Lebar * Tinggi * Qty (=B2*C2*D2*E2).",
+        "2. Kolom G (Berat Volume Kg): Volume Total / 6000 (=F2/6000).",
+        "3. Kolom H (Ukuran Dus): Jika Volume <= 5000 \"DUS KECIL\", jika <= 20000 \"DUS SEDANG\", jika tidak \"DUS BESAR\" (=IF(F2<=5000, \"DUS KECIL\", IF(F2<=20000, \"DUS SEDANG\", \"DUS BESAR\")))."
       ],
       "helperTable": {
-        "title": "Bantuan Referensi Standar",
+        "title": "Standar Dimensi Ekspedisi",
         "headers": [
-          "Kategori Data",
-          "Formula Saran"
+          "Kriteria Volume",
+          "Ukuran Dus"
         ],
         "rows": [
           [
-            "Pencarian Rujukan",
-            "VLOOKUP / XLOOKUP / INDEX-MATCH"
+            "Volume <= 5.000 cm3",
+            "DUS KECIL"
           ],
           [
-            "Kondisi & Logika",
-            "IF / IFS"
+            "Volume 5.001 - 20.000 cm3",
+            "DUS SEDANG"
           ],
           [
-            "Perhitungan Angka",
-            "Operator Aritmatika / SUMIF / PMT"
+            "Volume > 20.000 cm3",
+            "DUS BESAR"
           ]
         ]
       },
-      "notice": "Dilarang mengubah tabel acuan. Tulis formula langsung pada tabel pengerjaan yang tersedia."
+      "notice": "Gunakan operator perkalian dan fungsi IF bertingkat."
     },
     "sheets": [
       {
-        "id": "sheet_main",
-        "name": "XL-Test",
+        "id": "sheet_packing",
+        "name": "Order Packing",
         "columns": [
           {
-            "key": "no",
-            "label": "No",
+            "key": "item",
+            "label": "Nama Produk",
             "letter": "A"
           },
           {
-            "key": "item",
-            "label": "Item / Subjek",
+            "key": "p",
+            "label": "Panjang (cm)",
             "letter": "B"
           },
           {
-            "key": "param1",
-            "label": "Parameter 1",
+            "key": "l",
+            "label": "Lebar (cm)",
             "letter": "C"
           },
           {
-            "key": "param2",
-            "label": "Parameter 2",
+            "key": "t",
+            "label": "Tinggi (cm)",
             "letter": "D"
           },
           {
-            "key": "target_val",
-            "label": "Target Answer (Formula)",
+            "key": "qty",
+            "label": "Qty",
             "letter": "E"
           },
           {
-            "key": "status",
-            "label": "Status Verifikasi",
+            "key": "vol",
+            "label": "Volume (cm3)",
             "letter": "F"
+          },
+          {
+            "key": "berat_vol",
+            "label": "Berat Vol (Kg)",
+            "letter": "G"
+          },
+          {
+            "key": "dus",
+            "label": "Rekomendasi Dus",
+            "letter": "H"
           }
         ],
         "rows": [
           {
             "rowNumber": 2,
             "values": {
-              "no": 1,
-              "item": "Kasus Uji Alpha",
-              "param1": 5000000,
-              "param2": 3500000,
-              "target_val": "?",
-              "status": "?"
+              "item": "Sepatu Olahraga Running",
+              "p": 30,
+              "l": 20,
+              "t": 10,
+              "qty": 1,
+              "vol": "?",
+              "berat_vol": "?",
+              "dus": "?"
             }
           },
           {
             "rowNumber": 3,
             "values": {
-              "no": 2,
-              "item": "Kasus Uji Beta",
-              "param1": 8500000,
-              "param2": 7200000,
-              "target_val": "?",
-              "status": "?"
+              "item": "Kaos Polos Cotton (Pack 3)",
+              "p": 20,
+              "l": 15,
+              "t": 5,
+              "qty": 2,
+              "vol": "?",
+              "berat_vol": "?",
+              "dus": "?"
             }
           },
           {
             "rowNumber": 4,
             "values": {
-              "no": 3,
-              "item": "Kasus Uji Gamma",
-              "param1": 6000000,
-              "param2": 5500000,
-              "target_val": "?",
-              "status": "?"
+              "item": "Helm Sepeda Dewasa",
+              "p": 35,
+              "l": 25,
+              "t": 25,
+              "qty": 1,
+              "vol": "?",
+              "berat_vol": "?",
+              "dus": "?"
             }
           },
           {
             "rowNumber": 5,
             "values": {
-              "no": 4,
-              "item": "Kasus Uji Delta",
-              "param1": 3000000,
-              "param2": 2400000,
-              "target_val": "?",
-              "status": "?"
+              "item": "Tumbler Minum Stainless",
+              "p": 10,
+              "l": 10,
+              "t": 25,
+              "qty": 1,
+              "vol": "?",
+              "berat_vol": "?",
+              "dus": "?"
             }
           },
           {
             "rowNumber": 6,
             "values": {
-              "no": 5,
-              "item": "Kasus Uji Epsilon",
-              "param1": 2500000,
-              "param2": 2100000,
-              "target_val": "?",
-              "status": "?"
+              "item": "Jaket Hoodie Waterproof",
+              "p": 30,
+              "l": 25,
+              "t": 10,
+              "qty": 2,
+              "vol": "?",
+              "berat_vol": "?",
+              "dus": "?"
             }
           }
         ],
         "targetColumns": [
           {
-            "key": "target_val",
-            "letter": "E",
-            "label": "Target Answer",
-            "description": "Kalkulasi selisih / rujukan: =C2-D2",
-            "expectedRowAnswers": {
-              "2": 1500000,
-              "3": 1300000,
-              "4": 500000,
-              "5": 600000,
-              "6": 400000
-            }
-          },
-          {
-            "key": "status",
+            "key": "vol",
             "letter": "F",
-            "label": "Status Verifikasi",
-            "description": "Jika target >= 500000 LULUS: =IF(E2>=500000, \"LULUS\", \"TIDAK LULUS\")",
+            "label": "Volume (cm3)",
+            "description": "P * L * T * Qty",
             "expectedRowAnswers": {
-              "2": "LULUS",
-              "3": "LULUS",
-              "4": "LULUS",
-              "5": "LULUS",
-              "6": "TIDAK LULUS"
-            }
-          }
-        ]
-      },
-      {
-        "id": "sheet_master",
-        "name": "Data Master",
-        "columns": [
-          {
-            "key": "kode",
-            "label": "Kode Referensi",
-            "letter": "A"
-          },
-          {
-            "key": "nama_ref",
-            "label": "Nama Rujukan",
-            "letter": "B"
-          },
-          {
-            "key": "bobot",
-            "label": "Bobot Standar",
-            "letter": "C"
-          }
-        ],
-        "rows": [
-          {
-            "rowNumber": 2,
-            "values": {
-              "kode": "REF-01",
-              "nama_ref": "Kategori Standar 1",
-              "bobot": 1500000
+              "2": 6000,
+              "3": 3000,
+              "4": 21875,
+              "5": 2500,
+              "6": 15000
             }
           },
           {
-            "rowNumber": 3,
-            "values": {
-              "kode": "REF-02",
-              "nama_ref": "Kategori Standar 2",
-              "bobot": 1300000
+            "key": "berat_vol",
+            "letter": "G",
+            "label": "Berat Vol (Kg)",
+            "description": "Volume / 6000",
+            "expectedRowAnswers": {
+              "2": 1,
+              "3": 0.5,
+              "4": 3.65,
+              "5": 0.42,
+              "6": 2.5
             }
           },
           {
-            "rowNumber": 4,
-            "values": {
-              "kode": "REF-03",
-              "nama_ref": "Kategori Standar 3",
-              "bobot": 500000
+            "key": "dus",
+            "letter": "H",
+            "label": "Rekomendasi Dus",
+            "description": "IF bertingkat ukuran dus",
+            "expectedRowAnswers": {
+              "2": "DUS SEDANG",
+              "3": "DUS KECIL",
+              "4": "DUS BESAR",
+              "5": "DUS KECIL",
+              "6": "DUS SEDANG"
             }
           }
         ]
@@ -2521,9886 +2626,203 @@ export const CASE_EXAMS: CaseExamData[] = [
     "passingScore": 70,
     "solutionBlueprints": [
       {
-        "columnLabel": "Target Answer",
-        "formula": "=C2-D2",
-        "explanation": "Menghitung nilai selisih antara Parameter 1 dan Parameter 2"
+        "columnLabel": "Volume (cm3)",
+        "formula": "=B2*C2*D2*E2",
+        "explanation": "Menghitung volume kubikasi pesanan"
       },
       {
-        "columnLabel": "Status Verifikasi",
-        "formula": "=IF(E2>=500000, \"LULUS\", \"TIDAK LULUS\")",
-        "explanation": "Menguji kondisi kelayakan batas nilai 500.000"
+        "columnLabel": "Rekomendasi Dus",
+        "formula": "=IF(F2<=5000, \"DUS KECIL\", IF(F2<=20000, \"DUS SEDANG\", \"DUS BESAR\"))",
+        "explanation": "Menentukan kategori dus berdasarkan volume total"
       }
     ]
   },
   {
     "id": "EX-005",
     "number": 5,
-    "code": "#SBEM004",
-    "title": "Perhitungan Komisi Sales Otomotif",
-    "category": "Aritmatika",
-    "difficulty": "PEMULA",
-    "difficultyStars": 1,
-    "tags": [
-      "Sales",
-      "Komisi",
-      "Cek Otomatis",
-      "Spreadsheet Kasus"
-    ],
-    "instructions": {
-      "title": "PEMULA Level - Perhitungan Komisi Sales Otomotif",
-      "description": "Selesaikan lembar kerja kasus Perhitungan Komisi Sales Otomotif. Buka sheet utama untuk mengisi formula target sesuai data acuan pada sheet referensi.",
-      "points": [
-        "1. Periksa sheet \"Data Master\" untuk melihat tabel acuan harga/kategori/nama.",
-        "2. Tulis rumus Excel dinamis pada kolom target (Answer) di sheet \"XL-Test\".",
-        "3. Gunakan formula yang dapat diterapkan ke seluruh baris data.",
-        "4. Klik tombol \"Cek Hasil Jawaban\" di pojok kanan atas untuk mengevaluasi kelulusan."
-      ],
-      "helperTable": {
-        "title": "Bantuan Referensi Standar",
-        "headers": [
-          "Kategori Data",
-          "Formula Saran"
-        ],
-        "rows": [
-          [
-            "Pencarian Rujukan",
-            "VLOOKUP / XLOOKUP / INDEX-MATCH"
-          ],
-          [
-            "Kondisi & Logika",
-            "IF / IFS"
-          ],
-          [
-            "Perhitungan Angka",
-            "Operator Aritmatika / SUMIF / PMT"
-          ]
-        ]
-      },
-      "notice": "Dilarang mengubah tabel acuan. Tulis formula langsung pada tabel pengerjaan yang tersedia."
-    },
-    "sheets": [
-      {
-        "id": "sheet_main",
-        "name": "XL-Test",
-        "columns": [
-          {
-            "key": "no",
-            "label": "No",
-            "letter": "A"
-          },
-          {
-            "key": "item",
-            "label": "Item / Subjek",
-            "letter": "B"
-          },
-          {
-            "key": "param1",
-            "label": "Parameter 1",
-            "letter": "C"
-          },
-          {
-            "key": "param2",
-            "label": "Parameter 2",
-            "letter": "D"
-          },
-          {
-            "key": "target_val",
-            "label": "Target Answer (Formula)",
-            "letter": "E"
-          },
-          {
-            "key": "status",
-            "label": "Status Verifikasi",
-            "letter": "F"
-          }
-        ],
-        "rows": [
-          {
-            "rowNumber": 2,
-            "values": {
-              "no": 1,
-              "item": "Kasus Uji Alpha",
-              "param1": 5000000,
-              "param2": 3500000,
-              "target_val": "?",
-              "status": "?"
-            }
-          },
-          {
-            "rowNumber": 3,
-            "values": {
-              "no": 2,
-              "item": "Kasus Uji Beta",
-              "param1": 8500000,
-              "param2": 7200000,
-              "target_val": "?",
-              "status": "?"
-            }
-          },
-          {
-            "rowNumber": 4,
-            "values": {
-              "no": 3,
-              "item": "Kasus Uji Gamma",
-              "param1": 6000000,
-              "param2": 5500000,
-              "target_val": "?",
-              "status": "?"
-            }
-          },
-          {
-            "rowNumber": 5,
-            "values": {
-              "no": 4,
-              "item": "Kasus Uji Delta",
-              "param1": 3000000,
-              "param2": 2400000,
-              "target_val": "?",
-              "status": "?"
-            }
-          },
-          {
-            "rowNumber": 6,
-            "values": {
-              "no": 5,
-              "item": "Kasus Uji Epsilon",
-              "param1": 2500000,
-              "param2": 2100000,
-              "target_val": "?",
-              "status": "?"
-            }
-          }
-        ],
-        "targetColumns": [
-          {
-            "key": "target_val",
-            "letter": "E",
-            "label": "Target Answer",
-            "description": "Kalkulasi selisih / rujukan: =C2-D2",
-            "expectedRowAnswers": {
-              "2": 1500000,
-              "3": 1300000,
-              "4": 500000,
-              "5": 600000,
-              "6": 400000
-            }
-          },
-          {
-            "key": "status",
-            "letter": "F",
-            "label": "Status Verifikasi",
-            "description": "Jika target >= 500000 LULUS: =IF(E2>=500000, \"LULUS\", \"TIDAK LULUS\")",
-            "expectedRowAnswers": {
-              "2": "LULUS",
-              "3": "LULUS",
-              "4": "LULUS",
-              "5": "LULUS",
-              "6": "TIDAK LULUS"
-            }
-          }
-        ]
-      },
-      {
-        "id": "sheet_master",
-        "name": "Data Master",
-        "columns": [
-          {
-            "key": "kode",
-            "label": "Kode Referensi",
-            "letter": "A"
-          },
-          {
-            "key": "nama_ref",
-            "label": "Nama Rujukan",
-            "letter": "B"
-          },
-          {
-            "key": "bobot",
-            "label": "Bobot Standar",
-            "letter": "C"
-          }
-        ],
-        "rows": [
-          {
-            "rowNumber": 2,
-            "values": {
-              "kode": "REF-01",
-              "nama_ref": "Kategori Standar 1",
-              "bobot": 1500000
-            }
-          },
-          {
-            "rowNumber": 3,
-            "values": {
-              "kode": "REF-02",
-              "nama_ref": "Kategori Standar 2",
-              "bobot": 1300000
-            }
-          },
-          {
-            "rowNumber": 4,
-            "values": {
-              "kode": "REF-03",
-              "nama_ref": "Kategori Standar 3",
-              "bobot": 500000
-            }
-          }
-        ]
-      }
-    ],
-    "passingScore": 70,
-    "solutionBlueprints": [
-      {
-        "columnLabel": "Target Answer",
-        "formula": "=C2-D2",
-        "explanation": "Menghitung nilai selisih antara Parameter 1 dan Parameter 2"
-      },
-      {
-        "columnLabel": "Status Verifikasi",
-        "formula": "=IF(E2>=500000, \"LULUS\", \"TIDAK LULUS\")",
-        "explanation": "Menguji kondisi kelayakan batas nilai 500.000"
-      }
-    ]
-  },
-  {
-    "id": "EX-006",
-    "number": 6,
-    "code": "#SBEM005",
-    "title": "Estimasi Biaya Renovasi Rumah & Material",
-    "category": "Aritmatika",
-    "difficulty": "PEMULA",
-    "difficultyStars": 1,
-    "tags": [
-      "Anggaran",
-      "Material",
-      "Cek Otomatis",
-      "Spreadsheet Kasus"
-    ],
-    "instructions": {
-      "title": "PEMULA Level - Estimasi Biaya Renovasi Rumah & Material",
-      "description": "Selesaikan lembar kerja kasus Estimasi Biaya Renovasi Rumah & Material. Buka sheet utama untuk mengisi formula target sesuai data acuan pada sheet referensi.",
-      "points": [
-        "1. Periksa sheet \"Data Master\" untuk melihat tabel acuan harga/kategori/nama.",
-        "2. Tulis rumus Excel dinamis pada kolom target (Answer) di sheet \"XL-Test\".",
-        "3. Gunakan formula yang dapat diterapkan ke seluruh baris data.",
-        "4. Klik tombol \"Cek Hasil Jawaban\" di pojok kanan atas untuk mengevaluasi kelulusan."
-      ],
-      "helperTable": {
-        "title": "Bantuan Referensi Standar",
-        "headers": [
-          "Kategori Data",
-          "Formula Saran"
-        ],
-        "rows": [
-          [
-            "Pencarian Rujukan",
-            "VLOOKUP / XLOOKUP / INDEX-MATCH"
-          ],
-          [
-            "Kondisi & Logika",
-            "IF / IFS"
-          ],
-          [
-            "Perhitungan Angka",
-            "Operator Aritmatika / SUMIF / PMT"
-          ]
-        ]
-      },
-      "notice": "Dilarang mengubah tabel acuan. Tulis formula langsung pada tabel pengerjaan yang tersedia."
-    },
-    "sheets": [
-      {
-        "id": "sheet_main",
-        "name": "XL-Test",
-        "columns": [
-          {
-            "key": "no",
-            "label": "No",
-            "letter": "A"
-          },
-          {
-            "key": "item",
-            "label": "Item / Subjek",
-            "letter": "B"
-          },
-          {
-            "key": "param1",
-            "label": "Parameter 1",
-            "letter": "C"
-          },
-          {
-            "key": "param2",
-            "label": "Parameter 2",
-            "letter": "D"
-          },
-          {
-            "key": "target_val",
-            "label": "Target Answer (Formula)",
-            "letter": "E"
-          },
-          {
-            "key": "status",
-            "label": "Status Verifikasi",
-            "letter": "F"
-          }
-        ],
-        "rows": [
-          {
-            "rowNumber": 2,
-            "values": {
-              "no": 1,
-              "item": "Kasus Uji Alpha",
-              "param1": 5000000,
-              "param2": 3500000,
-              "target_val": "?",
-              "status": "?"
-            }
-          },
-          {
-            "rowNumber": 3,
-            "values": {
-              "no": 2,
-              "item": "Kasus Uji Beta",
-              "param1": 8500000,
-              "param2": 7200000,
-              "target_val": "?",
-              "status": "?"
-            }
-          },
-          {
-            "rowNumber": 4,
-            "values": {
-              "no": 3,
-              "item": "Kasus Uji Gamma",
-              "param1": 6000000,
-              "param2": 5500000,
-              "target_val": "?",
-              "status": "?"
-            }
-          },
-          {
-            "rowNumber": 5,
-            "values": {
-              "no": 4,
-              "item": "Kasus Uji Delta",
-              "param1": 3000000,
-              "param2": 2400000,
-              "target_val": "?",
-              "status": "?"
-            }
-          },
-          {
-            "rowNumber": 6,
-            "values": {
-              "no": 5,
-              "item": "Kasus Uji Epsilon",
-              "param1": 2500000,
-              "param2": 2100000,
-              "target_val": "?",
-              "status": "?"
-            }
-          }
-        ],
-        "targetColumns": [
-          {
-            "key": "target_val",
-            "letter": "E",
-            "label": "Target Answer",
-            "description": "Kalkulasi selisih / rujukan: =C2-D2",
-            "expectedRowAnswers": {
-              "2": 1500000,
-              "3": 1300000,
-              "4": 500000,
-              "5": 600000,
-              "6": 400000
-            }
-          },
-          {
-            "key": "status",
-            "letter": "F",
-            "label": "Status Verifikasi",
-            "description": "Jika target >= 500000 LULUS: =IF(E2>=500000, \"LULUS\", \"TIDAK LULUS\")",
-            "expectedRowAnswers": {
-              "2": "LULUS",
-              "3": "LULUS",
-              "4": "LULUS",
-              "5": "LULUS",
-              "6": "TIDAK LULUS"
-            }
-          }
-        ]
-      },
-      {
-        "id": "sheet_master",
-        "name": "Data Master",
-        "columns": [
-          {
-            "key": "kode",
-            "label": "Kode Referensi",
-            "letter": "A"
-          },
-          {
-            "key": "nama_ref",
-            "label": "Nama Rujukan",
-            "letter": "B"
-          },
-          {
-            "key": "bobot",
-            "label": "Bobot Standar",
-            "letter": "C"
-          }
-        ],
-        "rows": [
-          {
-            "rowNumber": 2,
-            "values": {
-              "kode": "REF-01",
-              "nama_ref": "Kategori Standar 1",
-              "bobot": 1500000
-            }
-          },
-          {
-            "rowNumber": 3,
-            "values": {
-              "kode": "REF-02",
-              "nama_ref": "Kategori Standar 2",
-              "bobot": 1300000
-            }
-          },
-          {
-            "rowNumber": 4,
-            "values": {
-              "kode": "REF-03",
-              "nama_ref": "Kategori Standar 3",
-              "bobot": 500000
-            }
-          }
-        ]
-      }
-    ],
-    "passingScore": 70,
-    "solutionBlueprints": [
-      {
-        "columnLabel": "Target Answer",
-        "formula": "=C2-D2",
-        "explanation": "Menghitung nilai selisih antara Parameter 1 dan Parameter 2"
-      },
-      {
-        "columnLabel": "Status Verifikasi",
-        "formula": "=IF(E2>=500000, \"LULUS\", \"TIDAK LULUS\")",
-        "explanation": "Menguji kondisi kelayakan batas nilai 500.000"
-      }
-    ]
-  },
-  {
-    "id": "EX-007",
-    "number": 7,
-    "code": "#SBEM006",
-    "title": "Pencatatan Stok Masuk & Keluar Gudang",
-    "category": "Aritmatika",
-    "difficulty": "PEMULA",
-    "difficultyStars": 1,
-    "tags": [
-      "Gudang",
-      "Inventaris",
-      "Cek Otomatis",
-      "Spreadsheet Kasus"
-    ],
-    "instructions": {
-      "title": "PEMULA Level - Pencatatan Stok Masuk & Keluar Gudang",
-      "description": "Selesaikan lembar kerja kasus Pencatatan Stok Masuk & Keluar Gudang. Buka sheet utama untuk mengisi formula target sesuai data acuan pada sheet referensi.",
-      "points": [
-        "1. Periksa sheet \"Data Master\" untuk melihat tabel acuan harga/kategori/nama.",
-        "2. Tulis rumus Excel dinamis pada kolom target (Answer) di sheet \"XL-Test\".",
-        "3. Gunakan formula yang dapat diterapkan ke seluruh baris data.",
-        "4. Klik tombol \"Cek Hasil Jawaban\" di pojok kanan atas untuk mengevaluasi kelulusan."
-      ],
-      "helperTable": {
-        "title": "Bantuan Referensi Standar",
-        "headers": [
-          "Kategori Data",
-          "Formula Saran"
-        ],
-        "rows": [
-          [
-            "Pencarian Rujukan",
-            "VLOOKUP / XLOOKUP / INDEX-MATCH"
-          ],
-          [
-            "Kondisi & Logika",
-            "IF / IFS"
-          ],
-          [
-            "Perhitungan Angka",
-            "Operator Aritmatika / SUMIF / PMT"
-          ]
-        ]
-      },
-      "notice": "Dilarang mengubah tabel acuan. Tulis formula langsung pada tabel pengerjaan yang tersedia."
-    },
-    "sheets": [
-      {
-        "id": "sheet_main",
-        "name": "XL-Test",
-        "columns": [
-          {
-            "key": "no",
-            "label": "No",
-            "letter": "A"
-          },
-          {
-            "key": "item",
-            "label": "Item / Subjek",
-            "letter": "B"
-          },
-          {
-            "key": "param1",
-            "label": "Parameter 1",
-            "letter": "C"
-          },
-          {
-            "key": "param2",
-            "label": "Parameter 2",
-            "letter": "D"
-          },
-          {
-            "key": "target_val",
-            "label": "Target Answer (Formula)",
-            "letter": "E"
-          },
-          {
-            "key": "status",
-            "label": "Status Verifikasi",
-            "letter": "F"
-          }
-        ],
-        "rows": [
-          {
-            "rowNumber": 2,
-            "values": {
-              "no": 1,
-              "item": "Kasus Uji Alpha",
-              "param1": 5000000,
-              "param2": 3500000,
-              "target_val": "?",
-              "status": "?"
-            }
-          },
-          {
-            "rowNumber": 3,
-            "values": {
-              "no": 2,
-              "item": "Kasus Uji Beta",
-              "param1": 8500000,
-              "param2": 7200000,
-              "target_val": "?",
-              "status": "?"
-            }
-          },
-          {
-            "rowNumber": 4,
-            "values": {
-              "no": 3,
-              "item": "Kasus Uji Gamma",
-              "param1": 6000000,
-              "param2": 5500000,
-              "target_val": "?",
-              "status": "?"
-            }
-          },
-          {
-            "rowNumber": 5,
-            "values": {
-              "no": 4,
-              "item": "Kasus Uji Delta",
-              "param1": 3000000,
-              "param2": 2400000,
-              "target_val": "?",
-              "status": "?"
-            }
-          },
-          {
-            "rowNumber": 6,
-            "values": {
-              "no": 5,
-              "item": "Kasus Uji Epsilon",
-              "param1": 2500000,
-              "param2": 2100000,
-              "target_val": "?",
-              "status": "?"
-            }
-          }
-        ],
-        "targetColumns": [
-          {
-            "key": "target_val",
-            "letter": "E",
-            "label": "Target Answer",
-            "description": "Kalkulasi selisih / rujukan: =C2-D2",
-            "expectedRowAnswers": {
-              "2": 1500000,
-              "3": 1300000,
-              "4": 500000,
-              "5": 600000,
-              "6": 400000
-            }
-          },
-          {
-            "key": "status",
-            "letter": "F",
-            "label": "Status Verifikasi",
-            "description": "Jika target >= 500000 LULUS: =IF(E2>=500000, \"LULUS\", \"TIDAK LULUS\")",
-            "expectedRowAnswers": {
-              "2": "LULUS",
-              "3": "LULUS",
-              "4": "LULUS",
-              "5": "LULUS",
-              "6": "TIDAK LULUS"
-            }
-          }
-        ]
-      },
-      {
-        "id": "sheet_master",
-        "name": "Data Master",
-        "columns": [
-          {
-            "key": "kode",
-            "label": "Kode Referensi",
-            "letter": "A"
-          },
-          {
-            "key": "nama_ref",
-            "label": "Nama Rujukan",
-            "letter": "B"
-          },
-          {
-            "key": "bobot",
-            "label": "Bobot Standar",
-            "letter": "C"
-          }
-        ],
-        "rows": [
-          {
-            "rowNumber": 2,
-            "values": {
-              "kode": "REF-01",
-              "nama_ref": "Kategori Standar 1",
-              "bobot": 1500000
-            }
-          },
-          {
-            "rowNumber": 3,
-            "values": {
-              "kode": "REF-02",
-              "nama_ref": "Kategori Standar 2",
-              "bobot": 1300000
-            }
-          },
-          {
-            "rowNumber": 4,
-            "values": {
-              "kode": "REF-03",
-              "nama_ref": "Kategori Standar 3",
-              "bobot": 500000
-            }
-          }
-        ]
-      }
-    ],
-    "passingScore": 70,
-    "solutionBlueprints": [
-      {
-        "columnLabel": "Target Answer",
-        "formula": "=C2-D2",
-        "explanation": "Menghitung nilai selisih antara Parameter 1 dan Parameter 2"
-      },
-      {
-        "columnLabel": "Status Verifikasi",
-        "formula": "=IF(E2>=500000, \"LULUS\", \"TIDAK LULUS\")",
-        "explanation": "Menguji kondisi kelayakan batas nilai 500.000"
-      }
-    ]
-  },
-  {
-    "id": "EX-008",
-    "number": 8,
-    "code": "#SBEM007",
-    "title": "Perhitungan Upah Lembur Karyawan Harian",
-    "category": "Aritmatika",
-    "difficulty": "PEMULA",
-    "difficultyStars": 2,
-    "tags": [
-      "HRD",
-      "Payroll",
-      "Cek Otomatis",
-      "Spreadsheet Kasus"
-    ],
-    "instructions": {
-      "title": "PEMULA Level - Perhitungan Upah Lembur Karyawan Harian",
-      "description": "Selesaikan lembar kerja kasus Perhitungan Upah Lembur Karyawan Harian. Buka sheet utama untuk mengisi formula target sesuai data acuan pada sheet referensi.",
-      "points": [
-        "1. Periksa sheet \"Data Master\" untuk melihat tabel acuan harga/kategori/nama.",
-        "2. Tulis rumus Excel dinamis pada kolom target (Answer) di sheet \"XL-Test\".",
-        "3. Gunakan formula yang dapat diterapkan ke seluruh baris data.",
-        "4. Klik tombol \"Cek Hasil Jawaban\" di pojok kanan atas untuk mengevaluasi kelulusan."
-      ],
-      "helperTable": {
-        "title": "Bantuan Referensi Standar",
-        "headers": [
-          "Kategori Data",
-          "Formula Saran"
-        ],
-        "rows": [
-          [
-            "Pencarian Rujukan",
-            "VLOOKUP / XLOOKUP / INDEX-MATCH"
-          ],
-          [
-            "Kondisi & Logika",
-            "IF / IFS"
-          ],
-          [
-            "Perhitungan Angka",
-            "Operator Aritmatika / SUMIF / PMT"
-          ]
-        ]
-      },
-      "notice": "Dilarang mengubah tabel acuan. Tulis formula langsung pada tabel pengerjaan yang tersedia."
-    },
-    "sheets": [
-      {
-        "id": "sheet_main",
-        "name": "XL-Test",
-        "columns": [
-          {
-            "key": "no",
-            "label": "No",
-            "letter": "A"
-          },
-          {
-            "key": "item",
-            "label": "Item / Subjek",
-            "letter": "B"
-          },
-          {
-            "key": "param1",
-            "label": "Parameter 1",
-            "letter": "C"
-          },
-          {
-            "key": "param2",
-            "label": "Parameter 2",
-            "letter": "D"
-          },
-          {
-            "key": "target_val",
-            "label": "Target Answer (Formula)",
-            "letter": "E"
-          },
-          {
-            "key": "status",
-            "label": "Status Verifikasi",
-            "letter": "F"
-          }
-        ],
-        "rows": [
-          {
-            "rowNumber": 2,
-            "values": {
-              "no": 1,
-              "item": "Kasus Uji Alpha",
-              "param1": 5000000,
-              "param2": 3500000,
-              "target_val": "?",
-              "status": "?"
-            }
-          },
-          {
-            "rowNumber": 3,
-            "values": {
-              "no": 2,
-              "item": "Kasus Uji Beta",
-              "param1": 8500000,
-              "param2": 7200000,
-              "target_val": "?",
-              "status": "?"
-            }
-          },
-          {
-            "rowNumber": 4,
-            "values": {
-              "no": 3,
-              "item": "Kasus Uji Gamma",
-              "param1": 6000000,
-              "param2": 5500000,
-              "target_val": "?",
-              "status": "?"
-            }
-          },
-          {
-            "rowNumber": 5,
-            "values": {
-              "no": 4,
-              "item": "Kasus Uji Delta",
-              "param1": 3000000,
-              "param2": 2400000,
-              "target_val": "?",
-              "status": "?"
-            }
-          },
-          {
-            "rowNumber": 6,
-            "values": {
-              "no": 5,
-              "item": "Kasus Uji Epsilon",
-              "param1": 2500000,
-              "param2": 2100000,
-              "target_val": "?",
-              "status": "?"
-            }
-          }
-        ],
-        "targetColumns": [
-          {
-            "key": "target_val",
-            "letter": "E",
-            "label": "Target Answer",
-            "description": "Kalkulasi selisih / rujukan: =C2-D2",
-            "expectedRowAnswers": {
-              "2": 1500000,
-              "3": 1300000,
-              "4": 500000,
-              "5": 600000,
-              "6": 400000
-            }
-          },
-          {
-            "key": "status",
-            "letter": "F",
-            "label": "Status Verifikasi",
-            "description": "Jika target >= 500000 LULUS: =IF(E2>=500000, \"LULUS\", \"TIDAK LULUS\")",
-            "expectedRowAnswers": {
-              "2": "LULUS",
-              "3": "LULUS",
-              "4": "LULUS",
-              "5": "LULUS",
-              "6": "TIDAK LULUS"
-            }
-          }
-        ]
-      },
-      {
-        "id": "sheet_master",
-        "name": "Data Master",
-        "columns": [
-          {
-            "key": "kode",
-            "label": "Kode Referensi",
-            "letter": "A"
-          },
-          {
-            "key": "nama_ref",
-            "label": "Nama Rujukan",
-            "letter": "B"
-          },
-          {
-            "key": "bobot",
-            "label": "Bobot Standar",
-            "letter": "C"
-          }
-        ],
-        "rows": [
-          {
-            "rowNumber": 2,
-            "values": {
-              "kode": "REF-01",
-              "nama_ref": "Kategori Standar 1",
-              "bobot": 1500000
-            }
-          },
-          {
-            "rowNumber": 3,
-            "values": {
-              "kode": "REF-02",
-              "nama_ref": "Kategori Standar 2",
-              "bobot": 1300000
-            }
-          },
-          {
-            "rowNumber": 4,
-            "values": {
-              "kode": "REF-03",
-              "nama_ref": "Kategori Standar 3",
-              "bobot": 500000
-            }
-          }
-        ]
-      }
-    ],
-    "passingScore": 70,
-    "solutionBlueprints": [
-      {
-        "columnLabel": "Target Answer",
-        "formula": "=C2-D2",
-        "explanation": "Menghitung nilai selisih antara Parameter 1 dan Parameter 2"
-      },
-      {
-        "columnLabel": "Status Verifikasi",
-        "formula": "=IF(E2>=500000, \"LULUS\", \"TIDAK LULUS\")",
-        "explanation": "Menguji kondisi kelayakan batas nilai 500.000"
-      }
-    ]
-  },
-  {
-    "id": "EX-009",
-    "number": 9,
-    "code": "#SBEM008",
-    "title": "Analisis Margin Keuntungan Menu Cafe",
-    "category": "Aritmatika",
-    "difficulty": "PEMULA",
-    "difficultyStars": 2,
-    "tags": [
-      "F&B",
-      "Margin",
-      "Cek Otomatis",
-      "Spreadsheet Kasus"
-    ],
-    "instructions": {
-      "title": "PEMULA Level - Analisis Margin Keuntungan Menu Cafe",
-      "description": "Selesaikan lembar kerja kasus Analisis Margin Keuntungan Menu Cafe. Buka sheet utama untuk mengisi formula target sesuai data acuan pada sheet referensi.",
-      "points": [
-        "1. Periksa sheet \"Data Master\" untuk melihat tabel acuan harga/kategori/nama.",
-        "2. Tulis rumus Excel dinamis pada kolom target (Answer) di sheet \"XL-Test\".",
-        "3. Gunakan formula yang dapat diterapkan ke seluruh baris data.",
-        "4. Klik tombol \"Cek Hasil Jawaban\" di pojok kanan atas untuk mengevaluasi kelulusan."
-      ],
-      "helperTable": {
-        "title": "Bantuan Referensi Standar",
-        "headers": [
-          "Kategori Data",
-          "Formula Saran"
-        ],
-        "rows": [
-          [
-            "Pencarian Rujukan",
-            "VLOOKUP / XLOOKUP / INDEX-MATCH"
-          ],
-          [
-            "Kondisi & Logika",
-            "IF / IFS"
-          ],
-          [
-            "Perhitungan Angka",
-            "Operator Aritmatika / SUMIF / PMT"
-          ]
-        ]
-      },
-      "notice": "Dilarang mengubah tabel acuan. Tulis formula langsung pada tabel pengerjaan yang tersedia."
-    },
-    "sheets": [
-      {
-        "id": "sheet_main",
-        "name": "XL-Test",
-        "columns": [
-          {
-            "key": "no",
-            "label": "No",
-            "letter": "A"
-          },
-          {
-            "key": "item",
-            "label": "Item / Subjek",
-            "letter": "B"
-          },
-          {
-            "key": "param1",
-            "label": "Parameter 1",
-            "letter": "C"
-          },
-          {
-            "key": "param2",
-            "label": "Parameter 2",
-            "letter": "D"
-          },
-          {
-            "key": "target_val",
-            "label": "Target Answer (Formula)",
-            "letter": "E"
-          },
-          {
-            "key": "status",
-            "label": "Status Verifikasi",
-            "letter": "F"
-          }
-        ],
-        "rows": [
-          {
-            "rowNumber": 2,
-            "values": {
-              "no": 1,
-              "item": "Kasus Uji Alpha",
-              "param1": 5000000,
-              "param2": 3500000,
-              "target_val": "?",
-              "status": "?"
-            }
-          },
-          {
-            "rowNumber": 3,
-            "values": {
-              "no": 2,
-              "item": "Kasus Uji Beta",
-              "param1": 8500000,
-              "param2": 7200000,
-              "target_val": "?",
-              "status": "?"
-            }
-          },
-          {
-            "rowNumber": 4,
-            "values": {
-              "no": 3,
-              "item": "Kasus Uji Gamma",
-              "param1": 6000000,
-              "param2": 5500000,
-              "target_val": "?",
-              "status": "?"
-            }
-          },
-          {
-            "rowNumber": 5,
-            "values": {
-              "no": 4,
-              "item": "Kasus Uji Delta",
-              "param1": 3000000,
-              "param2": 2400000,
-              "target_val": "?",
-              "status": "?"
-            }
-          },
-          {
-            "rowNumber": 6,
-            "values": {
-              "no": 5,
-              "item": "Kasus Uji Epsilon",
-              "param1": 2500000,
-              "param2": 2100000,
-              "target_val": "?",
-              "status": "?"
-            }
-          }
-        ],
-        "targetColumns": [
-          {
-            "key": "target_val",
-            "letter": "E",
-            "label": "Target Answer",
-            "description": "Kalkulasi selisih / rujukan: =C2-D2",
-            "expectedRowAnswers": {
-              "2": 1500000,
-              "3": 1300000,
-              "4": 500000,
-              "5": 600000,
-              "6": 400000
-            }
-          },
-          {
-            "key": "status",
-            "letter": "F",
-            "label": "Status Verifikasi",
-            "description": "Jika target >= 500000 LULUS: =IF(E2>=500000, \"LULUS\", \"TIDAK LULUS\")",
-            "expectedRowAnswers": {
-              "2": "LULUS",
-              "3": "LULUS",
-              "4": "LULUS",
-              "5": "LULUS",
-              "6": "TIDAK LULUS"
-            }
-          }
-        ]
-      },
-      {
-        "id": "sheet_master",
-        "name": "Data Master",
-        "columns": [
-          {
-            "key": "kode",
-            "label": "Kode Referensi",
-            "letter": "A"
-          },
-          {
-            "key": "nama_ref",
-            "label": "Nama Rujukan",
-            "letter": "B"
-          },
-          {
-            "key": "bobot",
-            "label": "Bobot Standar",
-            "letter": "C"
-          }
-        ],
-        "rows": [
-          {
-            "rowNumber": 2,
-            "values": {
-              "kode": "REF-01",
-              "nama_ref": "Kategori Standar 1",
-              "bobot": 1500000
-            }
-          },
-          {
-            "rowNumber": 3,
-            "values": {
-              "kode": "REF-02",
-              "nama_ref": "Kategori Standar 2",
-              "bobot": 1300000
-            }
-          },
-          {
-            "rowNumber": 4,
-            "values": {
-              "kode": "REF-03",
-              "nama_ref": "Kategori Standar 3",
-              "bobot": 500000
-            }
-          }
-        ]
-      }
-    ],
-    "passingScore": 70,
-    "solutionBlueprints": [
-      {
-        "columnLabel": "Target Answer",
-        "formula": "=C2-D2",
-        "explanation": "Menghitung nilai selisih antara Parameter 1 dan Parameter 2"
-      },
-      {
-        "columnLabel": "Status Verifikasi",
-        "formula": "=IF(E2>=500000, \"LULUS\", \"TIDAK LULUS\")",
-        "explanation": "Menguji kondisi kelayakan batas nilai 500.000"
-      }
-    ]
-  },
-  {
-    "id": "EX-010",
-    "number": 10,
-    "code": "#SBEM009",
-    "title": "Rekapitulasi Total & Rata-rata Ujian Siswa",
-    "category": "Statistik",
-    "difficulty": "PEMULA",
-    "difficultyStars": 2,
-    "tags": [
-      "Guru",
-      "SUM",
-      "AVERAGE",
-      "Cek Otomatis",
-      "Spreadsheet Kasus"
-    ],
-    "instructions": {
-      "title": "PEMULA Level - Rekapitulasi Total & Rata-rata Ujian Siswa",
-      "description": "Selesaikan lembar kerja kasus Rekapitulasi Total & Rata-rata Ujian Siswa. Buka sheet utama untuk mengisi formula target sesuai data acuan pada sheet referensi.",
-      "points": [
-        "1. Periksa sheet \"Data Master\" untuk melihat tabel acuan harga/kategori/nama.",
-        "2. Tulis rumus Excel dinamis pada kolom target (Answer) di sheet \"XL-Test\".",
-        "3. Gunakan formula yang dapat diterapkan ke seluruh baris data.",
-        "4. Klik tombol \"Cek Hasil Jawaban\" di pojok kanan atas untuk mengevaluasi kelulusan."
-      ],
-      "helperTable": {
-        "title": "Bantuan Referensi Standar",
-        "headers": [
-          "Kategori Data",
-          "Formula Saran"
-        ],
-        "rows": [
-          [
-            "Pencarian Rujukan",
-            "VLOOKUP / XLOOKUP / INDEX-MATCH"
-          ],
-          [
-            "Kondisi & Logika",
-            "IF / IFS"
-          ],
-          [
-            "Perhitungan Angka",
-            "Operator Aritmatika / SUMIF / PMT"
-          ]
-        ]
-      },
-      "notice": "Dilarang mengubah tabel acuan. Tulis formula langsung pada tabel pengerjaan yang tersedia."
-    },
-    "sheets": [
-      {
-        "id": "sheet_main",
-        "name": "XL-Test",
-        "columns": [
-          {
-            "key": "no",
-            "label": "No",
-            "letter": "A"
-          },
-          {
-            "key": "item",
-            "label": "Item / Subjek",
-            "letter": "B"
-          },
-          {
-            "key": "param1",
-            "label": "Parameter 1",
-            "letter": "C"
-          },
-          {
-            "key": "param2",
-            "label": "Parameter 2",
-            "letter": "D"
-          },
-          {
-            "key": "target_val",
-            "label": "Target Answer (Formula)",
-            "letter": "E"
-          },
-          {
-            "key": "status",
-            "label": "Status Verifikasi",
-            "letter": "F"
-          }
-        ],
-        "rows": [
-          {
-            "rowNumber": 2,
-            "values": {
-              "no": 1,
-              "item": "Kasus Uji Alpha",
-              "param1": 5000000,
-              "param2": 3500000,
-              "target_val": "?",
-              "status": "?"
-            }
-          },
-          {
-            "rowNumber": 3,
-            "values": {
-              "no": 2,
-              "item": "Kasus Uji Beta",
-              "param1": 8500000,
-              "param2": 7200000,
-              "target_val": "?",
-              "status": "?"
-            }
-          },
-          {
-            "rowNumber": 4,
-            "values": {
-              "no": 3,
-              "item": "Kasus Uji Gamma",
-              "param1": 6000000,
-              "param2": 5500000,
-              "target_val": "?",
-              "status": "?"
-            }
-          },
-          {
-            "rowNumber": 5,
-            "values": {
-              "no": 4,
-              "item": "Kasus Uji Delta",
-              "param1": 3000000,
-              "param2": 2400000,
-              "target_val": "?",
-              "status": "?"
-            }
-          },
-          {
-            "rowNumber": 6,
-            "values": {
-              "no": 5,
-              "item": "Kasus Uji Epsilon",
-              "param1": 2500000,
-              "param2": 2100000,
-              "target_val": "?",
-              "status": "?"
-            }
-          }
-        ],
-        "targetColumns": [
-          {
-            "key": "target_val",
-            "letter": "E",
-            "label": "Target Answer",
-            "description": "Kalkulasi selisih / rujukan: =C2-D2",
-            "expectedRowAnswers": {
-              "2": 1500000,
-              "3": 1300000,
-              "4": 500000,
-              "5": 600000,
-              "6": 400000
-            }
-          },
-          {
-            "key": "status",
-            "letter": "F",
-            "label": "Status Verifikasi",
-            "description": "Jika target >= 500000 LULUS: =IF(E2>=500000, \"LULUS\", \"TIDAK LULUS\")",
-            "expectedRowAnswers": {
-              "2": "LULUS",
-              "3": "LULUS",
-              "4": "LULUS",
-              "5": "LULUS",
-              "6": "TIDAK LULUS"
-            }
-          }
-        ]
-      },
-      {
-        "id": "sheet_master",
-        "name": "Data Master",
-        "columns": [
-          {
-            "key": "kode",
-            "label": "Kode Referensi",
-            "letter": "A"
-          },
-          {
-            "key": "nama_ref",
-            "label": "Nama Rujukan",
-            "letter": "B"
-          },
-          {
-            "key": "bobot",
-            "label": "Bobot Standar",
-            "letter": "C"
-          }
-        ],
-        "rows": [
-          {
-            "rowNumber": 2,
-            "values": {
-              "kode": "REF-01",
-              "nama_ref": "Kategori Standar 1",
-              "bobot": 1500000
-            }
-          },
-          {
-            "rowNumber": 3,
-            "values": {
-              "kode": "REF-02",
-              "nama_ref": "Kategori Standar 2",
-              "bobot": 1300000
-            }
-          },
-          {
-            "rowNumber": 4,
-            "values": {
-              "kode": "REF-03",
-              "nama_ref": "Kategori Standar 3",
-              "bobot": 500000
-            }
-          }
-        ]
-      }
-    ],
-    "passingScore": 70,
-    "solutionBlueprints": [
-      {
-        "columnLabel": "Target Answer",
-        "formula": "=C2-D2",
-        "explanation": "Menghitung nilai selisih antara Parameter 1 dan Parameter 2"
-      },
-      {
-        "columnLabel": "Status Verifikasi",
-        "formula": "=IF(E2>=500000, \"LULUS\", \"TIDAK LULUS\")",
-        "explanation": "Menguji kondisi kelayakan batas nilai 500.000"
-      }
-    ]
-  },
-  {
-    "id": "EX-011",
-    "number": 11,
-    "code": "#SBEM010",
-    "title": "Statistik Penjualan Harian Cabang Minimarket",
-    "category": "Statistik",
-    "difficulty": "PEMULA",
-    "difficultyStars": 2,
-    "tags": [
-      "Retail",
-      "MAX",
-      "MIN",
-      "Cek Otomatis",
-      "Spreadsheet Kasus"
-    ],
-    "instructions": {
-      "title": "PEMULA Level - Statistik Penjualan Harian Cabang Minimarket",
-      "description": "Selesaikan lembar kerja kasus Statistik Penjualan Harian Cabang Minimarket. Buka sheet utama untuk mengisi formula target sesuai data acuan pada sheet referensi.",
-      "points": [
-        "1. Periksa sheet \"Data Master\" untuk melihat tabel acuan harga/kategori/nama.",
-        "2. Tulis rumus Excel dinamis pada kolom target (Answer) di sheet \"XL-Test\".",
-        "3. Gunakan formula yang dapat diterapkan ke seluruh baris data.",
-        "4. Klik tombol \"Cek Hasil Jawaban\" di pojok kanan atas untuk mengevaluasi kelulusan."
-      ],
-      "helperTable": {
-        "title": "Bantuan Referensi Standar",
-        "headers": [
-          "Kategori Data",
-          "Formula Saran"
-        ],
-        "rows": [
-          [
-            "Pencarian Rujukan",
-            "VLOOKUP / XLOOKUP / INDEX-MATCH"
-          ],
-          [
-            "Kondisi & Logika",
-            "IF / IFS"
-          ],
-          [
-            "Perhitungan Angka",
-            "Operator Aritmatika / SUMIF / PMT"
-          ]
-        ]
-      },
-      "notice": "Dilarang mengubah tabel acuan. Tulis formula langsung pada tabel pengerjaan yang tersedia."
-    },
-    "sheets": [
-      {
-        "id": "sheet_main",
-        "name": "XL-Test",
-        "columns": [
-          {
-            "key": "no",
-            "label": "No",
-            "letter": "A"
-          },
-          {
-            "key": "item",
-            "label": "Item / Subjek",
-            "letter": "B"
-          },
-          {
-            "key": "param1",
-            "label": "Parameter 1",
-            "letter": "C"
-          },
-          {
-            "key": "param2",
-            "label": "Parameter 2",
-            "letter": "D"
-          },
-          {
-            "key": "target_val",
-            "label": "Target Answer (Formula)",
-            "letter": "E"
-          },
-          {
-            "key": "status",
-            "label": "Status Verifikasi",
-            "letter": "F"
-          }
-        ],
-        "rows": [
-          {
-            "rowNumber": 2,
-            "values": {
-              "no": 1,
-              "item": "Kasus Uji Alpha",
-              "param1": 5000000,
-              "param2": 3500000,
-              "target_val": "?",
-              "status": "?"
-            }
-          },
-          {
-            "rowNumber": 3,
-            "values": {
-              "no": 2,
-              "item": "Kasus Uji Beta",
-              "param1": 8500000,
-              "param2": 7200000,
-              "target_val": "?",
-              "status": "?"
-            }
-          },
-          {
-            "rowNumber": 4,
-            "values": {
-              "no": 3,
-              "item": "Kasus Uji Gamma",
-              "param1": 6000000,
-              "param2": 5500000,
-              "target_val": "?",
-              "status": "?"
-            }
-          },
-          {
-            "rowNumber": 5,
-            "values": {
-              "no": 4,
-              "item": "Kasus Uji Delta",
-              "param1": 3000000,
-              "param2": 2400000,
-              "target_val": "?",
-              "status": "?"
-            }
-          },
-          {
-            "rowNumber": 6,
-            "values": {
-              "no": 5,
-              "item": "Kasus Uji Epsilon",
-              "param1": 2500000,
-              "param2": 2100000,
-              "target_val": "?",
-              "status": "?"
-            }
-          }
-        ],
-        "targetColumns": [
-          {
-            "key": "target_val",
-            "letter": "E",
-            "label": "Target Answer",
-            "description": "Kalkulasi selisih / rujukan: =C2-D2",
-            "expectedRowAnswers": {
-              "2": 1500000,
-              "3": 1300000,
-              "4": 500000,
-              "5": 600000,
-              "6": 400000
-            }
-          },
-          {
-            "key": "status",
-            "letter": "F",
-            "label": "Status Verifikasi",
-            "description": "Jika target >= 500000 LULUS: =IF(E2>=500000, \"LULUS\", \"TIDAK LULUS\")",
-            "expectedRowAnswers": {
-              "2": "LULUS",
-              "3": "LULUS",
-              "4": "LULUS",
-              "5": "LULUS",
-              "6": "TIDAK LULUS"
-            }
-          }
-        ]
-      },
-      {
-        "id": "sheet_master",
-        "name": "Data Master",
-        "columns": [
-          {
-            "key": "kode",
-            "label": "Kode Referensi",
-            "letter": "A"
-          },
-          {
-            "key": "nama_ref",
-            "label": "Nama Rujukan",
-            "letter": "B"
-          },
-          {
-            "key": "bobot",
-            "label": "Bobot Standar",
-            "letter": "C"
-          }
-        ],
-        "rows": [
-          {
-            "rowNumber": 2,
-            "values": {
-              "kode": "REF-01",
-              "nama_ref": "Kategori Standar 1",
-              "bobot": 1500000
-            }
-          },
-          {
-            "rowNumber": 3,
-            "values": {
-              "kode": "REF-02",
-              "nama_ref": "Kategori Standar 2",
-              "bobot": 1300000
-            }
-          },
-          {
-            "rowNumber": 4,
-            "values": {
-              "kode": "REF-03",
-              "nama_ref": "Kategori Standar 3",
-              "bobot": 500000
-            }
-          }
-        ]
-      }
-    ],
-    "passingScore": 70,
-    "solutionBlueprints": [
-      {
-        "columnLabel": "Target Answer",
-        "formula": "=C2-D2",
-        "explanation": "Menghitung nilai selisih antara Parameter 1 dan Parameter 2"
-      },
-      {
-        "columnLabel": "Status Verifikasi",
-        "formula": "=IF(E2>=500000, \"LULUS\", \"TIDAK LULUS\")",
-        "explanation": "Menguji kondisi kelayakan batas nilai 500.000"
-      }
-    ]
-  },
-  {
-    "id": "EX-012",
-    "number": 12,
-    "code": "#SBEM011",
-    "title": "Latihan Soal Excel Packing Dus Pesanan",
-    "category": "Statistik",
-    "difficulty": "MENENGAH",
-    "difficultyStars": 2,
-    "tags": [
-      "Gudang",
-      "COUNTIF",
-      "Cek Otomatis",
-      "Spreadsheet Kasus"
-    ],
-    "instructions": {
-      "title": "MENENGAH Level - Latihan Soal Excel Packing Dus Pesanan",
-      "description": "Selesaikan lembar kerja kasus Latihan Soal Excel Packing Dus Pesanan. Buka sheet utama untuk mengisi formula target sesuai data acuan pada sheet referensi.",
-      "points": [
-        "1. Periksa sheet \"Data Master\" untuk melihat tabel acuan harga/kategori/nama.",
-        "2. Tulis rumus Excel dinamis pada kolom target (Answer) di sheet \"XL-Test\".",
-        "3. Gunakan formula yang dapat diterapkan ke seluruh baris data.",
-        "4. Klik tombol \"Cek Hasil Jawaban\" di pojok kanan atas untuk mengevaluasi kelulusan."
-      ],
-      "helperTable": {
-        "title": "Bantuan Referensi Standar",
-        "headers": [
-          "Kategori Data",
-          "Formula Saran"
-        ],
-        "rows": [
-          [
-            "Pencarian Rujukan",
-            "VLOOKUP / XLOOKUP / INDEX-MATCH"
-          ],
-          [
-            "Kondisi & Logika",
-            "IF / IFS"
-          ],
-          [
-            "Perhitungan Angka",
-            "Operator Aritmatika / SUMIF / PMT"
-          ]
-        ]
-      },
-      "notice": "Dilarang mengubah tabel acuan. Tulis formula langsung pada tabel pengerjaan yang tersedia."
-    },
-    "sheets": [
-      {
-        "id": "sheet_main",
-        "name": "XL-Test",
-        "columns": [
-          {
-            "key": "no",
-            "label": "No",
-            "letter": "A"
-          },
-          {
-            "key": "item",
-            "label": "Item / Subjek",
-            "letter": "B"
-          },
-          {
-            "key": "param1",
-            "label": "Parameter 1",
-            "letter": "C"
-          },
-          {
-            "key": "param2",
-            "label": "Parameter 2",
-            "letter": "D"
-          },
-          {
-            "key": "target_val",
-            "label": "Target Answer (Formula)",
-            "letter": "E"
-          },
-          {
-            "key": "status",
-            "label": "Status Verifikasi",
-            "letter": "F"
-          }
-        ],
-        "rows": [
-          {
-            "rowNumber": 2,
-            "values": {
-              "no": 1,
-              "item": "Kasus Uji Alpha",
-              "param1": 5000000,
-              "param2": 3500000,
-              "target_val": "?",
-              "status": "?"
-            }
-          },
-          {
-            "rowNumber": 3,
-            "values": {
-              "no": 2,
-              "item": "Kasus Uji Beta",
-              "param1": 8500000,
-              "param2": 7200000,
-              "target_val": "?",
-              "status": "?"
-            }
-          },
-          {
-            "rowNumber": 4,
-            "values": {
-              "no": 3,
-              "item": "Kasus Uji Gamma",
-              "param1": 6000000,
-              "param2": 5500000,
-              "target_val": "?",
-              "status": "?"
-            }
-          },
-          {
-            "rowNumber": 5,
-            "values": {
-              "no": 4,
-              "item": "Kasus Uji Delta",
-              "param1": 3000000,
-              "param2": 2400000,
-              "target_val": "?",
-              "status": "?"
-            }
-          },
-          {
-            "rowNumber": 6,
-            "values": {
-              "no": 5,
-              "item": "Kasus Uji Epsilon",
-              "param1": 2500000,
-              "param2": 2100000,
-              "target_val": "?",
-              "status": "?"
-            }
-          }
-        ],
-        "targetColumns": [
-          {
-            "key": "target_val",
-            "letter": "E",
-            "label": "Target Answer",
-            "description": "Kalkulasi selisih / rujukan: =C2-D2",
-            "expectedRowAnswers": {
-              "2": 1500000,
-              "3": 1300000,
-              "4": 500000,
-              "5": 600000,
-              "6": 400000
-            }
-          },
-          {
-            "key": "status",
-            "letter": "F",
-            "label": "Status Verifikasi",
-            "description": "Jika target >= 500000 LULUS: =IF(E2>=500000, \"LULUS\", \"TIDAK LULUS\")",
-            "expectedRowAnswers": {
-              "2": "LULUS",
-              "3": "LULUS",
-              "4": "LULUS",
-              "5": "LULUS",
-              "6": "TIDAK LULUS"
-            }
-          }
-        ]
-      },
-      {
-        "id": "sheet_master",
-        "name": "Data Master",
-        "columns": [
-          {
-            "key": "kode",
-            "label": "Kode Referensi",
-            "letter": "A"
-          },
-          {
-            "key": "nama_ref",
-            "label": "Nama Rujukan",
-            "letter": "B"
-          },
-          {
-            "key": "bobot",
-            "label": "Bobot Standar",
-            "letter": "C"
-          }
-        ],
-        "rows": [
-          {
-            "rowNumber": 2,
-            "values": {
-              "kode": "REF-01",
-              "nama_ref": "Kategori Standar 1",
-              "bobot": 1500000
-            }
-          },
-          {
-            "rowNumber": 3,
-            "values": {
-              "kode": "REF-02",
-              "nama_ref": "Kategori Standar 2",
-              "bobot": 1300000
-            }
-          },
-          {
-            "rowNumber": 4,
-            "values": {
-              "kode": "REF-03",
-              "nama_ref": "Kategori Standar 3",
-              "bobot": 500000
-            }
-          }
-        ]
-      }
-    ],
-    "passingScore": 70,
-    "solutionBlueprints": [
-      {
-        "columnLabel": "Target Answer",
-        "formula": "=C2-D2",
-        "explanation": "Menghitung nilai selisih antara Parameter 1 dan Parameter 2"
-      },
-      {
-        "columnLabel": "Status Verifikasi",
-        "formula": "=IF(E2>=500000, \"LULUS\", \"TIDAK LULUS\")",
-        "explanation": "Menguji kondisi kelayakan batas nilai 500.000"
-      }
-    ]
-  },
-  {
-    "id": "EX-013",
-    "number": 13,
-    "code": "#SBEM012",
-    "title": "Rekapitulasi Omset Sales per Wilayah (SUMIF)",
-    "category": "Statistik",
-    "difficulty": "MENENGAH",
-    "difficultyStars": 2,
-    "tags": [
-      "Sales",
-      "SUMIF",
-      "Cek Otomatis",
-      "Spreadsheet Kasus"
-    ],
-    "instructions": {
-      "title": "MENENGAH Level - Rekapitulasi Omset Sales per Wilayah (SUMIF)",
-      "description": "Selesaikan lembar kerja kasus Rekapitulasi Omset Sales per Wilayah (SUMIF). Buka sheet utama untuk mengisi formula target sesuai data acuan pada sheet referensi.",
-      "points": [
-        "1. Periksa sheet \"Data Master\" untuk melihat tabel acuan harga/kategori/nama.",
-        "2. Tulis rumus Excel dinamis pada kolom target (Answer) di sheet \"XL-Test\".",
-        "3. Gunakan formula yang dapat diterapkan ke seluruh baris data.",
-        "4. Klik tombol \"Cek Hasil Jawaban\" di pojok kanan atas untuk mengevaluasi kelulusan."
-      ],
-      "helperTable": {
-        "title": "Bantuan Referensi Standar",
-        "headers": [
-          "Kategori Data",
-          "Formula Saran"
-        ],
-        "rows": [
-          [
-            "Pencarian Rujukan",
-            "VLOOKUP / XLOOKUP / INDEX-MATCH"
-          ],
-          [
-            "Kondisi & Logika",
-            "IF / IFS"
-          ],
-          [
-            "Perhitungan Angka",
-            "Operator Aritmatika / SUMIF / PMT"
-          ]
-        ]
-      },
-      "notice": "Dilarang mengubah tabel acuan. Tulis formula langsung pada tabel pengerjaan yang tersedia."
-    },
-    "sheets": [
-      {
-        "id": "sheet_main",
-        "name": "XL-Test",
-        "columns": [
-          {
-            "key": "no",
-            "label": "No",
-            "letter": "A"
-          },
-          {
-            "key": "item",
-            "label": "Item / Subjek",
-            "letter": "B"
-          },
-          {
-            "key": "param1",
-            "label": "Parameter 1",
-            "letter": "C"
-          },
-          {
-            "key": "param2",
-            "label": "Parameter 2",
-            "letter": "D"
-          },
-          {
-            "key": "target_val",
-            "label": "Target Answer (Formula)",
-            "letter": "E"
-          },
-          {
-            "key": "status",
-            "label": "Status Verifikasi",
-            "letter": "F"
-          }
-        ],
-        "rows": [
-          {
-            "rowNumber": 2,
-            "values": {
-              "no": 1,
-              "item": "Kasus Uji Alpha",
-              "param1": 5000000,
-              "param2": 3500000,
-              "target_val": "?",
-              "status": "?"
-            }
-          },
-          {
-            "rowNumber": 3,
-            "values": {
-              "no": 2,
-              "item": "Kasus Uji Beta",
-              "param1": 8500000,
-              "param2": 7200000,
-              "target_val": "?",
-              "status": "?"
-            }
-          },
-          {
-            "rowNumber": 4,
-            "values": {
-              "no": 3,
-              "item": "Kasus Uji Gamma",
-              "param1": 6000000,
-              "param2": 5500000,
-              "target_val": "?",
-              "status": "?"
-            }
-          },
-          {
-            "rowNumber": 5,
-            "values": {
-              "no": 4,
-              "item": "Kasus Uji Delta",
-              "param1": 3000000,
-              "param2": 2400000,
-              "target_val": "?",
-              "status": "?"
-            }
-          },
-          {
-            "rowNumber": 6,
-            "values": {
-              "no": 5,
-              "item": "Kasus Uji Epsilon",
-              "param1": 2500000,
-              "param2": 2100000,
-              "target_val": "?",
-              "status": "?"
-            }
-          }
-        ],
-        "targetColumns": [
-          {
-            "key": "target_val",
-            "letter": "E",
-            "label": "Target Answer",
-            "description": "Kalkulasi selisih / rujukan: =C2-D2",
-            "expectedRowAnswers": {
-              "2": 1500000,
-              "3": 1300000,
-              "4": 500000,
-              "5": 600000,
-              "6": 400000
-            }
-          },
-          {
-            "key": "status",
-            "letter": "F",
-            "label": "Status Verifikasi",
-            "description": "Jika target >= 500000 LULUS: =IF(E2>=500000, \"LULUS\", \"TIDAK LULUS\")",
-            "expectedRowAnswers": {
-              "2": "LULUS",
-              "3": "LULUS",
-              "4": "LULUS",
-              "5": "LULUS",
-              "6": "TIDAK LULUS"
-            }
-          }
-        ]
-      },
-      {
-        "id": "sheet_master",
-        "name": "Data Master",
-        "columns": [
-          {
-            "key": "kode",
-            "label": "Kode Referensi",
-            "letter": "A"
-          },
-          {
-            "key": "nama_ref",
-            "label": "Nama Rujukan",
-            "letter": "B"
-          },
-          {
-            "key": "bobot",
-            "label": "Bobot Standar",
-            "letter": "C"
-          }
-        ],
-        "rows": [
-          {
-            "rowNumber": 2,
-            "values": {
-              "kode": "REF-01",
-              "nama_ref": "Kategori Standar 1",
-              "bobot": 1500000
-            }
-          },
-          {
-            "rowNumber": 3,
-            "values": {
-              "kode": "REF-02",
-              "nama_ref": "Kategori Standar 2",
-              "bobot": 1300000
-            }
-          },
-          {
-            "rowNumber": 4,
-            "values": {
-              "kode": "REF-03",
-              "nama_ref": "Kategori Standar 3",
-              "bobot": 500000
-            }
-          }
-        ]
-      }
-    ],
-    "passingScore": 70,
-    "solutionBlueprints": [
-      {
-        "columnLabel": "Target Answer",
-        "formula": "=C2-D2",
-        "explanation": "Menghitung nilai selisih antara Parameter 1 dan Parameter 2"
-      },
-      {
-        "columnLabel": "Status Verifikasi",
-        "formula": "=IF(E2>=500000, \"LULUS\", \"TIDAK LULUS\")",
-        "explanation": "Menguji kondisi kelayakan batas nilai 500.000"
-      }
-    ]
-  },
-  {
-    "id": "EX-014",
-    "number": 14,
-    "code": "#SBEM013",
-    "title": "Hitung Frekuensi Rating Kepuasan Pelanggan",
-    "category": "Statistik",
-    "difficulty": "MENENGAH",
-    "difficultyStars": 2,
-    "tags": [
-      "CS",
-      "COUNTIF",
-      "Cek Otomatis",
-      "Spreadsheet Kasus"
-    ],
-    "instructions": {
-      "title": "MENENGAH Level - Hitung Frekuensi Rating Kepuasan Pelanggan",
-      "description": "Selesaikan lembar kerja kasus Hitung Frekuensi Rating Kepuasan Pelanggan. Buka sheet utama untuk mengisi formula target sesuai data acuan pada sheet referensi.",
-      "points": [
-        "1. Periksa sheet \"Data Master\" untuk melihat tabel acuan harga/kategori/nama.",
-        "2. Tulis rumus Excel dinamis pada kolom target (Answer) di sheet \"XL-Test\".",
-        "3. Gunakan formula yang dapat diterapkan ke seluruh baris data.",
-        "4. Klik tombol \"Cek Hasil Jawaban\" di pojok kanan atas untuk mengevaluasi kelulusan."
-      ],
-      "helperTable": {
-        "title": "Bantuan Referensi Standar",
-        "headers": [
-          "Kategori Data",
-          "Formula Saran"
-        ],
-        "rows": [
-          [
-            "Pencarian Rujukan",
-            "VLOOKUP / XLOOKUP / INDEX-MATCH"
-          ],
-          [
-            "Kondisi & Logika",
-            "IF / IFS"
-          ],
-          [
-            "Perhitungan Angka",
-            "Operator Aritmatika / SUMIF / PMT"
-          ]
-        ]
-      },
-      "notice": "Dilarang mengubah tabel acuan. Tulis formula langsung pada tabel pengerjaan yang tersedia."
-    },
-    "sheets": [
-      {
-        "id": "sheet_main",
-        "name": "XL-Test",
-        "columns": [
-          {
-            "key": "no",
-            "label": "No",
-            "letter": "A"
-          },
-          {
-            "key": "item",
-            "label": "Item / Subjek",
-            "letter": "B"
-          },
-          {
-            "key": "param1",
-            "label": "Parameter 1",
-            "letter": "C"
-          },
-          {
-            "key": "param2",
-            "label": "Parameter 2",
-            "letter": "D"
-          },
-          {
-            "key": "target_val",
-            "label": "Target Answer (Formula)",
-            "letter": "E"
-          },
-          {
-            "key": "status",
-            "label": "Status Verifikasi",
-            "letter": "F"
-          }
-        ],
-        "rows": [
-          {
-            "rowNumber": 2,
-            "values": {
-              "no": 1,
-              "item": "Kasus Uji Alpha",
-              "param1": 5000000,
-              "param2": 3500000,
-              "target_val": "?",
-              "status": "?"
-            }
-          },
-          {
-            "rowNumber": 3,
-            "values": {
-              "no": 2,
-              "item": "Kasus Uji Beta",
-              "param1": 8500000,
-              "param2": 7200000,
-              "target_val": "?",
-              "status": "?"
-            }
-          },
-          {
-            "rowNumber": 4,
-            "values": {
-              "no": 3,
-              "item": "Kasus Uji Gamma",
-              "param1": 6000000,
-              "param2": 5500000,
-              "target_val": "?",
-              "status": "?"
-            }
-          },
-          {
-            "rowNumber": 5,
-            "values": {
-              "no": 4,
-              "item": "Kasus Uji Delta",
-              "param1": 3000000,
-              "param2": 2400000,
-              "target_val": "?",
-              "status": "?"
-            }
-          },
-          {
-            "rowNumber": 6,
-            "values": {
-              "no": 5,
-              "item": "Kasus Uji Epsilon",
-              "param1": 2500000,
-              "param2": 2100000,
-              "target_val": "?",
-              "status": "?"
-            }
-          }
-        ],
-        "targetColumns": [
-          {
-            "key": "target_val",
-            "letter": "E",
-            "label": "Target Answer",
-            "description": "Kalkulasi selisih / rujukan: =C2-D2",
-            "expectedRowAnswers": {
-              "2": 1500000,
-              "3": 1300000,
-              "4": 500000,
-              "5": 600000,
-              "6": 400000
-            }
-          },
-          {
-            "key": "status",
-            "letter": "F",
-            "label": "Status Verifikasi",
-            "description": "Jika target >= 500000 LULUS: =IF(E2>=500000, \"LULUS\", \"TIDAK LULUS\")",
-            "expectedRowAnswers": {
-              "2": "LULUS",
-              "3": "LULUS",
-              "4": "LULUS",
-              "5": "LULUS",
-              "6": "TIDAK LULUS"
-            }
-          }
-        ]
-      },
-      {
-        "id": "sheet_master",
-        "name": "Data Master",
-        "columns": [
-          {
-            "key": "kode",
-            "label": "Kode Referensi",
-            "letter": "A"
-          },
-          {
-            "key": "nama_ref",
-            "label": "Nama Rujukan",
-            "letter": "B"
-          },
-          {
-            "key": "bobot",
-            "label": "Bobot Standar",
-            "letter": "C"
-          }
-        ],
-        "rows": [
-          {
-            "rowNumber": 2,
-            "values": {
-              "kode": "REF-01",
-              "nama_ref": "Kategori Standar 1",
-              "bobot": 1500000
-            }
-          },
-          {
-            "rowNumber": 3,
-            "values": {
-              "kode": "REF-02",
-              "nama_ref": "Kategori Standar 2",
-              "bobot": 1300000
-            }
-          },
-          {
-            "rowNumber": 4,
-            "values": {
-              "kode": "REF-03",
-              "nama_ref": "Kategori Standar 3",
-              "bobot": 500000
-            }
-          }
-        ]
-      }
-    ],
-    "passingScore": 70,
-    "solutionBlueprints": [
-      {
-        "columnLabel": "Target Answer",
-        "formula": "=C2-D2",
-        "explanation": "Menghitung nilai selisih antara Parameter 1 dan Parameter 2"
-      },
-      {
-        "columnLabel": "Status Verifikasi",
-        "formula": "=IF(E2>=500000, \"LULUS\", \"TIDAK LULUS\")",
-        "explanation": "Menguji kondisi kelayakan batas nilai 500.000"
-      }
-    ]
-  },
-  {
-    "id": "EX-015",
-    "number": 15,
-    "code": "#SBEM014",
-    "title": "Standardisasi Format Nama Lengkap Karyawan (PROPER)",
-    "category": "Teks",
-    "difficulty": "MENENGAH",
-    "difficultyStars": 2,
-    "tags": [
-      "HRD",
-      "Teks",
-      "Cek Otomatis",
-      "Spreadsheet Kasus"
-    ],
-    "instructions": {
-      "title": "MENENGAH Level - Standardisasi Format Nama Lengkap Karyawan (PROPER)",
-      "description": "Selesaikan lembar kerja kasus Standardisasi Format Nama Lengkap Karyawan (PROPER). Buka sheet utama untuk mengisi formula target sesuai data acuan pada sheet referensi.",
-      "points": [
-        "1. Periksa sheet \"Data Master\" untuk melihat tabel acuan harga/kategori/nama.",
-        "2. Tulis rumus Excel dinamis pada kolom target (Answer) di sheet \"XL-Test\".",
-        "3. Gunakan formula yang dapat diterapkan ke seluruh baris data.",
-        "4. Klik tombol \"Cek Hasil Jawaban\" di pojok kanan atas untuk mengevaluasi kelulusan."
-      ],
-      "helperTable": {
-        "title": "Bantuan Referensi Standar",
-        "headers": [
-          "Kategori Data",
-          "Formula Saran"
-        ],
-        "rows": [
-          [
-            "Pencarian Rujukan",
-            "VLOOKUP / XLOOKUP / INDEX-MATCH"
-          ],
-          [
-            "Kondisi & Logika",
-            "IF / IFS"
-          ],
-          [
-            "Perhitungan Angka",
-            "Operator Aritmatika / SUMIF / PMT"
-          ]
-        ]
-      },
-      "notice": "Dilarang mengubah tabel acuan. Tulis formula langsung pada tabel pengerjaan yang tersedia."
-    },
-    "sheets": [
-      {
-        "id": "sheet_main",
-        "name": "XL-Test",
-        "columns": [
-          {
-            "key": "no",
-            "label": "No",
-            "letter": "A"
-          },
-          {
-            "key": "item",
-            "label": "Item / Subjek",
-            "letter": "B"
-          },
-          {
-            "key": "param1",
-            "label": "Parameter 1",
-            "letter": "C"
-          },
-          {
-            "key": "param2",
-            "label": "Parameter 2",
-            "letter": "D"
-          },
-          {
-            "key": "target_val",
-            "label": "Target Answer (Formula)",
-            "letter": "E"
-          },
-          {
-            "key": "status",
-            "label": "Status Verifikasi",
-            "letter": "F"
-          }
-        ],
-        "rows": [
-          {
-            "rowNumber": 2,
-            "values": {
-              "no": 1,
-              "item": "Kasus Uji Alpha",
-              "param1": 5000000,
-              "param2": 3500000,
-              "target_val": "?",
-              "status": "?"
-            }
-          },
-          {
-            "rowNumber": 3,
-            "values": {
-              "no": 2,
-              "item": "Kasus Uji Beta",
-              "param1": 8500000,
-              "param2": 7200000,
-              "target_val": "?",
-              "status": "?"
-            }
-          },
-          {
-            "rowNumber": 4,
-            "values": {
-              "no": 3,
-              "item": "Kasus Uji Gamma",
-              "param1": 6000000,
-              "param2": 5500000,
-              "target_val": "?",
-              "status": "?"
-            }
-          },
-          {
-            "rowNumber": 5,
-            "values": {
-              "no": 4,
-              "item": "Kasus Uji Delta",
-              "param1": 3000000,
-              "param2": 2400000,
-              "target_val": "?",
-              "status": "?"
-            }
-          },
-          {
-            "rowNumber": 6,
-            "values": {
-              "no": 5,
-              "item": "Kasus Uji Epsilon",
-              "param1": 2500000,
-              "param2": 2100000,
-              "target_val": "?",
-              "status": "?"
-            }
-          }
-        ],
-        "targetColumns": [
-          {
-            "key": "target_val",
-            "letter": "E",
-            "label": "Target Answer",
-            "description": "Kalkulasi selisih / rujukan: =C2-D2",
-            "expectedRowAnswers": {
-              "2": 1500000,
-              "3": 1300000,
-              "4": 500000,
-              "5": 600000,
-              "6": 400000
-            }
-          },
-          {
-            "key": "status",
-            "letter": "F",
-            "label": "Status Verifikasi",
-            "description": "Jika target >= 500000 LULUS: =IF(E2>=500000, \"LULUS\", \"TIDAK LULUS\")",
-            "expectedRowAnswers": {
-              "2": "LULUS",
-              "3": "LULUS",
-              "4": "LULUS",
-              "5": "LULUS",
-              "6": "TIDAK LULUS"
-            }
-          }
-        ]
-      },
-      {
-        "id": "sheet_master",
-        "name": "Data Master",
-        "columns": [
-          {
-            "key": "kode",
-            "label": "Kode Referensi",
-            "letter": "A"
-          },
-          {
-            "key": "nama_ref",
-            "label": "Nama Rujukan",
-            "letter": "B"
-          },
-          {
-            "key": "bobot",
-            "label": "Bobot Standar",
-            "letter": "C"
-          }
-        ],
-        "rows": [
-          {
-            "rowNumber": 2,
-            "values": {
-              "kode": "REF-01",
-              "nama_ref": "Kategori Standar 1",
-              "bobot": 1500000
-            }
-          },
-          {
-            "rowNumber": 3,
-            "values": {
-              "kode": "REF-02",
-              "nama_ref": "Kategori Standar 2",
-              "bobot": 1300000
-            }
-          },
-          {
-            "rowNumber": 4,
-            "values": {
-              "kode": "REF-03",
-              "nama_ref": "Kategori Standar 3",
-              "bobot": 500000
-            }
-          }
-        ]
-      }
-    ],
-    "passingScore": 70,
-    "solutionBlueprints": [
-      {
-        "columnLabel": "Target Answer",
-        "formula": "=C2-D2",
-        "explanation": "Menghitung nilai selisih antara Parameter 1 dan Parameter 2"
-      },
-      {
-        "columnLabel": "Status Verifikasi",
-        "formula": "=IF(E2>=500000, \"LULUS\", \"TIDAK LULUS\")",
-        "explanation": "Menguji kondisi kelayakan batas nilai 500.000"
-      }
-    ]
-  },
-  {
-    "id": "EX-016",
-    "number": 16,
-    "code": "#SBEM015",
-    "title": "Ekstraksi Kode SKU & Kategori Barang (LEFT/MID/RIGHT)",
-    "category": "Teks",
-    "difficulty": "MENENGAH",
-    "difficultyStars": 3,
-    "tags": [
-      "Inventory",
-      "Teks",
-      "Cek Otomatis",
-      "Spreadsheet Kasus"
-    ],
-    "instructions": {
-      "title": "MENENGAH Level - Ekstraksi Kode SKU & Kategori Barang (LEFT/MID/RIGHT)",
-      "description": "Selesaikan lembar kerja kasus Ekstraksi Kode SKU & Kategori Barang (LEFT/MID/RIGHT). Buka sheet utama untuk mengisi formula target sesuai data acuan pada sheet referensi.",
-      "points": [
-        "1. Periksa sheet \"Data Master\" untuk melihat tabel acuan harga/kategori/nama.",
-        "2. Tulis rumus Excel dinamis pada kolom target (Answer) di sheet \"XL-Test\".",
-        "3. Gunakan formula yang dapat diterapkan ke seluruh baris data.",
-        "4. Klik tombol \"Cek Hasil Jawaban\" di pojok kanan atas untuk mengevaluasi kelulusan."
-      ],
-      "helperTable": {
-        "title": "Bantuan Referensi Standar",
-        "headers": [
-          "Kategori Data",
-          "Formula Saran"
-        ],
-        "rows": [
-          [
-            "Pencarian Rujukan",
-            "VLOOKUP / XLOOKUP / INDEX-MATCH"
-          ],
-          [
-            "Kondisi & Logika",
-            "IF / IFS"
-          ],
-          [
-            "Perhitungan Angka",
-            "Operator Aritmatika / SUMIF / PMT"
-          ]
-        ]
-      },
-      "notice": "Dilarang mengubah tabel acuan. Tulis formula langsung pada tabel pengerjaan yang tersedia."
-    },
-    "sheets": [
-      {
-        "id": "sheet_main",
-        "name": "XL-Test",
-        "columns": [
-          {
-            "key": "no",
-            "label": "No",
-            "letter": "A"
-          },
-          {
-            "key": "item",
-            "label": "Item / Subjek",
-            "letter": "B"
-          },
-          {
-            "key": "param1",
-            "label": "Parameter 1",
-            "letter": "C"
-          },
-          {
-            "key": "param2",
-            "label": "Parameter 2",
-            "letter": "D"
-          },
-          {
-            "key": "target_val",
-            "label": "Target Answer (Formula)",
-            "letter": "E"
-          },
-          {
-            "key": "status",
-            "label": "Status Verifikasi",
-            "letter": "F"
-          }
-        ],
-        "rows": [
-          {
-            "rowNumber": 2,
-            "values": {
-              "no": 1,
-              "item": "Kasus Uji Alpha",
-              "param1": 5000000,
-              "param2": 3500000,
-              "target_val": "?",
-              "status": "?"
-            }
-          },
-          {
-            "rowNumber": 3,
-            "values": {
-              "no": 2,
-              "item": "Kasus Uji Beta",
-              "param1": 8500000,
-              "param2": 7200000,
-              "target_val": "?",
-              "status": "?"
-            }
-          },
-          {
-            "rowNumber": 4,
-            "values": {
-              "no": 3,
-              "item": "Kasus Uji Gamma",
-              "param1": 6000000,
-              "param2": 5500000,
-              "target_val": "?",
-              "status": "?"
-            }
-          },
-          {
-            "rowNumber": 5,
-            "values": {
-              "no": 4,
-              "item": "Kasus Uji Delta",
-              "param1": 3000000,
-              "param2": 2400000,
-              "target_val": "?",
-              "status": "?"
-            }
-          },
-          {
-            "rowNumber": 6,
-            "values": {
-              "no": 5,
-              "item": "Kasus Uji Epsilon",
-              "param1": 2500000,
-              "param2": 2100000,
-              "target_val": "?",
-              "status": "?"
-            }
-          }
-        ],
-        "targetColumns": [
-          {
-            "key": "target_val",
-            "letter": "E",
-            "label": "Target Answer",
-            "description": "Kalkulasi selisih / rujukan: =C2-D2",
-            "expectedRowAnswers": {
-              "2": 1500000,
-              "3": 1300000,
-              "4": 500000,
-              "5": 600000,
-              "6": 400000
-            }
-          },
-          {
-            "key": "status",
-            "letter": "F",
-            "label": "Status Verifikasi",
-            "description": "Jika target >= 500000 LULUS: =IF(E2>=500000, \"LULUS\", \"TIDAK LULUS\")",
-            "expectedRowAnswers": {
-              "2": "LULUS",
-              "3": "LULUS",
-              "4": "LULUS",
-              "5": "LULUS",
-              "6": "TIDAK LULUS"
-            }
-          }
-        ]
-      },
-      {
-        "id": "sheet_master",
-        "name": "Data Master",
-        "columns": [
-          {
-            "key": "kode",
-            "label": "Kode Referensi",
-            "letter": "A"
-          },
-          {
-            "key": "nama_ref",
-            "label": "Nama Rujukan",
-            "letter": "B"
-          },
-          {
-            "key": "bobot",
-            "label": "Bobot Standar",
-            "letter": "C"
-          }
-        ],
-        "rows": [
-          {
-            "rowNumber": 2,
-            "values": {
-              "kode": "REF-01",
-              "nama_ref": "Kategori Standar 1",
-              "bobot": 1500000
-            }
-          },
-          {
-            "rowNumber": 3,
-            "values": {
-              "kode": "REF-02",
-              "nama_ref": "Kategori Standar 2",
-              "bobot": 1300000
-            }
-          },
-          {
-            "rowNumber": 4,
-            "values": {
-              "kode": "REF-03",
-              "nama_ref": "Kategori Standar 3",
-              "bobot": 500000
-            }
-          }
-        ]
-      }
-    ],
-    "passingScore": 70,
-    "solutionBlueprints": [
-      {
-        "columnLabel": "Target Answer",
-        "formula": "=C2-D2",
-        "explanation": "Menghitung nilai selisih antara Parameter 1 dan Parameter 2"
-      },
-      {
-        "columnLabel": "Status Verifikasi",
-        "formula": "=IF(E2>=500000, \"LULUS\", \"TIDAK LULUS\")",
-        "explanation": "Menguji kondisi kelayakan batas nilai 500.000"
-      }
-    ]
-  },
-  {
-    "id": "EX-017",
-    "number": 17,
-    "code": "#SBEM016",
-    "title": "Pembuatan Email Korporat Otomatis (CONCAT & LOWER)",
-    "category": "Teks",
-    "difficulty": "MENENGAH",
-    "difficultyStars": 3,
-    "tags": [
-      "IT",
-      "Otomasi",
-      "Cek Otomatis",
-      "Spreadsheet Kasus"
-    ],
-    "instructions": {
-      "title": "MENENGAH Level - Pembuatan Email Korporat Otomatis (CONCAT & LOWER)",
-      "description": "Selesaikan lembar kerja kasus Pembuatan Email Korporat Otomatis (CONCAT & LOWER). Buka sheet utama untuk mengisi formula target sesuai data acuan pada sheet referensi.",
-      "points": [
-        "1. Periksa sheet \"Data Master\" untuk melihat tabel acuan harga/kategori/nama.",
-        "2. Tulis rumus Excel dinamis pada kolom target (Answer) di sheet \"XL-Test\".",
-        "3. Gunakan formula yang dapat diterapkan ke seluruh baris data.",
-        "4. Klik tombol \"Cek Hasil Jawaban\" di pojok kanan atas untuk mengevaluasi kelulusan."
-      ],
-      "helperTable": {
-        "title": "Bantuan Referensi Standar",
-        "headers": [
-          "Kategori Data",
-          "Formula Saran"
-        ],
-        "rows": [
-          [
-            "Pencarian Rujukan",
-            "VLOOKUP / XLOOKUP / INDEX-MATCH"
-          ],
-          [
-            "Kondisi & Logika",
-            "IF / IFS"
-          ],
-          [
-            "Perhitungan Angka",
-            "Operator Aritmatika / SUMIF / PMT"
-          ]
-        ]
-      },
-      "notice": "Dilarang mengubah tabel acuan. Tulis formula langsung pada tabel pengerjaan yang tersedia."
-    },
-    "sheets": [
-      {
-        "id": "sheet_main",
-        "name": "XL-Test",
-        "columns": [
-          {
-            "key": "no",
-            "label": "No",
-            "letter": "A"
-          },
-          {
-            "key": "item",
-            "label": "Item / Subjek",
-            "letter": "B"
-          },
-          {
-            "key": "param1",
-            "label": "Parameter 1",
-            "letter": "C"
-          },
-          {
-            "key": "param2",
-            "label": "Parameter 2",
-            "letter": "D"
-          },
-          {
-            "key": "target_val",
-            "label": "Target Answer (Formula)",
-            "letter": "E"
-          },
-          {
-            "key": "status",
-            "label": "Status Verifikasi",
-            "letter": "F"
-          }
-        ],
-        "rows": [
-          {
-            "rowNumber": 2,
-            "values": {
-              "no": 1,
-              "item": "Kasus Uji Alpha",
-              "param1": 5000000,
-              "param2": 3500000,
-              "target_val": "?",
-              "status": "?"
-            }
-          },
-          {
-            "rowNumber": 3,
-            "values": {
-              "no": 2,
-              "item": "Kasus Uji Beta",
-              "param1": 8500000,
-              "param2": 7200000,
-              "target_val": "?",
-              "status": "?"
-            }
-          },
-          {
-            "rowNumber": 4,
-            "values": {
-              "no": 3,
-              "item": "Kasus Uji Gamma",
-              "param1": 6000000,
-              "param2": 5500000,
-              "target_val": "?",
-              "status": "?"
-            }
-          },
-          {
-            "rowNumber": 5,
-            "values": {
-              "no": 4,
-              "item": "Kasus Uji Delta",
-              "param1": 3000000,
-              "param2": 2400000,
-              "target_val": "?",
-              "status": "?"
-            }
-          },
-          {
-            "rowNumber": 6,
-            "values": {
-              "no": 5,
-              "item": "Kasus Uji Epsilon",
-              "param1": 2500000,
-              "param2": 2100000,
-              "target_val": "?",
-              "status": "?"
-            }
-          }
-        ],
-        "targetColumns": [
-          {
-            "key": "target_val",
-            "letter": "E",
-            "label": "Target Answer",
-            "description": "Kalkulasi selisih / rujukan: =C2-D2",
-            "expectedRowAnswers": {
-              "2": 1500000,
-              "3": 1300000,
-              "4": 500000,
-              "5": 600000,
-              "6": 400000
-            }
-          },
-          {
-            "key": "status",
-            "letter": "F",
-            "label": "Status Verifikasi",
-            "description": "Jika target >= 500000 LULUS: =IF(E2>=500000, \"LULUS\", \"TIDAK LULUS\")",
-            "expectedRowAnswers": {
-              "2": "LULUS",
-              "3": "LULUS",
-              "4": "LULUS",
-              "5": "LULUS",
-              "6": "TIDAK LULUS"
-            }
-          }
-        ]
-      },
-      {
-        "id": "sheet_master",
-        "name": "Data Master",
-        "columns": [
-          {
-            "key": "kode",
-            "label": "Kode Referensi",
-            "letter": "A"
-          },
-          {
-            "key": "nama_ref",
-            "label": "Nama Rujukan",
-            "letter": "B"
-          },
-          {
-            "key": "bobot",
-            "label": "Bobot Standar",
-            "letter": "C"
-          }
-        ],
-        "rows": [
-          {
-            "rowNumber": 2,
-            "values": {
-              "kode": "REF-01",
-              "nama_ref": "Kategori Standar 1",
-              "bobot": 1500000
-            }
-          },
-          {
-            "rowNumber": 3,
-            "values": {
-              "kode": "REF-02",
-              "nama_ref": "Kategori Standar 2",
-              "bobot": 1300000
-            }
-          },
-          {
-            "rowNumber": 4,
-            "values": {
-              "kode": "REF-03",
-              "nama_ref": "Kategori Standar 3",
-              "bobot": 500000
-            }
-          }
-        ]
-      }
-    ],
-    "passingScore": 70,
-    "solutionBlueprints": [
-      {
-        "columnLabel": "Target Answer",
-        "formula": "=C2-D2",
-        "explanation": "Menghitung nilai selisih antara Parameter 1 dan Parameter 2"
-      },
-      {
-        "columnLabel": "Status Verifikasi",
-        "formula": "=IF(E2>=500000, \"LULUS\", \"TIDAK LULUS\")",
-        "explanation": "Menguji kondisi kelayakan batas nilai 500.000"
-      }
-    ]
-  },
-  {
-    "id": "EX-018",
-    "number": 18,
-    "code": "#SBEM017",
-    "title": "Pembersihan Spasi Ganda Data Customer (TRIM & LEN)",
-    "category": "Teks",
-    "difficulty": "MENENGAH",
-    "difficultyStars": 3,
-    "tags": [
-      "Data Cleansing",
-      "Cek Otomatis",
-      "Spreadsheet Kasus"
-    ],
-    "instructions": {
-      "title": "MENENGAH Level - Pembersihan Spasi Ganda Data Customer (TRIM & LEN)",
-      "description": "Selesaikan lembar kerja kasus Pembersihan Spasi Ganda Data Customer (TRIM & LEN). Buka sheet utama untuk mengisi formula target sesuai data acuan pada sheet referensi.",
-      "points": [
-        "1. Periksa sheet \"Data Master\" untuk melihat tabel acuan harga/kategori/nama.",
-        "2. Tulis rumus Excel dinamis pada kolom target (Answer) di sheet \"XL-Test\".",
-        "3. Gunakan formula yang dapat diterapkan ke seluruh baris data.",
-        "4. Klik tombol \"Cek Hasil Jawaban\" di pojok kanan atas untuk mengevaluasi kelulusan."
-      ],
-      "helperTable": {
-        "title": "Bantuan Referensi Standar",
-        "headers": [
-          "Kategori Data",
-          "Formula Saran"
-        ],
-        "rows": [
-          [
-            "Pencarian Rujukan",
-            "VLOOKUP / XLOOKUP / INDEX-MATCH"
-          ],
-          [
-            "Kondisi & Logika",
-            "IF / IFS"
-          ],
-          [
-            "Perhitungan Angka",
-            "Operator Aritmatika / SUMIF / PMT"
-          ]
-        ]
-      },
-      "notice": "Dilarang mengubah tabel acuan. Tulis formula langsung pada tabel pengerjaan yang tersedia."
-    },
-    "sheets": [
-      {
-        "id": "sheet_main",
-        "name": "XL-Test",
-        "columns": [
-          {
-            "key": "no",
-            "label": "No",
-            "letter": "A"
-          },
-          {
-            "key": "item",
-            "label": "Item / Subjek",
-            "letter": "B"
-          },
-          {
-            "key": "param1",
-            "label": "Parameter 1",
-            "letter": "C"
-          },
-          {
-            "key": "param2",
-            "label": "Parameter 2",
-            "letter": "D"
-          },
-          {
-            "key": "target_val",
-            "label": "Target Answer (Formula)",
-            "letter": "E"
-          },
-          {
-            "key": "status",
-            "label": "Status Verifikasi",
-            "letter": "F"
-          }
-        ],
-        "rows": [
-          {
-            "rowNumber": 2,
-            "values": {
-              "no": 1,
-              "item": "Kasus Uji Alpha",
-              "param1": 5000000,
-              "param2": 3500000,
-              "target_val": "?",
-              "status": "?"
-            }
-          },
-          {
-            "rowNumber": 3,
-            "values": {
-              "no": 2,
-              "item": "Kasus Uji Beta",
-              "param1": 8500000,
-              "param2": 7200000,
-              "target_val": "?",
-              "status": "?"
-            }
-          },
-          {
-            "rowNumber": 4,
-            "values": {
-              "no": 3,
-              "item": "Kasus Uji Gamma",
-              "param1": 6000000,
-              "param2": 5500000,
-              "target_val": "?",
-              "status": "?"
-            }
-          },
-          {
-            "rowNumber": 5,
-            "values": {
-              "no": 4,
-              "item": "Kasus Uji Delta",
-              "param1": 3000000,
-              "param2": 2400000,
-              "target_val": "?",
-              "status": "?"
-            }
-          },
-          {
-            "rowNumber": 6,
-            "values": {
-              "no": 5,
-              "item": "Kasus Uji Epsilon",
-              "param1": 2500000,
-              "param2": 2100000,
-              "target_val": "?",
-              "status": "?"
-            }
-          }
-        ],
-        "targetColumns": [
-          {
-            "key": "target_val",
-            "letter": "E",
-            "label": "Target Answer",
-            "description": "Kalkulasi selisih / rujukan: =C2-D2",
-            "expectedRowAnswers": {
-              "2": 1500000,
-              "3": 1300000,
-              "4": 500000,
-              "5": 600000,
-              "6": 400000
-            }
-          },
-          {
-            "key": "status",
-            "letter": "F",
-            "label": "Status Verifikasi",
-            "description": "Jika target >= 500000 LULUS: =IF(E2>=500000, \"LULUS\", \"TIDAK LULUS\")",
-            "expectedRowAnswers": {
-              "2": "LULUS",
-              "3": "LULUS",
-              "4": "LULUS",
-              "5": "LULUS",
-              "6": "TIDAK LULUS"
-            }
-          }
-        ]
-      },
-      {
-        "id": "sheet_master",
-        "name": "Data Master",
-        "columns": [
-          {
-            "key": "kode",
-            "label": "Kode Referensi",
-            "letter": "A"
-          },
-          {
-            "key": "nama_ref",
-            "label": "Nama Rujukan",
-            "letter": "B"
-          },
-          {
-            "key": "bobot",
-            "label": "Bobot Standar",
-            "letter": "C"
-          }
-        ],
-        "rows": [
-          {
-            "rowNumber": 2,
-            "values": {
-              "kode": "REF-01",
-              "nama_ref": "Kategori Standar 1",
-              "bobot": 1500000
-            }
-          },
-          {
-            "rowNumber": 3,
-            "values": {
-              "kode": "REF-02",
-              "nama_ref": "Kategori Standar 2",
-              "bobot": 1300000
-            }
-          },
-          {
-            "rowNumber": 4,
-            "values": {
-              "kode": "REF-03",
-              "nama_ref": "Kategori Standar 3",
-              "bobot": 500000
-            }
-          }
-        ]
-      }
-    ],
-    "passingScore": 70,
-    "solutionBlueprints": [
-      {
-        "columnLabel": "Target Answer",
-        "formula": "=C2-D2",
-        "explanation": "Menghitung nilai selisih antara Parameter 1 dan Parameter 2"
-      },
-      {
-        "columnLabel": "Status Verifikasi",
-        "formula": "=IF(E2>=500000, \"LULUS\", \"TIDAK LULUS\")",
-        "explanation": "Menguji kondisi kelayakan batas nilai 500.000"
-      }
-    ]
-  },
-  {
-    "id": "EX-019",
-    "number": 19,
-    "code": "#SBEM018",
-    "title": "Latihan Soal Excel Master DATEDIF Masa Kerja",
-    "category": "Keuangan",
-    "difficulty": "MENENGAH",
-    "difficultyStars": 3,
-    "tags": [
-      "HRD",
-      "DATEDIF",
-      "Cek Otomatis",
-      "Spreadsheet Kasus"
-    ],
-    "instructions": {
-      "title": "MENENGAH Level - Latihan Soal Excel Master DATEDIF Masa Kerja",
-      "description": "Selesaikan lembar kerja kasus Latihan Soal Excel Master DATEDIF Masa Kerja. Buka sheet utama untuk mengisi formula target sesuai data acuan pada sheet referensi.",
-      "points": [
-        "1. Periksa sheet \"Data Master\" untuk melihat tabel acuan harga/kategori/nama.",
-        "2. Tulis rumus Excel dinamis pada kolom target (Answer) di sheet \"XL-Test\".",
-        "3. Gunakan formula yang dapat diterapkan ke seluruh baris data.",
-        "4. Klik tombol \"Cek Hasil Jawaban\" di pojok kanan atas untuk mengevaluasi kelulusan."
-      ],
-      "helperTable": {
-        "title": "Bantuan Referensi Standar",
-        "headers": [
-          "Kategori Data",
-          "Formula Saran"
-        ],
-        "rows": [
-          [
-            "Pencarian Rujukan",
-            "VLOOKUP / XLOOKUP / INDEX-MATCH"
-          ],
-          [
-            "Kondisi & Logika",
-            "IF / IFS"
-          ],
-          [
-            "Perhitungan Angka",
-            "Operator Aritmatika / SUMIF / PMT"
-          ]
-        ]
-      },
-      "notice": "Dilarang mengubah tabel acuan. Tulis formula langsung pada tabel pengerjaan yang tersedia."
-    },
-    "sheets": [
-      {
-        "id": "sheet_main",
-        "name": "XL-Test",
-        "columns": [
-          {
-            "key": "no",
-            "label": "No",
-            "letter": "A"
-          },
-          {
-            "key": "item",
-            "label": "Item / Subjek",
-            "letter": "B"
-          },
-          {
-            "key": "param1",
-            "label": "Parameter 1",
-            "letter": "C"
-          },
-          {
-            "key": "param2",
-            "label": "Parameter 2",
-            "letter": "D"
-          },
-          {
-            "key": "target_val",
-            "label": "Target Answer (Formula)",
-            "letter": "E"
-          },
-          {
-            "key": "status",
-            "label": "Status Verifikasi",
-            "letter": "F"
-          }
-        ],
-        "rows": [
-          {
-            "rowNumber": 2,
-            "values": {
-              "no": 1,
-              "item": "Kasus Uji Alpha",
-              "param1": 5000000,
-              "param2": 3500000,
-              "target_val": "?",
-              "status": "?"
-            }
-          },
-          {
-            "rowNumber": 3,
-            "values": {
-              "no": 2,
-              "item": "Kasus Uji Beta",
-              "param1": 8500000,
-              "param2": 7200000,
-              "target_val": "?",
-              "status": "?"
-            }
-          },
-          {
-            "rowNumber": 4,
-            "values": {
-              "no": 3,
-              "item": "Kasus Uji Gamma",
-              "param1": 6000000,
-              "param2": 5500000,
-              "target_val": "?",
-              "status": "?"
-            }
-          },
-          {
-            "rowNumber": 5,
-            "values": {
-              "no": 4,
-              "item": "Kasus Uji Delta",
-              "param1": 3000000,
-              "param2": 2400000,
-              "target_val": "?",
-              "status": "?"
-            }
-          },
-          {
-            "rowNumber": 6,
-            "values": {
-              "no": 5,
-              "item": "Kasus Uji Epsilon",
-              "param1": 2500000,
-              "param2": 2100000,
-              "target_val": "?",
-              "status": "?"
-            }
-          }
-        ],
-        "targetColumns": [
-          {
-            "key": "target_val",
-            "letter": "E",
-            "label": "Target Answer",
-            "description": "Kalkulasi selisih / rujukan: =C2-D2",
-            "expectedRowAnswers": {
-              "2": 1500000,
-              "3": 1300000,
-              "4": 500000,
-              "5": 600000,
-              "6": 400000
-            }
-          },
-          {
-            "key": "status",
-            "letter": "F",
-            "label": "Status Verifikasi",
-            "description": "Jika target >= 500000 LULUS: =IF(E2>=500000, \"LULUS\", \"TIDAK LULUS\")",
-            "expectedRowAnswers": {
-              "2": "LULUS",
-              "3": "LULUS",
-              "4": "LULUS",
-              "5": "LULUS",
-              "6": "TIDAK LULUS"
-            }
-          }
-        ]
-      },
-      {
-        "id": "sheet_master",
-        "name": "Data Master",
-        "columns": [
-          {
-            "key": "kode",
-            "label": "Kode Referensi",
-            "letter": "A"
-          },
-          {
-            "key": "nama_ref",
-            "label": "Nama Rujukan",
-            "letter": "B"
-          },
-          {
-            "key": "bobot",
-            "label": "Bobot Standar",
-            "letter": "C"
-          }
-        ],
-        "rows": [
-          {
-            "rowNumber": 2,
-            "values": {
-              "kode": "REF-01",
-              "nama_ref": "Kategori Standar 1",
-              "bobot": 1500000
-            }
-          },
-          {
-            "rowNumber": 3,
-            "values": {
-              "kode": "REF-02",
-              "nama_ref": "Kategori Standar 2",
-              "bobot": 1300000
-            }
-          },
-          {
-            "rowNumber": 4,
-            "values": {
-              "kode": "REF-03",
-              "nama_ref": "Kategori Standar 3",
-              "bobot": 500000
-            }
-          }
-        ]
-      }
-    ],
-    "passingScore": 70,
-    "solutionBlueprints": [
-      {
-        "columnLabel": "Target Answer",
-        "formula": "=C2-D2",
-        "explanation": "Menghitung nilai selisih antara Parameter 1 dan Parameter 2"
-      },
-      {
-        "columnLabel": "Status Verifikasi",
-        "formula": "=IF(E2>=500000, \"LULUS\", \"TIDAK LULUS\")",
-        "explanation": "Menguji kondisi kelayakan batas nilai 500.000"
-      }
-    ]
-  },
-  {
-    "id": "EX-020",
-    "number": 20,
-    "code": "#SBEM019",
-    "title": "Penentuan Status Kelulusan Ujian Sertifikasi (IF)",
-    "category": "Logika",
-    "difficulty": "MENENGAH",
-    "difficultyStars": 3,
-    "tags": [
-      "Akademik",
-      "IF",
-      "Cek Otomatis",
-      "Spreadsheet Kasus"
-    ],
-    "instructions": {
-      "title": "MENENGAH Level - Penentuan Status Kelulusan Ujian Sertifikasi (IF)",
-      "description": "Selesaikan lembar kerja kasus Penentuan Status Kelulusan Ujian Sertifikasi (IF). Buka sheet utama untuk mengisi formula target sesuai data acuan pada sheet referensi.",
-      "points": [
-        "1. Periksa sheet \"Data Master\" untuk melihat tabel acuan harga/kategori/nama.",
-        "2. Tulis rumus Excel dinamis pada kolom target (Answer) di sheet \"XL-Test\".",
-        "3. Gunakan formula yang dapat diterapkan ke seluruh baris data.",
-        "4. Klik tombol \"Cek Hasil Jawaban\" di pojok kanan atas untuk mengevaluasi kelulusan."
-      ],
-      "helperTable": {
-        "title": "Bantuan Referensi Standar",
-        "headers": [
-          "Kategori Data",
-          "Formula Saran"
-        ],
-        "rows": [
-          [
-            "Pencarian Rujukan",
-            "VLOOKUP / XLOOKUP / INDEX-MATCH"
-          ],
-          [
-            "Kondisi & Logika",
-            "IF / IFS"
-          ],
-          [
-            "Perhitungan Angka",
-            "Operator Aritmatika / SUMIF / PMT"
-          ]
-        ]
-      },
-      "notice": "Dilarang mengubah tabel acuan. Tulis formula langsung pada tabel pengerjaan yang tersedia."
-    },
-    "sheets": [
-      {
-        "id": "sheet_main",
-        "name": "XL-Test",
-        "columns": [
-          {
-            "key": "no",
-            "label": "No",
-            "letter": "A"
-          },
-          {
-            "key": "item",
-            "label": "Item / Subjek",
-            "letter": "B"
-          },
-          {
-            "key": "param1",
-            "label": "Parameter 1",
-            "letter": "C"
-          },
-          {
-            "key": "param2",
-            "label": "Parameter 2",
-            "letter": "D"
-          },
-          {
-            "key": "target_val",
-            "label": "Target Answer (Formula)",
-            "letter": "E"
-          },
-          {
-            "key": "status",
-            "label": "Status Verifikasi",
-            "letter": "F"
-          }
-        ],
-        "rows": [
-          {
-            "rowNumber": 2,
-            "values": {
-              "no": 1,
-              "item": "Kasus Uji Alpha",
-              "param1": 5000000,
-              "param2": 3500000,
-              "target_val": "?",
-              "status": "?"
-            }
-          },
-          {
-            "rowNumber": 3,
-            "values": {
-              "no": 2,
-              "item": "Kasus Uji Beta",
-              "param1": 8500000,
-              "param2": 7200000,
-              "target_val": "?",
-              "status": "?"
-            }
-          },
-          {
-            "rowNumber": 4,
-            "values": {
-              "no": 3,
-              "item": "Kasus Uji Gamma",
-              "param1": 6000000,
-              "param2": 5500000,
-              "target_val": "?",
-              "status": "?"
-            }
-          },
-          {
-            "rowNumber": 5,
-            "values": {
-              "no": 4,
-              "item": "Kasus Uji Delta",
-              "param1": 3000000,
-              "param2": 2400000,
-              "target_val": "?",
-              "status": "?"
-            }
-          },
-          {
-            "rowNumber": 6,
-            "values": {
-              "no": 5,
-              "item": "Kasus Uji Epsilon",
-              "param1": 2500000,
-              "param2": 2100000,
-              "target_val": "?",
-              "status": "?"
-            }
-          }
-        ],
-        "targetColumns": [
-          {
-            "key": "target_val",
-            "letter": "E",
-            "label": "Target Answer",
-            "description": "Kalkulasi selisih / rujukan: =C2-D2",
-            "expectedRowAnswers": {
-              "2": 1500000,
-              "3": 1300000,
-              "4": 500000,
-              "5": 600000,
-              "6": 400000
-            }
-          },
-          {
-            "key": "status",
-            "letter": "F",
-            "label": "Status Verifikasi",
-            "description": "Jika target >= 500000 LULUS: =IF(E2>=500000, \"LULUS\", \"TIDAK LULUS\")",
-            "expectedRowAnswers": {
-              "2": "LULUS",
-              "3": "LULUS",
-              "4": "LULUS",
-              "5": "LULUS",
-              "6": "TIDAK LULUS"
-            }
-          }
-        ]
-      },
-      {
-        "id": "sheet_master",
-        "name": "Data Master",
-        "columns": [
-          {
-            "key": "kode",
-            "label": "Kode Referensi",
-            "letter": "A"
-          },
-          {
-            "key": "nama_ref",
-            "label": "Nama Rujukan",
-            "letter": "B"
-          },
-          {
-            "key": "bobot",
-            "label": "Bobot Standar",
-            "letter": "C"
-          }
-        ],
-        "rows": [
-          {
-            "rowNumber": 2,
-            "values": {
-              "kode": "REF-01",
-              "nama_ref": "Kategori Standar 1",
-              "bobot": 1500000
-            }
-          },
-          {
-            "rowNumber": 3,
-            "values": {
-              "kode": "REF-02",
-              "nama_ref": "Kategori Standar 2",
-              "bobot": 1300000
-            }
-          },
-          {
-            "rowNumber": 4,
-            "values": {
-              "kode": "REF-03",
-              "nama_ref": "Kategori Standar 3",
-              "bobot": 500000
-            }
-          }
-        ]
-      }
-    ],
-    "passingScore": 70,
-    "solutionBlueprints": [
-      {
-        "columnLabel": "Target Answer",
-        "formula": "=C2-D2",
-        "explanation": "Menghitung nilai selisih antara Parameter 1 dan Parameter 2"
-      },
-      {
-        "columnLabel": "Status Verifikasi",
-        "formula": "=IF(E2>=500000, \"LULUS\", \"TIDAK LULUS\")",
-        "explanation": "Menguji kondisi kelayakan batas nilai 500.000"
-      }
-    ]
-  },
-  {
-    "id": "EX-021",
-    "number": 21,
-    "code": "#SBEM020",
-    "title": "Pemberian Bonus Target Bulanan Tim Marketing (IF)",
-    "category": "Logika",
-    "difficulty": "MENENGAH",
-    "difficultyStars": 3,
-    "tags": [
-      "Marketing",
-      "Bonus",
-      "Cek Otomatis",
-      "Spreadsheet Kasus"
-    ],
-    "instructions": {
-      "title": "MENENGAH Level - Pemberian Bonus Target Bulanan Tim Marketing (IF)",
-      "description": "Selesaikan lembar kerja kasus Pemberian Bonus Target Bulanan Tim Marketing (IF). Buka sheet utama untuk mengisi formula target sesuai data acuan pada sheet referensi.",
-      "points": [
-        "1. Periksa sheet \"Data Master\" untuk melihat tabel acuan harga/kategori/nama.",
-        "2. Tulis rumus Excel dinamis pada kolom target (Answer) di sheet \"XL-Test\".",
-        "3. Gunakan formula yang dapat diterapkan ke seluruh baris data.",
-        "4. Klik tombol \"Cek Hasil Jawaban\" di pojok kanan atas untuk mengevaluasi kelulusan."
-      ],
-      "helperTable": {
-        "title": "Bantuan Referensi Standar",
-        "headers": [
-          "Kategori Data",
-          "Formula Saran"
-        ],
-        "rows": [
-          [
-            "Pencarian Rujukan",
-            "VLOOKUP / XLOOKUP / INDEX-MATCH"
-          ],
-          [
-            "Kondisi & Logika",
-            "IF / IFS"
-          ],
-          [
-            "Perhitungan Angka",
-            "Operator Aritmatika / SUMIF / PMT"
-          ]
-        ]
-      },
-      "notice": "Dilarang mengubah tabel acuan. Tulis formula langsung pada tabel pengerjaan yang tersedia."
-    },
-    "sheets": [
-      {
-        "id": "sheet_main",
-        "name": "XL-Test",
-        "columns": [
-          {
-            "key": "no",
-            "label": "No",
-            "letter": "A"
-          },
-          {
-            "key": "item",
-            "label": "Item / Subjek",
-            "letter": "B"
-          },
-          {
-            "key": "param1",
-            "label": "Parameter 1",
-            "letter": "C"
-          },
-          {
-            "key": "param2",
-            "label": "Parameter 2",
-            "letter": "D"
-          },
-          {
-            "key": "target_val",
-            "label": "Target Answer (Formula)",
-            "letter": "E"
-          },
-          {
-            "key": "status",
-            "label": "Status Verifikasi",
-            "letter": "F"
-          }
-        ],
-        "rows": [
-          {
-            "rowNumber": 2,
-            "values": {
-              "no": 1,
-              "item": "Kasus Uji Alpha",
-              "param1": 5000000,
-              "param2": 3500000,
-              "target_val": "?",
-              "status": "?"
-            }
-          },
-          {
-            "rowNumber": 3,
-            "values": {
-              "no": 2,
-              "item": "Kasus Uji Beta",
-              "param1": 8500000,
-              "param2": 7200000,
-              "target_val": "?",
-              "status": "?"
-            }
-          },
-          {
-            "rowNumber": 4,
-            "values": {
-              "no": 3,
-              "item": "Kasus Uji Gamma",
-              "param1": 6000000,
-              "param2": 5500000,
-              "target_val": "?",
-              "status": "?"
-            }
-          },
-          {
-            "rowNumber": 5,
-            "values": {
-              "no": 4,
-              "item": "Kasus Uji Delta",
-              "param1": 3000000,
-              "param2": 2400000,
-              "target_val": "?",
-              "status": "?"
-            }
-          },
-          {
-            "rowNumber": 6,
-            "values": {
-              "no": 5,
-              "item": "Kasus Uji Epsilon",
-              "param1": 2500000,
-              "param2": 2100000,
-              "target_val": "?",
-              "status": "?"
-            }
-          }
-        ],
-        "targetColumns": [
-          {
-            "key": "target_val",
-            "letter": "E",
-            "label": "Target Answer",
-            "description": "Kalkulasi selisih / rujukan: =C2-D2",
-            "expectedRowAnswers": {
-              "2": 1500000,
-              "3": 1300000,
-              "4": 500000,
-              "5": 600000,
-              "6": 400000
-            }
-          },
-          {
-            "key": "status",
-            "letter": "F",
-            "label": "Status Verifikasi",
-            "description": "Jika target >= 500000 LULUS: =IF(E2>=500000, \"LULUS\", \"TIDAK LULUS\")",
-            "expectedRowAnswers": {
-              "2": "LULUS",
-              "3": "LULUS",
-              "4": "LULUS",
-              "5": "LULUS",
-              "6": "TIDAK LULUS"
-            }
-          }
-        ]
-      },
-      {
-        "id": "sheet_master",
-        "name": "Data Master",
-        "columns": [
-          {
-            "key": "kode",
-            "label": "Kode Referensi",
-            "letter": "A"
-          },
-          {
-            "key": "nama_ref",
-            "label": "Nama Rujukan",
-            "letter": "B"
-          },
-          {
-            "key": "bobot",
-            "label": "Bobot Standar",
-            "letter": "C"
-          }
-        ],
-        "rows": [
-          {
-            "rowNumber": 2,
-            "values": {
-              "kode": "REF-01",
-              "nama_ref": "Kategori Standar 1",
-              "bobot": 1500000
-            }
-          },
-          {
-            "rowNumber": 3,
-            "values": {
-              "kode": "REF-02",
-              "nama_ref": "Kategori Standar 2",
-              "bobot": 1300000
-            }
-          },
-          {
-            "rowNumber": 4,
-            "values": {
-              "kode": "REF-03",
-              "nama_ref": "Kategori Standar 3",
-              "bobot": 500000
-            }
-          }
-        ]
-      }
-    ],
-    "passingScore": 70,
-    "solutionBlueprints": [
-      {
-        "columnLabel": "Target Answer",
-        "formula": "=C2-D2",
-        "explanation": "Menghitung nilai selisih antara Parameter 1 dan Parameter 2"
-      },
-      {
-        "columnLabel": "Status Verifikasi",
-        "formula": "=IF(E2>=500000, \"LULUS\", \"TIDAK LULUS\")",
-        "explanation": "Menguji kondisi kelayakan batas nilai 500.000"
-      }
-    ]
-  },
-  {
-    "id": "EX-022",
-    "number": 22,
-    "code": "#SBEM021",
-    "title": "Validasi Batas Kredit Pelanggan Toko",
-    "category": "Logika",
-    "difficulty": "MENENGAH",
-    "difficultyStars": 3,
-    "tags": [
-      "Finance",
-      "Logika",
-      "Cek Otomatis",
-      "Spreadsheet Kasus"
-    ],
-    "instructions": {
-      "title": "MENENGAH Level - Validasi Batas Kredit Pelanggan Toko",
-      "description": "Selesaikan lembar kerja kasus Validasi Batas Kredit Pelanggan Toko. Buka sheet utama untuk mengisi formula target sesuai data acuan pada sheet referensi.",
-      "points": [
-        "1. Periksa sheet \"Data Master\" untuk melihat tabel acuan harga/kategori/nama.",
-        "2. Tulis rumus Excel dinamis pada kolom target (Answer) di sheet \"XL-Test\".",
-        "3. Gunakan formula yang dapat diterapkan ke seluruh baris data.",
-        "4. Klik tombol \"Cek Hasil Jawaban\" di pojok kanan atas untuk mengevaluasi kelulusan."
-      ],
-      "helperTable": {
-        "title": "Bantuan Referensi Standar",
-        "headers": [
-          "Kategori Data",
-          "Formula Saran"
-        ],
-        "rows": [
-          [
-            "Pencarian Rujukan",
-            "VLOOKUP / XLOOKUP / INDEX-MATCH"
-          ],
-          [
-            "Kondisi & Logika",
-            "IF / IFS"
-          ],
-          [
-            "Perhitungan Angka",
-            "Operator Aritmatika / SUMIF / PMT"
-          ]
-        ]
-      },
-      "notice": "Dilarang mengubah tabel acuan. Tulis formula langsung pada tabel pengerjaan yang tersedia."
-    },
-    "sheets": [
-      {
-        "id": "sheet_main",
-        "name": "XL-Test",
-        "columns": [
-          {
-            "key": "no",
-            "label": "No",
-            "letter": "A"
-          },
-          {
-            "key": "item",
-            "label": "Item / Subjek",
-            "letter": "B"
-          },
-          {
-            "key": "param1",
-            "label": "Parameter 1",
-            "letter": "C"
-          },
-          {
-            "key": "param2",
-            "label": "Parameter 2",
-            "letter": "D"
-          },
-          {
-            "key": "target_val",
-            "label": "Target Answer (Formula)",
-            "letter": "E"
-          },
-          {
-            "key": "status",
-            "label": "Status Verifikasi",
-            "letter": "F"
-          }
-        ],
-        "rows": [
-          {
-            "rowNumber": 2,
-            "values": {
-              "no": 1,
-              "item": "Kasus Uji Alpha",
-              "param1": 5000000,
-              "param2": 3500000,
-              "target_val": "?",
-              "status": "?"
-            }
-          },
-          {
-            "rowNumber": 3,
-            "values": {
-              "no": 2,
-              "item": "Kasus Uji Beta",
-              "param1": 8500000,
-              "param2": 7200000,
-              "target_val": "?",
-              "status": "?"
-            }
-          },
-          {
-            "rowNumber": 4,
-            "values": {
-              "no": 3,
-              "item": "Kasus Uji Gamma",
-              "param1": 6000000,
-              "param2": 5500000,
-              "target_val": "?",
-              "status": "?"
-            }
-          },
-          {
-            "rowNumber": 5,
-            "values": {
-              "no": 4,
-              "item": "Kasus Uji Delta",
-              "param1": 3000000,
-              "param2": 2400000,
-              "target_val": "?",
-              "status": "?"
-            }
-          },
-          {
-            "rowNumber": 6,
-            "values": {
-              "no": 5,
-              "item": "Kasus Uji Epsilon",
-              "param1": 2500000,
-              "param2": 2100000,
-              "target_val": "?",
-              "status": "?"
-            }
-          }
-        ],
-        "targetColumns": [
-          {
-            "key": "target_val",
-            "letter": "E",
-            "label": "Target Answer",
-            "description": "Kalkulasi selisih / rujukan: =C2-D2",
-            "expectedRowAnswers": {
-              "2": 1500000,
-              "3": 1300000,
-              "4": 500000,
-              "5": 600000,
-              "6": 400000
-            }
-          },
-          {
-            "key": "status",
-            "letter": "F",
-            "label": "Status Verifikasi",
-            "description": "Jika target >= 500000 LULUS: =IF(E2>=500000, \"LULUS\", \"TIDAK LULUS\")",
-            "expectedRowAnswers": {
-              "2": "LULUS",
-              "3": "LULUS",
-              "4": "LULUS",
-              "5": "LULUS",
-              "6": "TIDAK LULUS"
-            }
-          }
-        ]
-      },
-      {
-        "id": "sheet_master",
-        "name": "Data Master",
-        "columns": [
-          {
-            "key": "kode",
-            "label": "Kode Referensi",
-            "letter": "A"
-          },
-          {
-            "key": "nama_ref",
-            "label": "Nama Rujukan",
-            "letter": "B"
-          },
-          {
-            "key": "bobot",
-            "label": "Bobot Standar",
-            "letter": "C"
-          }
-        ],
-        "rows": [
-          {
-            "rowNumber": 2,
-            "values": {
-              "kode": "REF-01",
-              "nama_ref": "Kategori Standar 1",
-              "bobot": 1500000
-            }
-          },
-          {
-            "rowNumber": 3,
-            "values": {
-              "kode": "REF-02",
-              "nama_ref": "Kategori Standar 2",
-              "bobot": 1300000
-            }
-          },
-          {
-            "rowNumber": 4,
-            "values": {
-              "kode": "REF-03",
-              "nama_ref": "Kategori Standar 3",
-              "bobot": 500000
-            }
-          }
-        ]
-      }
-    ],
-    "passingScore": 70,
-    "solutionBlueprints": [
-      {
-        "columnLabel": "Target Answer",
-        "formula": "=C2-D2",
-        "explanation": "Menghitung nilai selisih antara Parameter 1 dan Parameter 2"
-      },
-      {
-        "columnLabel": "Status Verifikasi",
-        "formula": "=IF(E2>=500000, \"LULUS\", \"TIDAK LULUS\")",
-        "explanation": "Menguji kondisi kelayakan batas nilai 500.000"
-      }
-    ]
-  },
-  {
-    "id": "EX-023",
-    "number": 23,
-    "code": "#SBEM022",
-    "title": "Pencarian Tarif Kamar Hotel Berdasarkan Tipe (VLOOKUP)",
-    "category": "Lookup",
-    "difficulty": "MENENGAH",
-    "difficultyStars": 3,
-    "tags": [
-      "Perhotelan",
-      "VLOOKUP",
-      "Cek Otomatis",
-      "Spreadsheet Kasus"
-    ],
-    "instructions": {
-      "title": "MENENGAH Level - Pencarian Tarif Kamar Hotel Berdasarkan Tipe (VLOOKUP)",
-      "description": "Selesaikan lembar kerja kasus Pencarian Tarif Kamar Hotel Berdasarkan Tipe (VLOOKUP). Buka sheet utama untuk mengisi formula target sesuai data acuan pada sheet referensi.",
-      "points": [
-        "1. Periksa sheet \"Data Master\" untuk melihat tabel acuan harga/kategori/nama.",
-        "2. Tulis rumus Excel dinamis pada kolom target (Answer) di sheet \"XL-Test\".",
-        "3. Gunakan formula yang dapat diterapkan ke seluruh baris data.",
-        "4. Klik tombol \"Cek Hasil Jawaban\" di pojok kanan atas untuk mengevaluasi kelulusan."
-      ],
-      "helperTable": {
-        "title": "Bantuan Referensi Standar",
-        "headers": [
-          "Kategori Data",
-          "Formula Saran"
-        ],
-        "rows": [
-          [
-            "Pencarian Rujukan",
-            "VLOOKUP / XLOOKUP / INDEX-MATCH"
-          ],
-          [
-            "Kondisi & Logika",
-            "IF / IFS"
-          ],
-          [
-            "Perhitungan Angka",
-            "Operator Aritmatika / SUMIF / PMT"
-          ]
-        ]
-      },
-      "notice": "Dilarang mengubah tabel acuan. Tulis formula langsung pada tabel pengerjaan yang tersedia."
-    },
-    "sheets": [
-      {
-        "id": "sheet_main",
-        "name": "XL-Test",
-        "columns": [
-          {
-            "key": "no",
-            "label": "No",
-            "letter": "A"
-          },
-          {
-            "key": "item",
-            "label": "Item / Subjek",
-            "letter": "B"
-          },
-          {
-            "key": "param1",
-            "label": "Parameter 1",
-            "letter": "C"
-          },
-          {
-            "key": "param2",
-            "label": "Parameter 2",
-            "letter": "D"
-          },
-          {
-            "key": "target_val",
-            "label": "Target Answer (Formula)",
-            "letter": "E"
-          },
-          {
-            "key": "status",
-            "label": "Status Verifikasi",
-            "letter": "F"
-          }
-        ],
-        "rows": [
-          {
-            "rowNumber": 2,
-            "values": {
-              "no": 1,
-              "item": "Kasus Uji Alpha",
-              "param1": 5000000,
-              "param2": 3500000,
-              "target_val": "?",
-              "status": "?"
-            }
-          },
-          {
-            "rowNumber": 3,
-            "values": {
-              "no": 2,
-              "item": "Kasus Uji Beta",
-              "param1": 8500000,
-              "param2": 7200000,
-              "target_val": "?",
-              "status": "?"
-            }
-          },
-          {
-            "rowNumber": 4,
-            "values": {
-              "no": 3,
-              "item": "Kasus Uji Gamma",
-              "param1": 6000000,
-              "param2": 5500000,
-              "target_val": "?",
-              "status": "?"
-            }
-          },
-          {
-            "rowNumber": 5,
-            "values": {
-              "no": 4,
-              "item": "Kasus Uji Delta",
-              "param1": 3000000,
-              "param2": 2400000,
-              "target_val": "?",
-              "status": "?"
-            }
-          },
-          {
-            "rowNumber": 6,
-            "values": {
-              "no": 5,
-              "item": "Kasus Uji Epsilon",
-              "param1": 2500000,
-              "param2": 2100000,
-              "target_val": "?",
-              "status": "?"
-            }
-          }
-        ],
-        "targetColumns": [
-          {
-            "key": "target_val",
-            "letter": "E",
-            "label": "Target Answer",
-            "description": "Kalkulasi selisih / rujukan: =C2-D2",
-            "expectedRowAnswers": {
-              "2": 1500000,
-              "3": 1300000,
-              "4": 500000,
-              "5": 600000,
-              "6": 400000
-            }
-          },
-          {
-            "key": "status",
-            "letter": "F",
-            "label": "Status Verifikasi",
-            "description": "Jika target >= 500000 LULUS: =IF(E2>=500000, \"LULUS\", \"TIDAK LULUS\")",
-            "expectedRowAnswers": {
-              "2": "LULUS",
-              "3": "LULUS",
-              "4": "LULUS",
-              "5": "LULUS",
-              "6": "TIDAK LULUS"
-            }
-          }
-        ]
-      },
-      {
-        "id": "sheet_master",
-        "name": "Data Master",
-        "columns": [
-          {
-            "key": "kode",
-            "label": "Kode Referensi",
-            "letter": "A"
-          },
-          {
-            "key": "nama_ref",
-            "label": "Nama Rujukan",
-            "letter": "B"
-          },
-          {
-            "key": "bobot",
-            "label": "Bobot Standar",
-            "letter": "C"
-          }
-        ],
-        "rows": [
-          {
-            "rowNumber": 2,
-            "values": {
-              "kode": "REF-01",
-              "nama_ref": "Kategori Standar 1",
-              "bobot": 1500000
-            }
-          },
-          {
-            "rowNumber": 3,
-            "values": {
-              "kode": "REF-02",
-              "nama_ref": "Kategori Standar 2",
-              "bobot": 1300000
-            }
-          },
-          {
-            "rowNumber": 4,
-            "values": {
-              "kode": "REF-03",
-              "nama_ref": "Kategori Standar 3",
-              "bobot": 500000
-            }
-          }
-        ]
-      }
-    ],
-    "passingScore": 70,
-    "solutionBlueprints": [
-      {
-        "columnLabel": "Target Answer",
-        "formula": "=C2-D2",
-        "explanation": "Menghitung nilai selisih antara Parameter 1 dan Parameter 2"
-      },
-      {
-        "columnLabel": "Status Verifikasi",
-        "formula": "=IF(E2>=500000, \"LULUS\", \"TIDAK LULUS\")",
-        "explanation": "Menguji kondisi kelayakan batas nilai 500.000"
-      }
-    ]
-  },
-  {
-    "id": "EX-024",
-    "number": 24,
-    "code": "#SBEM023",
-    "title": "Master Daftar Harga Barang Sembako (VLOOKUP)",
-    "category": "Lookup",
-    "difficulty": "MENENGAH",
-    "difficultyStars": 3,
-    "tags": [
-      "Retail",
-      "Lookup",
-      "Cek Otomatis",
-      "Spreadsheet Kasus"
-    ],
-    "instructions": {
-      "title": "MENENGAH Level - Master Daftar Harga Barang Sembako (VLOOKUP)",
-      "description": "Selesaikan lembar kerja kasus Master Daftar Harga Barang Sembako (VLOOKUP). Buka sheet utama untuk mengisi formula target sesuai data acuan pada sheet referensi.",
-      "points": [
-        "1. Periksa sheet \"Data Master\" untuk melihat tabel acuan harga/kategori/nama.",
-        "2. Tulis rumus Excel dinamis pada kolom target (Answer) di sheet \"XL-Test\".",
-        "3. Gunakan formula yang dapat diterapkan ke seluruh baris data.",
-        "4. Klik tombol \"Cek Hasil Jawaban\" di pojok kanan atas untuk mengevaluasi kelulusan."
-      ],
-      "helperTable": {
-        "title": "Bantuan Referensi Standar",
-        "headers": [
-          "Kategori Data",
-          "Formula Saran"
-        ],
-        "rows": [
-          [
-            "Pencarian Rujukan",
-            "VLOOKUP / XLOOKUP / INDEX-MATCH"
-          ],
-          [
-            "Kondisi & Logika",
-            "IF / IFS"
-          ],
-          [
-            "Perhitungan Angka",
-            "Operator Aritmatika / SUMIF / PMT"
-          ]
-        ]
-      },
-      "notice": "Dilarang mengubah tabel acuan. Tulis formula langsung pada tabel pengerjaan yang tersedia."
-    },
-    "sheets": [
-      {
-        "id": "sheet_main",
-        "name": "XL-Test",
-        "columns": [
-          {
-            "key": "no",
-            "label": "No",
-            "letter": "A"
-          },
-          {
-            "key": "item",
-            "label": "Item / Subjek",
-            "letter": "B"
-          },
-          {
-            "key": "param1",
-            "label": "Parameter 1",
-            "letter": "C"
-          },
-          {
-            "key": "param2",
-            "label": "Parameter 2",
-            "letter": "D"
-          },
-          {
-            "key": "target_val",
-            "label": "Target Answer (Formula)",
-            "letter": "E"
-          },
-          {
-            "key": "status",
-            "label": "Status Verifikasi",
-            "letter": "F"
-          }
-        ],
-        "rows": [
-          {
-            "rowNumber": 2,
-            "values": {
-              "no": 1,
-              "item": "Kasus Uji Alpha",
-              "param1": 5000000,
-              "param2": 3500000,
-              "target_val": "?",
-              "status": "?"
-            }
-          },
-          {
-            "rowNumber": 3,
-            "values": {
-              "no": 2,
-              "item": "Kasus Uji Beta",
-              "param1": 8500000,
-              "param2": 7200000,
-              "target_val": "?",
-              "status": "?"
-            }
-          },
-          {
-            "rowNumber": 4,
-            "values": {
-              "no": 3,
-              "item": "Kasus Uji Gamma",
-              "param1": 6000000,
-              "param2": 5500000,
-              "target_val": "?",
-              "status": "?"
-            }
-          },
-          {
-            "rowNumber": 5,
-            "values": {
-              "no": 4,
-              "item": "Kasus Uji Delta",
-              "param1": 3000000,
-              "param2": 2400000,
-              "target_val": "?",
-              "status": "?"
-            }
-          },
-          {
-            "rowNumber": 6,
-            "values": {
-              "no": 5,
-              "item": "Kasus Uji Epsilon",
-              "param1": 2500000,
-              "param2": 2100000,
-              "target_val": "?",
-              "status": "?"
-            }
-          }
-        ],
-        "targetColumns": [
-          {
-            "key": "target_val",
-            "letter": "E",
-            "label": "Target Answer",
-            "description": "Kalkulasi selisih / rujukan: =C2-D2",
-            "expectedRowAnswers": {
-              "2": 1500000,
-              "3": 1300000,
-              "4": 500000,
-              "5": 600000,
-              "6": 400000
-            }
-          },
-          {
-            "key": "status",
-            "letter": "F",
-            "label": "Status Verifikasi",
-            "description": "Jika target >= 500000 LULUS: =IF(E2>=500000, \"LULUS\", \"TIDAK LULUS\")",
-            "expectedRowAnswers": {
-              "2": "LULUS",
-              "3": "LULUS",
-              "4": "LULUS",
-              "5": "LULUS",
-              "6": "TIDAK LULUS"
-            }
-          }
-        ]
-      },
-      {
-        "id": "sheet_master",
-        "name": "Data Master",
-        "columns": [
-          {
-            "key": "kode",
-            "label": "Kode Referensi",
-            "letter": "A"
-          },
-          {
-            "key": "nama_ref",
-            "label": "Nama Rujukan",
-            "letter": "B"
-          },
-          {
-            "key": "bobot",
-            "label": "Bobot Standar",
-            "letter": "C"
-          }
-        ],
-        "rows": [
-          {
-            "rowNumber": 2,
-            "values": {
-              "kode": "REF-01",
-              "nama_ref": "Kategori Standar 1",
-              "bobot": 1500000
-            }
-          },
-          {
-            "rowNumber": 3,
-            "values": {
-              "kode": "REF-02",
-              "nama_ref": "Kategori Standar 2",
-              "bobot": 1300000
-            }
-          },
-          {
-            "rowNumber": 4,
-            "values": {
-              "kode": "REF-03",
-              "nama_ref": "Kategori Standar 3",
-              "bobot": 500000
-            }
-          }
-        ]
-      }
-    ],
-    "passingScore": 70,
-    "solutionBlueprints": [
-      {
-        "columnLabel": "Target Answer",
-        "formula": "=C2-D2",
-        "explanation": "Menghitung nilai selisih antara Parameter 1 dan Parameter 2"
-      },
-      {
-        "columnLabel": "Status Verifikasi",
-        "formula": "=IF(E2>=500000, \"LULUS\", \"TIDAK LULUS\")",
-        "explanation": "Menguji kondisi kelayakan batas nilai 500.000"
-      }
-    ]
-  },
-  {
-    "id": "EX-025",
-    "number": 25,
-    "code": "#SBEM024",
-    "title": "Pencarian Data Pasien Rumah Sakit (XLOOKUP)",
-    "category": "Lookup",
-    "difficulty": "MENENGAH",
-    "difficultyStars": 3,
-    "tags": [
-      "Kesehatan",
-      "XLOOKUP",
-      "Cek Otomatis",
-      "Spreadsheet Kasus"
-    ],
-    "instructions": {
-      "title": "MENENGAH Level - Pencarian Data Pasien Rumah Sakit (XLOOKUP)",
-      "description": "Selesaikan lembar kerja kasus Pencarian Data Pasien Rumah Sakit (XLOOKUP). Buka sheet utama untuk mengisi formula target sesuai data acuan pada sheet referensi.",
-      "points": [
-        "1. Periksa sheet \"Data Master\" untuk melihat tabel acuan harga/kategori/nama.",
-        "2. Tulis rumus Excel dinamis pada kolom target (Answer) di sheet \"XL-Test\".",
-        "3. Gunakan formula yang dapat diterapkan ke seluruh baris data.",
-        "4. Klik tombol \"Cek Hasil Jawaban\" di pojok kanan atas untuk mengevaluasi kelulusan."
-      ],
-      "helperTable": {
-        "title": "Bantuan Referensi Standar",
-        "headers": [
-          "Kategori Data",
-          "Formula Saran"
-        ],
-        "rows": [
-          [
-            "Pencarian Rujukan",
-            "VLOOKUP / XLOOKUP / INDEX-MATCH"
-          ],
-          [
-            "Kondisi & Logika",
-            "IF / IFS"
-          ],
-          [
-            "Perhitungan Angka",
-            "Operator Aritmatika / SUMIF / PMT"
-          ]
-        ]
-      },
-      "notice": "Dilarang mengubah tabel acuan. Tulis formula langsung pada tabel pengerjaan yang tersedia."
-    },
-    "sheets": [
-      {
-        "id": "sheet_main",
-        "name": "XL-Test",
-        "columns": [
-          {
-            "key": "no",
-            "label": "No",
-            "letter": "A"
-          },
-          {
-            "key": "item",
-            "label": "Item / Subjek",
-            "letter": "B"
-          },
-          {
-            "key": "param1",
-            "label": "Parameter 1",
-            "letter": "C"
-          },
-          {
-            "key": "param2",
-            "label": "Parameter 2",
-            "letter": "D"
-          },
-          {
-            "key": "target_val",
-            "label": "Target Answer (Formula)",
-            "letter": "E"
-          },
-          {
-            "key": "status",
-            "label": "Status Verifikasi",
-            "letter": "F"
-          }
-        ],
-        "rows": [
-          {
-            "rowNumber": 2,
-            "values": {
-              "no": 1,
-              "item": "Kasus Uji Alpha",
-              "param1": 5000000,
-              "param2": 3500000,
-              "target_val": "?",
-              "status": "?"
-            }
-          },
-          {
-            "rowNumber": 3,
-            "values": {
-              "no": 2,
-              "item": "Kasus Uji Beta",
-              "param1": 8500000,
-              "param2": 7200000,
-              "target_val": "?",
-              "status": "?"
-            }
-          },
-          {
-            "rowNumber": 4,
-            "values": {
-              "no": 3,
-              "item": "Kasus Uji Gamma",
-              "param1": 6000000,
-              "param2": 5500000,
-              "target_val": "?",
-              "status": "?"
-            }
-          },
-          {
-            "rowNumber": 5,
-            "values": {
-              "no": 4,
-              "item": "Kasus Uji Delta",
-              "param1": 3000000,
-              "param2": 2400000,
-              "target_val": "?",
-              "status": "?"
-            }
-          },
-          {
-            "rowNumber": 6,
-            "values": {
-              "no": 5,
-              "item": "Kasus Uji Epsilon",
-              "param1": 2500000,
-              "param2": 2100000,
-              "target_val": "?",
-              "status": "?"
-            }
-          }
-        ],
-        "targetColumns": [
-          {
-            "key": "target_val",
-            "letter": "E",
-            "label": "Target Answer",
-            "description": "Kalkulasi selisih / rujukan: =C2-D2",
-            "expectedRowAnswers": {
-              "2": 1500000,
-              "3": 1300000,
-              "4": 500000,
-              "5": 600000,
-              "6": 400000
-            }
-          },
-          {
-            "key": "status",
-            "letter": "F",
-            "label": "Status Verifikasi",
-            "description": "Jika target >= 500000 LULUS: =IF(E2>=500000, \"LULUS\", \"TIDAK LULUS\")",
-            "expectedRowAnswers": {
-              "2": "LULUS",
-              "3": "LULUS",
-              "4": "LULUS",
-              "5": "LULUS",
-              "6": "TIDAK LULUS"
-            }
-          }
-        ]
-      },
-      {
-        "id": "sheet_master",
-        "name": "Data Master",
-        "columns": [
-          {
-            "key": "kode",
-            "label": "Kode Referensi",
-            "letter": "A"
-          },
-          {
-            "key": "nama_ref",
-            "label": "Nama Rujukan",
-            "letter": "B"
-          },
-          {
-            "key": "bobot",
-            "label": "Bobot Standar",
-            "letter": "C"
-          }
-        ],
-        "rows": [
-          {
-            "rowNumber": 2,
-            "values": {
-              "kode": "REF-01",
-              "nama_ref": "Kategori Standar 1",
-              "bobot": 1500000
-            }
-          },
-          {
-            "rowNumber": 3,
-            "values": {
-              "kode": "REF-02",
-              "nama_ref": "Kategori Standar 2",
-              "bobot": 1300000
-            }
-          },
-          {
-            "rowNumber": 4,
-            "values": {
-              "kode": "REF-03",
-              "nama_ref": "Kategori Standar 3",
-              "bobot": 500000
-            }
-          }
-        ]
-      }
-    ],
-    "passingScore": 70,
-    "solutionBlueprints": [
-      {
-        "columnLabel": "Target Answer",
-        "formula": "=C2-D2",
-        "explanation": "Menghitung nilai selisih antara Parameter 1 dan Parameter 2"
-      },
-      {
-        "columnLabel": "Status Verifikasi",
-        "formula": "=IF(E2>=500000, \"LULUS\", \"TIDAK LULUS\")",
-        "explanation": "Menguji kondisi kelayakan batas nilai 500.000"
-      }
-    ]
-  },
-  {
-    "id": "EX-026",
-    "number": 26,
-    "code": "#SBEM025",
-    "title": "Analisis Ranking Penjual Terbaik Toko Online (LARGE/RANK)",
-    "category": "Statistik",
-    "difficulty": "MENENGAH",
-    "difficultyStars": 3,
-    "tags": [
-      "E-Commerce",
-      "Cek Otomatis",
-      "Spreadsheet Kasus"
-    ],
-    "instructions": {
-      "title": "MENENGAH Level - Analisis Ranking Penjual Terbaik Toko Online (LARGE/RANK)",
-      "description": "Selesaikan lembar kerja kasus Analisis Ranking Penjual Terbaik Toko Online (LARGE/RANK). Buka sheet utama untuk mengisi formula target sesuai data acuan pada sheet referensi.",
-      "points": [
-        "1. Periksa sheet \"Data Master\" untuk melihat tabel acuan harga/kategori/nama.",
-        "2. Tulis rumus Excel dinamis pada kolom target (Answer) di sheet \"XL-Test\".",
-        "3. Gunakan formula yang dapat diterapkan ke seluruh baris data.",
-        "4. Klik tombol \"Cek Hasil Jawaban\" di pojok kanan atas untuk mengevaluasi kelulusan."
-      ],
-      "helperTable": {
-        "title": "Bantuan Referensi Standar",
-        "headers": [
-          "Kategori Data",
-          "Formula Saran"
-        ],
-        "rows": [
-          [
-            "Pencarian Rujukan",
-            "VLOOKUP / XLOOKUP / INDEX-MATCH"
-          ],
-          [
-            "Kondisi & Logika",
-            "IF / IFS"
-          ],
-          [
-            "Perhitungan Angka",
-            "Operator Aritmatika / SUMIF / PMT"
-          ]
-        ]
-      },
-      "notice": "Dilarang mengubah tabel acuan. Tulis formula langsung pada tabel pengerjaan yang tersedia."
-    },
-    "sheets": [
-      {
-        "id": "sheet_main",
-        "name": "XL-Test",
-        "columns": [
-          {
-            "key": "no",
-            "label": "No",
-            "letter": "A"
-          },
-          {
-            "key": "item",
-            "label": "Item / Subjek",
-            "letter": "B"
-          },
-          {
-            "key": "param1",
-            "label": "Parameter 1",
-            "letter": "C"
-          },
-          {
-            "key": "param2",
-            "label": "Parameter 2",
-            "letter": "D"
-          },
-          {
-            "key": "target_val",
-            "label": "Target Answer (Formula)",
-            "letter": "E"
-          },
-          {
-            "key": "status",
-            "label": "Status Verifikasi",
-            "letter": "F"
-          }
-        ],
-        "rows": [
-          {
-            "rowNumber": 2,
-            "values": {
-              "no": 1,
-              "item": "Kasus Uji Alpha",
-              "param1": 5000000,
-              "param2": 3500000,
-              "target_val": "?",
-              "status": "?"
-            }
-          },
-          {
-            "rowNumber": 3,
-            "values": {
-              "no": 2,
-              "item": "Kasus Uji Beta",
-              "param1": 8500000,
-              "param2": 7200000,
-              "target_val": "?",
-              "status": "?"
-            }
-          },
-          {
-            "rowNumber": 4,
-            "values": {
-              "no": 3,
-              "item": "Kasus Uji Gamma",
-              "param1": 6000000,
-              "param2": 5500000,
-              "target_val": "?",
-              "status": "?"
-            }
-          },
-          {
-            "rowNumber": 5,
-            "values": {
-              "no": 4,
-              "item": "Kasus Uji Delta",
-              "param1": 3000000,
-              "param2": 2400000,
-              "target_val": "?",
-              "status": "?"
-            }
-          },
-          {
-            "rowNumber": 6,
-            "values": {
-              "no": 5,
-              "item": "Kasus Uji Epsilon",
-              "param1": 2500000,
-              "param2": 2100000,
-              "target_val": "?",
-              "status": "?"
-            }
-          }
-        ],
-        "targetColumns": [
-          {
-            "key": "target_val",
-            "letter": "E",
-            "label": "Target Answer",
-            "description": "Kalkulasi selisih / rujukan: =C2-D2",
-            "expectedRowAnswers": {
-              "2": 1500000,
-              "3": 1300000,
-              "4": 500000,
-              "5": 600000,
-              "6": 400000
-            }
-          },
-          {
-            "key": "status",
-            "letter": "F",
-            "label": "Status Verifikasi",
-            "description": "Jika target >= 500000 LULUS: =IF(E2>=500000, \"LULUS\", \"TIDAK LULUS\")",
-            "expectedRowAnswers": {
-              "2": "LULUS",
-              "3": "LULUS",
-              "4": "LULUS",
-              "5": "LULUS",
-              "6": "TIDAK LULUS"
-            }
-          }
-        ]
-      },
-      {
-        "id": "sheet_master",
-        "name": "Data Master",
-        "columns": [
-          {
-            "key": "kode",
-            "label": "Kode Referensi",
-            "letter": "A"
-          },
-          {
-            "key": "nama_ref",
-            "label": "Nama Rujukan",
-            "letter": "B"
-          },
-          {
-            "key": "bobot",
-            "label": "Bobot Standar",
-            "letter": "C"
-          }
-        ],
-        "rows": [
-          {
-            "rowNumber": 2,
-            "values": {
-              "kode": "REF-01",
-              "nama_ref": "Kategori Standar 1",
-              "bobot": 1500000
-            }
-          },
-          {
-            "rowNumber": 3,
-            "values": {
-              "kode": "REF-02",
-              "nama_ref": "Kategori Standar 2",
-              "bobot": 1300000
-            }
-          },
-          {
-            "rowNumber": 4,
-            "values": {
-              "kode": "REF-03",
-              "nama_ref": "Kategori Standar 3",
-              "bobot": 500000
-            }
-          }
-        ]
-      }
-    ],
-    "passingScore": 70,
-    "solutionBlueprints": [
-      {
-        "columnLabel": "Target Answer",
-        "formula": "=C2-D2",
-        "explanation": "Menghitung nilai selisih antara Parameter 1 dan Parameter 2"
-      },
-      {
-        "columnLabel": "Status Verifikasi",
-        "formula": "=IF(E2>=500000, \"LULUS\", \"TIDAK LULUS\")",
-        "explanation": "Menguji kondisi kelayakan batas nilai 500.000"
-      }
-    ]
-  },
-  {
-    "id": "EX-027",
-    "number": 27,
-    "code": "#SBEH026",
-    "title": "Penetapan Grade Nilai Siswa A/B/C/D (IFS Bertingkat)",
-    "category": "Logika",
-    "difficulty": "MAHIR",
-    "difficultyStars": 3,
-    "tags": [
-      "Pendidikan",
-      "IFS",
-      "Cek Otomatis",
-      "Spreadsheet Kasus"
-    ],
-    "instructions": {
-      "title": "MAHIR Level - Penetapan Grade Nilai Siswa A/B/C/D (IFS Bertingkat)",
-      "description": "Selesaikan lembar kerja kasus Penetapan Grade Nilai Siswa A/B/C/D (IFS Bertingkat). Buka sheet utama untuk mengisi formula target sesuai data acuan pada sheet referensi.",
-      "points": [
-        "1. Periksa sheet \"Data Master\" untuk melihat tabel acuan harga/kategori/nama.",
-        "2. Tulis rumus Excel dinamis pada kolom target (Answer) di sheet \"XL-Test\".",
-        "3. Gunakan formula yang dapat diterapkan ke seluruh baris data.",
-        "4. Klik tombol \"Cek Hasil Jawaban\" di pojok kanan atas untuk mengevaluasi kelulusan."
-      ],
-      "helperTable": {
-        "title": "Bantuan Referensi Standar",
-        "headers": [
-          "Kategori Data",
-          "Formula Saran"
-        ],
-        "rows": [
-          [
-            "Pencarian Rujukan",
-            "VLOOKUP / XLOOKUP / INDEX-MATCH"
-          ],
-          [
-            "Kondisi & Logika",
-            "IF / IFS"
-          ],
-          [
-            "Perhitungan Angka",
-            "Operator Aritmatika / SUMIF / PMT"
-          ]
-        ]
-      },
-      "notice": "Dilarang mengubah tabel acuan. Tulis formula langsung pada tabel pengerjaan yang tersedia."
-    },
-    "sheets": [
-      {
-        "id": "sheet_main",
-        "name": "XL-Test",
-        "columns": [
-          {
-            "key": "no",
-            "label": "No",
-            "letter": "A"
-          },
-          {
-            "key": "item",
-            "label": "Item / Subjek",
-            "letter": "B"
-          },
-          {
-            "key": "param1",
-            "label": "Parameter 1",
-            "letter": "C"
-          },
-          {
-            "key": "param2",
-            "label": "Parameter 2",
-            "letter": "D"
-          },
-          {
-            "key": "target_val",
-            "label": "Target Answer (Formula)",
-            "letter": "E"
-          },
-          {
-            "key": "status",
-            "label": "Status Verifikasi",
-            "letter": "F"
-          }
-        ],
-        "rows": [
-          {
-            "rowNumber": 2,
-            "values": {
-              "no": 1,
-              "item": "Kasus Uji Alpha",
-              "param1": 5000000,
-              "param2": 3500000,
-              "target_val": "?",
-              "status": "?"
-            }
-          },
-          {
-            "rowNumber": 3,
-            "values": {
-              "no": 2,
-              "item": "Kasus Uji Beta",
-              "param1": 8500000,
-              "param2": 7200000,
-              "target_val": "?",
-              "status": "?"
-            }
-          },
-          {
-            "rowNumber": 4,
-            "values": {
-              "no": 3,
-              "item": "Kasus Uji Gamma",
-              "param1": 6000000,
-              "param2": 5500000,
-              "target_val": "?",
-              "status": "?"
-            }
-          },
-          {
-            "rowNumber": 5,
-            "values": {
-              "no": 4,
-              "item": "Kasus Uji Delta",
-              "param1": 3000000,
-              "param2": 2400000,
-              "target_val": "?",
-              "status": "?"
-            }
-          },
-          {
-            "rowNumber": 6,
-            "values": {
-              "no": 5,
-              "item": "Kasus Uji Epsilon",
-              "param1": 2500000,
-              "param2": 2100000,
-              "target_val": "?",
-              "status": "?"
-            }
-          }
-        ],
-        "targetColumns": [
-          {
-            "key": "target_val",
-            "letter": "E",
-            "label": "Target Answer",
-            "description": "Kalkulasi selisih / rujukan: =C2-D2",
-            "expectedRowAnswers": {
-              "2": 1500000,
-              "3": 1300000,
-              "4": 500000,
-              "5": 600000,
-              "6": 400000
-            }
-          },
-          {
-            "key": "status",
-            "letter": "F",
-            "label": "Status Verifikasi",
-            "description": "Jika target >= 500000 LULUS: =IF(E2>=500000, \"LULUS\", \"TIDAK LULUS\")",
-            "expectedRowAnswers": {
-              "2": "LULUS",
-              "3": "LULUS",
-              "4": "LULUS",
-              "5": "LULUS",
-              "6": "TIDAK LULUS"
-            }
-          }
-        ]
-      },
-      {
-        "id": "sheet_master",
-        "name": "Data Master",
-        "columns": [
-          {
-            "key": "kode",
-            "label": "Kode Referensi",
-            "letter": "A"
-          },
-          {
-            "key": "nama_ref",
-            "label": "Nama Rujukan",
-            "letter": "B"
-          },
-          {
-            "key": "bobot",
-            "label": "Bobot Standar",
-            "letter": "C"
-          }
-        ],
-        "rows": [
-          {
-            "rowNumber": 2,
-            "values": {
-              "kode": "REF-01",
-              "nama_ref": "Kategori Standar 1",
-              "bobot": 1500000
-            }
-          },
-          {
-            "rowNumber": 3,
-            "values": {
-              "kode": "REF-02",
-              "nama_ref": "Kategori Standar 2",
-              "bobot": 1300000
-            }
-          },
-          {
-            "rowNumber": 4,
-            "values": {
-              "kode": "REF-03",
-              "nama_ref": "Kategori Standar 3",
-              "bobot": 500000
-            }
-          }
-        ]
-      }
-    ],
-    "passingScore": 70,
-    "solutionBlueprints": [
-      {
-        "columnLabel": "Target Answer",
-        "formula": "=C2-D2",
-        "explanation": "Menghitung nilai selisih antara Parameter 1 dan Parameter 2"
-      },
-      {
-        "columnLabel": "Status Verifikasi",
-        "formula": "=IF(E2>=500000, \"LULUS\", \"TIDAK LULUS\")",
-        "explanation": "Menguji kondisi kelayakan batas nilai 500.000"
-      }
-    ]
-  },
-  {
-    "id": "EX-028",
-    "number": 28,
-    "code": "#SBEH027",
-    "title": "Kalkulasi Tarif Pajak Penghasilan PPh 21 Berjenjang",
-    "category": "Logika",
-    "difficulty": "MAHIR",
-    "difficultyStars": 4,
-    "tags": [
-      "Pajak",
-      "Finance",
-      "Cek Otomatis",
-      "Spreadsheet Kasus"
-    ],
-    "instructions": {
-      "title": "MAHIR Level - Kalkulasi Tarif Pajak Penghasilan PPh 21 Berjenjang",
-      "description": "Selesaikan lembar kerja kasus Kalkulasi Tarif Pajak Penghasilan PPh 21 Berjenjang. Buka sheet utama untuk mengisi formula target sesuai data acuan pada sheet referensi.",
-      "points": [
-        "1. Periksa sheet \"Data Master\" untuk melihat tabel acuan harga/kategori/nama.",
-        "2. Tulis rumus Excel dinamis pada kolom target (Answer) di sheet \"XL-Test\".",
-        "3. Gunakan formula yang dapat diterapkan ke seluruh baris data.",
-        "4. Klik tombol \"Cek Hasil Jawaban\" di pojok kanan atas untuk mengevaluasi kelulusan."
-      ],
-      "helperTable": {
-        "title": "Bantuan Referensi Standar",
-        "headers": [
-          "Kategori Data",
-          "Formula Saran"
-        ],
-        "rows": [
-          [
-            "Pencarian Rujukan",
-            "VLOOKUP / XLOOKUP / INDEX-MATCH"
-          ],
-          [
-            "Kondisi & Logika",
-            "IF / IFS"
-          ],
-          [
-            "Perhitungan Angka",
-            "Operator Aritmatika / SUMIF / PMT"
-          ]
-        ]
-      },
-      "notice": "Dilarang mengubah tabel acuan. Tulis formula langsung pada tabel pengerjaan yang tersedia."
-    },
-    "sheets": [
-      {
-        "id": "sheet_main",
-        "name": "XL-Test",
-        "columns": [
-          {
-            "key": "no",
-            "label": "No",
-            "letter": "A"
-          },
-          {
-            "key": "item",
-            "label": "Item / Subjek",
-            "letter": "B"
-          },
-          {
-            "key": "param1",
-            "label": "Parameter 1",
-            "letter": "C"
-          },
-          {
-            "key": "param2",
-            "label": "Parameter 2",
-            "letter": "D"
-          },
-          {
-            "key": "target_val",
-            "label": "Target Answer (Formula)",
-            "letter": "E"
-          },
-          {
-            "key": "status",
-            "label": "Status Verifikasi",
-            "letter": "F"
-          }
-        ],
-        "rows": [
-          {
-            "rowNumber": 2,
-            "values": {
-              "no": 1,
-              "item": "Kasus Uji Alpha",
-              "param1": 5000000,
-              "param2": 3500000,
-              "target_val": "?",
-              "status": "?"
-            }
-          },
-          {
-            "rowNumber": 3,
-            "values": {
-              "no": 2,
-              "item": "Kasus Uji Beta",
-              "param1": 8500000,
-              "param2": 7200000,
-              "target_val": "?",
-              "status": "?"
-            }
-          },
-          {
-            "rowNumber": 4,
-            "values": {
-              "no": 3,
-              "item": "Kasus Uji Gamma",
-              "param1": 6000000,
-              "param2": 5500000,
-              "target_val": "?",
-              "status": "?"
-            }
-          },
-          {
-            "rowNumber": 5,
-            "values": {
-              "no": 4,
-              "item": "Kasus Uji Delta",
-              "param1": 3000000,
-              "param2": 2400000,
-              "target_val": "?",
-              "status": "?"
-            }
-          },
-          {
-            "rowNumber": 6,
-            "values": {
-              "no": 5,
-              "item": "Kasus Uji Epsilon",
-              "param1": 2500000,
-              "param2": 2100000,
-              "target_val": "?",
-              "status": "?"
-            }
-          }
-        ],
-        "targetColumns": [
-          {
-            "key": "target_val",
-            "letter": "E",
-            "label": "Target Answer",
-            "description": "Kalkulasi selisih / rujukan: =C2-D2",
-            "expectedRowAnswers": {
-              "2": 1500000,
-              "3": 1300000,
-              "4": 500000,
-              "5": 600000,
-              "6": 400000
-            }
-          },
-          {
-            "key": "status",
-            "letter": "F",
-            "label": "Status Verifikasi",
-            "description": "Jika target >= 500000 LULUS: =IF(E2>=500000, \"LULUS\", \"TIDAK LULUS\")",
-            "expectedRowAnswers": {
-              "2": "LULUS",
-              "3": "LULUS",
-              "4": "LULUS",
-              "5": "LULUS",
-              "6": "TIDAK LULUS"
-            }
-          }
-        ]
-      },
-      {
-        "id": "sheet_master",
-        "name": "Data Master",
-        "columns": [
-          {
-            "key": "kode",
-            "label": "Kode Referensi",
-            "letter": "A"
-          },
-          {
-            "key": "nama_ref",
-            "label": "Nama Rujukan",
-            "letter": "B"
-          },
-          {
-            "key": "bobot",
-            "label": "Bobot Standar",
-            "letter": "C"
-          }
-        ],
-        "rows": [
-          {
-            "rowNumber": 2,
-            "values": {
-              "kode": "REF-01",
-              "nama_ref": "Kategori Standar 1",
-              "bobot": 1500000
-            }
-          },
-          {
-            "rowNumber": 3,
-            "values": {
-              "kode": "REF-02",
-              "nama_ref": "Kategori Standar 2",
-              "bobot": 1300000
-            }
-          },
-          {
-            "rowNumber": 4,
-            "values": {
-              "kode": "REF-03",
-              "nama_ref": "Kategori Standar 3",
-              "bobot": 500000
-            }
-          }
-        ]
-      }
-    ],
-    "passingScore": 70,
-    "solutionBlueprints": [
-      {
-        "columnLabel": "Target Answer",
-        "formula": "=C2-D2",
-        "explanation": "Menghitung nilai selisih antara Parameter 1 dan Parameter 2"
-      },
-      {
-        "columnLabel": "Status Verifikasi",
-        "formula": "=IF(E2>=500000, \"LULUS\", \"TIDAK LULUS\")",
-        "explanation": "Menguji kondisi kelayakan batas nilai 500.000"
-      }
-    ]
-  },
-  {
-    "id": "EX-029",
-    "number": 29,
-    "code": "#SBEH028",
-    "title": "Penentuan Diskon Bertingkat Member Platinum/Gold/Silver",
-    "category": "Logika",
-    "difficulty": "MAHIR",
-    "difficultyStars": 4,
-    "tags": [
-      "CRM",
-      "Member",
-      "Cek Otomatis",
-      "Spreadsheet Kasus"
-    ],
-    "instructions": {
-      "title": "MAHIR Level - Penentuan Diskon Bertingkat Member Platinum/Gold/Silver",
-      "description": "Selesaikan lembar kerja kasus Penentuan Diskon Bertingkat Member Platinum/Gold/Silver. Buka sheet utama untuk mengisi formula target sesuai data acuan pada sheet referensi.",
-      "points": [
-        "1. Periksa sheet \"Data Master\" untuk melihat tabel acuan harga/kategori/nama.",
-        "2. Tulis rumus Excel dinamis pada kolom target (Answer) di sheet \"XL-Test\".",
-        "3. Gunakan formula yang dapat diterapkan ke seluruh baris data.",
-        "4. Klik tombol \"Cek Hasil Jawaban\" di pojok kanan atas untuk mengevaluasi kelulusan."
-      ],
-      "helperTable": {
-        "title": "Bantuan Referensi Standar",
-        "headers": [
-          "Kategori Data",
-          "Formula Saran"
-        ],
-        "rows": [
-          [
-            "Pencarian Rujukan",
-            "VLOOKUP / XLOOKUP / INDEX-MATCH"
-          ],
-          [
-            "Kondisi & Logika",
-            "IF / IFS"
-          ],
-          [
-            "Perhitungan Angka",
-            "Operator Aritmatika / SUMIF / PMT"
-          ]
-        ]
-      },
-      "notice": "Dilarang mengubah tabel acuan. Tulis formula langsung pada tabel pengerjaan yang tersedia."
-    },
-    "sheets": [
-      {
-        "id": "sheet_main",
-        "name": "XL-Test",
-        "columns": [
-          {
-            "key": "no",
-            "label": "No",
-            "letter": "A"
-          },
-          {
-            "key": "item",
-            "label": "Item / Subjek",
-            "letter": "B"
-          },
-          {
-            "key": "param1",
-            "label": "Parameter 1",
-            "letter": "C"
-          },
-          {
-            "key": "param2",
-            "label": "Parameter 2",
-            "letter": "D"
-          },
-          {
-            "key": "target_val",
-            "label": "Target Answer (Formula)",
-            "letter": "E"
-          },
-          {
-            "key": "status",
-            "label": "Status Verifikasi",
-            "letter": "F"
-          }
-        ],
-        "rows": [
-          {
-            "rowNumber": 2,
-            "values": {
-              "no": 1,
-              "item": "Kasus Uji Alpha",
-              "param1": 5000000,
-              "param2": 3500000,
-              "target_val": "?",
-              "status": "?"
-            }
-          },
-          {
-            "rowNumber": 3,
-            "values": {
-              "no": 2,
-              "item": "Kasus Uji Beta",
-              "param1": 8500000,
-              "param2": 7200000,
-              "target_val": "?",
-              "status": "?"
-            }
-          },
-          {
-            "rowNumber": 4,
-            "values": {
-              "no": 3,
-              "item": "Kasus Uji Gamma",
-              "param1": 6000000,
-              "param2": 5500000,
-              "target_val": "?",
-              "status": "?"
-            }
-          },
-          {
-            "rowNumber": 5,
-            "values": {
-              "no": 4,
-              "item": "Kasus Uji Delta",
-              "param1": 3000000,
-              "param2": 2400000,
-              "target_val": "?",
-              "status": "?"
-            }
-          },
-          {
-            "rowNumber": 6,
-            "values": {
-              "no": 5,
-              "item": "Kasus Uji Epsilon",
-              "param1": 2500000,
-              "param2": 2100000,
-              "target_val": "?",
-              "status": "?"
-            }
-          }
-        ],
-        "targetColumns": [
-          {
-            "key": "target_val",
-            "letter": "E",
-            "label": "Target Answer",
-            "description": "Kalkulasi selisih / rujukan: =C2-D2",
-            "expectedRowAnswers": {
-              "2": 1500000,
-              "3": 1300000,
-              "4": 500000,
-              "5": 600000,
-              "6": 400000
-            }
-          },
-          {
-            "key": "status",
-            "letter": "F",
-            "label": "Status Verifikasi",
-            "description": "Jika target >= 500000 LULUS: =IF(E2>=500000, \"LULUS\", \"TIDAK LULUS\")",
-            "expectedRowAnswers": {
-              "2": "LULUS",
-              "3": "LULUS",
-              "4": "LULUS",
-              "5": "LULUS",
-              "6": "TIDAK LULUS"
-            }
-          }
-        ]
-      },
-      {
-        "id": "sheet_master",
-        "name": "Data Master",
-        "columns": [
-          {
-            "key": "kode",
-            "label": "Kode Referensi",
-            "letter": "A"
-          },
-          {
-            "key": "nama_ref",
-            "label": "Nama Rujukan",
-            "letter": "B"
-          },
-          {
-            "key": "bobot",
-            "label": "Bobot Standar",
-            "letter": "C"
-          }
-        ],
-        "rows": [
-          {
-            "rowNumber": 2,
-            "values": {
-              "kode": "REF-01",
-              "nama_ref": "Kategori Standar 1",
-              "bobot": 1500000
-            }
-          },
-          {
-            "rowNumber": 3,
-            "values": {
-              "kode": "REF-02",
-              "nama_ref": "Kategori Standar 2",
-              "bobot": 1300000
-            }
-          },
-          {
-            "rowNumber": 4,
-            "values": {
-              "kode": "REF-03",
-              "nama_ref": "Kategori Standar 3",
-              "bobot": 500000
-            }
-          }
-        ]
-      }
-    ],
-    "passingScore": 70,
-    "solutionBlueprints": [
-      {
-        "columnLabel": "Target Answer",
-        "formula": "=C2-D2",
-        "explanation": "Menghitung nilai selisih antara Parameter 1 dan Parameter 2"
-      },
-      {
-        "columnLabel": "Status Verifikasi",
-        "formula": "=IF(E2>=500000, \"LULUS\", \"TIDAK LULUS\")",
-        "explanation": "Menguji kondisi kelayakan batas nilai 500.000"
-      }
-    ]
-  },
-  {
-    "id": "EX-030",
-    "number": 30,
-    "code": "#SBEH029",
-    "title": "Rekap Gaji Pokok & Tunjangan Jabatan (VLOOKUP Akurat)",
-    "category": "Lookup",
-    "difficulty": "MAHIR",
-    "difficultyStars": 4,
-    "tags": [
-      "Payroll",
-      "VLOOKUP",
-      "Cek Otomatis",
-      "Spreadsheet Kasus"
-    ],
-    "instructions": {
-      "title": "MAHIR Level - Rekap Gaji Pokok & Tunjangan Jabatan (VLOOKUP Akurat)",
-      "description": "Selesaikan lembar kerja kasus Rekap Gaji Pokok & Tunjangan Jabatan (VLOOKUP Akurat). Buka sheet utama untuk mengisi formula target sesuai data acuan pada sheet referensi.",
-      "points": [
-        "1. Periksa sheet \"Data Master\" untuk melihat tabel acuan harga/kategori/nama.",
-        "2. Tulis rumus Excel dinamis pada kolom target (Answer) di sheet \"XL-Test\".",
-        "3. Gunakan formula yang dapat diterapkan ke seluruh baris data.",
-        "4. Klik tombol \"Cek Hasil Jawaban\" di pojok kanan atas untuk mengevaluasi kelulusan."
-      ],
-      "helperTable": {
-        "title": "Bantuan Referensi Standar",
-        "headers": [
-          "Kategori Data",
-          "Formula Saran"
-        ],
-        "rows": [
-          [
-            "Pencarian Rujukan",
-            "VLOOKUP / XLOOKUP / INDEX-MATCH"
-          ],
-          [
-            "Kondisi & Logika",
-            "IF / IFS"
-          ],
-          [
-            "Perhitungan Angka",
-            "Operator Aritmatika / SUMIF / PMT"
-          ]
-        ]
-      },
-      "notice": "Dilarang mengubah tabel acuan. Tulis formula langsung pada tabel pengerjaan yang tersedia."
-    },
-    "sheets": [
-      {
-        "id": "sheet_main",
-        "name": "XL-Test",
-        "columns": [
-          {
-            "key": "no",
-            "label": "No",
-            "letter": "A"
-          },
-          {
-            "key": "item",
-            "label": "Item / Subjek",
-            "letter": "B"
-          },
-          {
-            "key": "param1",
-            "label": "Parameter 1",
-            "letter": "C"
-          },
-          {
-            "key": "param2",
-            "label": "Parameter 2",
-            "letter": "D"
-          },
-          {
-            "key": "target_val",
-            "label": "Target Answer (Formula)",
-            "letter": "E"
-          },
-          {
-            "key": "status",
-            "label": "Status Verifikasi",
-            "letter": "F"
-          }
-        ],
-        "rows": [
-          {
-            "rowNumber": 2,
-            "values": {
-              "no": 1,
-              "item": "Kasus Uji Alpha",
-              "param1": 5000000,
-              "param2": 3500000,
-              "target_val": "?",
-              "status": "?"
-            }
-          },
-          {
-            "rowNumber": 3,
-            "values": {
-              "no": 2,
-              "item": "Kasus Uji Beta",
-              "param1": 8500000,
-              "param2": 7200000,
-              "target_val": "?",
-              "status": "?"
-            }
-          },
-          {
-            "rowNumber": 4,
-            "values": {
-              "no": 3,
-              "item": "Kasus Uji Gamma",
-              "param1": 6000000,
-              "param2": 5500000,
-              "target_val": "?",
-              "status": "?"
-            }
-          },
-          {
-            "rowNumber": 5,
-            "values": {
-              "no": 4,
-              "item": "Kasus Uji Delta",
-              "param1": 3000000,
-              "param2": 2400000,
-              "target_val": "?",
-              "status": "?"
-            }
-          },
-          {
-            "rowNumber": 6,
-            "values": {
-              "no": 5,
-              "item": "Kasus Uji Epsilon",
-              "param1": 2500000,
-              "param2": 2100000,
-              "target_val": "?",
-              "status": "?"
-            }
-          }
-        ],
-        "targetColumns": [
-          {
-            "key": "target_val",
-            "letter": "E",
-            "label": "Target Answer",
-            "description": "Kalkulasi selisih / rujukan: =C2-D2",
-            "expectedRowAnswers": {
-              "2": 1500000,
-              "3": 1300000,
-              "4": 500000,
-              "5": 600000,
-              "6": 400000
-            }
-          },
-          {
-            "key": "status",
-            "letter": "F",
-            "label": "Status Verifikasi",
-            "description": "Jika target >= 500000 LULUS: =IF(E2>=500000, \"LULUS\", \"TIDAK LULUS\")",
-            "expectedRowAnswers": {
-              "2": "LULUS",
-              "3": "LULUS",
-              "4": "LULUS",
-              "5": "LULUS",
-              "6": "TIDAK LULUS"
-            }
-          }
-        ]
-      },
-      {
-        "id": "sheet_master",
-        "name": "Data Master",
-        "columns": [
-          {
-            "key": "kode",
-            "label": "Kode Referensi",
-            "letter": "A"
-          },
-          {
-            "key": "nama_ref",
-            "label": "Nama Rujukan",
-            "letter": "B"
-          },
-          {
-            "key": "bobot",
-            "label": "Bobot Standar",
-            "letter": "C"
-          }
-        ],
-        "rows": [
-          {
-            "rowNumber": 2,
-            "values": {
-              "kode": "REF-01",
-              "nama_ref": "Kategori Standar 1",
-              "bobot": 1500000
-            }
-          },
-          {
-            "rowNumber": 3,
-            "values": {
-              "kode": "REF-02",
-              "nama_ref": "Kategori Standar 2",
-              "bobot": 1300000
-            }
-          },
-          {
-            "rowNumber": 4,
-            "values": {
-              "kode": "REF-03",
-              "nama_ref": "Kategori Standar 3",
-              "bobot": 500000
-            }
-          }
-        ]
-      }
-    ],
-    "passingScore": 70,
-    "solutionBlueprints": [
-      {
-        "columnLabel": "Target Answer",
-        "formula": "=C2-D2",
-        "explanation": "Menghitung nilai selisih antara Parameter 1 dan Parameter 2"
-      },
-      {
-        "columnLabel": "Status Verifikasi",
-        "formula": "=IF(E2>=500000, \"LULUS\", \"TIDAK LULUS\")",
-        "explanation": "Menguji kondisi kelayakan batas nilai 500.000"
-      }
-    ]
-  },
-  {
-    "id": "EX-031",
-    "number": 31,
-    "code": "#SBEH030",
-    "title": "Pencarian Gaji Berdasarkan Kode Departemen (XLOOKUP Exact)",
-    "category": "Lookup",
-    "difficulty": "MAHIR",
-    "difficultyStars": 4,
-    "tags": [
-      "HRD",
-      "XLOOKUP",
-      "Cek Otomatis",
-      "Spreadsheet Kasus"
-    ],
-    "instructions": {
-      "title": "MAHIR Level - Pencarian Gaji Berdasarkan Kode Departemen (XLOOKUP Exact)",
-      "description": "Selesaikan lembar kerja kasus Pencarian Gaji Berdasarkan Kode Departemen (XLOOKUP Exact). Buka sheet utama untuk mengisi formula target sesuai data acuan pada sheet referensi.",
-      "points": [
-        "1. Periksa sheet \"Data Master\" untuk melihat tabel acuan harga/kategori/nama.",
-        "2. Tulis rumus Excel dinamis pada kolom target (Answer) di sheet \"XL-Test\".",
-        "3. Gunakan formula yang dapat diterapkan ke seluruh baris data.",
-        "4. Klik tombol \"Cek Hasil Jawaban\" di pojok kanan atas untuk mengevaluasi kelulusan."
-      ],
-      "helperTable": {
-        "title": "Bantuan Referensi Standar",
-        "headers": [
-          "Kategori Data",
-          "Formula Saran"
-        ],
-        "rows": [
-          [
-            "Pencarian Rujukan",
-            "VLOOKUP / XLOOKUP / INDEX-MATCH"
-          ],
-          [
-            "Kondisi & Logika",
-            "IF / IFS"
-          ],
-          [
-            "Perhitungan Angka",
-            "Operator Aritmatika / SUMIF / PMT"
-          ]
-        ]
-      },
-      "notice": "Dilarang mengubah tabel acuan. Tulis formula langsung pada tabel pengerjaan yang tersedia."
-    },
-    "sheets": [
-      {
-        "id": "sheet_main",
-        "name": "XL-Test",
-        "columns": [
-          {
-            "key": "no",
-            "label": "No",
-            "letter": "A"
-          },
-          {
-            "key": "item",
-            "label": "Item / Subjek",
-            "letter": "B"
-          },
-          {
-            "key": "param1",
-            "label": "Parameter 1",
-            "letter": "C"
-          },
-          {
-            "key": "param2",
-            "label": "Parameter 2",
-            "letter": "D"
-          },
-          {
-            "key": "target_val",
-            "label": "Target Answer (Formula)",
-            "letter": "E"
-          },
-          {
-            "key": "status",
-            "label": "Status Verifikasi",
-            "letter": "F"
-          }
-        ],
-        "rows": [
-          {
-            "rowNumber": 2,
-            "values": {
-              "no": 1,
-              "item": "Kasus Uji Alpha",
-              "param1": 5000000,
-              "param2": 3500000,
-              "target_val": "?",
-              "status": "?"
-            }
-          },
-          {
-            "rowNumber": 3,
-            "values": {
-              "no": 2,
-              "item": "Kasus Uji Beta",
-              "param1": 8500000,
-              "param2": 7200000,
-              "target_val": "?",
-              "status": "?"
-            }
-          },
-          {
-            "rowNumber": 4,
-            "values": {
-              "no": 3,
-              "item": "Kasus Uji Gamma",
-              "param1": 6000000,
-              "param2": 5500000,
-              "target_val": "?",
-              "status": "?"
-            }
-          },
-          {
-            "rowNumber": 5,
-            "values": {
-              "no": 4,
-              "item": "Kasus Uji Delta",
-              "param1": 3000000,
-              "param2": 2400000,
-              "target_val": "?",
-              "status": "?"
-            }
-          },
-          {
-            "rowNumber": 6,
-            "values": {
-              "no": 5,
-              "item": "Kasus Uji Epsilon",
-              "param1": 2500000,
-              "param2": 2100000,
-              "target_val": "?",
-              "status": "?"
-            }
-          }
-        ],
-        "targetColumns": [
-          {
-            "key": "target_val",
-            "letter": "E",
-            "label": "Target Answer",
-            "description": "Kalkulasi selisih / rujukan: =C2-D2",
-            "expectedRowAnswers": {
-              "2": 1500000,
-              "3": 1300000,
-              "4": 500000,
-              "5": 600000,
-              "6": 400000
-            }
-          },
-          {
-            "key": "status",
-            "letter": "F",
-            "label": "Status Verifikasi",
-            "description": "Jika target >= 500000 LULUS: =IF(E2>=500000, \"LULUS\", \"TIDAK LULUS\")",
-            "expectedRowAnswers": {
-              "2": "LULUS",
-              "3": "LULUS",
-              "4": "LULUS",
-              "5": "LULUS",
-              "6": "TIDAK LULUS"
-            }
-          }
-        ]
-      },
-      {
-        "id": "sheet_master",
-        "name": "Data Master",
-        "columns": [
-          {
-            "key": "kode",
-            "label": "Kode Referensi",
-            "letter": "A"
-          },
-          {
-            "key": "nama_ref",
-            "label": "Nama Rujukan",
-            "letter": "B"
-          },
-          {
-            "key": "bobot",
-            "label": "Bobot Standar",
-            "letter": "C"
-          }
-        ],
-        "rows": [
-          {
-            "rowNumber": 2,
-            "values": {
-              "kode": "REF-01",
-              "nama_ref": "Kategori Standar 1",
-              "bobot": 1500000
-            }
-          },
-          {
-            "rowNumber": 3,
-            "values": {
-              "kode": "REF-02",
-              "nama_ref": "Kategori Standar 2",
-              "bobot": 1300000
-            }
-          },
-          {
-            "rowNumber": 4,
-            "values": {
-              "kode": "REF-03",
-              "nama_ref": "Kategori Standar 3",
-              "bobot": 500000
-            }
-          }
-        ]
-      }
-    ],
-    "passingScore": 70,
-    "solutionBlueprints": [
-      {
-        "columnLabel": "Target Answer",
-        "formula": "=C2-D2",
-        "explanation": "Menghitung nilai selisih antara Parameter 1 dan Parameter 2"
-      },
-      {
-        "columnLabel": "Status Verifikasi",
-        "formula": "=IF(E2>=500000, \"LULUS\", \"TIDAK LULUS\")",
-        "explanation": "Menguji kondisi kelayakan batas nilai 500.000"
-      }
-    ]
-  },
-  {
-    "id": "EX-032",
-    "number": 32,
-    "code": "#SBEH031",
-    "title": "Pencarian Data Dua Arah Baris & Kolom (INDEX + MATCH)",
-    "category": "Lookup",
-    "difficulty": "MAHIR",
-    "difficultyStars": 4,
-    "tags": [
-      "Matriks",
-      "INDEX",
-      "Cek Otomatis",
-      "Spreadsheet Kasus"
-    ],
-    "instructions": {
-      "title": "MAHIR Level - Pencarian Data Dua Arah Baris & Kolom (INDEX + MATCH)",
-      "description": "Selesaikan lembar kerja kasus Pencarian Data Dua Arah Baris & Kolom (INDEX + MATCH). Buka sheet utama untuk mengisi formula target sesuai data acuan pada sheet referensi.",
-      "points": [
-        "1. Periksa sheet \"Data Master\" untuk melihat tabel acuan harga/kategori/nama.",
-        "2. Tulis rumus Excel dinamis pada kolom target (Answer) di sheet \"XL-Test\".",
-        "3. Gunakan formula yang dapat diterapkan ke seluruh baris data.",
-        "4. Klik tombol \"Cek Hasil Jawaban\" di pojok kanan atas untuk mengevaluasi kelulusan."
-      ],
-      "helperTable": {
-        "title": "Bantuan Referensi Standar",
-        "headers": [
-          "Kategori Data",
-          "Formula Saran"
-        ],
-        "rows": [
-          [
-            "Pencarian Rujukan",
-            "VLOOKUP / XLOOKUP / INDEX-MATCH"
-          ],
-          [
-            "Kondisi & Logika",
-            "IF / IFS"
-          ],
-          [
-            "Perhitungan Angka",
-            "Operator Aritmatika / SUMIF / PMT"
-          ]
-        ]
-      },
-      "notice": "Dilarang mengubah tabel acuan. Tulis formula langsung pada tabel pengerjaan yang tersedia."
-    },
-    "sheets": [
-      {
-        "id": "sheet_main",
-        "name": "XL-Test",
-        "columns": [
-          {
-            "key": "no",
-            "label": "No",
-            "letter": "A"
-          },
-          {
-            "key": "item",
-            "label": "Item / Subjek",
-            "letter": "B"
-          },
-          {
-            "key": "param1",
-            "label": "Parameter 1",
-            "letter": "C"
-          },
-          {
-            "key": "param2",
-            "label": "Parameter 2",
-            "letter": "D"
-          },
-          {
-            "key": "target_val",
-            "label": "Target Answer (Formula)",
-            "letter": "E"
-          },
-          {
-            "key": "status",
-            "label": "Status Verifikasi",
-            "letter": "F"
-          }
-        ],
-        "rows": [
-          {
-            "rowNumber": 2,
-            "values": {
-              "no": 1,
-              "item": "Kasus Uji Alpha",
-              "param1": 5000000,
-              "param2": 3500000,
-              "target_val": "?",
-              "status": "?"
-            }
-          },
-          {
-            "rowNumber": 3,
-            "values": {
-              "no": 2,
-              "item": "Kasus Uji Beta",
-              "param1": 8500000,
-              "param2": 7200000,
-              "target_val": "?",
-              "status": "?"
-            }
-          },
-          {
-            "rowNumber": 4,
-            "values": {
-              "no": 3,
-              "item": "Kasus Uji Gamma",
-              "param1": 6000000,
-              "param2": 5500000,
-              "target_val": "?",
-              "status": "?"
-            }
-          },
-          {
-            "rowNumber": 5,
-            "values": {
-              "no": 4,
-              "item": "Kasus Uji Delta",
-              "param1": 3000000,
-              "param2": 2400000,
-              "target_val": "?",
-              "status": "?"
-            }
-          },
-          {
-            "rowNumber": 6,
-            "values": {
-              "no": 5,
-              "item": "Kasus Uji Epsilon",
-              "param1": 2500000,
-              "param2": 2100000,
-              "target_val": "?",
-              "status": "?"
-            }
-          }
-        ],
-        "targetColumns": [
-          {
-            "key": "target_val",
-            "letter": "E",
-            "label": "Target Answer",
-            "description": "Kalkulasi selisih / rujukan: =C2-D2",
-            "expectedRowAnswers": {
-              "2": 1500000,
-              "3": 1300000,
-              "4": 500000,
-              "5": 600000,
-              "6": 400000
-            }
-          },
-          {
-            "key": "status",
-            "letter": "F",
-            "label": "Status Verifikasi",
-            "description": "Jika target >= 500000 LULUS: =IF(E2>=500000, \"LULUS\", \"TIDAK LULUS\")",
-            "expectedRowAnswers": {
-              "2": "LULUS",
-              "3": "LULUS",
-              "4": "LULUS",
-              "5": "LULUS",
-              "6": "TIDAK LULUS"
-            }
-          }
-        ]
-      },
-      {
-        "id": "sheet_master",
-        "name": "Data Master",
-        "columns": [
-          {
-            "key": "kode",
-            "label": "Kode Referensi",
-            "letter": "A"
-          },
-          {
-            "key": "nama_ref",
-            "label": "Nama Rujukan",
-            "letter": "B"
-          },
-          {
-            "key": "bobot",
-            "label": "Bobot Standar",
-            "letter": "C"
-          }
-        ],
-        "rows": [
-          {
-            "rowNumber": 2,
-            "values": {
-              "kode": "REF-01",
-              "nama_ref": "Kategori Standar 1",
-              "bobot": 1500000
-            }
-          },
-          {
-            "rowNumber": 3,
-            "values": {
-              "kode": "REF-02",
-              "nama_ref": "Kategori Standar 2",
-              "bobot": 1300000
-            }
-          },
-          {
-            "rowNumber": 4,
-            "values": {
-              "kode": "REF-03",
-              "nama_ref": "Kategori Standar 3",
-              "bobot": 500000
-            }
-          }
-        ]
-      }
-    ],
-    "passingScore": 70,
-    "solutionBlueprints": [
-      {
-        "columnLabel": "Target Answer",
-        "formula": "=C2-D2",
-        "explanation": "Menghitung nilai selisih antara Parameter 1 dan Parameter 2"
-      },
-      {
-        "columnLabel": "Status Verifikasi",
-        "formula": "=IF(E2>=500000, \"LULUS\", \"TIDAK LULUS\")",
-        "explanation": "Menguji kondisi kelayakan batas nilai 500.000"
-      }
-    ]
-  },
-  {
-    "id": "EX-033",
-    "number": 33,
-    "code": "#SBEH032",
-    "title": "Rekap Total Penjualan Multi-Kriteria Cabang & Kategori (SUMIFS)",
-    "category": "Statistik",
-    "difficulty": "MAHIR",
-    "difficultyStars": 4,
-    "tags": [
-      "Finance",
-      "SUMIFS",
-      "Cek Otomatis",
-      "Spreadsheet Kasus"
-    ],
-    "instructions": {
-      "title": "MAHIR Level - Rekap Total Penjualan Multi-Kriteria Cabang & Kategori (SUMIFS)",
-      "description": "Selesaikan lembar kerja kasus Rekap Total Penjualan Multi-Kriteria Cabang & Kategori (SUMIFS). Buka sheet utama untuk mengisi formula target sesuai data acuan pada sheet referensi.",
-      "points": [
-        "1. Periksa sheet \"Data Master\" untuk melihat tabel acuan harga/kategori/nama.",
-        "2. Tulis rumus Excel dinamis pada kolom target (Answer) di sheet \"XL-Test\".",
-        "3. Gunakan formula yang dapat diterapkan ke seluruh baris data.",
-        "4. Klik tombol \"Cek Hasil Jawaban\" di pojok kanan atas untuk mengevaluasi kelulusan."
-      ],
-      "helperTable": {
-        "title": "Bantuan Referensi Standar",
-        "headers": [
-          "Kategori Data",
-          "Formula Saran"
-        ],
-        "rows": [
-          [
-            "Pencarian Rujukan",
-            "VLOOKUP / XLOOKUP / INDEX-MATCH"
-          ],
-          [
-            "Kondisi & Logika",
-            "IF / IFS"
-          ],
-          [
-            "Perhitungan Angka",
-            "Operator Aritmatika / SUMIF / PMT"
-          ]
-        ]
-      },
-      "notice": "Dilarang mengubah tabel acuan. Tulis formula langsung pada tabel pengerjaan yang tersedia."
-    },
-    "sheets": [
-      {
-        "id": "sheet_main",
-        "name": "XL-Test",
-        "columns": [
-          {
-            "key": "no",
-            "label": "No",
-            "letter": "A"
-          },
-          {
-            "key": "item",
-            "label": "Item / Subjek",
-            "letter": "B"
-          },
-          {
-            "key": "param1",
-            "label": "Parameter 1",
-            "letter": "C"
-          },
-          {
-            "key": "param2",
-            "label": "Parameter 2",
-            "letter": "D"
-          },
-          {
-            "key": "target_val",
-            "label": "Target Answer (Formula)",
-            "letter": "E"
-          },
-          {
-            "key": "status",
-            "label": "Status Verifikasi",
-            "letter": "F"
-          }
-        ],
-        "rows": [
-          {
-            "rowNumber": 2,
-            "values": {
-              "no": 1,
-              "item": "Kasus Uji Alpha",
-              "param1": 5000000,
-              "param2": 3500000,
-              "target_val": "?",
-              "status": "?"
-            }
-          },
-          {
-            "rowNumber": 3,
-            "values": {
-              "no": 2,
-              "item": "Kasus Uji Beta",
-              "param1": 8500000,
-              "param2": 7200000,
-              "target_val": "?",
-              "status": "?"
-            }
-          },
-          {
-            "rowNumber": 4,
-            "values": {
-              "no": 3,
-              "item": "Kasus Uji Gamma",
-              "param1": 6000000,
-              "param2": 5500000,
-              "target_val": "?",
-              "status": "?"
-            }
-          },
-          {
-            "rowNumber": 5,
-            "values": {
-              "no": 4,
-              "item": "Kasus Uji Delta",
-              "param1": 3000000,
-              "param2": 2400000,
-              "target_val": "?",
-              "status": "?"
-            }
-          },
-          {
-            "rowNumber": 6,
-            "values": {
-              "no": 5,
-              "item": "Kasus Uji Epsilon",
-              "param1": 2500000,
-              "param2": 2100000,
-              "target_val": "?",
-              "status": "?"
-            }
-          }
-        ],
-        "targetColumns": [
-          {
-            "key": "target_val",
-            "letter": "E",
-            "label": "Target Answer",
-            "description": "Kalkulasi selisih / rujukan: =C2-D2",
-            "expectedRowAnswers": {
-              "2": 1500000,
-              "3": 1300000,
-              "4": 500000,
-              "5": 600000,
-              "6": 400000
-            }
-          },
-          {
-            "key": "status",
-            "letter": "F",
-            "label": "Status Verifikasi",
-            "description": "Jika target >= 500000 LULUS: =IF(E2>=500000, \"LULUS\", \"TIDAK LULUS\")",
-            "expectedRowAnswers": {
-              "2": "LULUS",
-              "3": "LULUS",
-              "4": "LULUS",
-              "5": "LULUS",
-              "6": "TIDAK LULUS"
-            }
-          }
-        ]
-      },
-      {
-        "id": "sheet_master",
-        "name": "Data Master",
-        "columns": [
-          {
-            "key": "kode",
-            "label": "Kode Referensi",
-            "letter": "A"
-          },
-          {
-            "key": "nama_ref",
-            "label": "Nama Rujukan",
-            "letter": "B"
-          },
-          {
-            "key": "bobot",
-            "label": "Bobot Standar",
-            "letter": "C"
-          }
-        ],
-        "rows": [
-          {
-            "rowNumber": 2,
-            "values": {
-              "kode": "REF-01",
-              "nama_ref": "Kategori Standar 1",
-              "bobot": 1500000
-            }
-          },
-          {
-            "rowNumber": 3,
-            "values": {
-              "kode": "REF-02",
-              "nama_ref": "Kategori Standar 2",
-              "bobot": 1300000
-            }
-          },
-          {
-            "rowNumber": 4,
-            "values": {
-              "kode": "REF-03",
-              "nama_ref": "Kategori Standar 3",
-              "bobot": 500000
-            }
-          }
-        ]
-      }
-    ],
-    "passingScore": 70,
-    "solutionBlueprints": [
-      {
-        "columnLabel": "Target Answer",
-        "formula": "=C2-D2",
-        "explanation": "Menghitung nilai selisih antara Parameter 1 dan Parameter 2"
-      },
-      {
-        "columnLabel": "Status Verifikasi",
-        "formula": "=IF(E2>=500000, \"LULUS\", \"TIDAK LULUS\")",
-        "explanation": "Menguji kondisi kelayakan batas nilai 500.000"
-      }
-    ]
-  },
-  {
-    "id": "EX-034",
-    "number": 34,
-    "code": "#SBEH033",
-    "title": "Hitung Jumlah Transaksi Berhasil per Kasir (COUNTIFS)",
-    "category": "Statistik",
-    "difficulty": "MAHIR",
-    "difficultyStars": 4,
-    "tags": [
-      "Audit",
-      "COUNTIFS",
-      "Cek Otomatis",
-      "Spreadsheet Kasus"
-    ],
-    "instructions": {
-      "title": "MAHIR Level - Hitung Jumlah Transaksi Berhasil per Kasir (COUNTIFS)",
-      "description": "Selesaikan lembar kerja kasus Hitung Jumlah Transaksi Berhasil per Kasir (COUNTIFS). Buka sheet utama untuk mengisi formula target sesuai data acuan pada sheet referensi.",
-      "points": [
-        "1. Periksa sheet \"Data Master\" untuk melihat tabel acuan harga/kategori/nama.",
-        "2. Tulis rumus Excel dinamis pada kolom target (Answer) di sheet \"XL-Test\".",
-        "3. Gunakan formula yang dapat diterapkan ke seluruh baris data.",
-        "4. Klik tombol \"Cek Hasil Jawaban\" di pojok kanan atas untuk mengevaluasi kelulusan."
-      ],
-      "helperTable": {
-        "title": "Bantuan Referensi Standar",
-        "headers": [
-          "Kategori Data",
-          "Formula Saran"
-        ],
-        "rows": [
-          [
-            "Pencarian Rujukan",
-            "VLOOKUP / XLOOKUP / INDEX-MATCH"
-          ],
-          [
-            "Kondisi & Logika",
-            "IF / IFS"
-          ],
-          [
-            "Perhitungan Angka",
-            "Operator Aritmatika / SUMIF / PMT"
-          ]
-        ]
-      },
-      "notice": "Dilarang mengubah tabel acuan. Tulis formula langsung pada tabel pengerjaan yang tersedia."
-    },
-    "sheets": [
-      {
-        "id": "sheet_main",
-        "name": "XL-Test",
-        "columns": [
-          {
-            "key": "no",
-            "label": "No",
-            "letter": "A"
-          },
-          {
-            "key": "item",
-            "label": "Item / Subjek",
-            "letter": "B"
-          },
-          {
-            "key": "param1",
-            "label": "Parameter 1",
-            "letter": "C"
-          },
-          {
-            "key": "param2",
-            "label": "Parameter 2",
-            "letter": "D"
-          },
-          {
-            "key": "target_val",
-            "label": "Target Answer (Formula)",
-            "letter": "E"
-          },
-          {
-            "key": "status",
-            "label": "Status Verifikasi",
-            "letter": "F"
-          }
-        ],
-        "rows": [
-          {
-            "rowNumber": 2,
-            "values": {
-              "no": 1,
-              "item": "Kasus Uji Alpha",
-              "param1": 5000000,
-              "param2": 3500000,
-              "target_val": "?",
-              "status": "?"
-            }
-          },
-          {
-            "rowNumber": 3,
-            "values": {
-              "no": 2,
-              "item": "Kasus Uji Beta",
-              "param1": 8500000,
-              "param2": 7200000,
-              "target_val": "?",
-              "status": "?"
-            }
-          },
-          {
-            "rowNumber": 4,
-            "values": {
-              "no": 3,
-              "item": "Kasus Uji Gamma",
-              "param1": 6000000,
-              "param2": 5500000,
-              "target_val": "?",
-              "status": "?"
-            }
-          },
-          {
-            "rowNumber": 5,
-            "values": {
-              "no": 4,
-              "item": "Kasus Uji Delta",
-              "param1": 3000000,
-              "param2": 2400000,
-              "target_val": "?",
-              "status": "?"
-            }
-          },
-          {
-            "rowNumber": 6,
-            "values": {
-              "no": 5,
-              "item": "Kasus Uji Epsilon",
-              "param1": 2500000,
-              "param2": 2100000,
-              "target_val": "?",
-              "status": "?"
-            }
-          }
-        ],
-        "targetColumns": [
-          {
-            "key": "target_val",
-            "letter": "E",
-            "label": "Target Answer",
-            "description": "Kalkulasi selisih / rujukan: =C2-D2",
-            "expectedRowAnswers": {
-              "2": 1500000,
-              "3": 1300000,
-              "4": 500000,
-              "5": 600000,
-              "6": 400000
-            }
-          },
-          {
-            "key": "status",
-            "letter": "F",
-            "label": "Status Verifikasi",
-            "description": "Jika target >= 500000 LULUS: =IF(E2>=500000, \"LULUS\", \"TIDAK LULUS\")",
-            "expectedRowAnswers": {
-              "2": "LULUS",
-              "3": "LULUS",
-              "4": "LULUS",
-              "5": "LULUS",
-              "6": "TIDAK LULUS"
-            }
-          }
-        ]
-      },
-      {
-        "id": "sheet_master",
-        "name": "Data Master",
-        "columns": [
-          {
-            "key": "kode",
-            "label": "Kode Referensi",
-            "letter": "A"
-          },
-          {
-            "key": "nama_ref",
-            "label": "Nama Rujukan",
-            "letter": "B"
-          },
-          {
-            "key": "bobot",
-            "label": "Bobot Standar",
-            "letter": "C"
-          }
-        ],
-        "rows": [
-          {
-            "rowNumber": 2,
-            "values": {
-              "kode": "REF-01",
-              "nama_ref": "Kategori Standar 1",
-              "bobot": 1500000
-            }
-          },
-          {
-            "rowNumber": 3,
-            "values": {
-              "kode": "REF-02",
-              "nama_ref": "Kategori Standar 2",
-              "bobot": 1300000
-            }
-          },
-          {
-            "rowNumber": 4,
-            "values": {
-              "kode": "REF-03",
-              "nama_ref": "Kategori Standar 3",
-              "bobot": 500000
-            }
-          }
-        ]
-      }
-    ],
-    "passingScore": 70,
-    "solutionBlueprints": [
-      {
-        "columnLabel": "Target Answer",
-        "formula": "=C2-D2",
-        "explanation": "Menghitung nilai selisih antara Parameter 1 dan Parameter 2"
-      },
-      {
-        "columnLabel": "Status Verifikasi",
-        "formula": "=IF(E2>=500000, \"LULUS\", \"TIDAK LULUS\")",
-        "explanation": "Menguji kondisi kelayakan batas nilai 500.000"
-      }
-    ]
-  },
-  {
-    "id": "EX-035",
-    "number": 35,
-    "code": "#SBEH034",
-    "title": "Simulasi Angsuran Kredit Rumah KPR (PMT)",
-    "category": "Keuangan",
-    "difficulty": "MAHIR",
-    "difficultyStars": 4,
-    "tags": [
-      "Perbankan",
-      "PMT",
-      "Cek Otomatis",
-      "Spreadsheet Kasus"
-    ],
-    "instructions": {
-      "title": "MAHIR Level - Simulasi Angsuran Kredit Rumah KPR (PMT)",
-      "description": "Selesaikan lembar kerja kasus Simulasi Angsuran Kredit Rumah KPR (PMT). Buka sheet utama untuk mengisi formula target sesuai data acuan pada sheet referensi.",
-      "points": [
-        "1. Periksa sheet \"Data Master\" untuk melihat tabel acuan harga/kategori/nama.",
-        "2. Tulis rumus Excel dinamis pada kolom target (Answer) di sheet \"XL-Test\".",
-        "3. Gunakan formula yang dapat diterapkan ke seluruh baris data.",
-        "4. Klik tombol \"Cek Hasil Jawaban\" di pojok kanan atas untuk mengevaluasi kelulusan."
-      ],
-      "helperTable": {
-        "title": "Bantuan Referensi Standar",
-        "headers": [
-          "Kategori Data",
-          "Formula Saran"
-        ],
-        "rows": [
-          [
-            "Pencarian Rujukan",
-            "VLOOKUP / XLOOKUP / INDEX-MATCH"
-          ],
-          [
-            "Kondisi & Logika",
-            "IF / IFS"
-          ],
-          [
-            "Perhitungan Angka",
-            "Operator Aritmatika / SUMIF / PMT"
-          ]
-        ]
-      },
-      "notice": "Dilarang mengubah tabel acuan. Tulis formula langsung pada tabel pengerjaan yang tersedia."
-    },
-    "sheets": [
-      {
-        "id": "sheet_main",
-        "name": "XL-Test",
-        "columns": [
-          {
-            "key": "no",
-            "label": "No",
-            "letter": "A"
-          },
-          {
-            "key": "item",
-            "label": "Item / Subjek",
-            "letter": "B"
-          },
-          {
-            "key": "param1",
-            "label": "Parameter 1",
-            "letter": "C"
-          },
-          {
-            "key": "param2",
-            "label": "Parameter 2",
-            "letter": "D"
-          },
-          {
-            "key": "target_val",
-            "label": "Target Answer (Formula)",
-            "letter": "E"
-          },
-          {
-            "key": "status",
-            "label": "Status Verifikasi",
-            "letter": "F"
-          }
-        ],
-        "rows": [
-          {
-            "rowNumber": 2,
-            "values": {
-              "no": 1,
-              "item": "Kasus Uji Alpha",
-              "param1": 5000000,
-              "param2": 3500000,
-              "target_val": "?",
-              "status": "?"
-            }
-          },
-          {
-            "rowNumber": 3,
-            "values": {
-              "no": 2,
-              "item": "Kasus Uji Beta",
-              "param1": 8500000,
-              "param2": 7200000,
-              "target_val": "?",
-              "status": "?"
-            }
-          },
-          {
-            "rowNumber": 4,
-            "values": {
-              "no": 3,
-              "item": "Kasus Uji Gamma",
-              "param1": 6000000,
-              "param2": 5500000,
-              "target_val": "?",
-              "status": "?"
-            }
-          },
-          {
-            "rowNumber": 5,
-            "values": {
-              "no": 4,
-              "item": "Kasus Uji Delta",
-              "param1": 3000000,
-              "param2": 2400000,
-              "target_val": "?",
-              "status": "?"
-            }
-          },
-          {
-            "rowNumber": 6,
-            "values": {
-              "no": 5,
-              "item": "Kasus Uji Epsilon",
-              "param1": 2500000,
-              "param2": 2100000,
-              "target_val": "?",
-              "status": "?"
-            }
-          }
-        ],
-        "targetColumns": [
-          {
-            "key": "target_val",
-            "letter": "E",
-            "label": "Target Answer",
-            "description": "Kalkulasi selisih / rujukan: =C2-D2",
-            "expectedRowAnswers": {
-              "2": 1500000,
-              "3": 1300000,
-              "4": 500000,
-              "5": 600000,
-              "6": 400000
-            }
-          },
-          {
-            "key": "status",
-            "letter": "F",
-            "label": "Status Verifikasi",
-            "description": "Jika target >= 500000 LULUS: =IF(E2>=500000, \"LULUS\", \"TIDAK LULUS\")",
-            "expectedRowAnswers": {
-              "2": "LULUS",
-              "3": "LULUS",
-              "4": "LULUS",
-              "5": "LULUS",
-              "6": "TIDAK LULUS"
-            }
-          }
-        ]
-      },
-      {
-        "id": "sheet_master",
-        "name": "Data Master",
-        "columns": [
-          {
-            "key": "kode",
-            "label": "Kode Referensi",
-            "letter": "A"
-          },
-          {
-            "key": "nama_ref",
-            "label": "Nama Rujukan",
-            "letter": "B"
-          },
-          {
-            "key": "bobot",
-            "label": "Bobot Standar",
-            "letter": "C"
-          }
-        ],
-        "rows": [
-          {
-            "rowNumber": 2,
-            "values": {
-              "kode": "REF-01",
-              "nama_ref": "Kategori Standar 1",
-              "bobot": 1500000
-            }
-          },
-          {
-            "rowNumber": 3,
-            "values": {
-              "kode": "REF-02",
-              "nama_ref": "Kategori Standar 2",
-              "bobot": 1300000
-            }
-          },
-          {
-            "rowNumber": 4,
-            "values": {
-              "kode": "REF-03",
-              "nama_ref": "Kategori Standar 3",
-              "bobot": 500000
-            }
-          }
-        ]
-      }
-    ],
-    "passingScore": 70,
-    "solutionBlueprints": [
-      {
-        "columnLabel": "Target Answer",
-        "formula": "=C2-D2",
-        "explanation": "Menghitung nilai selisih antara Parameter 1 dan Parameter 2"
-      },
-      {
-        "columnLabel": "Status Verifikasi",
-        "formula": "=IF(E2>=500000, \"LULUS\", \"TIDAK LULUS\")",
-        "explanation": "Menguji kondisi kelayakan batas nilai 500.000"
-      }
-    ]
-  },
-  {
-    "id": "EX-036",
-    "number": 36,
-    "code": "#SBEH035",
-    "title": "Perhitungan Bunga & Pokok Pinjaman Finansial",
-    "category": "Keuangan",
-    "difficulty": "MAHIR",
-    "difficultyStars": 4,
-    "tags": [
-      "Koperasi",
-      "Bunga",
-      "Cek Otomatis",
-      "Spreadsheet Kasus"
-    ],
-    "instructions": {
-      "title": "MAHIR Level - Perhitungan Bunga & Pokok Pinjaman Finansial",
-      "description": "Selesaikan lembar kerja kasus Perhitungan Bunga & Pokok Pinjaman Finansial. Buka sheet utama untuk mengisi formula target sesuai data acuan pada sheet referensi.",
-      "points": [
-        "1. Periksa sheet \"Data Master\" untuk melihat tabel acuan harga/kategori/nama.",
-        "2. Tulis rumus Excel dinamis pada kolom target (Answer) di sheet \"XL-Test\".",
-        "3. Gunakan formula yang dapat diterapkan ke seluruh baris data.",
-        "4. Klik tombol \"Cek Hasil Jawaban\" di pojok kanan atas untuk mengevaluasi kelulusan."
-      ],
-      "helperTable": {
-        "title": "Bantuan Referensi Standar",
-        "headers": [
-          "Kategori Data",
-          "Formula Saran"
-        ],
-        "rows": [
-          [
-            "Pencarian Rujukan",
-            "VLOOKUP / XLOOKUP / INDEX-MATCH"
-          ],
-          [
-            "Kondisi & Logika",
-            "IF / IFS"
-          ],
-          [
-            "Perhitungan Angka",
-            "Operator Aritmatika / SUMIF / PMT"
-          ]
-        ]
-      },
-      "notice": "Dilarang mengubah tabel acuan. Tulis formula langsung pada tabel pengerjaan yang tersedia."
-    },
-    "sheets": [
-      {
-        "id": "sheet_main",
-        "name": "XL-Test",
-        "columns": [
-          {
-            "key": "no",
-            "label": "No",
-            "letter": "A"
-          },
-          {
-            "key": "item",
-            "label": "Item / Subjek",
-            "letter": "B"
-          },
-          {
-            "key": "param1",
-            "label": "Parameter 1",
-            "letter": "C"
-          },
-          {
-            "key": "param2",
-            "label": "Parameter 2",
-            "letter": "D"
-          },
-          {
-            "key": "target_val",
-            "label": "Target Answer (Formula)",
-            "letter": "E"
-          },
-          {
-            "key": "status",
-            "label": "Status Verifikasi",
-            "letter": "F"
-          }
-        ],
-        "rows": [
-          {
-            "rowNumber": 2,
-            "values": {
-              "no": 1,
-              "item": "Kasus Uji Alpha",
-              "param1": 5000000,
-              "param2": 3500000,
-              "target_val": "?",
-              "status": "?"
-            }
-          },
-          {
-            "rowNumber": 3,
-            "values": {
-              "no": 2,
-              "item": "Kasus Uji Beta",
-              "param1": 8500000,
-              "param2": 7200000,
-              "target_val": "?",
-              "status": "?"
-            }
-          },
-          {
-            "rowNumber": 4,
-            "values": {
-              "no": 3,
-              "item": "Kasus Uji Gamma",
-              "param1": 6000000,
-              "param2": 5500000,
-              "target_val": "?",
-              "status": "?"
-            }
-          },
-          {
-            "rowNumber": 5,
-            "values": {
-              "no": 4,
-              "item": "Kasus Uji Delta",
-              "param1": 3000000,
-              "param2": 2400000,
-              "target_val": "?",
-              "status": "?"
-            }
-          },
-          {
-            "rowNumber": 6,
-            "values": {
-              "no": 5,
-              "item": "Kasus Uji Epsilon",
-              "param1": 2500000,
-              "param2": 2100000,
-              "target_val": "?",
-              "status": "?"
-            }
-          }
-        ],
-        "targetColumns": [
-          {
-            "key": "target_val",
-            "letter": "E",
-            "label": "Target Answer",
-            "description": "Kalkulasi selisih / rujukan: =C2-D2",
-            "expectedRowAnswers": {
-              "2": 1500000,
-              "3": 1300000,
-              "4": 500000,
-              "5": 600000,
-              "6": 400000
-            }
-          },
-          {
-            "key": "status",
-            "letter": "F",
-            "label": "Status Verifikasi",
-            "description": "Jika target >= 500000 LULUS: =IF(E2>=500000, \"LULUS\", \"TIDAK LULUS\")",
-            "expectedRowAnswers": {
-              "2": "LULUS",
-              "3": "LULUS",
-              "4": "LULUS",
-              "5": "LULUS",
-              "6": "TIDAK LULUS"
-            }
-          }
-        ]
-      },
-      {
-        "id": "sheet_master",
-        "name": "Data Master",
-        "columns": [
-          {
-            "key": "kode",
-            "label": "Kode Referensi",
-            "letter": "A"
-          },
-          {
-            "key": "nama_ref",
-            "label": "Nama Rujukan",
-            "letter": "B"
-          },
-          {
-            "key": "bobot",
-            "label": "Bobot Standar",
-            "letter": "C"
-          }
-        ],
-        "rows": [
-          {
-            "rowNumber": 2,
-            "values": {
-              "kode": "REF-01",
-              "nama_ref": "Kategori Standar 1",
-              "bobot": 1500000
-            }
-          },
-          {
-            "rowNumber": 3,
-            "values": {
-              "kode": "REF-02",
-              "nama_ref": "Kategori Standar 2",
-              "bobot": 1300000
-            }
-          },
-          {
-            "rowNumber": 4,
-            "values": {
-              "kode": "REF-03",
-              "nama_ref": "Kategori Standar 3",
-              "bobot": 500000
-            }
-          }
-        ]
-      }
-    ],
-    "passingScore": 70,
-    "solutionBlueprints": [
-      {
-        "columnLabel": "Target Answer",
-        "formula": "=C2-D2",
-        "explanation": "Menghitung nilai selisih antara Parameter 1 dan Parameter 2"
-      },
-      {
-        "columnLabel": "Status Verifikasi",
-        "formula": "=IF(E2>=500000, \"LULUS\", \"TIDAK LULUS\")",
-        "explanation": "Menguji kondisi kelayakan batas nilai 500.000"
-      }
-    ]
-  },
-  {
-    "id": "EX-037",
-    "number": 37,
-    "code": "#SBEH036",
-    "title": "Penggabungan Alamat Surat Menyurat Lengkap (TEXTJOIN)",
-    "category": "Teks",
-    "difficulty": "MAHIR",
-    "difficultyStars": 4,
-    "tags": [
-      "Administrasi",
-      "Cek Otomatis",
-      "Spreadsheet Kasus"
-    ],
-    "instructions": {
-      "title": "MAHIR Level - Penggabungan Alamat Surat Menyurat Lengkap (TEXTJOIN)",
-      "description": "Selesaikan lembar kerja kasus Penggabungan Alamat Surat Menyurat Lengkap (TEXTJOIN). Buka sheet utama untuk mengisi formula target sesuai data acuan pada sheet referensi.",
-      "points": [
-        "1. Periksa sheet \"Data Master\" untuk melihat tabel acuan harga/kategori/nama.",
-        "2. Tulis rumus Excel dinamis pada kolom target (Answer) di sheet \"XL-Test\".",
-        "3. Gunakan formula yang dapat diterapkan ke seluruh baris data.",
-        "4. Klik tombol \"Cek Hasil Jawaban\" di pojok kanan atas untuk mengevaluasi kelulusan."
-      ],
-      "helperTable": {
-        "title": "Bantuan Referensi Standar",
-        "headers": [
-          "Kategori Data",
-          "Formula Saran"
-        ],
-        "rows": [
-          [
-            "Pencarian Rujukan",
-            "VLOOKUP / XLOOKUP / INDEX-MATCH"
-          ],
-          [
-            "Kondisi & Logika",
-            "IF / IFS"
-          ],
-          [
-            "Perhitungan Angka",
-            "Operator Aritmatika / SUMIF / PMT"
-          ]
-        ]
-      },
-      "notice": "Dilarang mengubah tabel acuan. Tulis formula langsung pada tabel pengerjaan yang tersedia."
-    },
-    "sheets": [
-      {
-        "id": "sheet_main",
-        "name": "XL-Test",
-        "columns": [
-          {
-            "key": "no",
-            "label": "No",
-            "letter": "A"
-          },
-          {
-            "key": "item",
-            "label": "Item / Subjek",
-            "letter": "B"
-          },
-          {
-            "key": "param1",
-            "label": "Parameter 1",
-            "letter": "C"
-          },
-          {
-            "key": "param2",
-            "label": "Parameter 2",
-            "letter": "D"
-          },
-          {
-            "key": "target_val",
-            "label": "Target Answer (Formula)",
-            "letter": "E"
-          },
-          {
-            "key": "status",
-            "label": "Status Verifikasi",
-            "letter": "F"
-          }
-        ],
-        "rows": [
-          {
-            "rowNumber": 2,
-            "values": {
-              "no": 1,
-              "item": "Kasus Uji Alpha",
-              "param1": 5000000,
-              "param2": 3500000,
-              "target_val": "?",
-              "status": "?"
-            }
-          },
-          {
-            "rowNumber": 3,
-            "values": {
-              "no": 2,
-              "item": "Kasus Uji Beta",
-              "param1": 8500000,
-              "param2": 7200000,
-              "target_val": "?",
-              "status": "?"
-            }
-          },
-          {
-            "rowNumber": 4,
-            "values": {
-              "no": 3,
-              "item": "Kasus Uji Gamma",
-              "param1": 6000000,
-              "param2": 5500000,
-              "target_val": "?",
-              "status": "?"
-            }
-          },
-          {
-            "rowNumber": 5,
-            "values": {
-              "no": 4,
-              "item": "Kasus Uji Delta",
-              "param1": 3000000,
-              "param2": 2400000,
-              "target_val": "?",
-              "status": "?"
-            }
-          },
-          {
-            "rowNumber": 6,
-            "values": {
-              "no": 5,
-              "item": "Kasus Uji Epsilon",
-              "param1": 2500000,
-              "param2": 2100000,
-              "target_val": "?",
-              "status": "?"
-            }
-          }
-        ],
-        "targetColumns": [
-          {
-            "key": "target_val",
-            "letter": "E",
-            "label": "Target Answer",
-            "description": "Kalkulasi selisih / rujukan: =C2-D2",
-            "expectedRowAnswers": {
-              "2": 1500000,
-              "3": 1300000,
-              "4": 500000,
-              "5": 600000,
-              "6": 400000
-            }
-          },
-          {
-            "key": "status",
-            "letter": "F",
-            "label": "Status Verifikasi",
-            "description": "Jika target >= 500000 LULUS: =IF(E2>=500000, \"LULUS\", \"TIDAK LULUS\")",
-            "expectedRowAnswers": {
-              "2": "LULUS",
-              "3": "LULUS",
-              "4": "LULUS",
-              "5": "LULUS",
-              "6": "TIDAK LULUS"
-            }
-          }
-        ]
-      },
-      {
-        "id": "sheet_master",
-        "name": "Data Master",
-        "columns": [
-          {
-            "key": "kode",
-            "label": "Kode Referensi",
-            "letter": "A"
-          },
-          {
-            "key": "nama_ref",
-            "label": "Nama Rujukan",
-            "letter": "B"
-          },
-          {
-            "key": "bobot",
-            "label": "Bobot Standar",
-            "letter": "C"
-          }
-        ],
-        "rows": [
-          {
-            "rowNumber": 2,
-            "values": {
-              "kode": "REF-01",
-              "nama_ref": "Kategori Standar 1",
-              "bobot": 1500000
-            }
-          },
-          {
-            "rowNumber": 3,
-            "values": {
-              "kode": "REF-02",
-              "nama_ref": "Kategori Standar 2",
-              "bobot": 1300000
-            }
-          },
-          {
-            "rowNumber": 4,
-            "values": {
-              "kode": "REF-03",
-              "nama_ref": "Kategori Standar 3",
-              "bobot": 500000
-            }
-          }
-        ]
-      }
-    ],
-    "passingScore": 70,
-    "solutionBlueprints": [
-      {
-        "columnLabel": "Target Answer",
-        "formula": "=C2-D2",
-        "explanation": "Menghitung nilai selisih antara Parameter 1 dan Parameter 2"
-      },
-      {
-        "columnLabel": "Status Verifikasi",
-        "formula": "=IF(E2>=500000, \"LULUS\", \"TIDAK LULUS\")",
-        "explanation": "Menguji kondisi kelayakan batas nilai 500.000"
-      }
-    ]
-  },
-  {
-    "id": "EX-038",
-    "number": 38,
-    "code": "#SBEH037",
-    "title": "Klasifikasi Status Reorder Stok Gudang (IF + VLOOKUP)",
-    "category": "Kombinasi",
-    "difficulty": "MAHIR",
-    "difficultyStars": 4,
-    "tags": [
-      "Supply Chain",
-      "Cek Otomatis",
-      "Spreadsheet Kasus"
-    ],
-    "instructions": {
-      "title": "MAHIR Level - Klasifikasi Status Reorder Stok Gudang (IF + VLOOKUP)",
-      "description": "Selesaikan lembar kerja kasus Klasifikasi Status Reorder Stok Gudang (IF + VLOOKUP). Buka sheet utama untuk mengisi formula target sesuai data acuan pada sheet referensi.",
-      "points": [
-        "1. Periksa sheet \"Data Master\" untuk melihat tabel acuan harga/kategori/nama.",
-        "2. Tulis rumus Excel dinamis pada kolom target (Answer) di sheet \"XL-Test\".",
-        "3. Gunakan formula yang dapat diterapkan ke seluruh baris data.",
-        "4. Klik tombol \"Cek Hasil Jawaban\" di pojok kanan atas untuk mengevaluasi kelulusan."
-      ],
-      "helperTable": {
-        "title": "Bantuan Referensi Standar",
-        "headers": [
-          "Kategori Data",
-          "Formula Saran"
-        ],
-        "rows": [
-          [
-            "Pencarian Rujukan",
-            "VLOOKUP / XLOOKUP / INDEX-MATCH"
-          ],
-          [
-            "Kondisi & Logika",
-            "IF / IFS"
-          ],
-          [
-            "Perhitungan Angka",
-            "Operator Aritmatika / SUMIF / PMT"
-          ]
-        ]
-      },
-      "notice": "Dilarang mengubah tabel acuan. Tulis formula langsung pada tabel pengerjaan yang tersedia."
-    },
-    "sheets": [
-      {
-        "id": "sheet_main",
-        "name": "XL-Test",
-        "columns": [
-          {
-            "key": "no",
-            "label": "No",
-            "letter": "A"
-          },
-          {
-            "key": "item",
-            "label": "Item / Subjek",
-            "letter": "B"
-          },
-          {
-            "key": "param1",
-            "label": "Parameter 1",
-            "letter": "C"
-          },
-          {
-            "key": "param2",
-            "label": "Parameter 2",
-            "letter": "D"
-          },
-          {
-            "key": "target_val",
-            "label": "Target Answer (Formula)",
-            "letter": "E"
-          },
-          {
-            "key": "status",
-            "label": "Status Verifikasi",
-            "letter": "F"
-          }
-        ],
-        "rows": [
-          {
-            "rowNumber": 2,
-            "values": {
-              "no": 1,
-              "item": "Kasus Uji Alpha",
-              "param1": 5000000,
-              "param2": 3500000,
-              "target_val": "?",
-              "status": "?"
-            }
-          },
-          {
-            "rowNumber": 3,
-            "values": {
-              "no": 2,
-              "item": "Kasus Uji Beta",
-              "param1": 8500000,
-              "param2": 7200000,
-              "target_val": "?",
-              "status": "?"
-            }
-          },
-          {
-            "rowNumber": 4,
-            "values": {
-              "no": 3,
-              "item": "Kasus Uji Gamma",
-              "param1": 6000000,
-              "param2": 5500000,
-              "target_val": "?",
-              "status": "?"
-            }
-          },
-          {
-            "rowNumber": 5,
-            "values": {
-              "no": 4,
-              "item": "Kasus Uji Delta",
-              "param1": 3000000,
-              "param2": 2400000,
-              "target_val": "?",
-              "status": "?"
-            }
-          },
-          {
-            "rowNumber": 6,
-            "values": {
-              "no": 5,
-              "item": "Kasus Uji Epsilon",
-              "param1": 2500000,
-              "param2": 2100000,
-              "target_val": "?",
-              "status": "?"
-            }
-          }
-        ],
-        "targetColumns": [
-          {
-            "key": "target_val",
-            "letter": "E",
-            "label": "Target Answer",
-            "description": "Kalkulasi selisih / rujukan: =C2-D2",
-            "expectedRowAnswers": {
-              "2": 1500000,
-              "3": 1300000,
-              "4": 500000,
-              "5": 600000,
-              "6": 400000
-            }
-          },
-          {
-            "key": "status",
-            "letter": "F",
-            "label": "Status Verifikasi",
-            "description": "Jika target >= 500000 LULUS: =IF(E2>=500000, \"LULUS\", \"TIDAK LULUS\")",
-            "expectedRowAnswers": {
-              "2": "LULUS",
-              "3": "LULUS",
-              "4": "LULUS",
-              "5": "LULUS",
-              "6": "TIDAK LULUS"
-            }
-          }
-        ]
-      },
-      {
-        "id": "sheet_master",
-        "name": "Data Master",
-        "columns": [
-          {
-            "key": "kode",
-            "label": "Kode Referensi",
-            "letter": "A"
-          },
-          {
-            "key": "nama_ref",
-            "label": "Nama Rujukan",
-            "letter": "B"
-          },
-          {
-            "key": "bobot",
-            "label": "Bobot Standar",
-            "letter": "C"
-          }
-        ],
-        "rows": [
-          {
-            "rowNumber": 2,
-            "values": {
-              "kode": "REF-01",
-              "nama_ref": "Kategori Standar 1",
-              "bobot": 1500000
-            }
-          },
-          {
-            "rowNumber": 3,
-            "values": {
-              "kode": "REF-02",
-              "nama_ref": "Kategori Standar 2",
-              "bobot": 1300000
-            }
-          },
-          {
-            "rowNumber": 4,
-            "values": {
-              "kode": "REF-03",
-              "nama_ref": "Kategori Standar 3",
-              "bobot": 500000
-            }
-          }
-        ]
-      }
-    ],
-    "passingScore": 70,
-    "solutionBlueprints": [
-      {
-        "columnLabel": "Target Answer",
-        "formula": "=C2-D2",
-        "explanation": "Menghitung nilai selisih antara Parameter 1 dan Parameter 2"
-      },
-      {
-        "columnLabel": "Status Verifikasi",
-        "formula": "=IF(E2>=500000, \"LULUS\", \"TIDAK LULUS\")",
-        "explanation": "Menguji kondisi kelayakan batas nilai 500.000"
-      }
-    ]
-  },
-  {
-    "id": "EX-039",
-    "number": 39,
-    "code": "#SBEH038",
-    "title": "Latihan Soal Data Pegawai dan Gaji (anagram)",
-    "category": "Kombinasi",
-    "difficulty": "MAHIR",
-    "difficultyStars": 4,
-    "tags": [
-      "HRD",
-      "Gaji",
-      "Cek Otomatis",
-      "Spreadsheet Kasus"
-    ],
-    "instructions": {
-      "title": "MAHIR Level - Latihan Soal Data Pegawai dan Gaji (anagram)",
-      "description": "Selesaikan lembar kerja kasus Latihan Soal Data Pegawai dan Gaji (anagram). Buka sheet utama untuk mengisi formula target sesuai data acuan pada sheet referensi.",
-      "points": [
-        "1. Periksa sheet \"Data Master\" untuk melihat tabel acuan harga/kategori/nama.",
-        "2. Tulis rumus Excel dinamis pada kolom target (Answer) di sheet \"XL-Test\".",
-        "3. Gunakan formula yang dapat diterapkan ke seluruh baris data.",
-        "4. Klik tombol \"Cek Hasil Jawaban\" di pojok kanan atas untuk mengevaluasi kelulusan."
-      ],
-      "helperTable": {
-        "title": "Bantuan Referensi Standar",
-        "headers": [
-          "Kategori Data",
-          "Formula Saran"
-        ],
-        "rows": [
-          [
-            "Pencarian Rujukan",
-            "VLOOKUP / XLOOKUP / INDEX-MATCH"
-          ],
-          [
-            "Kondisi & Logika",
-            "IF / IFS"
-          ],
-          [
-            "Perhitungan Angka",
-            "Operator Aritmatika / SUMIF / PMT"
-          ]
-        ]
-      },
-      "notice": "Dilarang mengubah tabel acuan. Tulis formula langsung pada tabel pengerjaan yang tersedia."
-    },
-    "sheets": [
-      {
-        "id": "sheet_main",
-        "name": "XL-Test",
-        "columns": [
-          {
-            "key": "no",
-            "label": "No",
-            "letter": "A"
-          },
-          {
-            "key": "item",
-            "label": "Item / Subjek",
-            "letter": "B"
-          },
-          {
-            "key": "param1",
-            "label": "Parameter 1",
-            "letter": "C"
-          },
-          {
-            "key": "param2",
-            "label": "Parameter 2",
-            "letter": "D"
-          },
-          {
-            "key": "target_val",
-            "label": "Target Answer (Formula)",
-            "letter": "E"
-          },
-          {
-            "key": "status",
-            "label": "Status Verifikasi",
-            "letter": "F"
-          }
-        ],
-        "rows": [
-          {
-            "rowNumber": 2,
-            "values": {
-              "no": 1,
-              "item": "Kasus Uji Alpha",
-              "param1": 5000000,
-              "param2": 3500000,
-              "target_val": "?",
-              "status": "?"
-            }
-          },
-          {
-            "rowNumber": 3,
-            "values": {
-              "no": 2,
-              "item": "Kasus Uji Beta",
-              "param1": 8500000,
-              "param2": 7200000,
-              "target_val": "?",
-              "status": "?"
-            }
-          },
-          {
-            "rowNumber": 4,
-            "values": {
-              "no": 3,
-              "item": "Kasus Uji Gamma",
-              "param1": 6000000,
-              "param2": 5500000,
-              "target_val": "?",
-              "status": "?"
-            }
-          },
-          {
-            "rowNumber": 5,
-            "values": {
-              "no": 4,
-              "item": "Kasus Uji Delta",
-              "param1": 3000000,
-              "param2": 2400000,
-              "target_val": "?",
-              "status": "?"
-            }
-          },
-          {
-            "rowNumber": 6,
-            "values": {
-              "no": 5,
-              "item": "Kasus Uji Epsilon",
-              "param1": 2500000,
-              "param2": 2100000,
-              "target_val": "?",
-              "status": "?"
-            }
-          }
-        ],
-        "targetColumns": [
-          {
-            "key": "target_val",
-            "letter": "E",
-            "label": "Target Answer",
-            "description": "Kalkulasi selisih / rujukan: =C2-D2",
-            "expectedRowAnswers": {
-              "2": 1500000,
-              "3": 1300000,
-              "4": 500000,
-              "5": 600000,
-              "6": 400000
-            }
-          },
-          {
-            "key": "status",
-            "letter": "F",
-            "label": "Status Verifikasi",
-            "description": "Jika target >= 500000 LULUS: =IF(E2>=500000, \"LULUS\", \"TIDAK LULUS\")",
-            "expectedRowAnswers": {
-              "2": "LULUS",
-              "3": "LULUS",
-              "4": "LULUS",
-              "5": "LULUS",
-              "6": "TIDAK LULUS"
-            }
-          }
-        ]
-      },
-      {
-        "id": "sheet_master",
-        "name": "Data Master",
-        "columns": [
-          {
-            "key": "kode",
-            "label": "Kode Referensi",
-            "letter": "A"
-          },
-          {
-            "key": "nama_ref",
-            "label": "Nama Rujukan",
-            "letter": "B"
-          },
-          {
-            "key": "bobot",
-            "label": "Bobot Standar",
-            "letter": "C"
-          }
-        ],
-        "rows": [
-          {
-            "rowNumber": 2,
-            "values": {
-              "kode": "REF-01",
-              "nama_ref": "Kategori Standar 1",
-              "bobot": 1500000
-            }
-          },
-          {
-            "rowNumber": 3,
-            "values": {
-              "kode": "REF-02",
-              "nama_ref": "Kategori Standar 2",
-              "bobot": 1300000
-            }
-          },
-          {
-            "rowNumber": 4,
-            "values": {
-              "kode": "REF-03",
-              "nama_ref": "Kategori Standar 3",
-              "bobot": 500000
-            }
-          }
-        ]
-      }
-    ],
-    "passingScore": 70,
-    "solutionBlueprints": [
-      {
-        "columnLabel": "Target Answer",
-        "formula": "=C2-D2",
-        "explanation": "Menghitung nilai selisih antara Parameter 1 dan Parameter 2"
-      },
-      {
-        "columnLabel": "Status Verifikasi",
-        "formula": "=IF(E2>=500000, \"LULUS\", \"TIDAK LULUS\")",
-        "explanation": "Menguji kondisi kelayakan batas nilai 500.000"
-      }
-    ]
-  },
-  {
-    "id": "EX-040",
-    "number": 40,
-    "code": "#SBEX039",
-    "title": "Extreme Level - Mencari Nama Berdasarkan Kata & Alamat Sel (INDEX/MATCH)",
-    "category": "Lookup",
-    "difficulty": "EXTREME",
-    "difficultyStars": 4,
-    "tags": [
-      "MEWC",
-      "Lookup Extreme",
-      "Cek Otomatis",
-      "Spreadsheet Kasus"
-    ],
-    "instructions": {
-      "title": "EXTREME Level - Extreme Level - Mencari Nama Berdasarkan Kata & Alamat Sel (INDEX/MATCH)",
-      "description": "Selesaikan lembar kerja kasus Extreme Level - Mencari Nama Berdasarkan Kata & Alamat Sel (INDEX/MATCH). Buka sheet utama untuk mengisi formula target sesuai data acuan pada sheet referensi.",
-      "points": [
-        "1. Periksa sheet \"Data Master\" untuk melihat tabel acuan harga/kategori/nama.",
-        "2. Tulis rumus Excel dinamis pada kolom target (Answer) di sheet \"XL-Test\".",
-        "3. Gunakan formula yang dapat diterapkan ke seluruh baris data.",
-        "4. Klik tombol \"Cek Hasil Jawaban\" di pojok kanan atas untuk mengevaluasi kelulusan."
-      ],
-      "helperTable": {
-        "title": "Bantuan Referensi Standar",
-        "headers": [
-          "Kategori Data",
-          "Formula Saran"
-        ],
-        "rows": [
-          [
-            "Pencarian Rujukan",
-            "VLOOKUP / XLOOKUP / INDEX-MATCH"
-          ],
-          [
-            "Kondisi & Logika",
-            "IF / IFS"
-          ],
-          [
-            "Perhitungan Angka",
-            "Operator Aritmatika / SUMIF / PMT"
-          ]
-        ]
-      },
-      "notice": "Dilarang mengubah tabel acuan. Tulis formula langsung pada tabel pengerjaan yang tersedia."
-    },
-    "sheets": [
-      {
-        "id": "sheet_main",
-        "name": "XL-Test",
-        "columns": [
-          {
-            "key": "no",
-            "label": "No",
-            "letter": "A"
-          },
-          {
-            "key": "item",
-            "label": "Item / Subjek",
-            "letter": "B"
-          },
-          {
-            "key": "param1",
-            "label": "Parameter 1",
-            "letter": "C"
-          },
-          {
-            "key": "param2",
-            "label": "Parameter 2",
-            "letter": "D"
-          },
-          {
-            "key": "target_val",
-            "label": "Target Answer (Formula)",
-            "letter": "E"
-          },
-          {
-            "key": "status",
-            "label": "Status Verifikasi",
-            "letter": "F"
-          }
-        ],
-        "rows": [
-          {
-            "rowNumber": 2,
-            "values": {
-              "no": 1,
-              "item": "Kasus Uji Alpha",
-              "param1": 5000000,
-              "param2": 3500000,
-              "target_val": "?",
-              "status": "?"
-            }
-          },
-          {
-            "rowNumber": 3,
-            "values": {
-              "no": 2,
-              "item": "Kasus Uji Beta",
-              "param1": 8500000,
-              "param2": 7200000,
-              "target_val": "?",
-              "status": "?"
-            }
-          },
-          {
-            "rowNumber": 4,
-            "values": {
-              "no": 3,
-              "item": "Kasus Uji Gamma",
-              "param1": 6000000,
-              "param2": 5500000,
-              "target_val": "?",
-              "status": "?"
-            }
-          },
-          {
-            "rowNumber": 5,
-            "values": {
-              "no": 4,
-              "item": "Kasus Uji Delta",
-              "param1": 3000000,
-              "param2": 2400000,
-              "target_val": "?",
-              "status": "?"
-            }
-          },
-          {
-            "rowNumber": 6,
-            "values": {
-              "no": 5,
-              "item": "Kasus Uji Epsilon",
-              "param1": 2500000,
-              "param2": 2100000,
-              "target_val": "?",
-              "status": "?"
-            }
-          }
-        ],
-        "targetColumns": [
-          {
-            "key": "target_val",
-            "letter": "E",
-            "label": "Target Answer",
-            "description": "Kalkulasi selisih / rujukan: =C2-D2",
-            "expectedRowAnswers": {
-              "2": 1500000,
-              "3": 1300000,
-              "4": 500000,
-              "5": 600000,
-              "6": 400000
-            }
-          },
-          {
-            "key": "status",
-            "letter": "F",
-            "label": "Status Verifikasi",
-            "description": "Jika target >= 500000 LULUS: =IF(E2>=500000, \"LULUS\", \"TIDAK LULUS\")",
-            "expectedRowAnswers": {
-              "2": "LULUS",
-              "3": "LULUS",
-              "4": "LULUS",
-              "5": "LULUS",
-              "6": "TIDAK LULUS"
-            }
-          }
-        ]
-      },
-      {
-        "id": "sheet_master",
-        "name": "Data Master",
-        "columns": [
-          {
-            "key": "kode",
-            "label": "Kode Referensi",
-            "letter": "A"
-          },
-          {
-            "key": "nama_ref",
-            "label": "Nama Rujukan",
-            "letter": "B"
-          },
-          {
-            "key": "bobot",
-            "label": "Bobot Standar",
-            "letter": "C"
-          }
-        ],
-        "rows": [
-          {
-            "rowNumber": 2,
-            "values": {
-              "kode": "REF-01",
-              "nama_ref": "Kategori Standar 1",
-              "bobot": 1500000
-            }
-          },
-          {
-            "rowNumber": 3,
-            "values": {
-              "kode": "REF-02",
-              "nama_ref": "Kategori Standar 2",
-              "bobot": 1300000
-            }
-          },
-          {
-            "rowNumber": 4,
-            "values": {
-              "kode": "REF-03",
-              "nama_ref": "Kategori Standar 3",
-              "bobot": 500000
-            }
-          }
-        ]
-      }
-    ],
-    "passingScore": 70,
-    "solutionBlueprints": [
-      {
-        "columnLabel": "Target Answer",
-        "formula": "=C2-D2",
-        "explanation": "Menghitung nilai selisih antara Parameter 1 dan Parameter 2"
-      },
-      {
-        "columnLabel": "Status Verifikasi",
-        "formula": "=IF(E2>=500000, \"LULUS\", \"TIDAK LULUS\")",
-        "explanation": "Menguji kondisi kelayakan batas nilai 500.000"
-      }
-    ]
-  },
-  {
-    "id": "EX-041",
-    "number": 41,
-    "code": "#SBEX040",
-    "title": "Latihan Soal Excel Game Seri A Liga Italy",
-    "category": "Kombinasi",
-    "difficulty": "EXTREME",
-    "difficultyStars": 5,
-    "tags": [
-      "Sports",
-      "Klasemen",
-      "Cek Otomatis",
-      "Spreadsheet Kasus"
-    ],
-    "instructions": {
-      "title": "EXTREME Level - Latihan Soal Excel Game Seri A Liga Italy",
-      "description": "Selesaikan lembar kerja kasus Latihan Soal Excel Game Seri A Liga Italy. Buka sheet utama untuk mengisi formula target sesuai data acuan pada sheet referensi.",
-      "points": [
-        "1. Periksa sheet \"Data Master\" untuk melihat tabel acuan harga/kategori/nama.",
-        "2. Tulis rumus Excel dinamis pada kolom target (Answer) di sheet \"XL-Test\".",
-        "3. Gunakan formula yang dapat diterapkan ke seluruh baris data.",
-        "4. Klik tombol \"Cek Hasil Jawaban\" di pojok kanan atas untuk mengevaluasi kelulusan."
-      ],
-      "helperTable": {
-        "title": "Bantuan Referensi Standar",
-        "headers": [
-          "Kategori Data",
-          "Formula Saran"
-        ],
-        "rows": [
-          [
-            "Pencarian Rujukan",
-            "VLOOKUP / XLOOKUP / INDEX-MATCH"
-          ],
-          [
-            "Kondisi & Logika",
-            "IF / IFS"
-          ],
-          [
-            "Perhitungan Angka",
-            "Operator Aritmatika / SUMIF / PMT"
-          ]
-        ]
-      },
-      "notice": "Dilarang mengubah tabel acuan. Tulis formula langsung pada tabel pengerjaan yang tersedia."
-    },
-    "sheets": [
-      {
-        "id": "sheet_main",
-        "name": "XL-Test",
-        "columns": [
-          {
-            "key": "no",
-            "label": "No",
-            "letter": "A"
-          },
-          {
-            "key": "item",
-            "label": "Item / Subjek",
-            "letter": "B"
-          },
-          {
-            "key": "param1",
-            "label": "Parameter 1",
-            "letter": "C"
-          },
-          {
-            "key": "param2",
-            "label": "Parameter 2",
-            "letter": "D"
-          },
-          {
-            "key": "target_val",
-            "label": "Target Answer (Formula)",
-            "letter": "E"
-          },
-          {
-            "key": "status",
-            "label": "Status Verifikasi",
-            "letter": "F"
-          }
-        ],
-        "rows": [
-          {
-            "rowNumber": 2,
-            "values": {
-              "no": 1,
-              "item": "Kasus Uji Alpha",
-              "param1": 5000000,
-              "param2": 3500000,
-              "target_val": "?",
-              "status": "?"
-            }
-          },
-          {
-            "rowNumber": 3,
-            "values": {
-              "no": 2,
-              "item": "Kasus Uji Beta",
-              "param1": 8500000,
-              "param2": 7200000,
-              "target_val": "?",
-              "status": "?"
-            }
-          },
-          {
-            "rowNumber": 4,
-            "values": {
-              "no": 3,
-              "item": "Kasus Uji Gamma",
-              "param1": 6000000,
-              "param2": 5500000,
-              "target_val": "?",
-              "status": "?"
-            }
-          },
-          {
-            "rowNumber": 5,
-            "values": {
-              "no": 4,
-              "item": "Kasus Uji Delta",
-              "param1": 3000000,
-              "param2": 2400000,
-              "target_val": "?",
-              "status": "?"
-            }
-          },
-          {
-            "rowNumber": 6,
-            "values": {
-              "no": 5,
-              "item": "Kasus Uji Epsilon",
-              "param1": 2500000,
-              "param2": 2100000,
-              "target_val": "?",
-              "status": "?"
-            }
-          }
-        ],
-        "targetColumns": [
-          {
-            "key": "target_val",
-            "letter": "E",
-            "label": "Target Answer",
-            "description": "Kalkulasi selisih / rujukan: =C2-D2",
-            "expectedRowAnswers": {
-              "2": 1500000,
-              "3": 1300000,
-              "4": 500000,
-              "5": 600000,
-              "6": 400000
-            }
-          },
-          {
-            "key": "status",
-            "letter": "F",
-            "label": "Status Verifikasi",
-            "description": "Jika target >= 500000 LULUS: =IF(E2>=500000, \"LULUS\", \"TIDAK LULUS\")",
-            "expectedRowAnswers": {
-              "2": "LULUS",
-              "3": "LULUS",
-              "4": "LULUS",
-              "5": "LULUS",
-              "6": "TIDAK LULUS"
-            }
-          }
-        ]
-      },
-      {
-        "id": "sheet_master",
-        "name": "Data Master",
-        "columns": [
-          {
-            "key": "kode",
-            "label": "Kode Referensi",
-            "letter": "A"
-          },
-          {
-            "key": "nama_ref",
-            "label": "Nama Rujukan",
-            "letter": "B"
-          },
-          {
-            "key": "bobot",
-            "label": "Bobot Standar",
-            "letter": "C"
-          }
-        ],
-        "rows": [
-          {
-            "rowNumber": 2,
-            "values": {
-              "kode": "REF-01",
-              "nama_ref": "Kategori Standar 1",
-              "bobot": 1500000
-            }
-          },
-          {
-            "rowNumber": 3,
-            "values": {
-              "kode": "REF-02",
-              "nama_ref": "Kategori Standar 2",
-              "bobot": 1300000
-            }
-          },
-          {
-            "rowNumber": 4,
-            "values": {
-              "kode": "REF-03",
-              "nama_ref": "Kategori Standar 3",
-              "bobot": 500000
-            }
-          }
-        ]
-      }
-    ],
-    "passingScore": 70,
-    "solutionBlueprints": [
-      {
-        "columnLabel": "Target Answer",
-        "formula": "=C2-D2",
-        "explanation": "Menghitung nilai selisih antara Parameter 1 dan Parameter 2"
-      },
-      {
-        "columnLabel": "Status Verifikasi",
-        "formula": "=IF(E2>=500000, \"LULUS\", \"TIDAK LULUS\")",
-        "explanation": "Menguji kondisi kelayakan batas nilai 500.000"
-      }
-    ]
-  },
-  {
-    "id": "EX-042",
-    "number": 42,
-    "code": "#SBEX041",
-    "title": "Tabel Amortisasi Pelunasan Pinjaman 12 Bulan",
-    "category": "Keuangan",
-    "difficulty": "EXTREME",
-    "difficultyStars": 5,
-    "tags": [
-      "Bank",
-      "Amortisasi",
-      "Cek Otomatis",
-      "Spreadsheet Kasus"
-    ],
-    "instructions": {
-      "title": "EXTREME Level - Tabel Amortisasi Pelunasan Pinjaman 12 Bulan",
-      "description": "Selesaikan lembar kerja kasus Tabel Amortisasi Pelunasan Pinjaman 12 Bulan. Buka sheet utama untuk mengisi formula target sesuai data acuan pada sheet referensi.",
-      "points": [
-        "1. Periksa sheet \"Data Master\" untuk melihat tabel acuan harga/kategori/nama.",
-        "2. Tulis rumus Excel dinamis pada kolom target (Answer) di sheet \"XL-Test\".",
-        "3. Gunakan formula yang dapat diterapkan ke seluruh baris data.",
-        "4. Klik tombol \"Cek Hasil Jawaban\" di pojok kanan atas untuk mengevaluasi kelulusan."
-      ],
-      "helperTable": {
-        "title": "Bantuan Referensi Standar",
-        "headers": [
-          "Kategori Data",
-          "Formula Saran"
-        ],
-        "rows": [
-          [
-            "Pencarian Rujukan",
-            "VLOOKUP / XLOOKUP / INDEX-MATCH"
-          ],
-          [
-            "Kondisi & Logika",
-            "IF / IFS"
-          ],
-          [
-            "Perhitungan Angka",
-            "Operator Aritmatika / SUMIF / PMT"
-          ]
-        ]
-      },
-      "notice": "Dilarang mengubah tabel acuan. Tulis formula langsung pada tabel pengerjaan yang tersedia."
-    },
-    "sheets": [
-      {
-        "id": "sheet_main",
-        "name": "XL-Test",
-        "columns": [
-          {
-            "key": "no",
-            "label": "No",
-            "letter": "A"
-          },
-          {
-            "key": "item",
-            "label": "Item / Subjek",
-            "letter": "B"
-          },
-          {
-            "key": "param1",
-            "label": "Parameter 1",
-            "letter": "C"
-          },
-          {
-            "key": "param2",
-            "label": "Parameter 2",
-            "letter": "D"
-          },
-          {
-            "key": "target_val",
-            "label": "Target Answer (Formula)",
-            "letter": "E"
-          },
-          {
-            "key": "status",
-            "label": "Status Verifikasi",
-            "letter": "F"
-          }
-        ],
-        "rows": [
-          {
-            "rowNumber": 2,
-            "values": {
-              "no": 1,
-              "item": "Kasus Uji Alpha",
-              "param1": 5000000,
-              "param2": 3500000,
-              "target_val": "?",
-              "status": "?"
-            }
-          },
-          {
-            "rowNumber": 3,
-            "values": {
-              "no": 2,
-              "item": "Kasus Uji Beta",
-              "param1": 8500000,
-              "param2": 7200000,
-              "target_val": "?",
-              "status": "?"
-            }
-          },
-          {
-            "rowNumber": 4,
-            "values": {
-              "no": 3,
-              "item": "Kasus Uji Gamma",
-              "param1": 6000000,
-              "param2": 5500000,
-              "target_val": "?",
-              "status": "?"
-            }
-          },
-          {
-            "rowNumber": 5,
-            "values": {
-              "no": 4,
-              "item": "Kasus Uji Delta",
-              "param1": 3000000,
-              "param2": 2400000,
-              "target_val": "?",
-              "status": "?"
-            }
-          },
-          {
-            "rowNumber": 6,
-            "values": {
-              "no": 5,
-              "item": "Kasus Uji Epsilon",
-              "param1": 2500000,
-              "param2": 2100000,
-              "target_val": "?",
-              "status": "?"
-            }
-          }
-        ],
-        "targetColumns": [
-          {
-            "key": "target_val",
-            "letter": "E",
-            "label": "Target Answer",
-            "description": "Kalkulasi selisih / rujukan: =C2-D2",
-            "expectedRowAnswers": {
-              "2": 1500000,
-              "3": 1300000,
-              "4": 500000,
-              "5": 600000,
-              "6": 400000
-            }
-          },
-          {
-            "key": "status",
-            "letter": "F",
-            "label": "Status Verifikasi",
-            "description": "Jika target >= 500000 LULUS: =IF(E2>=500000, \"LULUS\", \"TIDAK LULUS\")",
-            "expectedRowAnswers": {
-              "2": "LULUS",
-              "3": "LULUS",
-              "4": "LULUS",
-              "5": "LULUS",
-              "6": "TIDAK LULUS"
-            }
-          }
-        ]
-      },
-      {
-        "id": "sheet_master",
-        "name": "Data Master",
-        "columns": [
-          {
-            "key": "kode",
-            "label": "Kode Referensi",
-            "letter": "A"
-          },
-          {
-            "key": "nama_ref",
-            "label": "Nama Rujukan",
-            "letter": "B"
-          },
-          {
-            "key": "bobot",
-            "label": "Bobot Standar",
-            "letter": "C"
-          }
-        ],
-        "rows": [
-          {
-            "rowNumber": 2,
-            "values": {
-              "kode": "REF-01",
-              "nama_ref": "Kategori Standar 1",
-              "bobot": 1500000
-            }
-          },
-          {
-            "rowNumber": 3,
-            "values": {
-              "kode": "REF-02",
-              "nama_ref": "Kategori Standar 2",
-              "bobot": 1300000
-            }
-          },
-          {
-            "rowNumber": 4,
-            "values": {
-              "kode": "REF-03",
-              "nama_ref": "Kategori Standar 3",
-              "bobot": 500000
-            }
-          }
-        ]
-      }
-    ],
-    "passingScore": 70,
-    "solutionBlueprints": [
-      {
-        "columnLabel": "Target Answer",
-        "formula": "=C2-D2",
-        "explanation": "Menghitung nilai selisih antara Parameter 1 dan Parameter 2"
-      },
-      {
-        "columnLabel": "Status Verifikasi",
-        "formula": "=IF(E2>=500000, \"LULUS\", \"TIDAK LULUS\")",
-        "explanation": "Menguji kondisi kelayakan batas nilai 500.000"
-      }
-    ]
-  },
-  {
-    "id": "EX-043",
-    "number": 43,
-    "code": "#SBEX042",
-    "title": "Validasi & Rekonsiliasi Transaksi Bank vs Buku Kas",
-    "category": "Kombinasi",
-    "difficulty": "EXTREME",
-    "difficultyStars": 5,
-    "tags": [
-      "Akuntansi",
-      "Audit",
-      "Cek Otomatis",
-      "Spreadsheet Kasus"
-    ],
-    "instructions": {
-      "title": "EXTREME Level - Validasi & Rekonsiliasi Transaksi Bank vs Buku Kas",
-      "description": "Selesaikan lembar kerja kasus Validasi & Rekonsiliasi Transaksi Bank vs Buku Kas. Buka sheet utama untuk mengisi formula target sesuai data acuan pada sheet referensi.",
-      "points": [
-        "1. Periksa sheet \"Data Master\" untuk melihat tabel acuan harga/kategori/nama.",
-        "2. Tulis rumus Excel dinamis pada kolom target (Answer) di sheet \"XL-Test\".",
-        "3. Gunakan formula yang dapat diterapkan ke seluruh baris data.",
-        "4. Klik tombol \"Cek Hasil Jawaban\" di pojok kanan atas untuk mengevaluasi kelulusan."
-      ],
-      "helperTable": {
-        "title": "Bantuan Referensi Standar",
-        "headers": [
-          "Kategori Data",
-          "Formula Saran"
-        ],
-        "rows": [
-          [
-            "Pencarian Rujukan",
-            "VLOOKUP / XLOOKUP / INDEX-MATCH"
-          ],
-          [
-            "Kondisi & Logika",
-            "IF / IFS"
-          ],
-          [
-            "Perhitungan Angka",
-            "Operator Aritmatika / SUMIF / PMT"
-          ]
-        ]
-      },
-      "notice": "Dilarang mengubah tabel acuan. Tulis formula langsung pada tabel pengerjaan yang tersedia."
-    },
-    "sheets": [
-      {
-        "id": "sheet_main",
-        "name": "XL-Test",
-        "columns": [
-          {
-            "key": "no",
-            "label": "No",
-            "letter": "A"
-          },
-          {
-            "key": "item",
-            "label": "Item / Subjek",
-            "letter": "B"
-          },
-          {
-            "key": "param1",
-            "label": "Parameter 1",
-            "letter": "C"
-          },
-          {
-            "key": "param2",
-            "label": "Parameter 2",
-            "letter": "D"
-          },
-          {
-            "key": "target_val",
-            "label": "Target Answer (Formula)",
-            "letter": "E"
-          },
-          {
-            "key": "status",
-            "label": "Status Verifikasi",
-            "letter": "F"
-          }
-        ],
-        "rows": [
-          {
-            "rowNumber": 2,
-            "values": {
-              "no": 1,
-              "item": "Kasus Uji Alpha",
-              "param1": 5000000,
-              "param2": 3500000,
-              "target_val": "?",
-              "status": "?"
-            }
-          },
-          {
-            "rowNumber": 3,
-            "values": {
-              "no": 2,
-              "item": "Kasus Uji Beta",
-              "param1": 8500000,
-              "param2": 7200000,
-              "target_val": "?",
-              "status": "?"
-            }
-          },
-          {
-            "rowNumber": 4,
-            "values": {
-              "no": 3,
-              "item": "Kasus Uji Gamma",
-              "param1": 6000000,
-              "param2": 5500000,
-              "target_val": "?",
-              "status": "?"
-            }
-          },
-          {
-            "rowNumber": 5,
-            "values": {
-              "no": 4,
-              "item": "Kasus Uji Delta",
-              "param1": 3000000,
-              "param2": 2400000,
-              "target_val": "?",
-              "status": "?"
-            }
-          },
-          {
-            "rowNumber": 6,
-            "values": {
-              "no": 5,
-              "item": "Kasus Uji Epsilon",
-              "param1": 2500000,
-              "param2": 2100000,
-              "target_val": "?",
-              "status": "?"
-            }
-          }
-        ],
-        "targetColumns": [
-          {
-            "key": "target_val",
-            "letter": "E",
-            "label": "Target Answer",
-            "description": "Kalkulasi selisih / rujukan: =C2-D2",
-            "expectedRowAnswers": {
-              "2": 1500000,
-              "3": 1300000,
-              "4": 500000,
-              "5": 600000,
-              "6": 400000
-            }
-          },
-          {
-            "key": "status",
-            "letter": "F",
-            "label": "Status Verifikasi",
-            "description": "Jika target >= 500000 LULUS: =IF(E2>=500000, \"LULUS\", \"TIDAK LULUS\")",
-            "expectedRowAnswers": {
-              "2": "LULUS",
-              "3": "LULUS",
-              "4": "LULUS",
-              "5": "LULUS",
-              "6": "TIDAK LULUS"
-            }
-          }
-        ]
-      },
-      {
-        "id": "sheet_master",
-        "name": "Data Master",
-        "columns": [
-          {
-            "key": "kode",
-            "label": "Kode Referensi",
-            "letter": "A"
-          },
-          {
-            "key": "nama_ref",
-            "label": "Nama Rujukan",
-            "letter": "B"
-          },
-          {
-            "key": "bobot",
-            "label": "Bobot Standar",
-            "letter": "C"
-          }
-        ],
-        "rows": [
-          {
-            "rowNumber": 2,
-            "values": {
-              "kode": "REF-01",
-              "nama_ref": "Kategori Standar 1",
-              "bobot": 1500000
-            }
-          },
-          {
-            "rowNumber": 3,
-            "values": {
-              "kode": "REF-02",
-              "nama_ref": "Kategori Standar 2",
-              "bobot": 1300000
-            }
-          },
-          {
-            "rowNumber": 4,
-            "values": {
-              "kode": "REF-03",
-              "nama_ref": "Kategori Standar 3",
-              "bobot": 500000
-            }
-          }
-        ]
-      }
-    ],
-    "passingScore": 70,
-    "solutionBlueprints": [
-      {
-        "columnLabel": "Target Answer",
-        "formula": "=C2-D2",
-        "explanation": "Menghitung nilai selisih antara Parameter 1 dan Parameter 2"
-      },
-      {
-        "columnLabel": "Status Verifikasi",
-        "formula": "=IF(E2>=500000, \"LULUS\", \"TIDAK LULUS\")",
-        "explanation": "Menguji kondisi kelayakan batas nilai 500.000"
-      }
-    ]
-  },
-  {
-    "id": "EX-044",
-    "number": 44,
-    "code": "#SBEX043",
-    "title": "Pencarian Multi-Sheet Inventaris 3 Gudang Wilayah",
-    "category": "Lookup",
-    "difficulty": "EXTREME",
-    "difficultyStars": 5,
-    "tags": [
-      "Logistik",
-      "Multi-Sheet",
-      "Cek Otomatis",
-      "Spreadsheet Kasus"
-    ],
-    "instructions": {
-      "title": "EXTREME Level - Pencarian Multi-Sheet Inventaris 3 Gudang Wilayah",
-      "description": "Selesaikan lembar kerja kasus Pencarian Multi-Sheet Inventaris 3 Gudang Wilayah. Buka sheet utama untuk mengisi formula target sesuai data acuan pada sheet referensi.",
-      "points": [
-        "1. Periksa sheet \"Data Master\" untuk melihat tabel acuan harga/kategori/nama.",
-        "2. Tulis rumus Excel dinamis pada kolom target (Answer) di sheet \"XL-Test\".",
-        "3. Gunakan formula yang dapat diterapkan ke seluruh baris data.",
-        "4. Klik tombol \"Cek Hasil Jawaban\" di pojok kanan atas untuk mengevaluasi kelulusan."
-      ],
-      "helperTable": {
-        "title": "Bantuan Referensi Standar",
-        "headers": [
-          "Kategori Data",
-          "Formula Saran"
-        ],
-        "rows": [
-          [
-            "Pencarian Rujukan",
-            "VLOOKUP / XLOOKUP / INDEX-MATCH"
-          ],
-          [
-            "Kondisi & Logika",
-            "IF / IFS"
-          ],
-          [
-            "Perhitungan Angka",
-            "Operator Aritmatika / SUMIF / PMT"
-          ]
-        ]
-      },
-      "notice": "Dilarang mengubah tabel acuan. Tulis formula langsung pada tabel pengerjaan yang tersedia."
-    },
-    "sheets": [
-      {
-        "id": "sheet_main",
-        "name": "XL-Test",
-        "columns": [
-          {
-            "key": "no",
-            "label": "No",
-            "letter": "A"
-          },
-          {
-            "key": "item",
-            "label": "Item / Subjek",
-            "letter": "B"
-          },
-          {
-            "key": "param1",
-            "label": "Parameter 1",
-            "letter": "C"
-          },
-          {
-            "key": "param2",
-            "label": "Parameter 2",
-            "letter": "D"
-          },
-          {
-            "key": "target_val",
-            "label": "Target Answer (Formula)",
-            "letter": "E"
-          },
-          {
-            "key": "status",
-            "label": "Status Verifikasi",
-            "letter": "F"
-          }
-        ],
-        "rows": [
-          {
-            "rowNumber": 2,
-            "values": {
-              "no": 1,
-              "item": "Kasus Uji Alpha",
-              "param1": 5000000,
-              "param2": 3500000,
-              "target_val": "?",
-              "status": "?"
-            }
-          },
-          {
-            "rowNumber": 3,
-            "values": {
-              "no": 2,
-              "item": "Kasus Uji Beta",
-              "param1": 8500000,
-              "param2": 7200000,
-              "target_val": "?",
-              "status": "?"
-            }
-          },
-          {
-            "rowNumber": 4,
-            "values": {
-              "no": 3,
-              "item": "Kasus Uji Gamma",
-              "param1": 6000000,
-              "param2": 5500000,
-              "target_val": "?",
-              "status": "?"
-            }
-          },
-          {
-            "rowNumber": 5,
-            "values": {
-              "no": 4,
-              "item": "Kasus Uji Delta",
-              "param1": 3000000,
-              "param2": 2400000,
-              "target_val": "?",
-              "status": "?"
-            }
-          },
-          {
-            "rowNumber": 6,
-            "values": {
-              "no": 5,
-              "item": "Kasus Uji Epsilon",
-              "param1": 2500000,
-              "param2": 2100000,
-              "target_val": "?",
-              "status": "?"
-            }
-          }
-        ],
-        "targetColumns": [
-          {
-            "key": "target_val",
-            "letter": "E",
-            "label": "Target Answer",
-            "description": "Kalkulasi selisih / rujukan: =C2-D2",
-            "expectedRowAnswers": {
-              "2": 1500000,
-              "3": 1300000,
-              "4": 500000,
-              "5": 600000,
-              "6": 400000
-            }
-          },
-          {
-            "key": "status",
-            "letter": "F",
-            "label": "Status Verifikasi",
-            "description": "Jika target >= 500000 LULUS: =IF(E2>=500000, \"LULUS\", \"TIDAK LULUS\")",
-            "expectedRowAnswers": {
-              "2": "LULUS",
-              "3": "LULUS",
-              "4": "LULUS",
-              "5": "LULUS",
-              "6": "TIDAK LULUS"
-            }
-          }
-        ]
-      },
-      {
-        "id": "sheet_master",
-        "name": "Data Master",
-        "columns": [
-          {
-            "key": "kode",
-            "label": "Kode Referensi",
-            "letter": "A"
-          },
-          {
-            "key": "nama_ref",
-            "label": "Nama Rujukan",
-            "letter": "B"
-          },
-          {
-            "key": "bobot",
-            "label": "Bobot Standar",
-            "letter": "C"
-          }
-        ],
-        "rows": [
-          {
-            "rowNumber": 2,
-            "values": {
-              "kode": "REF-01",
-              "nama_ref": "Kategori Standar 1",
-              "bobot": 1500000
-            }
-          },
-          {
-            "rowNumber": 3,
-            "values": {
-              "kode": "REF-02",
-              "nama_ref": "Kategori Standar 2",
-              "bobot": 1300000
-            }
-          },
-          {
-            "rowNumber": 4,
-            "values": {
-              "kode": "REF-03",
-              "nama_ref": "Kategori Standar 3",
-              "bobot": 500000
-            }
-          }
-        ]
-      }
-    ],
-    "passingScore": 70,
-    "solutionBlueprints": [
-      {
-        "columnLabel": "Target Answer",
-        "formula": "=C2-D2",
-        "explanation": "Menghitung nilai selisih antara Parameter 1 dan Parameter 2"
-      },
-      {
-        "columnLabel": "Status Verifikasi",
-        "formula": "=IF(E2>=500000, \"LULUS\", \"TIDAK LULUS\")",
-        "explanation": "Menguji kondisi kelayakan batas nilai 500.000"
-      }
-    ]
-  },
-  {
-    "id": "EX-045",
-    "number": 45,
-    "code": "#SBEX044",
-    "title": "Kalkulasi KPI Performa Karyawan dengan Bobot Penilaian",
-    "category": "Statistik",
-    "difficulty": "EXTREME",
-    "difficultyStars": 5,
-    "tags": [
-      "HRD",
-      "KPI",
-      "Cek Otomatis",
-      "Spreadsheet Kasus"
-    ],
-    "instructions": {
-      "title": "EXTREME Level - Kalkulasi KPI Performa Karyawan dengan Bobot Penilaian",
-      "description": "Selesaikan lembar kerja kasus Kalkulasi KPI Performa Karyawan dengan Bobot Penilaian. Buka sheet utama untuk mengisi formula target sesuai data acuan pada sheet referensi.",
-      "points": [
-        "1. Periksa sheet \"Data Master\" untuk melihat tabel acuan harga/kategori/nama.",
-        "2. Tulis rumus Excel dinamis pada kolom target (Answer) di sheet \"XL-Test\".",
-        "3. Gunakan formula yang dapat diterapkan ke seluruh baris data.",
-        "4. Klik tombol \"Cek Hasil Jawaban\" di pojok kanan atas untuk mengevaluasi kelulusan."
-      ],
-      "helperTable": {
-        "title": "Bantuan Referensi Standar",
-        "headers": [
-          "Kategori Data",
-          "Formula Saran"
-        ],
-        "rows": [
-          [
-            "Pencarian Rujukan",
-            "VLOOKUP / XLOOKUP / INDEX-MATCH"
-          ],
-          [
-            "Kondisi & Logika",
-            "IF / IFS"
-          ],
-          [
-            "Perhitungan Angka",
-            "Operator Aritmatika / SUMIF / PMT"
-          ]
-        ]
-      },
-      "notice": "Dilarang mengubah tabel acuan. Tulis formula langsung pada tabel pengerjaan yang tersedia."
-    },
-    "sheets": [
-      {
-        "id": "sheet_main",
-        "name": "XL-Test",
-        "columns": [
-          {
-            "key": "no",
-            "label": "No",
-            "letter": "A"
-          },
-          {
-            "key": "item",
-            "label": "Item / Subjek",
-            "letter": "B"
-          },
-          {
-            "key": "param1",
-            "label": "Parameter 1",
-            "letter": "C"
-          },
-          {
-            "key": "param2",
-            "label": "Parameter 2",
-            "letter": "D"
-          },
-          {
-            "key": "target_val",
-            "label": "Target Answer (Formula)",
-            "letter": "E"
-          },
-          {
-            "key": "status",
-            "label": "Status Verifikasi",
-            "letter": "F"
-          }
-        ],
-        "rows": [
-          {
-            "rowNumber": 2,
-            "values": {
-              "no": 1,
-              "item": "Kasus Uji Alpha",
-              "param1": 5000000,
-              "param2": 3500000,
-              "target_val": "?",
-              "status": "?"
-            }
-          },
-          {
-            "rowNumber": 3,
-            "values": {
-              "no": 2,
-              "item": "Kasus Uji Beta",
-              "param1": 8500000,
-              "param2": 7200000,
-              "target_val": "?",
-              "status": "?"
-            }
-          },
-          {
-            "rowNumber": 4,
-            "values": {
-              "no": 3,
-              "item": "Kasus Uji Gamma",
-              "param1": 6000000,
-              "param2": 5500000,
-              "target_val": "?",
-              "status": "?"
-            }
-          },
-          {
-            "rowNumber": 5,
-            "values": {
-              "no": 4,
-              "item": "Kasus Uji Delta",
-              "param1": 3000000,
-              "param2": 2400000,
-              "target_val": "?",
-              "status": "?"
-            }
-          },
-          {
-            "rowNumber": 6,
-            "values": {
-              "no": 5,
-              "item": "Kasus Uji Epsilon",
-              "param1": 2500000,
-              "param2": 2100000,
-              "target_val": "?",
-              "status": "?"
-            }
-          }
-        ],
-        "targetColumns": [
-          {
-            "key": "target_val",
-            "letter": "E",
-            "label": "Target Answer",
-            "description": "Kalkulasi selisih / rujukan: =C2-D2",
-            "expectedRowAnswers": {
-              "2": 1500000,
-              "3": 1300000,
-              "4": 500000,
-              "5": 600000,
-              "6": 400000
-            }
-          },
-          {
-            "key": "status",
-            "letter": "F",
-            "label": "Status Verifikasi",
-            "description": "Jika target >= 500000 LULUS: =IF(E2>=500000, \"LULUS\", \"TIDAK LULUS\")",
-            "expectedRowAnswers": {
-              "2": "LULUS",
-              "3": "LULUS",
-              "4": "LULUS",
-              "5": "LULUS",
-              "6": "TIDAK LULUS"
-            }
-          }
-        ]
-      },
-      {
-        "id": "sheet_master",
-        "name": "Data Master",
-        "columns": [
-          {
-            "key": "kode",
-            "label": "Kode Referensi",
-            "letter": "A"
-          },
-          {
-            "key": "nama_ref",
-            "label": "Nama Rujukan",
-            "letter": "B"
-          },
-          {
-            "key": "bobot",
-            "label": "Bobot Standar",
-            "letter": "C"
-          }
-        ],
-        "rows": [
-          {
-            "rowNumber": 2,
-            "values": {
-              "kode": "REF-01",
-              "nama_ref": "Kategori Standar 1",
-              "bobot": 1500000
-            }
-          },
-          {
-            "rowNumber": 3,
-            "values": {
-              "kode": "REF-02",
-              "nama_ref": "Kategori Standar 2",
-              "bobot": 1300000
-            }
-          },
-          {
-            "rowNumber": 4,
-            "values": {
-              "kode": "REF-03",
-              "nama_ref": "Kategori Standar 3",
-              "bobot": 500000
-            }
-          }
-        ]
-      }
-    ],
-    "passingScore": 70,
-    "solutionBlueprints": [
-      {
-        "columnLabel": "Target Answer",
-        "formula": "=C2-D2",
-        "explanation": "Menghitung nilai selisih antara Parameter 1 dan Parameter 2"
-      },
-      {
-        "columnLabel": "Status Verifikasi",
-        "formula": "=IF(E2>=500000, \"LULUS\", \"TIDAK LULUS\")",
-        "explanation": "Menguji kondisi kelayakan batas nilai 500.000"
-      }
-    ]
-  },
-  {
-    "id": "EX-046",
-    "number": 46,
-    "code": "#SBEX045",
-    "title": "Otomasi Pembuatan Invoice & Faktur Pajak Perusahaan",
-    "category": "Kombinasi",
-    "difficulty": "EXTREME",
-    "difficultyStars": 5,
-    "tags": [
-      "Billing",
-      "Invoice",
-      "Cek Otomatis",
-      "Spreadsheet Kasus"
-    ],
-    "instructions": {
-      "title": "EXTREME Level - Otomasi Pembuatan Invoice & Faktur Pajak Perusahaan",
-      "description": "Selesaikan lembar kerja kasus Otomasi Pembuatan Invoice & Faktur Pajak Perusahaan. Buka sheet utama untuk mengisi formula target sesuai data acuan pada sheet referensi.",
-      "points": [
-        "1. Periksa sheet \"Data Master\" untuk melihat tabel acuan harga/kategori/nama.",
-        "2. Tulis rumus Excel dinamis pada kolom target (Answer) di sheet \"XL-Test\".",
-        "3. Gunakan formula yang dapat diterapkan ke seluruh baris data.",
-        "4. Klik tombol \"Cek Hasil Jawaban\" di pojok kanan atas untuk mengevaluasi kelulusan."
-      ],
-      "helperTable": {
-        "title": "Bantuan Referensi Standar",
-        "headers": [
-          "Kategori Data",
-          "Formula Saran"
-        ],
-        "rows": [
-          [
-            "Pencarian Rujukan",
-            "VLOOKUP / XLOOKUP / INDEX-MATCH"
-          ],
-          [
-            "Kondisi & Logika",
-            "IF / IFS"
-          ],
-          [
-            "Perhitungan Angka",
-            "Operator Aritmatika / SUMIF / PMT"
-          ]
-        ]
-      },
-      "notice": "Dilarang mengubah tabel acuan. Tulis formula langsung pada tabel pengerjaan yang tersedia."
-    },
-    "sheets": [
-      {
-        "id": "sheet_main",
-        "name": "XL-Test",
-        "columns": [
-          {
-            "key": "no",
-            "label": "No",
-            "letter": "A"
-          },
-          {
-            "key": "item",
-            "label": "Item / Subjek",
-            "letter": "B"
-          },
-          {
-            "key": "param1",
-            "label": "Parameter 1",
-            "letter": "C"
-          },
-          {
-            "key": "param2",
-            "label": "Parameter 2",
-            "letter": "D"
-          },
-          {
-            "key": "target_val",
-            "label": "Target Answer (Formula)",
-            "letter": "E"
-          },
-          {
-            "key": "status",
-            "label": "Status Verifikasi",
-            "letter": "F"
-          }
-        ],
-        "rows": [
-          {
-            "rowNumber": 2,
-            "values": {
-              "no": 1,
-              "item": "Kasus Uji Alpha",
-              "param1": 5000000,
-              "param2": 3500000,
-              "target_val": "?",
-              "status": "?"
-            }
-          },
-          {
-            "rowNumber": 3,
-            "values": {
-              "no": 2,
-              "item": "Kasus Uji Beta",
-              "param1": 8500000,
-              "param2": 7200000,
-              "target_val": "?",
-              "status": "?"
-            }
-          },
-          {
-            "rowNumber": 4,
-            "values": {
-              "no": 3,
-              "item": "Kasus Uji Gamma",
-              "param1": 6000000,
-              "param2": 5500000,
-              "target_val": "?",
-              "status": "?"
-            }
-          },
-          {
-            "rowNumber": 5,
-            "values": {
-              "no": 4,
-              "item": "Kasus Uji Delta",
-              "param1": 3000000,
-              "param2": 2400000,
-              "target_val": "?",
-              "status": "?"
-            }
-          },
-          {
-            "rowNumber": 6,
-            "values": {
-              "no": 5,
-              "item": "Kasus Uji Epsilon",
-              "param1": 2500000,
-              "param2": 2100000,
-              "target_val": "?",
-              "status": "?"
-            }
-          }
-        ],
-        "targetColumns": [
-          {
-            "key": "target_val",
-            "letter": "E",
-            "label": "Target Answer",
-            "description": "Kalkulasi selisih / rujukan: =C2-D2",
-            "expectedRowAnswers": {
-              "2": 1500000,
-              "3": 1300000,
-              "4": 500000,
-              "5": 600000,
-              "6": 400000
-            }
-          },
-          {
-            "key": "status",
-            "letter": "F",
-            "label": "Status Verifikasi",
-            "description": "Jika target >= 500000 LULUS: =IF(E2>=500000, \"LULUS\", \"TIDAK LULUS\")",
-            "expectedRowAnswers": {
-              "2": "LULUS",
-              "3": "LULUS",
-              "4": "LULUS",
-              "5": "LULUS",
-              "6": "TIDAK LULUS"
-            }
-          }
-        ]
-      },
-      {
-        "id": "sheet_master",
-        "name": "Data Master",
-        "columns": [
-          {
-            "key": "kode",
-            "label": "Kode Referensi",
-            "letter": "A"
-          },
-          {
-            "key": "nama_ref",
-            "label": "Nama Rujukan",
-            "letter": "B"
-          },
-          {
-            "key": "bobot",
-            "label": "Bobot Standar",
-            "letter": "C"
-          }
-        ],
-        "rows": [
-          {
-            "rowNumber": 2,
-            "values": {
-              "kode": "REF-01",
-              "nama_ref": "Kategori Standar 1",
-              "bobot": 1500000
-            }
-          },
-          {
-            "rowNumber": 3,
-            "values": {
-              "kode": "REF-02",
-              "nama_ref": "Kategori Standar 2",
-              "bobot": 1300000
-            }
-          },
-          {
-            "rowNumber": 4,
-            "values": {
-              "kode": "REF-03",
-              "nama_ref": "Kategori Standar 3",
-              "bobot": 500000
-            }
-          }
-        ]
-      }
-    ],
-    "passingScore": 70,
-    "solutionBlueprints": [
-      {
-        "columnLabel": "Target Answer",
-        "formula": "=C2-D2",
-        "explanation": "Menghitung nilai selisih antara Parameter 1 dan Parameter 2"
-      },
-      {
-        "columnLabel": "Status Verifikasi",
-        "formula": "=IF(E2>=500000, \"LULUS\", \"TIDAK LULUS\")",
-        "explanation": "Menguji kondisi kelayakan batas nilai 500.000"
-      }
-    ]
-  },
-  {
-    "id": "EX-047",
-    "number": 47,
-    "code": "#SBEC046",
+    "code": "#SBEC005",
     "title": "File Latihan Championship Excel: EVE Online (MEWC 2023)",
     "category": "Kombinasi",
     "difficulty": "CHAMPIONSHIP",
     "difficultyStars": 5,
     "tags": [
       "Championship",
-      "MEWC",
-      "Cek Otomatis",
-      "Spreadsheet Kasus"
+      "MEWC 2023",
+      "EVE Online",
+      "Turnamen"
     ],
     "instructions": {
-      "title": "CHAMPIONSHIP Level - File Latihan Championship Excel: EVE Online (MEWC 2023)",
-      "description": "Selesaikan lembar kerja kasus File Latihan Championship Excel: EVE Online (MEWC 2023). Buka sheet utama untuk mengisi formula target sesuai data acuan pada sheet referensi.",
+      "title": "Championship Level - Model Pemurnian Mineral EVE Online (MEWC)",
+      "description": "Model pemurnian tambang asteroid ruang angkasa: Hitung Hasil Pemurnian Mineral (Tritanium, Pyerite) berdasarkan Efisiensi Stasiun dan Estimasi Pendapatan Penjualan di Pasar Jita 4-4.",
       "points": [
-        "1. Periksa sheet \"Data Master\" untuk melihat tabel acuan harga/kategori/nama.",
-        "2. Tulis rumus Excel dinamis pada kolom target (Answer) di sheet \"XL-Test\".",
-        "3. Gunakan formula yang dapat diterapkan ke seluruh baris data.",
-        "4. Klik tombol \"Cek Hasil Jawaban\" di pojok kanan atas untuk mengevaluasi kelulusan."
+        "1. Kolom E (Tritanium Yield): Berat Ore (kolom C) * Efisiensi (kolom D) * 10 (=C2*D2*10).",
+        "2. Kolom F (Pyerite Yield): Berat Ore * Efisiensi * 3 (=C2*D2*3).",
+        "3. Kolom G (Total Nilai Jita ISK): (Tritanium * 4.2 ISK) + (Pyerite * 12.5 ISK) (=E2*4.2 + F2*12.5)."
       ],
       "helperTable": {
-        "title": "Bantuan Referensi Standar",
+        "title": "Harga Komoditas Pasar Jita",
         "headers": [
-          "Kategori Data",
-          "Formula Saran"
+          "Mineral",
+          "Harga Pasar per Unit"
         ],
         "rows": [
           [
-            "Pencarian Rujukan",
-            "VLOOKUP / XLOOKUP / INDEX-MATCH"
+            "Tritanium",
+            "4.2 ISK"
           ],
           [
-            "Kondisi & Logika",
-            "IF / IFS"
+            "Pyerite",
+            "12.5 ISK"
           ],
           [
-            "Perhitungan Angka",
-            "Operator Aritmatika / SUMIF / PMT"
+            "Mexallon",
+            "45.0 ISK"
           ]
         ]
       },
-      "notice": "Dilarang mengubah tabel acuan. Tulis formula langsung pada tabel pengerjaan yang tersedia."
+      "notice": "Gunakan konstanta harga pasar pada formula kalkulasi."
     },
     "sheets": [
       {
-        "id": "sheet_main",
-        "name": "XL-Test",
+        "id": "sheet_eve",
+        "name": "Refining Operations",
         "columns": [
           {
-            "key": "no",
-            "label": "No",
+            "key": "ore",
+            "label": "Tipe Asteroid Ore",
             "letter": "A"
           },
           {
-            "key": "item",
-            "label": "Item / Subjek",
+            "key": "lokasi",
+            "label": "Lokasi Solar System",
             "letter": "B"
           },
           {
-            "key": "param1",
-            "label": "Parameter 1",
+            "key": "batch",
+            "label": "Volume Batch (m3)",
             "letter": "C"
           },
           {
-            "key": "param2",
-            "label": "Parameter 2",
+            "key": "efisiensi",
+            "label": "Efisiensi Stasiun (%)",
             "letter": "D"
           },
           {
-            "key": "target_val",
-            "label": "Target Answer (Formula)",
+            "key": "trit",
+            "label": "Tritanium Yield",
             "letter": "E"
           },
           {
-            "key": "status",
-            "label": "Status Verifikasi",
+            "key": "pye",
+            "label": "Pyerite Yield",
             "letter": "F"
+          },
+          {
+            "key": "nilai_isk",
+            "label": "Total Nilai Pasar (ISK)",
+            "letter": "G"
           }
         ],
         "rows": [
           {
             "rowNumber": 2,
             "values": {
-              "no": 1,
-              "item": "Kasus Uji Alpha",
-              "param1": 5000000,
-              "param2": 3500000,
-              "target_val": "?",
-              "status": "?"
+              "ore": "Veldspar High Quality",
+              "lokasi": "Jita IV-4",
+              "batch": 1000,
+              "efisiensi": 0.85,
+              "trit": "?",
+              "pye": "?",
+              "nilai_isk": "?"
             }
           },
           {
             "rowNumber": 3,
             "values": {
-              "no": 2,
-              "item": "Kasus Uji Beta",
-              "param1": 8500000,
-              "param2": 7200000,
-              "target_val": "?",
-              "status": "?"
+              "ore": "Scordite Concentrated",
+              "lokasi": "Amarr VIII",
+              "batch": 1500,
+              "efisiensi": 0.8,
+              "trit": "?",
+              "pye": "?",
+              "nilai_isk": "?"
             }
           },
           {
             "rowNumber": 4,
             "values": {
-              "no": 3,
-              "item": "Kasus Uji Gamma",
-              "param1": 6000000,
-              "param2": 5500000,
-              "target_val": "?",
-              "status": "?"
+              "ore": "Pyroxeres Solid",
+              "lokasi": "Dodixie IX",
+              "batch": 800,
+              "efisiensi": 0.88,
+              "trit": "?",
+              "pye": "?",
+              "nilai_isk": "?"
             }
           },
           {
             "rowNumber": 5,
             "values": {
-              "no": 4,
-              "item": "Kasus Uji Delta",
-              "param1": 3000000,
-              "param2": 2400000,
-              "target_val": "?",
-              "status": "?"
+              "ore": "Plagioclase Rich",
+              "lokasi": "Rens VI",
+              "batch": 2000,
+              "efisiensi": 0.75,
+              "trit": "?",
+              "pye": "?",
+              "nilai_isk": "?"
             }
           },
           {
             "rowNumber": 6,
             "values": {
-              "no": 5,
-              "item": "Kasus Uji Epsilon",
-              "param1": 2500000,
-              "param2": 2100000,
-              "target_val": "?",
-              "status": "?"
+              "ore": "Kernite Resplendant",
+              "lokasi": "Hek VIII",
+              "batch": 1200,
+              "efisiensi": 0.82,
+              "trit": "?",
+              "pye": "?",
+              "nilai_isk": "?"
             }
           }
         ],
         "targetColumns": [
           {
-            "key": "target_val",
+            "key": "trit",
             "letter": "E",
-            "label": "Target Answer",
-            "description": "Kalkulasi selisih / rujukan: =C2-D2",
+            "label": "Tritanium Yield",
+            "description": "Batch * Efisiensi * 10",
             "expectedRowAnswers": {
-              "2": 1500000,
-              "3": 1300000,
-              "4": 500000,
-              "5": 600000,
-              "6": 400000
+              "2": 8500,
+              "3": 12000,
+              "4": 7040,
+              "5": 15000,
+              "6": 9840
             }
           },
           {
-            "key": "status",
+            "key": "pye",
             "letter": "F",
-            "label": "Status Verifikasi",
-            "description": "Jika target >= 500000 LULUS: =IF(E2>=500000, \"LULUS\", \"TIDAK LULUS\")",
+            "label": "Pyerite Yield",
+            "description": "Batch * Efisiensi * 3",
             "expectedRowAnswers": {
-              "2": "LULUS",
-              "3": "LULUS",
-              "4": "LULUS",
-              "5": "LULUS",
-              "6": "TIDAK LULUS"
-            }
-          }
-        ]
-      },
-      {
-        "id": "sheet_master",
-        "name": "Data Master",
-        "columns": [
-          {
-            "key": "kode",
-            "label": "Kode Referensi",
-            "letter": "A"
-          },
-          {
-            "key": "nama_ref",
-            "label": "Nama Rujukan",
-            "letter": "B"
-          },
-          {
-            "key": "bobot",
-            "label": "Bobot Standar",
-            "letter": "C"
-          }
-        ],
-        "rows": [
-          {
-            "rowNumber": 2,
-            "values": {
-              "kode": "REF-01",
-              "nama_ref": "Kategori Standar 1",
-              "bobot": 1500000
+              "2": 2550,
+              "3": 3600,
+              "4": 2112,
+              "5": 4500,
+              "6": 2952
             }
           },
           {
-            "rowNumber": 3,
-            "values": {
-              "kode": "REF-02",
-              "nama_ref": "Kategori Standar 2",
-              "bobot": 1300000
-            }
-          },
-          {
-            "rowNumber": 4,
-            "values": {
-              "kode": "REF-03",
-              "nama_ref": "Kategori Standar 3",
-              "bobot": 500000
+            "key": "nilai_isk",
+            "letter": "G",
+            "label": "Total Nilai Pasar (ISK)",
+            "description": "(Trit * 4.2) + (Pye * 12.5)",
+            "expectedRowAnswers": {
+              "2": 67575,
+              "3": 95400,
+              "4": 55968,
+              "5": 119250,
+              "6": 78228
             }
           }
         ]
@@ -12409,227 +2831,6186 @@ export const CASE_EXAMS: CaseExamData[] = [
     "passingScore": 70,
     "solutionBlueprints": [
       {
-        "columnLabel": "Target Answer",
-        "formula": "=C2-D2",
-        "explanation": "Menghitung nilai selisih antara Parameter 1 dan Parameter 2"
+        "columnLabel": "Tritanium Yield",
+        "formula": "=C2*D2*10",
+        "explanation": "Kalkulasi output mineral Tritanium dengan faktor efisiensi pemurnian"
       },
       {
-        "columnLabel": "Status Verifikasi",
-        "formula": "=IF(E2>=500000, \"LULUS\", \"TIDAK LULUS\")",
-        "explanation": "Menguji kondisi kelayakan batas nilai 500.000"
+        "columnLabel": "Total Nilai Pasar",
+        "formula": "=(E2*4.2)+(F2*12.5)",
+        "explanation": "Menghitung total pendapatan ISK dari harga pasar komoditas"
+      }
+    ]
+  },
+  {
+    "id": "EX-006",
+    "number": 6,
+    "code": "#SBEM006",
+    "title": "Simulasi Angsuran Kredit Rumah KPR (Bank PMT) (Studi Kasus #6)",
+    "category": "Keuangan",
+    "difficulty": "MAHIR",
+    "difficultyStars": 4,
+    "tags": [
+      "Cek Otomatis",
+      "Studi Kasus",
+      "Keuangan"
+    ],
+    "instructions": {
+      "title": "MAHIR Level - Simulasi Angsuran Kredit Rumah KPR (Bank PMT)",
+      "description": "Hitung cicilan per bulan menggunakan fungsi PMT.",
+      "points": [
+        "1. Periksa data pada tabel di bawah ini.",
+        "2. Tuliskan formula pada kolom target (E) sesuai aturan yang ditentukan.",
+        "3. Pastikan formula dapat diterapkan ke seluruh baris data.",
+        "4. Klik tombol \"Cek Hasil Jawaban\" untuk mengevaluasi kelulusan kasus."
+      ],
+      "helperTable": {
+        "title": "Ketentuan Rumus",
+        "headers": [
+          "Target Kolom",
+          "Formula Acuan"
+        ],
+        "rows": [
+          [
+            "Angsuran / Bulan (PMT)",
+            "=PMT(C2/12, D2*12, -B2)"
+          ]
+        ]
+      },
+      "notice": "Tulis rumus kalkulasi pada kolom yang telah disediakan."
+    },
+    "sheets": [
+      {
+        "id": "sheet_6",
+        "name": "Simulasi KPR",
+        "columns": [
+          {
+            "key": "deb",
+            "label": "Nama Debitur",
+            "letter": "A"
+          },
+          {
+            "key": "plafon",
+            "label": "Plafon Pinjaman (Rp)",
+            "letter": "B"
+          },
+          {
+            "key": "bunga",
+            "label": "Bunga Tahunan (%)",
+            "letter": "C"
+          },
+          {
+            "key": "tenor",
+            "label": "Tenor (Tahun)",
+            "letter": "D"
+          },
+          {
+            "key": "angsuran",
+            "label": "Angsuran / Bulan (PMT)",
+            "letter": "E"
+          }
+        ],
+        "rows": [
+          {
+            "rowNumber": 2,
+            "values": {
+              "deb": "Andi Pratama",
+              "plafon": 500000000,
+              "bunga": 0.08,
+              "tenor": 15,
+              "angsuran": "?"
+            }
+          },
+          {
+            "rowNumber": 3,
+            "values": {
+              "deb": "Citra Kirana",
+              "plafon": 350000000,
+              "bunga": 0.075,
+              "tenor": 10,
+              "angsuran": "?"
+            }
+          },
+          {
+            "rowNumber": 4,
+            "values": {
+              "deb": "Dimas Anggara",
+              "plafon": 800000000,
+              "bunga": 0.085,
+              "tenor": 20,
+              "angsuran": "?"
+            }
+          },
+          {
+            "rowNumber": 5,
+            "values": {
+              "deb": "Eka Saputra",
+              "plafon": 250000000,
+              "bunga": 0.07,
+              "tenor": 5,
+              "angsuran": "?"
+            }
+          }
+        ],
+        "targetColumns": [
+          {
+            "key": "angsuran",
+            "letter": "E",
+            "label": "Angsuran / Bulan (PMT)",
+            "description": "Hitung cicilan per bulan menggunakan fungsi PMT.",
+            "expectedRowAnswers": {
+              "2": 4778260,
+              "3": 4153835,
+              "4": 6942621,
+              "5": 4950371
+            }
+          }
+        ]
+      }
+    ],
+    "passingScore": 70,
+    "solutionBlueprints": [
+      {
+        "columnLabel": "Angsuran / Bulan (PMT)",
+        "formula": "=PMT(C2/12, D2*12, -B2)",
+        "explanation": "Hitung cicilan per bulan menggunakan fungsi PMT."
+      }
+    ]
+  },
+  {
+    "id": "EX-007",
+    "number": 7,
+    "code": "#SBEM007",
+    "title": "Rekonsiliasi Bank & Buku Kas Perusahaan (Studi Kasus #7)",
+    "category": "Kombinasi",
+    "difficulty": "EXTREME",
+    "difficultyStars": 5,
+    "tags": [
+      "Cek Otomatis",
+      "Studi Kasus",
+      "Kombinasi"
+    ],
+    "instructions": {
+      "title": "EXTREME Level - Rekonsiliasi Bank & Buku Kas Perusahaan",
+      "description": "Hitung selisih mutasi bank dan buku kas perusahaan.",
+      "points": [
+        "1. Periksa data pada tabel di bawah ini.",
+        "2. Tuliskan formula pada kolom target (E) sesuai aturan yang ditentukan.",
+        "3. Pastikan formula dapat diterapkan ke seluruh baris data.",
+        "4. Klik tombol \"Cek Hasil Jawaban\" untuk mengevaluasi kelulusan kasus."
+      ],
+      "helperTable": {
+        "title": "Ketentuan Rumus",
+        "headers": [
+          "Target Kolom",
+          "Formula Acuan"
+        ],
+        "rows": [
+          [
+            "Selisih (Rp)",
+            "=ABS(C2-D2)"
+          ]
+        ]
+      },
+      "notice": "Tulis rumus kalkulasi pada kolom yang telah disediakan."
+    },
+    "sheets": [
+      {
+        "id": "sheet_7",
+        "name": "Rekonsiliasi Kas",
+        "columns": [
+          {
+            "key": "tgl",
+            "label": "Tanggal",
+            "letter": "A"
+          },
+          {
+            "key": "ket",
+            "label": "Keterangan Transaksi",
+            "letter": "B"
+          },
+          {
+            "key": "bank",
+            "label": "Mutasi Bank (Rp)",
+            "letter": "C"
+          },
+          {
+            "key": "buku",
+            "label": "Buku Kas (Rp)",
+            "letter": "D"
+          },
+          {
+            "key": "selisih",
+            "label": "Selisih (Rp)",
+            "letter": "E"
+          },
+          {
+            "key": "status",
+            "label": "Status Audit",
+            "letter": "F"
+          }
+        ],
+        "rows": [
+          {
+            "rowNumber": 2,
+            "values": {
+              "tgl": "01/08/2026",
+              "ket": "Setoran Tunai Kasir Toko",
+              "bank": 15000000,
+              "buku": 15000000,
+              "selisih": "?",
+              "status": "?"
+            }
+          },
+          {
+            "rowNumber": 3,
+            "values": {
+              "tgl": "03/08/2026",
+              "ket": "Kliring Cek Vendor Supplier",
+              "bank": 8500000,
+              "buku": 8500000,
+              "selisih": "?",
+              "status": "?"
+            }
+          },
+          {
+            "rowNumber": 4,
+            "values": {
+              "tgl": "05/08/2026",
+              "ket": "Biaya Administrasi Bank Bulanan",
+              "bank": 25000,
+              "buku": 0,
+              "selisih": "?",
+              "status": "?"
+            }
+          },
+          {
+            "rowNumber": 5,
+            "values": {
+              "tgl": "07/08/2026",
+              "ket": "Pendapatan Jasa Giro Bunga",
+              "bank": 180000,
+              "buku": 0,
+              "selisih": "?",
+              "status": "?"
+            }
+          }
+        ],
+        "targetColumns": [
+          {
+            "key": "selisih",
+            "letter": "E",
+            "label": "Selisih (Rp)",
+            "description": "Hitung selisih mutasi bank dan buku kas perusahaan.",
+            "expectedRowAnswers": {
+              "2": 0,
+              "3": 0,
+              "4": 25000,
+              "5": 180000
+            }
+          }
+        ]
+      }
+    ],
+    "passingScore": 70,
+    "solutionBlueprints": [
+      {
+        "columnLabel": "Selisih (Rp)",
+        "formula": "=ABS(C2-D2)",
+        "explanation": "Hitung selisih mutasi bank dan buku kas perusahaan."
+      }
+    ]
+  },
+  {
+    "id": "EX-008",
+    "number": 8,
+    "code": "#SBEM008",
+    "title": "Pengolahan Nilai Rapor & Beasiswa Prestasi Siswa (Studi Kasus #8)",
+    "category": "Logika",
+    "difficulty": "MENENGAH",
+    "difficultyStars": 3,
+    "tags": [
+      "Cek Otomatis",
+      "Studi Kasus",
+      "Logika"
+    ],
+    "instructions": {
+      "title": "MENENGAH Level - Pengolahan Nilai Rapor & Beasiswa Prestasi Siswa",
+      "description": "Hitung nilai akhir berbobot 30% Tugas + 30% UTS + 40% UAS.",
+      "points": [
+        "1. Periksa data pada tabel di bawah ini.",
+        "2. Tuliskan formula pada kolom target (F) sesuai aturan yang ditentukan.",
+        "3. Pastikan formula dapat diterapkan ke seluruh baris data.",
+        "4. Klik tombol \"Cek Hasil Jawaban\" untuk mengevaluasi kelulusan kasus."
+      ],
+      "helperTable": {
+        "title": "Ketentuan Rumus",
+        "headers": [
+          "Target Kolom",
+          "Formula Acuan"
+        ],
+        "rows": [
+          [
+            "Nilai Akhir",
+            "=C2*0.3 + D2*0.3 + E2*0.4"
+          ]
+        ]
+      },
+      "notice": "Tulis rumus kalkulasi pada kolom yang telah disediakan."
+    },
+    "sheets": [
+      {
+        "id": "sheet_8",
+        "name": "Rapor Siswa",
+        "columns": [
+          {
+            "key": "nis",
+            "label": "NIS",
+            "letter": "A"
+          },
+          {
+            "key": "nama",
+            "label": "Nama Siswa",
+            "letter": "B"
+          },
+          {
+            "key": "tugas",
+            "label": "Nilai Tugas (30%)",
+            "letter": "C"
+          },
+          {
+            "key": "uts",
+            "label": "Nilai UTS (30%)",
+            "letter": "D"
+          },
+          {
+            "key": "uas",
+            "label": "Nilai UAS (40%)",
+            "letter": "E"
+          },
+          {
+            "key": "akhir",
+            "label": "Nilai Akhir",
+            "letter": "F"
+          },
+          {
+            "key": "beasiswa",
+            "label": "Status Beasiswa",
+            "letter": "G"
+          }
+        ],
+        "rows": [
+          {
+            "rowNumber": 2,
+            "values": {
+              "nis": "202601",
+              "nama": "Fajar Nugraha",
+              "tugas": 85,
+              "uts": 90,
+              "uas": 92,
+              "akhir": "?",
+              "beasiswa": "?"
+            }
+          },
+          {
+            "rowNumber": 3,
+            "values": {
+              "nis": "202602",
+              "nama": "Gita Larasati",
+              "tugas": 75,
+              "uts": 80,
+              "uas": 78,
+              "akhir": "?",
+              "beasiswa": "?"
+            }
+          },
+          {
+            "rowNumber": 4,
+            "values": {
+              "nis": "202603",
+              "nama": "Hendra Gunawan",
+              "tugas": 90,
+              "uts": 95,
+              "uas": 94,
+              "akhir": "?",
+              "beasiswa": "?"
+            }
+          },
+          {
+            "rowNumber": 5,
+            "values": {
+              "nis": "202604",
+              "nama": "Indah Permatasari",
+              "tugas": 60,
+              "uts": 65,
+              "uas": 70,
+              "akhir": "?",
+              "beasiswa": "?"
+            }
+          }
+        ],
+        "targetColumns": [
+          {
+            "key": "akhir",
+            "letter": "F",
+            "label": "Nilai Akhir",
+            "description": "Hitung nilai akhir berbobot 30% Tugas + 30% UTS + 40% UAS.",
+            "expectedRowAnswers": {
+              "2": 89.3,
+              "3": 77.7,
+              "4": 93.1,
+              "5": 65.5
+            }
+          }
+        ]
+      }
+    ],
+    "passingScore": 70,
+    "solutionBlueprints": [
+      {
+        "columnLabel": "Nilai Akhir",
+        "formula": "=C2*0.3 + D2*0.3 + E2*0.4",
+        "explanation": "Hitung nilai akhir berbobot 30% Tugas + 30% UTS + 40% UAS."
+      }
+    ]
+  },
+  {
+    "id": "EX-009",
+    "number": 9,
+    "code": "#SBEM009",
+    "title": "Simulasi Angsuran Kredit Rumah KPR (Bank PMT) (Studi Kasus #9)",
+    "category": "Keuangan",
+    "difficulty": "MAHIR",
+    "difficultyStars": 4,
+    "tags": [
+      "Cek Otomatis",
+      "Studi Kasus",
+      "Keuangan"
+    ],
+    "instructions": {
+      "title": "MAHIR Level - Simulasi Angsuran Kredit Rumah KPR (Bank PMT)",
+      "description": "Hitung cicilan per bulan menggunakan fungsi PMT.",
+      "points": [
+        "1. Periksa data pada tabel di bawah ini.",
+        "2. Tuliskan formula pada kolom target (E) sesuai aturan yang ditentukan.",
+        "3. Pastikan formula dapat diterapkan ke seluruh baris data.",
+        "4. Klik tombol \"Cek Hasil Jawaban\" untuk mengevaluasi kelulusan kasus."
+      ],
+      "helperTable": {
+        "title": "Ketentuan Rumus",
+        "headers": [
+          "Target Kolom",
+          "Formula Acuan"
+        ],
+        "rows": [
+          [
+            "Angsuran / Bulan (PMT)",
+            "=PMT(C2/12, D2*12, -B2)"
+          ]
+        ]
+      },
+      "notice": "Tulis rumus kalkulasi pada kolom yang telah disediakan."
+    },
+    "sheets": [
+      {
+        "id": "sheet_9",
+        "name": "Simulasi KPR",
+        "columns": [
+          {
+            "key": "deb",
+            "label": "Nama Debitur",
+            "letter": "A"
+          },
+          {
+            "key": "plafon",
+            "label": "Plafon Pinjaman (Rp)",
+            "letter": "B"
+          },
+          {
+            "key": "bunga",
+            "label": "Bunga Tahunan (%)",
+            "letter": "C"
+          },
+          {
+            "key": "tenor",
+            "label": "Tenor (Tahun)",
+            "letter": "D"
+          },
+          {
+            "key": "angsuran",
+            "label": "Angsuran / Bulan (PMT)",
+            "letter": "E"
+          }
+        ],
+        "rows": [
+          {
+            "rowNumber": 2,
+            "values": {
+              "deb": "Andi Pratama",
+              "plafon": 500000000,
+              "bunga": 0.08,
+              "tenor": 15,
+              "angsuran": "?"
+            }
+          },
+          {
+            "rowNumber": 3,
+            "values": {
+              "deb": "Citra Kirana",
+              "plafon": 350000000,
+              "bunga": 0.075,
+              "tenor": 10,
+              "angsuran": "?"
+            }
+          },
+          {
+            "rowNumber": 4,
+            "values": {
+              "deb": "Dimas Anggara",
+              "plafon": 800000000,
+              "bunga": 0.085,
+              "tenor": 20,
+              "angsuran": "?"
+            }
+          },
+          {
+            "rowNumber": 5,
+            "values": {
+              "deb": "Eka Saputra",
+              "plafon": 250000000,
+              "bunga": 0.07,
+              "tenor": 5,
+              "angsuran": "?"
+            }
+          }
+        ],
+        "targetColumns": [
+          {
+            "key": "angsuran",
+            "letter": "E",
+            "label": "Angsuran / Bulan (PMT)",
+            "description": "Hitung cicilan per bulan menggunakan fungsi PMT.",
+            "expectedRowAnswers": {
+              "2": 4778260,
+              "3": 4153835,
+              "4": 6942621,
+              "5": 4950371
+            }
+          }
+        ]
+      }
+    ],
+    "passingScore": 70,
+    "solutionBlueprints": [
+      {
+        "columnLabel": "Angsuran / Bulan (PMT)",
+        "formula": "=PMT(C2/12, D2*12, -B2)",
+        "explanation": "Hitung cicilan per bulan menggunakan fungsi PMT."
+      }
+    ]
+  },
+  {
+    "id": "EX-010",
+    "number": 10,
+    "code": "#SBEM010",
+    "title": "Rekonsiliasi Bank & Buku Kas Perusahaan (Studi Kasus #10)",
+    "category": "Kombinasi",
+    "difficulty": "EXTREME",
+    "difficultyStars": 5,
+    "tags": [
+      "Cek Otomatis",
+      "Studi Kasus",
+      "Kombinasi"
+    ],
+    "instructions": {
+      "title": "EXTREME Level - Rekonsiliasi Bank & Buku Kas Perusahaan",
+      "description": "Hitung selisih mutasi bank dan buku kas perusahaan.",
+      "points": [
+        "1. Periksa data pada tabel di bawah ini.",
+        "2. Tuliskan formula pada kolom target (E) sesuai aturan yang ditentukan.",
+        "3. Pastikan formula dapat diterapkan ke seluruh baris data.",
+        "4. Klik tombol \"Cek Hasil Jawaban\" untuk mengevaluasi kelulusan kasus."
+      ],
+      "helperTable": {
+        "title": "Ketentuan Rumus",
+        "headers": [
+          "Target Kolom",
+          "Formula Acuan"
+        ],
+        "rows": [
+          [
+            "Selisih (Rp)",
+            "=ABS(C2-D2)"
+          ]
+        ]
+      },
+      "notice": "Tulis rumus kalkulasi pada kolom yang telah disediakan."
+    },
+    "sheets": [
+      {
+        "id": "sheet_10",
+        "name": "Rekonsiliasi Kas",
+        "columns": [
+          {
+            "key": "tgl",
+            "label": "Tanggal",
+            "letter": "A"
+          },
+          {
+            "key": "ket",
+            "label": "Keterangan Transaksi",
+            "letter": "B"
+          },
+          {
+            "key": "bank",
+            "label": "Mutasi Bank (Rp)",
+            "letter": "C"
+          },
+          {
+            "key": "buku",
+            "label": "Buku Kas (Rp)",
+            "letter": "D"
+          },
+          {
+            "key": "selisih",
+            "label": "Selisih (Rp)",
+            "letter": "E"
+          },
+          {
+            "key": "status",
+            "label": "Status Audit",
+            "letter": "F"
+          }
+        ],
+        "rows": [
+          {
+            "rowNumber": 2,
+            "values": {
+              "tgl": "01/08/2026",
+              "ket": "Setoran Tunai Kasir Toko",
+              "bank": 15000000,
+              "buku": 15000000,
+              "selisih": "?",
+              "status": "?"
+            }
+          },
+          {
+            "rowNumber": 3,
+            "values": {
+              "tgl": "03/08/2026",
+              "ket": "Kliring Cek Vendor Supplier",
+              "bank": 8500000,
+              "buku": 8500000,
+              "selisih": "?",
+              "status": "?"
+            }
+          },
+          {
+            "rowNumber": 4,
+            "values": {
+              "tgl": "05/08/2026",
+              "ket": "Biaya Administrasi Bank Bulanan",
+              "bank": 25000,
+              "buku": 0,
+              "selisih": "?",
+              "status": "?"
+            }
+          },
+          {
+            "rowNumber": 5,
+            "values": {
+              "tgl": "07/08/2026",
+              "ket": "Pendapatan Jasa Giro Bunga",
+              "bank": 180000,
+              "buku": 0,
+              "selisih": "?",
+              "status": "?"
+            }
+          }
+        ],
+        "targetColumns": [
+          {
+            "key": "selisih",
+            "letter": "E",
+            "label": "Selisih (Rp)",
+            "description": "Hitung selisih mutasi bank dan buku kas perusahaan.",
+            "expectedRowAnswers": {
+              "2": 0,
+              "3": 0,
+              "4": 25000,
+              "5": 180000
+            }
+          }
+        ]
+      }
+    ],
+    "passingScore": 70,
+    "solutionBlueprints": [
+      {
+        "columnLabel": "Selisih (Rp)",
+        "formula": "=ABS(C2-D2)",
+        "explanation": "Hitung selisih mutasi bank dan buku kas perusahaan."
+      }
+    ]
+  },
+  {
+    "id": "EX-011",
+    "number": 11,
+    "code": "#SBEM011",
+    "title": "Pengolahan Nilai Rapor & Beasiswa Prestasi Siswa (Studi Kasus #11)",
+    "category": "Logika",
+    "difficulty": "MENENGAH",
+    "difficultyStars": 3,
+    "tags": [
+      "Cek Otomatis",
+      "Studi Kasus",
+      "Logika"
+    ],
+    "instructions": {
+      "title": "MENENGAH Level - Pengolahan Nilai Rapor & Beasiswa Prestasi Siswa",
+      "description": "Hitung nilai akhir berbobot 30% Tugas + 30% UTS + 40% UAS.",
+      "points": [
+        "1. Periksa data pada tabel di bawah ini.",
+        "2. Tuliskan formula pada kolom target (F) sesuai aturan yang ditentukan.",
+        "3. Pastikan formula dapat diterapkan ke seluruh baris data.",
+        "4. Klik tombol \"Cek Hasil Jawaban\" untuk mengevaluasi kelulusan kasus."
+      ],
+      "helperTable": {
+        "title": "Ketentuan Rumus",
+        "headers": [
+          "Target Kolom",
+          "Formula Acuan"
+        ],
+        "rows": [
+          [
+            "Nilai Akhir",
+            "=C2*0.3 + D2*0.3 + E2*0.4"
+          ]
+        ]
+      },
+      "notice": "Tulis rumus kalkulasi pada kolom yang telah disediakan."
+    },
+    "sheets": [
+      {
+        "id": "sheet_11",
+        "name": "Rapor Siswa",
+        "columns": [
+          {
+            "key": "nis",
+            "label": "NIS",
+            "letter": "A"
+          },
+          {
+            "key": "nama",
+            "label": "Nama Siswa",
+            "letter": "B"
+          },
+          {
+            "key": "tugas",
+            "label": "Nilai Tugas (30%)",
+            "letter": "C"
+          },
+          {
+            "key": "uts",
+            "label": "Nilai UTS (30%)",
+            "letter": "D"
+          },
+          {
+            "key": "uas",
+            "label": "Nilai UAS (40%)",
+            "letter": "E"
+          },
+          {
+            "key": "akhir",
+            "label": "Nilai Akhir",
+            "letter": "F"
+          },
+          {
+            "key": "beasiswa",
+            "label": "Status Beasiswa",
+            "letter": "G"
+          }
+        ],
+        "rows": [
+          {
+            "rowNumber": 2,
+            "values": {
+              "nis": "202601",
+              "nama": "Fajar Nugraha",
+              "tugas": 85,
+              "uts": 90,
+              "uas": 92,
+              "akhir": "?",
+              "beasiswa": "?"
+            }
+          },
+          {
+            "rowNumber": 3,
+            "values": {
+              "nis": "202602",
+              "nama": "Gita Larasati",
+              "tugas": 75,
+              "uts": 80,
+              "uas": 78,
+              "akhir": "?",
+              "beasiswa": "?"
+            }
+          },
+          {
+            "rowNumber": 4,
+            "values": {
+              "nis": "202603",
+              "nama": "Hendra Gunawan",
+              "tugas": 90,
+              "uts": 95,
+              "uas": 94,
+              "akhir": "?",
+              "beasiswa": "?"
+            }
+          },
+          {
+            "rowNumber": 5,
+            "values": {
+              "nis": "202604",
+              "nama": "Indah Permatasari",
+              "tugas": 60,
+              "uts": 65,
+              "uas": 70,
+              "akhir": "?",
+              "beasiswa": "?"
+            }
+          }
+        ],
+        "targetColumns": [
+          {
+            "key": "akhir",
+            "letter": "F",
+            "label": "Nilai Akhir",
+            "description": "Hitung nilai akhir berbobot 30% Tugas + 30% UTS + 40% UAS.",
+            "expectedRowAnswers": {
+              "2": 89.3,
+              "3": 77.7,
+              "4": 93.1,
+              "5": 65.5
+            }
+          }
+        ]
+      }
+    ],
+    "passingScore": 70,
+    "solutionBlueprints": [
+      {
+        "columnLabel": "Nilai Akhir",
+        "formula": "=C2*0.3 + D2*0.3 + E2*0.4",
+        "explanation": "Hitung nilai akhir berbobot 30% Tugas + 30% UTS + 40% UAS."
+      }
+    ]
+  },
+  {
+    "id": "EX-012",
+    "number": 12,
+    "code": "#SBEM012",
+    "title": "Simulasi Angsuran Kredit Rumah KPR (Bank PMT) (Studi Kasus #12)",
+    "category": "Keuangan",
+    "difficulty": "MAHIR",
+    "difficultyStars": 4,
+    "tags": [
+      "Cek Otomatis",
+      "Studi Kasus",
+      "Keuangan"
+    ],
+    "instructions": {
+      "title": "MAHIR Level - Simulasi Angsuran Kredit Rumah KPR (Bank PMT)",
+      "description": "Hitung cicilan per bulan menggunakan fungsi PMT.",
+      "points": [
+        "1. Periksa data pada tabel di bawah ini.",
+        "2. Tuliskan formula pada kolom target (E) sesuai aturan yang ditentukan.",
+        "3. Pastikan formula dapat diterapkan ke seluruh baris data.",
+        "4. Klik tombol \"Cek Hasil Jawaban\" untuk mengevaluasi kelulusan kasus."
+      ],
+      "helperTable": {
+        "title": "Ketentuan Rumus",
+        "headers": [
+          "Target Kolom",
+          "Formula Acuan"
+        ],
+        "rows": [
+          [
+            "Angsuran / Bulan (PMT)",
+            "=PMT(C2/12, D2*12, -B2)"
+          ]
+        ]
+      },
+      "notice": "Tulis rumus kalkulasi pada kolom yang telah disediakan."
+    },
+    "sheets": [
+      {
+        "id": "sheet_12",
+        "name": "Simulasi KPR",
+        "columns": [
+          {
+            "key": "deb",
+            "label": "Nama Debitur",
+            "letter": "A"
+          },
+          {
+            "key": "plafon",
+            "label": "Plafon Pinjaman (Rp)",
+            "letter": "B"
+          },
+          {
+            "key": "bunga",
+            "label": "Bunga Tahunan (%)",
+            "letter": "C"
+          },
+          {
+            "key": "tenor",
+            "label": "Tenor (Tahun)",
+            "letter": "D"
+          },
+          {
+            "key": "angsuran",
+            "label": "Angsuran / Bulan (PMT)",
+            "letter": "E"
+          }
+        ],
+        "rows": [
+          {
+            "rowNumber": 2,
+            "values": {
+              "deb": "Andi Pratama",
+              "plafon": 500000000,
+              "bunga": 0.08,
+              "tenor": 15,
+              "angsuran": "?"
+            }
+          },
+          {
+            "rowNumber": 3,
+            "values": {
+              "deb": "Citra Kirana",
+              "plafon": 350000000,
+              "bunga": 0.075,
+              "tenor": 10,
+              "angsuran": "?"
+            }
+          },
+          {
+            "rowNumber": 4,
+            "values": {
+              "deb": "Dimas Anggara",
+              "plafon": 800000000,
+              "bunga": 0.085,
+              "tenor": 20,
+              "angsuran": "?"
+            }
+          },
+          {
+            "rowNumber": 5,
+            "values": {
+              "deb": "Eka Saputra",
+              "plafon": 250000000,
+              "bunga": 0.07,
+              "tenor": 5,
+              "angsuran": "?"
+            }
+          }
+        ],
+        "targetColumns": [
+          {
+            "key": "angsuran",
+            "letter": "E",
+            "label": "Angsuran / Bulan (PMT)",
+            "description": "Hitung cicilan per bulan menggunakan fungsi PMT.",
+            "expectedRowAnswers": {
+              "2": 4778260,
+              "3": 4153835,
+              "4": 6942621,
+              "5": 4950371
+            }
+          }
+        ]
+      }
+    ],
+    "passingScore": 70,
+    "solutionBlueprints": [
+      {
+        "columnLabel": "Angsuran / Bulan (PMT)",
+        "formula": "=PMT(C2/12, D2*12, -B2)",
+        "explanation": "Hitung cicilan per bulan menggunakan fungsi PMT."
+      }
+    ]
+  },
+  {
+    "id": "EX-013",
+    "number": 13,
+    "code": "#SBEM013",
+    "title": "Rekonsiliasi Bank & Buku Kas Perusahaan (Studi Kasus #13)",
+    "category": "Kombinasi",
+    "difficulty": "EXTREME",
+    "difficultyStars": 5,
+    "tags": [
+      "Cek Otomatis",
+      "Studi Kasus",
+      "Kombinasi"
+    ],
+    "instructions": {
+      "title": "EXTREME Level - Rekonsiliasi Bank & Buku Kas Perusahaan",
+      "description": "Hitung selisih mutasi bank dan buku kas perusahaan.",
+      "points": [
+        "1. Periksa data pada tabel di bawah ini.",
+        "2. Tuliskan formula pada kolom target (E) sesuai aturan yang ditentukan.",
+        "3. Pastikan formula dapat diterapkan ke seluruh baris data.",
+        "4. Klik tombol \"Cek Hasil Jawaban\" untuk mengevaluasi kelulusan kasus."
+      ],
+      "helperTable": {
+        "title": "Ketentuan Rumus",
+        "headers": [
+          "Target Kolom",
+          "Formula Acuan"
+        ],
+        "rows": [
+          [
+            "Selisih (Rp)",
+            "=ABS(C2-D2)"
+          ]
+        ]
+      },
+      "notice": "Tulis rumus kalkulasi pada kolom yang telah disediakan."
+    },
+    "sheets": [
+      {
+        "id": "sheet_13",
+        "name": "Rekonsiliasi Kas",
+        "columns": [
+          {
+            "key": "tgl",
+            "label": "Tanggal",
+            "letter": "A"
+          },
+          {
+            "key": "ket",
+            "label": "Keterangan Transaksi",
+            "letter": "B"
+          },
+          {
+            "key": "bank",
+            "label": "Mutasi Bank (Rp)",
+            "letter": "C"
+          },
+          {
+            "key": "buku",
+            "label": "Buku Kas (Rp)",
+            "letter": "D"
+          },
+          {
+            "key": "selisih",
+            "label": "Selisih (Rp)",
+            "letter": "E"
+          },
+          {
+            "key": "status",
+            "label": "Status Audit",
+            "letter": "F"
+          }
+        ],
+        "rows": [
+          {
+            "rowNumber": 2,
+            "values": {
+              "tgl": "01/08/2026",
+              "ket": "Setoran Tunai Kasir Toko",
+              "bank": 15000000,
+              "buku": 15000000,
+              "selisih": "?",
+              "status": "?"
+            }
+          },
+          {
+            "rowNumber": 3,
+            "values": {
+              "tgl": "03/08/2026",
+              "ket": "Kliring Cek Vendor Supplier",
+              "bank": 8500000,
+              "buku": 8500000,
+              "selisih": "?",
+              "status": "?"
+            }
+          },
+          {
+            "rowNumber": 4,
+            "values": {
+              "tgl": "05/08/2026",
+              "ket": "Biaya Administrasi Bank Bulanan",
+              "bank": 25000,
+              "buku": 0,
+              "selisih": "?",
+              "status": "?"
+            }
+          },
+          {
+            "rowNumber": 5,
+            "values": {
+              "tgl": "07/08/2026",
+              "ket": "Pendapatan Jasa Giro Bunga",
+              "bank": 180000,
+              "buku": 0,
+              "selisih": "?",
+              "status": "?"
+            }
+          }
+        ],
+        "targetColumns": [
+          {
+            "key": "selisih",
+            "letter": "E",
+            "label": "Selisih (Rp)",
+            "description": "Hitung selisih mutasi bank dan buku kas perusahaan.",
+            "expectedRowAnswers": {
+              "2": 0,
+              "3": 0,
+              "4": 25000,
+              "5": 180000
+            }
+          }
+        ]
+      }
+    ],
+    "passingScore": 70,
+    "solutionBlueprints": [
+      {
+        "columnLabel": "Selisih (Rp)",
+        "formula": "=ABS(C2-D2)",
+        "explanation": "Hitung selisih mutasi bank dan buku kas perusahaan."
+      }
+    ]
+  },
+  {
+    "id": "EX-014",
+    "number": 14,
+    "code": "#SBEM014",
+    "title": "Pengolahan Nilai Rapor & Beasiswa Prestasi Siswa (Studi Kasus #14)",
+    "category": "Logika",
+    "difficulty": "MENENGAH",
+    "difficultyStars": 3,
+    "tags": [
+      "Cek Otomatis",
+      "Studi Kasus",
+      "Logika"
+    ],
+    "instructions": {
+      "title": "MENENGAH Level - Pengolahan Nilai Rapor & Beasiswa Prestasi Siswa",
+      "description": "Hitung nilai akhir berbobot 30% Tugas + 30% UTS + 40% UAS.",
+      "points": [
+        "1. Periksa data pada tabel di bawah ini.",
+        "2. Tuliskan formula pada kolom target (F) sesuai aturan yang ditentukan.",
+        "3. Pastikan formula dapat diterapkan ke seluruh baris data.",
+        "4. Klik tombol \"Cek Hasil Jawaban\" untuk mengevaluasi kelulusan kasus."
+      ],
+      "helperTable": {
+        "title": "Ketentuan Rumus",
+        "headers": [
+          "Target Kolom",
+          "Formula Acuan"
+        ],
+        "rows": [
+          [
+            "Nilai Akhir",
+            "=C2*0.3 + D2*0.3 + E2*0.4"
+          ]
+        ]
+      },
+      "notice": "Tulis rumus kalkulasi pada kolom yang telah disediakan."
+    },
+    "sheets": [
+      {
+        "id": "sheet_14",
+        "name": "Rapor Siswa",
+        "columns": [
+          {
+            "key": "nis",
+            "label": "NIS",
+            "letter": "A"
+          },
+          {
+            "key": "nama",
+            "label": "Nama Siswa",
+            "letter": "B"
+          },
+          {
+            "key": "tugas",
+            "label": "Nilai Tugas (30%)",
+            "letter": "C"
+          },
+          {
+            "key": "uts",
+            "label": "Nilai UTS (30%)",
+            "letter": "D"
+          },
+          {
+            "key": "uas",
+            "label": "Nilai UAS (40%)",
+            "letter": "E"
+          },
+          {
+            "key": "akhir",
+            "label": "Nilai Akhir",
+            "letter": "F"
+          },
+          {
+            "key": "beasiswa",
+            "label": "Status Beasiswa",
+            "letter": "G"
+          }
+        ],
+        "rows": [
+          {
+            "rowNumber": 2,
+            "values": {
+              "nis": "202601",
+              "nama": "Fajar Nugraha",
+              "tugas": 85,
+              "uts": 90,
+              "uas": 92,
+              "akhir": "?",
+              "beasiswa": "?"
+            }
+          },
+          {
+            "rowNumber": 3,
+            "values": {
+              "nis": "202602",
+              "nama": "Gita Larasati",
+              "tugas": 75,
+              "uts": 80,
+              "uas": 78,
+              "akhir": "?",
+              "beasiswa": "?"
+            }
+          },
+          {
+            "rowNumber": 4,
+            "values": {
+              "nis": "202603",
+              "nama": "Hendra Gunawan",
+              "tugas": 90,
+              "uts": 95,
+              "uas": 94,
+              "akhir": "?",
+              "beasiswa": "?"
+            }
+          },
+          {
+            "rowNumber": 5,
+            "values": {
+              "nis": "202604",
+              "nama": "Indah Permatasari",
+              "tugas": 60,
+              "uts": 65,
+              "uas": 70,
+              "akhir": "?",
+              "beasiswa": "?"
+            }
+          }
+        ],
+        "targetColumns": [
+          {
+            "key": "akhir",
+            "letter": "F",
+            "label": "Nilai Akhir",
+            "description": "Hitung nilai akhir berbobot 30% Tugas + 30% UTS + 40% UAS.",
+            "expectedRowAnswers": {
+              "2": 89.3,
+              "3": 77.7,
+              "4": 93.1,
+              "5": 65.5
+            }
+          }
+        ]
+      }
+    ],
+    "passingScore": 70,
+    "solutionBlueprints": [
+      {
+        "columnLabel": "Nilai Akhir",
+        "formula": "=C2*0.3 + D2*0.3 + E2*0.4",
+        "explanation": "Hitung nilai akhir berbobot 30% Tugas + 30% UTS + 40% UAS."
+      }
+    ]
+  },
+  {
+    "id": "EX-015",
+    "number": 15,
+    "code": "#SBEM015",
+    "title": "Simulasi Angsuran Kredit Rumah KPR (Bank PMT) (Studi Kasus #15)",
+    "category": "Keuangan",
+    "difficulty": "MAHIR",
+    "difficultyStars": 4,
+    "tags": [
+      "Cek Otomatis",
+      "Studi Kasus",
+      "Keuangan"
+    ],
+    "instructions": {
+      "title": "MAHIR Level - Simulasi Angsuran Kredit Rumah KPR (Bank PMT)",
+      "description": "Hitung cicilan per bulan menggunakan fungsi PMT.",
+      "points": [
+        "1. Periksa data pada tabel di bawah ini.",
+        "2. Tuliskan formula pada kolom target (E) sesuai aturan yang ditentukan.",
+        "3. Pastikan formula dapat diterapkan ke seluruh baris data.",
+        "4. Klik tombol \"Cek Hasil Jawaban\" untuk mengevaluasi kelulusan kasus."
+      ],
+      "helperTable": {
+        "title": "Ketentuan Rumus",
+        "headers": [
+          "Target Kolom",
+          "Formula Acuan"
+        ],
+        "rows": [
+          [
+            "Angsuran / Bulan (PMT)",
+            "=PMT(C2/12, D2*12, -B2)"
+          ]
+        ]
+      },
+      "notice": "Tulis rumus kalkulasi pada kolom yang telah disediakan."
+    },
+    "sheets": [
+      {
+        "id": "sheet_15",
+        "name": "Simulasi KPR",
+        "columns": [
+          {
+            "key": "deb",
+            "label": "Nama Debitur",
+            "letter": "A"
+          },
+          {
+            "key": "plafon",
+            "label": "Plafon Pinjaman (Rp)",
+            "letter": "B"
+          },
+          {
+            "key": "bunga",
+            "label": "Bunga Tahunan (%)",
+            "letter": "C"
+          },
+          {
+            "key": "tenor",
+            "label": "Tenor (Tahun)",
+            "letter": "D"
+          },
+          {
+            "key": "angsuran",
+            "label": "Angsuran / Bulan (PMT)",
+            "letter": "E"
+          }
+        ],
+        "rows": [
+          {
+            "rowNumber": 2,
+            "values": {
+              "deb": "Andi Pratama",
+              "plafon": 500000000,
+              "bunga": 0.08,
+              "tenor": 15,
+              "angsuran": "?"
+            }
+          },
+          {
+            "rowNumber": 3,
+            "values": {
+              "deb": "Citra Kirana",
+              "plafon": 350000000,
+              "bunga": 0.075,
+              "tenor": 10,
+              "angsuran": "?"
+            }
+          },
+          {
+            "rowNumber": 4,
+            "values": {
+              "deb": "Dimas Anggara",
+              "plafon": 800000000,
+              "bunga": 0.085,
+              "tenor": 20,
+              "angsuran": "?"
+            }
+          },
+          {
+            "rowNumber": 5,
+            "values": {
+              "deb": "Eka Saputra",
+              "plafon": 250000000,
+              "bunga": 0.07,
+              "tenor": 5,
+              "angsuran": "?"
+            }
+          }
+        ],
+        "targetColumns": [
+          {
+            "key": "angsuran",
+            "letter": "E",
+            "label": "Angsuran / Bulan (PMT)",
+            "description": "Hitung cicilan per bulan menggunakan fungsi PMT.",
+            "expectedRowAnswers": {
+              "2": 4778260,
+              "3": 4153835,
+              "4": 6942621,
+              "5": 4950371
+            }
+          }
+        ]
+      }
+    ],
+    "passingScore": 70,
+    "solutionBlueprints": [
+      {
+        "columnLabel": "Angsuran / Bulan (PMT)",
+        "formula": "=PMT(C2/12, D2*12, -B2)",
+        "explanation": "Hitung cicilan per bulan menggunakan fungsi PMT."
+      }
+    ]
+  },
+  {
+    "id": "EX-016",
+    "number": 16,
+    "code": "#SBEM016",
+    "title": "Rekonsiliasi Bank & Buku Kas Perusahaan (Studi Kasus #16)",
+    "category": "Kombinasi",
+    "difficulty": "EXTREME",
+    "difficultyStars": 5,
+    "tags": [
+      "Cek Otomatis",
+      "Studi Kasus",
+      "Kombinasi"
+    ],
+    "instructions": {
+      "title": "EXTREME Level - Rekonsiliasi Bank & Buku Kas Perusahaan",
+      "description": "Hitung selisih mutasi bank dan buku kas perusahaan.",
+      "points": [
+        "1. Periksa data pada tabel di bawah ini.",
+        "2. Tuliskan formula pada kolom target (E) sesuai aturan yang ditentukan.",
+        "3. Pastikan formula dapat diterapkan ke seluruh baris data.",
+        "4. Klik tombol \"Cek Hasil Jawaban\" untuk mengevaluasi kelulusan kasus."
+      ],
+      "helperTable": {
+        "title": "Ketentuan Rumus",
+        "headers": [
+          "Target Kolom",
+          "Formula Acuan"
+        ],
+        "rows": [
+          [
+            "Selisih (Rp)",
+            "=ABS(C2-D2)"
+          ]
+        ]
+      },
+      "notice": "Tulis rumus kalkulasi pada kolom yang telah disediakan."
+    },
+    "sheets": [
+      {
+        "id": "sheet_16",
+        "name": "Rekonsiliasi Kas",
+        "columns": [
+          {
+            "key": "tgl",
+            "label": "Tanggal",
+            "letter": "A"
+          },
+          {
+            "key": "ket",
+            "label": "Keterangan Transaksi",
+            "letter": "B"
+          },
+          {
+            "key": "bank",
+            "label": "Mutasi Bank (Rp)",
+            "letter": "C"
+          },
+          {
+            "key": "buku",
+            "label": "Buku Kas (Rp)",
+            "letter": "D"
+          },
+          {
+            "key": "selisih",
+            "label": "Selisih (Rp)",
+            "letter": "E"
+          },
+          {
+            "key": "status",
+            "label": "Status Audit",
+            "letter": "F"
+          }
+        ],
+        "rows": [
+          {
+            "rowNumber": 2,
+            "values": {
+              "tgl": "01/08/2026",
+              "ket": "Setoran Tunai Kasir Toko",
+              "bank": 15000000,
+              "buku": 15000000,
+              "selisih": "?",
+              "status": "?"
+            }
+          },
+          {
+            "rowNumber": 3,
+            "values": {
+              "tgl": "03/08/2026",
+              "ket": "Kliring Cek Vendor Supplier",
+              "bank": 8500000,
+              "buku": 8500000,
+              "selisih": "?",
+              "status": "?"
+            }
+          },
+          {
+            "rowNumber": 4,
+            "values": {
+              "tgl": "05/08/2026",
+              "ket": "Biaya Administrasi Bank Bulanan",
+              "bank": 25000,
+              "buku": 0,
+              "selisih": "?",
+              "status": "?"
+            }
+          },
+          {
+            "rowNumber": 5,
+            "values": {
+              "tgl": "07/08/2026",
+              "ket": "Pendapatan Jasa Giro Bunga",
+              "bank": 180000,
+              "buku": 0,
+              "selisih": "?",
+              "status": "?"
+            }
+          }
+        ],
+        "targetColumns": [
+          {
+            "key": "selisih",
+            "letter": "E",
+            "label": "Selisih (Rp)",
+            "description": "Hitung selisih mutasi bank dan buku kas perusahaan.",
+            "expectedRowAnswers": {
+              "2": 0,
+              "3": 0,
+              "4": 25000,
+              "5": 180000
+            }
+          }
+        ]
+      }
+    ],
+    "passingScore": 70,
+    "solutionBlueprints": [
+      {
+        "columnLabel": "Selisih (Rp)",
+        "formula": "=ABS(C2-D2)",
+        "explanation": "Hitung selisih mutasi bank dan buku kas perusahaan."
+      }
+    ]
+  },
+  {
+    "id": "EX-017",
+    "number": 17,
+    "code": "#SBEM017",
+    "title": "Pengolahan Nilai Rapor & Beasiswa Prestasi Siswa (Studi Kasus #17)",
+    "category": "Logika",
+    "difficulty": "MENENGAH",
+    "difficultyStars": 3,
+    "tags": [
+      "Cek Otomatis",
+      "Studi Kasus",
+      "Logika"
+    ],
+    "instructions": {
+      "title": "MENENGAH Level - Pengolahan Nilai Rapor & Beasiswa Prestasi Siswa",
+      "description": "Hitung nilai akhir berbobot 30% Tugas + 30% UTS + 40% UAS.",
+      "points": [
+        "1. Periksa data pada tabel di bawah ini.",
+        "2. Tuliskan formula pada kolom target (F) sesuai aturan yang ditentukan.",
+        "3. Pastikan formula dapat diterapkan ke seluruh baris data.",
+        "4. Klik tombol \"Cek Hasil Jawaban\" untuk mengevaluasi kelulusan kasus."
+      ],
+      "helperTable": {
+        "title": "Ketentuan Rumus",
+        "headers": [
+          "Target Kolom",
+          "Formula Acuan"
+        ],
+        "rows": [
+          [
+            "Nilai Akhir",
+            "=C2*0.3 + D2*0.3 + E2*0.4"
+          ]
+        ]
+      },
+      "notice": "Tulis rumus kalkulasi pada kolom yang telah disediakan."
+    },
+    "sheets": [
+      {
+        "id": "sheet_17",
+        "name": "Rapor Siswa",
+        "columns": [
+          {
+            "key": "nis",
+            "label": "NIS",
+            "letter": "A"
+          },
+          {
+            "key": "nama",
+            "label": "Nama Siswa",
+            "letter": "B"
+          },
+          {
+            "key": "tugas",
+            "label": "Nilai Tugas (30%)",
+            "letter": "C"
+          },
+          {
+            "key": "uts",
+            "label": "Nilai UTS (30%)",
+            "letter": "D"
+          },
+          {
+            "key": "uas",
+            "label": "Nilai UAS (40%)",
+            "letter": "E"
+          },
+          {
+            "key": "akhir",
+            "label": "Nilai Akhir",
+            "letter": "F"
+          },
+          {
+            "key": "beasiswa",
+            "label": "Status Beasiswa",
+            "letter": "G"
+          }
+        ],
+        "rows": [
+          {
+            "rowNumber": 2,
+            "values": {
+              "nis": "202601",
+              "nama": "Fajar Nugraha",
+              "tugas": 85,
+              "uts": 90,
+              "uas": 92,
+              "akhir": "?",
+              "beasiswa": "?"
+            }
+          },
+          {
+            "rowNumber": 3,
+            "values": {
+              "nis": "202602",
+              "nama": "Gita Larasati",
+              "tugas": 75,
+              "uts": 80,
+              "uas": 78,
+              "akhir": "?",
+              "beasiswa": "?"
+            }
+          },
+          {
+            "rowNumber": 4,
+            "values": {
+              "nis": "202603",
+              "nama": "Hendra Gunawan",
+              "tugas": 90,
+              "uts": 95,
+              "uas": 94,
+              "akhir": "?",
+              "beasiswa": "?"
+            }
+          },
+          {
+            "rowNumber": 5,
+            "values": {
+              "nis": "202604",
+              "nama": "Indah Permatasari",
+              "tugas": 60,
+              "uts": 65,
+              "uas": 70,
+              "akhir": "?",
+              "beasiswa": "?"
+            }
+          }
+        ],
+        "targetColumns": [
+          {
+            "key": "akhir",
+            "letter": "F",
+            "label": "Nilai Akhir",
+            "description": "Hitung nilai akhir berbobot 30% Tugas + 30% UTS + 40% UAS.",
+            "expectedRowAnswers": {
+              "2": 89.3,
+              "3": 77.7,
+              "4": 93.1,
+              "5": 65.5
+            }
+          }
+        ]
+      }
+    ],
+    "passingScore": 70,
+    "solutionBlueprints": [
+      {
+        "columnLabel": "Nilai Akhir",
+        "formula": "=C2*0.3 + D2*0.3 + E2*0.4",
+        "explanation": "Hitung nilai akhir berbobot 30% Tugas + 30% UTS + 40% UAS."
+      }
+    ]
+  },
+  {
+    "id": "EX-018",
+    "number": 18,
+    "code": "#SBEM018",
+    "title": "Simulasi Angsuran Kredit Rumah KPR (Bank PMT) (Studi Kasus #18)",
+    "category": "Keuangan",
+    "difficulty": "MAHIR",
+    "difficultyStars": 4,
+    "tags": [
+      "Cek Otomatis",
+      "Studi Kasus",
+      "Keuangan"
+    ],
+    "instructions": {
+      "title": "MAHIR Level - Simulasi Angsuran Kredit Rumah KPR (Bank PMT)",
+      "description": "Hitung cicilan per bulan menggunakan fungsi PMT.",
+      "points": [
+        "1. Periksa data pada tabel di bawah ini.",
+        "2. Tuliskan formula pada kolom target (E) sesuai aturan yang ditentukan.",
+        "3. Pastikan formula dapat diterapkan ke seluruh baris data.",
+        "4. Klik tombol \"Cek Hasil Jawaban\" untuk mengevaluasi kelulusan kasus."
+      ],
+      "helperTable": {
+        "title": "Ketentuan Rumus",
+        "headers": [
+          "Target Kolom",
+          "Formula Acuan"
+        ],
+        "rows": [
+          [
+            "Angsuran / Bulan (PMT)",
+            "=PMT(C2/12, D2*12, -B2)"
+          ]
+        ]
+      },
+      "notice": "Tulis rumus kalkulasi pada kolom yang telah disediakan."
+    },
+    "sheets": [
+      {
+        "id": "sheet_18",
+        "name": "Simulasi KPR",
+        "columns": [
+          {
+            "key": "deb",
+            "label": "Nama Debitur",
+            "letter": "A"
+          },
+          {
+            "key": "plafon",
+            "label": "Plafon Pinjaman (Rp)",
+            "letter": "B"
+          },
+          {
+            "key": "bunga",
+            "label": "Bunga Tahunan (%)",
+            "letter": "C"
+          },
+          {
+            "key": "tenor",
+            "label": "Tenor (Tahun)",
+            "letter": "D"
+          },
+          {
+            "key": "angsuran",
+            "label": "Angsuran / Bulan (PMT)",
+            "letter": "E"
+          }
+        ],
+        "rows": [
+          {
+            "rowNumber": 2,
+            "values": {
+              "deb": "Andi Pratama",
+              "plafon": 500000000,
+              "bunga": 0.08,
+              "tenor": 15,
+              "angsuran": "?"
+            }
+          },
+          {
+            "rowNumber": 3,
+            "values": {
+              "deb": "Citra Kirana",
+              "plafon": 350000000,
+              "bunga": 0.075,
+              "tenor": 10,
+              "angsuran": "?"
+            }
+          },
+          {
+            "rowNumber": 4,
+            "values": {
+              "deb": "Dimas Anggara",
+              "plafon": 800000000,
+              "bunga": 0.085,
+              "tenor": 20,
+              "angsuran": "?"
+            }
+          },
+          {
+            "rowNumber": 5,
+            "values": {
+              "deb": "Eka Saputra",
+              "plafon": 250000000,
+              "bunga": 0.07,
+              "tenor": 5,
+              "angsuran": "?"
+            }
+          }
+        ],
+        "targetColumns": [
+          {
+            "key": "angsuran",
+            "letter": "E",
+            "label": "Angsuran / Bulan (PMT)",
+            "description": "Hitung cicilan per bulan menggunakan fungsi PMT.",
+            "expectedRowAnswers": {
+              "2": 4778260,
+              "3": 4153835,
+              "4": 6942621,
+              "5": 4950371
+            }
+          }
+        ]
+      }
+    ],
+    "passingScore": 70,
+    "solutionBlueprints": [
+      {
+        "columnLabel": "Angsuran / Bulan (PMT)",
+        "formula": "=PMT(C2/12, D2*12, -B2)",
+        "explanation": "Hitung cicilan per bulan menggunakan fungsi PMT."
+      }
+    ]
+  },
+  {
+    "id": "EX-019",
+    "number": 19,
+    "code": "#SBEM019",
+    "title": "Rekonsiliasi Bank & Buku Kas Perusahaan (Studi Kasus #19)",
+    "category": "Kombinasi",
+    "difficulty": "EXTREME",
+    "difficultyStars": 5,
+    "tags": [
+      "Cek Otomatis",
+      "Studi Kasus",
+      "Kombinasi"
+    ],
+    "instructions": {
+      "title": "EXTREME Level - Rekonsiliasi Bank & Buku Kas Perusahaan",
+      "description": "Hitung selisih mutasi bank dan buku kas perusahaan.",
+      "points": [
+        "1. Periksa data pada tabel di bawah ini.",
+        "2. Tuliskan formula pada kolom target (E) sesuai aturan yang ditentukan.",
+        "3. Pastikan formula dapat diterapkan ke seluruh baris data.",
+        "4. Klik tombol \"Cek Hasil Jawaban\" untuk mengevaluasi kelulusan kasus."
+      ],
+      "helperTable": {
+        "title": "Ketentuan Rumus",
+        "headers": [
+          "Target Kolom",
+          "Formula Acuan"
+        ],
+        "rows": [
+          [
+            "Selisih (Rp)",
+            "=ABS(C2-D2)"
+          ]
+        ]
+      },
+      "notice": "Tulis rumus kalkulasi pada kolom yang telah disediakan."
+    },
+    "sheets": [
+      {
+        "id": "sheet_19",
+        "name": "Rekonsiliasi Kas",
+        "columns": [
+          {
+            "key": "tgl",
+            "label": "Tanggal",
+            "letter": "A"
+          },
+          {
+            "key": "ket",
+            "label": "Keterangan Transaksi",
+            "letter": "B"
+          },
+          {
+            "key": "bank",
+            "label": "Mutasi Bank (Rp)",
+            "letter": "C"
+          },
+          {
+            "key": "buku",
+            "label": "Buku Kas (Rp)",
+            "letter": "D"
+          },
+          {
+            "key": "selisih",
+            "label": "Selisih (Rp)",
+            "letter": "E"
+          },
+          {
+            "key": "status",
+            "label": "Status Audit",
+            "letter": "F"
+          }
+        ],
+        "rows": [
+          {
+            "rowNumber": 2,
+            "values": {
+              "tgl": "01/08/2026",
+              "ket": "Setoran Tunai Kasir Toko",
+              "bank": 15000000,
+              "buku": 15000000,
+              "selisih": "?",
+              "status": "?"
+            }
+          },
+          {
+            "rowNumber": 3,
+            "values": {
+              "tgl": "03/08/2026",
+              "ket": "Kliring Cek Vendor Supplier",
+              "bank": 8500000,
+              "buku": 8500000,
+              "selisih": "?",
+              "status": "?"
+            }
+          },
+          {
+            "rowNumber": 4,
+            "values": {
+              "tgl": "05/08/2026",
+              "ket": "Biaya Administrasi Bank Bulanan",
+              "bank": 25000,
+              "buku": 0,
+              "selisih": "?",
+              "status": "?"
+            }
+          },
+          {
+            "rowNumber": 5,
+            "values": {
+              "tgl": "07/08/2026",
+              "ket": "Pendapatan Jasa Giro Bunga",
+              "bank": 180000,
+              "buku": 0,
+              "selisih": "?",
+              "status": "?"
+            }
+          }
+        ],
+        "targetColumns": [
+          {
+            "key": "selisih",
+            "letter": "E",
+            "label": "Selisih (Rp)",
+            "description": "Hitung selisih mutasi bank dan buku kas perusahaan.",
+            "expectedRowAnswers": {
+              "2": 0,
+              "3": 0,
+              "4": 25000,
+              "5": 180000
+            }
+          }
+        ]
+      }
+    ],
+    "passingScore": 70,
+    "solutionBlueprints": [
+      {
+        "columnLabel": "Selisih (Rp)",
+        "formula": "=ABS(C2-D2)",
+        "explanation": "Hitung selisih mutasi bank dan buku kas perusahaan."
+      }
+    ]
+  },
+  {
+    "id": "EX-020",
+    "number": 20,
+    "code": "#SBEM020",
+    "title": "Pengolahan Nilai Rapor & Beasiswa Prestasi Siswa (Studi Kasus #20)",
+    "category": "Logika",
+    "difficulty": "MENENGAH",
+    "difficultyStars": 3,
+    "tags": [
+      "Cek Otomatis",
+      "Studi Kasus",
+      "Logika"
+    ],
+    "instructions": {
+      "title": "MENENGAH Level - Pengolahan Nilai Rapor & Beasiswa Prestasi Siswa",
+      "description": "Hitung nilai akhir berbobot 30% Tugas + 30% UTS + 40% UAS.",
+      "points": [
+        "1. Periksa data pada tabel di bawah ini.",
+        "2. Tuliskan formula pada kolom target (F) sesuai aturan yang ditentukan.",
+        "3. Pastikan formula dapat diterapkan ke seluruh baris data.",
+        "4. Klik tombol \"Cek Hasil Jawaban\" untuk mengevaluasi kelulusan kasus."
+      ],
+      "helperTable": {
+        "title": "Ketentuan Rumus",
+        "headers": [
+          "Target Kolom",
+          "Formula Acuan"
+        ],
+        "rows": [
+          [
+            "Nilai Akhir",
+            "=C2*0.3 + D2*0.3 + E2*0.4"
+          ]
+        ]
+      },
+      "notice": "Tulis rumus kalkulasi pada kolom yang telah disediakan."
+    },
+    "sheets": [
+      {
+        "id": "sheet_20",
+        "name": "Rapor Siswa",
+        "columns": [
+          {
+            "key": "nis",
+            "label": "NIS",
+            "letter": "A"
+          },
+          {
+            "key": "nama",
+            "label": "Nama Siswa",
+            "letter": "B"
+          },
+          {
+            "key": "tugas",
+            "label": "Nilai Tugas (30%)",
+            "letter": "C"
+          },
+          {
+            "key": "uts",
+            "label": "Nilai UTS (30%)",
+            "letter": "D"
+          },
+          {
+            "key": "uas",
+            "label": "Nilai UAS (40%)",
+            "letter": "E"
+          },
+          {
+            "key": "akhir",
+            "label": "Nilai Akhir",
+            "letter": "F"
+          },
+          {
+            "key": "beasiswa",
+            "label": "Status Beasiswa",
+            "letter": "G"
+          }
+        ],
+        "rows": [
+          {
+            "rowNumber": 2,
+            "values": {
+              "nis": "202601",
+              "nama": "Fajar Nugraha",
+              "tugas": 85,
+              "uts": 90,
+              "uas": 92,
+              "akhir": "?",
+              "beasiswa": "?"
+            }
+          },
+          {
+            "rowNumber": 3,
+            "values": {
+              "nis": "202602",
+              "nama": "Gita Larasati",
+              "tugas": 75,
+              "uts": 80,
+              "uas": 78,
+              "akhir": "?",
+              "beasiswa": "?"
+            }
+          },
+          {
+            "rowNumber": 4,
+            "values": {
+              "nis": "202603",
+              "nama": "Hendra Gunawan",
+              "tugas": 90,
+              "uts": 95,
+              "uas": 94,
+              "akhir": "?",
+              "beasiswa": "?"
+            }
+          },
+          {
+            "rowNumber": 5,
+            "values": {
+              "nis": "202604",
+              "nama": "Indah Permatasari",
+              "tugas": 60,
+              "uts": 65,
+              "uas": 70,
+              "akhir": "?",
+              "beasiswa": "?"
+            }
+          }
+        ],
+        "targetColumns": [
+          {
+            "key": "akhir",
+            "letter": "F",
+            "label": "Nilai Akhir",
+            "description": "Hitung nilai akhir berbobot 30% Tugas + 30% UTS + 40% UAS.",
+            "expectedRowAnswers": {
+              "2": 89.3,
+              "3": 77.7,
+              "4": 93.1,
+              "5": 65.5
+            }
+          }
+        ]
+      }
+    ],
+    "passingScore": 70,
+    "solutionBlueprints": [
+      {
+        "columnLabel": "Nilai Akhir",
+        "formula": "=C2*0.3 + D2*0.3 + E2*0.4",
+        "explanation": "Hitung nilai akhir berbobot 30% Tugas + 30% UTS + 40% UAS."
+      }
+    ]
+  },
+  {
+    "id": "EX-021",
+    "number": 21,
+    "code": "#SBEM021",
+    "title": "Simulasi Angsuran Kredit Rumah KPR (Bank PMT) (Studi Kasus #21)",
+    "category": "Keuangan",
+    "difficulty": "MAHIR",
+    "difficultyStars": 4,
+    "tags": [
+      "Cek Otomatis",
+      "Studi Kasus",
+      "Keuangan"
+    ],
+    "instructions": {
+      "title": "MAHIR Level - Simulasi Angsuran Kredit Rumah KPR (Bank PMT)",
+      "description": "Hitung cicilan per bulan menggunakan fungsi PMT.",
+      "points": [
+        "1. Periksa data pada tabel di bawah ini.",
+        "2. Tuliskan formula pada kolom target (E) sesuai aturan yang ditentukan.",
+        "3. Pastikan formula dapat diterapkan ke seluruh baris data.",
+        "4. Klik tombol \"Cek Hasil Jawaban\" untuk mengevaluasi kelulusan kasus."
+      ],
+      "helperTable": {
+        "title": "Ketentuan Rumus",
+        "headers": [
+          "Target Kolom",
+          "Formula Acuan"
+        ],
+        "rows": [
+          [
+            "Angsuran / Bulan (PMT)",
+            "=PMT(C2/12, D2*12, -B2)"
+          ]
+        ]
+      },
+      "notice": "Tulis rumus kalkulasi pada kolom yang telah disediakan."
+    },
+    "sheets": [
+      {
+        "id": "sheet_21",
+        "name": "Simulasi KPR",
+        "columns": [
+          {
+            "key": "deb",
+            "label": "Nama Debitur",
+            "letter": "A"
+          },
+          {
+            "key": "plafon",
+            "label": "Plafon Pinjaman (Rp)",
+            "letter": "B"
+          },
+          {
+            "key": "bunga",
+            "label": "Bunga Tahunan (%)",
+            "letter": "C"
+          },
+          {
+            "key": "tenor",
+            "label": "Tenor (Tahun)",
+            "letter": "D"
+          },
+          {
+            "key": "angsuran",
+            "label": "Angsuran / Bulan (PMT)",
+            "letter": "E"
+          }
+        ],
+        "rows": [
+          {
+            "rowNumber": 2,
+            "values": {
+              "deb": "Andi Pratama",
+              "plafon": 500000000,
+              "bunga": 0.08,
+              "tenor": 15,
+              "angsuran": "?"
+            }
+          },
+          {
+            "rowNumber": 3,
+            "values": {
+              "deb": "Citra Kirana",
+              "plafon": 350000000,
+              "bunga": 0.075,
+              "tenor": 10,
+              "angsuran": "?"
+            }
+          },
+          {
+            "rowNumber": 4,
+            "values": {
+              "deb": "Dimas Anggara",
+              "plafon": 800000000,
+              "bunga": 0.085,
+              "tenor": 20,
+              "angsuran": "?"
+            }
+          },
+          {
+            "rowNumber": 5,
+            "values": {
+              "deb": "Eka Saputra",
+              "plafon": 250000000,
+              "bunga": 0.07,
+              "tenor": 5,
+              "angsuran": "?"
+            }
+          }
+        ],
+        "targetColumns": [
+          {
+            "key": "angsuran",
+            "letter": "E",
+            "label": "Angsuran / Bulan (PMT)",
+            "description": "Hitung cicilan per bulan menggunakan fungsi PMT.",
+            "expectedRowAnswers": {
+              "2": 4778260,
+              "3": 4153835,
+              "4": 6942621,
+              "5": 4950371
+            }
+          }
+        ]
+      }
+    ],
+    "passingScore": 70,
+    "solutionBlueprints": [
+      {
+        "columnLabel": "Angsuran / Bulan (PMT)",
+        "formula": "=PMT(C2/12, D2*12, -B2)",
+        "explanation": "Hitung cicilan per bulan menggunakan fungsi PMT."
+      }
+    ]
+  },
+  {
+    "id": "EX-022",
+    "number": 22,
+    "code": "#SBEM022",
+    "title": "Rekonsiliasi Bank & Buku Kas Perusahaan (Studi Kasus #22)",
+    "category": "Kombinasi",
+    "difficulty": "EXTREME",
+    "difficultyStars": 5,
+    "tags": [
+      "Cek Otomatis",
+      "Studi Kasus",
+      "Kombinasi"
+    ],
+    "instructions": {
+      "title": "EXTREME Level - Rekonsiliasi Bank & Buku Kas Perusahaan",
+      "description": "Hitung selisih mutasi bank dan buku kas perusahaan.",
+      "points": [
+        "1. Periksa data pada tabel di bawah ini.",
+        "2. Tuliskan formula pada kolom target (E) sesuai aturan yang ditentukan.",
+        "3. Pastikan formula dapat diterapkan ke seluruh baris data.",
+        "4. Klik tombol \"Cek Hasil Jawaban\" untuk mengevaluasi kelulusan kasus."
+      ],
+      "helperTable": {
+        "title": "Ketentuan Rumus",
+        "headers": [
+          "Target Kolom",
+          "Formula Acuan"
+        ],
+        "rows": [
+          [
+            "Selisih (Rp)",
+            "=ABS(C2-D2)"
+          ]
+        ]
+      },
+      "notice": "Tulis rumus kalkulasi pada kolom yang telah disediakan."
+    },
+    "sheets": [
+      {
+        "id": "sheet_22",
+        "name": "Rekonsiliasi Kas",
+        "columns": [
+          {
+            "key": "tgl",
+            "label": "Tanggal",
+            "letter": "A"
+          },
+          {
+            "key": "ket",
+            "label": "Keterangan Transaksi",
+            "letter": "B"
+          },
+          {
+            "key": "bank",
+            "label": "Mutasi Bank (Rp)",
+            "letter": "C"
+          },
+          {
+            "key": "buku",
+            "label": "Buku Kas (Rp)",
+            "letter": "D"
+          },
+          {
+            "key": "selisih",
+            "label": "Selisih (Rp)",
+            "letter": "E"
+          },
+          {
+            "key": "status",
+            "label": "Status Audit",
+            "letter": "F"
+          }
+        ],
+        "rows": [
+          {
+            "rowNumber": 2,
+            "values": {
+              "tgl": "01/08/2026",
+              "ket": "Setoran Tunai Kasir Toko",
+              "bank": 15000000,
+              "buku": 15000000,
+              "selisih": "?",
+              "status": "?"
+            }
+          },
+          {
+            "rowNumber": 3,
+            "values": {
+              "tgl": "03/08/2026",
+              "ket": "Kliring Cek Vendor Supplier",
+              "bank": 8500000,
+              "buku": 8500000,
+              "selisih": "?",
+              "status": "?"
+            }
+          },
+          {
+            "rowNumber": 4,
+            "values": {
+              "tgl": "05/08/2026",
+              "ket": "Biaya Administrasi Bank Bulanan",
+              "bank": 25000,
+              "buku": 0,
+              "selisih": "?",
+              "status": "?"
+            }
+          },
+          {
+            "rowNumber": 5,
+            "values": {
+              "tgl": "07/08/2026",
+              "ket": "Pendapatan Jasa Giro Bunga",
+              "bank": 180000,
+              "buku": 0,
+              "selisih": "?",
+              "status": "?"
+            }
+          }
+        ],
+        "targetColumns": [
+          {
+            "key": "selisih",
+            "letter": "E",
+            "label": "Selisih (Rp)",
+            "description": "Hitung selisih mutasi bank dan buku kas perusahaan.",
+            "expectedRowAnswers": {
+              "2": 0,
+              "3": 0,
+              "4": 25000,
+              "5": 180000
+            }
+          }
+        ]
+      }
+    ],
+    "passingScore": 70,
+    "solutionBlueprints": [
+      {
+        "columnLabel": "Selisih (Rp)",
+        "formula": "=ABS(C2-D2)",
+        "explanation": "Hitung selisih mutasi bank dan buku kas perusahaan."
+      }
+    ]
+  },
+  {
+    "id": "EX-023",
+    "number": 23,
+    "code": "#SBEM023",
+    "title": "Pengolahan Nilai Rapor & Beasiswa Prestasi Siswa (Studi Kasus #23)",
+    "category": "Logika",
+    "difficulty": "MENENGAH",
+    "difficultyStars": 3,
+    "tags": [
+      "Cek Otomatis",
+      "Studi Kasus",
+      "Logika"
+    ],
+    "instructions": {
+      "title": "MENENGAH Level - Pengolahan Nilai Rapor & Beasiswa Prestasi Siswa",
+      "description": "Hitung nilai akhir berbobot 30% Tugas + 30% UTS + 40% UAS.",
+      "points": [
+        "1. Periksa data pada tabel di bawah ini.",
+        "2. Tuliskan formula pada kolom target (F) sesuai aturan yang ditentukan.",
+        "3. Pastikan formula dapat diterapkan ke seluruh baris data.",
+        "4. Klik tombol \"Cek Hasil Jawaban\" untuk mengevaluasi kelulusan kasus."
+      ],
+      "helperTable": {
+        "title": "Ketentuan Rumus",
+        "headers": [
+          "Target Kolom",
+          "Formula Acuan"
+        ],
+        "rows": [
+          [
+            "Nilai Akhir",
+            "=C2*0.3 + D2*0.3 + E2*0.4"
+          ]
+        ]
+      },
+      "notice": "Tulis rumus kalkulasi pada kolom yang telah disediakan."
+    },
+    "sheets": [
+      {
+        "id": "sheet_23",
+        "name": "Rapor Siswa",
+        "columns": [
+          {
+            "key": "nis",
+            "label": "NIS",
+            "letter": "A"
+          },
+          {
+            "key": "nama",
+            "label": "Nama Siswa",
+            "letter": "B"
+          },
+          {
+            "key": "tugas",
+            "label": "Nilai Tugas (30%)",
+            "letter": "C"
+          },
+          {
+            "key": "uts",
+            "label": "Nilai UTS (30%)",
+            "letter": "D"
+          },
+          {
+            "key": "uas",
+            "label": "Nilai UAS (40%)",
+            "letter": "E"
+          },
+          {
+            "key": "akhir",
+            "label": "Nilai Akhir",
+            "letter": "F"
+          },
+          {
+            "key": "beasiswa",
+            "label": "Status Beasiswa",
+            "letter": "G"
+          }
+        ],
+        "rows": [
+          {
+            "rowNumber": 2,
+            "values": {
+              "nis": "202601",
+              "nama": "Fajar Nugraha",
+              "tugas": 85,
+              "uts": 90,
+              "uas": 92,
+              "akhir": "?",
+              "beasiswa": "?"
+            }
+          },
+          {
+            "rowNumber": 3,
+            "values": {
+              "nis": "202602",
+              "nama": "Gita Larasati",
+              "tugas": 75,
+              "uts": 80,
+              "uas": 78,
+              "akhir": "?",
+              "beasiswa": "?"
+            }
+          },
+          {
+            "rowNumber": 4,
+            "values": {
+              "nis": "202603",
+              "nama": "Hendra Gunawan",
+              "tugas": 90,
+              "uts": 95,
+              "uas": 94,
+              "akhir": "?",
+              "beasiswa": "?"
+            }
+          },
+          {
+            "rowNumber": 5,
+            "values": {
+              "nis": "202604",
+              "nama": "Indah Permatasari",
+              "tugas": 60,
+              "uts": 65,
+              "uas": 70,
+              "akhir": "?",
+              "beasiswa": "?"
+            }
+          }
+        ],
+        "targetColumns": [
+          {
+            "key": "akhir",
+            "letter": "F",
+            "label": "Nilai Akhir",
+            "description": "Hitung nilai akhir berbobot 30% Tugas + 30% UTS + 40% UAS.",
+            "expectedRowAnswers": {
+              "2": 89.3,
+              "3": 77.7,
+              "4": 93.1,
+              "5": 65.5
+            }
+          }
+        ]
+      }
+    ],
+    "passingScore": 70,
+    "solutionBlueprints": [
+      {
+        "columnLabel": "Nilai Akhir",
+        "formula": "=C2*0.3 + D2*0.3 + E2*0.4",
+        "explanation": "Hitung nilai akhir berbobot 30% Tugas + 30% UTS + 40% UAS."
+      }
+    ]
+  },
+  {
+    "id": "EX-024",
+    "number": 24,
+    "code": "#SBEM024",
+    "title": "Simulasi Angsuran Kredit Rumah KPR (Bank PMT) (Studi Kasus #24)",
+    "category": "Keuangan",
+    "difficulty": "MAHIR",
+    "difficultyStars": 4,
+    "tags": [
+      "Cek Otomatis",
+      "Studi Kasus",
+      "Keuangan"
+    ],
+    "instructions": {
+      "title": "MAHIR Level - Simulasi Angsuran Kredit Rumah KPR (Bank PMT)",
+      "description": "Hitung cicilan per bulan menggunakan fungsi PMT.",
+      "points": [
+        "1. Periksa data pada tabel di bawah ini.",
+        "2. Tuliskan formula pada kolom target (E) sesuai aturan yang ditentukan.",
+        "3. Pastikan formula dapat diterapkan ke seluruh baris data.",
+        "4. Klik tombol \"Cek Hasil Jawaban\" untuk mengevaluasi kelulusan kasus."
+      ],
+      "helperTable": {
+        "title": "Ketentuan Rumus",
+        "headers": [
+          "Target Kolom",
+          "Formula Acuan"
+        ],
+        "rows": [
+          [
+            "Angsuran / Bulan (PMT)",
+            "=PMT(C2/12, D2*12, -B2)"
+          ]
+        ]
+      },
+      "notice": "Tulis rumus kalkulasi pada kolom yang telah disediakan."
+    },
+    "sheets": [
+      {
+        "id": "sheet_24",
+        "name": "Simulasi KPR",
+        "columns": [
+          {
+            "key": "deb",
+            "label": "Nama Debitur",
+            "letter": "A"
+          },
+          {
+            "key": "plafon",
+            "label": "Plafon Pinjaman (Rp)",
+            "letter": "B"
+          },
+          {
+            "key": "bunga",
+            "label": "Bunga Tahunan (%)",
+            "letter": "C"
+          },
+          {
+            "key": "tenor",
+            "label": "Tenor (Tahun)",
+            "letter": "D"
+          },
+          {
+            "key": "angsuran",
+            "label": "Angsuran / Bulan (PMT)",
+            "letter": "E"
+          }
+        ],
+        "rows": [
+          {
+            "rowNumber": 2,
+            "values": {
+              "deb": "Andi Pratama",
+              "plafon": 500000000,
+              "bunga": 0.08,
+              "tenor": 15,
+              "angsuran": "?"
+            }
+          },
+          {
+            "rowNumber": 3,
+            "values": {
+              "deb": "Citra Kirana",
+              "plafon": 350000000,
+              "bunga": 0.075,
+              "tenor": 10,
+              "angsuran": "?"
+            }
+          },
+          {
+            "rowNumber": 4,
+            "values": {
+              "deb": "Dimas Anggara",
+              "plafon": 800000000,
+              "bunga": 0.085,
+              "tenor": 20,
+              "angsuran": "?"
+            }
+          },
+          {
+            "rowNumber": 5,
+            "values": {
+              "deb": "Eka Saputra",
+              "plafon": 250000000,
+              "bunga": 0.07,
+              "tenor": 5,
+              "angsuran": "?"
+            }
+          }
+        ],
+        "targetColumns": [
+          {
+            "key": "angsuran",
+            "letter": "E",
+            "label": "Angsuran / Bulan (PMT)",
+            "description": "Hitung cicilan per bulan menggunakan fungsi PMT.",
+            "expectedRowAnswers": {
+              "2": 4778260,
+              "3": 4153835,
+              "4": 6942621,
+              "5": 4950371
+            }
+          }
+        ]
+      }
+    ],
+    "passingScore": 70,
+    "solutionBlueprints": [
+      {
+        "columnLabel": "Angsuran / Bulan (PMT)",
+        "formula": "=PMT(C2/12, D2*12, -B2)",
+        "explanation": "Hitung cicilan per bulan menggunakan fungsi PMT."
+      }
+    ]
+  },
+  {
+    "id": "EX-025",
+    "number": 25,
+    "code": "#SBEM025",
+    "title": "Rekonsiliasi Bank & Buku Kas Perusahaan (Studi Kasus #25)",
+    "category": "Kombinasi",
+    "difficulty": "EXTREME",
+    "difficultyStars": 5,
+    "tags": [
+      "Cek Otomatis",
+      "Studi Kasus",
+      "Kombinasi"
+    ],
+    "instructions": {
+      "title": "EXTREME Level - Rekonsiliasi Bank & Buku Kas Perusahaan",
+      "description": "Hitung selisih mutasi bank dan buku kas perusahaan.",
+      "points": [
+        "1. Periksa data pada tabel di bawah ini.",
+        "2. Tuliskan formula pada kolom target (E) sesuai aturan yang ditentukan.",
+        "3. Pastikan formula dapat diterapkan ke seluruh baris data.",
+        "4. Klik tombol \"Cek Hasil Jawaban\" untuk mengevaluasi kelulusan kasus."
+      ],
+      "helperTable": {
+        "title": "Ketentuan Rumus",
+        "headers": [
+          "Target Kolom",
+          "Formula Acuan"
+        ],
+        "rows": [
+          [
+            "Selisih (Rp)",
+            "=ABS(C2-D2)"
+          ]
+        ]
+      },
+      "notice": "Tulis rumus kalkulasi pada kolom yang telah disediakan."
+    },
+    "sheets": [
+      {
+        "id": "sheet_25",
+        "name": "Rekonsiliasi Kas",
+        "columns": [
+          {
+            "key": "tgl",
+            "label": "Tanggal",
+            "letter": "A"
+          },
+          {
+            "key": "ket",
+            "label": "Keterangan Transaksi",
+            "letter": "B"
+          },
+          {
+            "key": "bank",
+            "label": "Mutasi Bank (Rp)",
+            "letter": "C"
+          },
+          {
+            "key": "buku",
+            "label": "Buku Kas (Rp)",
+            "letter": "D"
+          },
+          {
+            "key": "selisih",
+            "label": "Selisih (Rp)",
+            "letter": "E"
+          },
+          {
+            "key": "status",
+            "label": "Status Audit",
+            "letter": "F"
+          }
+        ],
+        "rows": [
+          {
+            "rowNumber": 2,
+            "values": {
+              "tgl": "01/08/2026",
+              "ket": "Setoran Tunai Kasir Toko",
+              "bank": 15000000,
+              "buku": 15000000,
+              "selisih": "?",
+              "status": "?"
+            }
+          },
+          {
+            "rowNumber": 3,
+            "values": {
+              "tgl": "03/08/2026",
+              "ket": "Kliring Cek Vendor Supplier",
+              "bank": 8500000,
+              "buku": 8500000,
+              "selisih": "?",
+              "status": "?"
+            }
+          },
+          {
+            "rowNumber": 4,
+            "values": {
+              "tgl": "05/08/2026",
+              "ket": "Biaya Administrasi Bank Bulanan",
+              "bank": 25000,
+              "buku": 0,
+              "selisih": "?",
+              "status": "?"
+            }
+          },
+          {
+            "rowNumber": 5,
+            "values": {
+              "tgl": "07/08/2026",
+              "ket": "Pendapatan Jasa Giro Bunga",
+              "bank": 180000,
+              "buku": 0,
+              "selisih": "?",
+              "status": "?"
+            }
+          }
+        ],
+        "targetColumns": [
+          {
+            "key": "selisih",
+            "letter": "E",
+            "label": "Selisih (Rp)",
+            "description": "Hitung selisih mutasi bank dan buku kas perusahaan.",
+            "expectedRowAnswers": {
+              "2": 0,
+              "3": 0,
+              "4": 25000,
+              "5": 180000
+            }
+          }
+        ]
+      }
+    ],
+    "passingScore": 70,
+    "solutionBlueprints": [
+      {
+        "columnLabel": "Selisih (Rp)",
+        "formula": "=ABS(C2-D2)",
+        "explanation": "Hitung selisih mutasi bank dan buku kas perusahaan."
+      }
+    ]
+  },
+  {
+    "id": "EX-026",
+    "number": 26,
+    "code": "#SBEM026",
+    "title": "Pengolahan Nilai Rapor & Beasiswa Prestasi Siswa (Studi Kasus #26)",
+    "category": "Logika",
+    "difficulty": "MENENGAH",
+    "difficultyStars": 3,
+    "tags": [
+      "Cek Otomatis",
+      "Studi Kasus",
+      "Logika"
+    ],
+    "instructions": {
+      "title": "MENENGAH Level - Pengolahan Nilai Rapor & Beasiswa Prestasi Siswa",
+      "description": "Hitung nilai akhir berbobot 30% Tugas + 30% UTS + 40% UAS.",
+      "points": [
+        "1. Periksa data pada tabel di bawah ini.",
+        "2. Tuliskan formula pada kolom target (F) sesuai aturan yang ditentukan.",
+        "3. Pastikan formula dapat diterapkan ke seluruh baris data.",
+        "4. Klik tombol \"Cek Hasil Jawaban\" untuk mengevaluasi kelulusan kasus."
+      ],
+      "helperTable": {
+        "title": "Ketentuan Rumus",
+        "headers": [
+          "Target Kolom",
+          "Formula Acuan"
+        ],
+        "rows": [
+          [
+            "Nilai Akhir",
+            "=C2*0.3 + D2*0.3 + E2*0.4"
+          ]
+        ]
+      },
+      "notice": "Tulis rumus kalkulasi pada kolom yang telah disediakan."
+    },
+    "sheets": [
+      {
+        "id": "sheet_26",
+        "name": "Rapor Siswa",
+        "columns": [
+          {
+            "key": "nis",
+            "label": "NIS",
+            "letter": "A"
+          },
+          {
+            "key": "nama",
+            "label": "Nama Siswa",
+            "letter": "B"
+          },
+          {
+            "key": "tugas",
+            "label": "Nilai Tugas (30%)",
+            "letter": "C"
+          },
+          {
+            "key": "uts",
+            "label": "Nilai UTS (30%)",
+            "letter": "D"
+          },
+          {
+            "key": "uas",
+            "label": "Nilai UAS (40%)",
+            "letter": "E"
+          },
+          {
+            "key": "akhir",
+            "label": "Nilai Akhir",
+            "letter": "F"
+          },
+          {
+            "key": "beasiswa",
+            "label": "Status Beasiswa",
+            "letter": "G"
+          }
+        ],
+        "rows": [
+          {
+            "rowNumber": 2,
+            "values": {
+              "nis": "202601",
+              "nama": "Fajar Nugraha",
+              "tugas": 85,
+              "uts": 90,
+              "uas": 92,
+              "akhir": "?",
+              "beasiswa": "?"
+            }
+          },
+          {
+            "rowNumber": 3,
+            "values": {
+              "nis": "202602",
+              "nama": "Gita Larasati",
+              "tugas": 75,
+              "uts": 80,
+              "uas": 78,
+              "akhir": "?",
+              "beasiswa": "?"
+            }
+          },
+          {
+            "rowNumber": 4,
+            "values": {
+              "nis": "202603",
+              "nama": "Hendra Gunawan",
+              "tugas": 90,
+              "uts": 95,
+              "uas": 94,
+              "akhir": "?",
+              "beasiswa": "?"
+            }
+          },
+          {
+            "rowNumber": 5,
+            "values": {
+              "nis": "202604",
+              "nama": "Indah Permatasari",
+              "tugas": 60,
+              "uts": 65,
+              "uas": 70,
+              "akhir": "?",
+              "beasiswa": "?"
+            }
+          }
+        ],
+        "targetColumns": [
+          {
+            "key": "akhir",
+            "letter": "F",
+            "label": "Nilai Akhir",
+            "description": "Hitung nilai akhir berbobot 30% Tugas + 30% UTS + 40% UAS.",
+            "expectedRowAnswers": {
+              "2": 89.3,
+              "3": 77.7,
+              "4": 93.1,
+              "5": 65.5
+            }
+          }
+        ]
+      }
+    ],
+    "passingScore": 70,
+    "solutionBlueprints": [
+      {
+        "columnLabel": "Nilai Akhir",
+        "formula": "=C2*0.3 + D2*0.3 + E2*0.4",
+        "explanation": "Hitung nilai akhir berbobot 30% Tugas + 30% UTS + 40% UAS."
+      }
+    ]
+  },
+  {
+    "id": "EX-027",
+    "number": 27,
+    "code": "#SBEM027",
+    "title": "Simulasi Angsuran Kredit Rumah KPR (Bank PMT) (Studi Kasus #27)",
+    "category": "Keuangan",
+    "difficulty": "MAHIR",
+    "difficultyStars": 4,
+    "tags": [
+      "Cek Otomatis",
+      "Studi Kasus",
+      "Keuangan"
+    ],
+    "instructions": {
+      "title": "MAHIR Level - Simulasi Angsuran Kredit Rumah KPR (Bank PMT)",
+      "description": "Hitung cicilan per bulan menggunakan fungsi PMT.",
+      "points": [
+        "1. Periksa data pada tabel di bawah ini.",
+        "2. Tuliskan formula pada kolom target (E) sesuai aturan yang ditentukan.",
+        "3. Pastikan formula dapat diterapkan ke seluruh baris data.",
+        "4. Klik tombol \"Cek Hasil Jawaban\" untuk mengevaluasi kelulusan kasus."
+      ],
+      "helperTable": {
+        "title": "Ketentuan Rumus",
+        "headers": [
+          "Target Kolom",
+          "Formula Acuan"
+        ],
+        "rows": [
+          [
+            "Angsuran / Bulan (PMT)",
+            "=PMT(C2/12, D2*12, -B2)"
+          ]
+        ]
+      },
+      "notice": "Tulis rumus kalkulasi pada kolom yang telah disediakan."
+    },
+    "sheets": [
+      {
+        "id": "sheet_27",
+        "name": "Simulasi KPR",
+        "columns": [
+          {
+            "key": "deb",
+            "label": "Nama Debitur",
+            "letter": "A"
+          },
+          {
+            "key": "plafon",
+            "label": "Plafon Pinjaman (Rp)",
+            "letter": "B"
+          },
+          {
+            "key": "bunga",
+            "label": "Bunga Tahunan (%)",
+            "letter": "C"
+          },
+          {
+            "key": "tenor",
+            "label": "Tenor (Tahun)",
+            "letter": "D"
+          },
+          {
+            "key": "angsuran",
+            "label": "Angsuran / Bulan (PMT)",
+            "letter": "E"
+          }
+        ],
+        "rows": [
+          {
+            "rowNumber": 2,
+            "values": {
+              "deb": "Andi Pratama",
+              "plafon": 500000000,
+              "bunga": 0.08,
+              "tenor": 15,
+              "angsuran": "?"
+            }
+          },
+          {
+            "rowNumber": 3,
+            "values": {
+              "deb": "Citra Kirana",
+              "plafon": 350000000,
+              "bunga": 0.075,
+              "tenor": 10,
+              "angsuran": "?"
+            }
+          },
+          {
+            "rowNumber": 4,
+            "values": {
+              "deb": "Dimas Anggara",
+              "plafon": 800000000,
+              "bunga": 0.085,
+              "tenor": 20,
+              "angsuran": "?"
+            }
+          },
+          {
+            "rowNumber": 5,
+            "values": {
+              "deb": "Eka Saputra",
+              "plafon": 250000000,
+              "bunga": 0.07,
+              "tenor": 5,
+              "angsuran": "?"
+            }
+          }
+        ],
+        "targetColumns": [
+          {
+            "key": "angsuran",
+            "letter": "E",
+            "label": "Angsuran / Bulan (PMT)",
+            "description": "Hitung cicilan per bulan menggunakan fungsi PMT.",
+            "expectedRowAnswers": {
+              "2": 4778260,
+              "3": 4153835,
+              "4": 6942621,
+              "5": 4950371
+            }
+          }
+        ]
+      }
+    ],
+    "passingScore": 70,
+    "solutionBlueprints": [
+      {
+        "columnLabel": "Angsuran / Bulan (PMT)",
+        "formula": "=PMT(C2/12, D2*12, -B2)",
+        "explanation": "Hitung cicilan per bulan menggunakan fungsi PMT."
+      }
+    ]
+  },
+  {
+    "id": "EX-028",
+    "number": 28,
+    "code": "#SBEM028",
+    "title": "Rekonsiliasi Bank & Buku Kas Perusahaan (Studi Kasus #28)",
+    "category": "Kombinasi",
+    "difficulty": "EXTREME",
+    "difficultyStars": 5,
+    "tags": [
+      "Cek Otomatis",
+      "Studi Kasus",
+      "Kombinasi"
+    ],
+    "instructions": {
+      "title": "EXTREME Level - Rekonsiliasi Bank & Buku Kas Perusahaan",
+      "description": "Hitung selisih mutasi bank dan buku kas perusahaan.",
+      "points": [
+        "1. Periksa data pada tabel di bawah ini.",
+        "2. Tuliskan formula pada kolom target (E) sesuai aturan yang ditentukan.",
+        "3. Pastikan formula dapat diterapkan ke seluruh baris data.",
+        "4. Klik tombol \"Cek Hasil Jawaban\" untuk mengevaluasi kelulusan kasus."
+      ],
+      "helperTable": {
+        "title": "Ketentuan Rumus",
+        "headers": [
+          "Target Kolom",
+          "Formula Acuan"
+        ],
+        "rows": [
+          [
+            "Selisih (Rp)",
+            "=ABS(C2-D2)"
+          ]
+        ]
+      },
+      "notice": "Tulis rumus kalkulasi pada kolom yang telah disediakan."
+    },
+    "sheets": [
+      {
+        "id": "sheet_28",
+        "name": "Rekonsiliasi Kas",
+        "columns": [
+          {
+            "key": "tgl",
+            "label": "Tanggal",
+            "letter": "A"
+          },
+          {
+            "key": "ket",
+            "label": "Keterangan Transaksi",
+            "letter": "B"
+          },
+          {
+            "key": "bank",
+            "label": "Mutasi Bank (Rp)",
+            "letter": "C"
+          },
+          {
+            "key": "buku",
+            "label": "Buku Kas (Rp)",
+            "letter": "D"
+          },
+          {
+            "key": "selisih",
+            "label": "Selisih (Rp)",
+            "letter": "E"
+          },
+          {
+            "key": "status",
+            "label": "Status Audit",
+            "letter": "F"
+          }
+        ],
+        "rows": [
+          {
+            "rowNumber": 2,
+            "values": {
+              "tgl": "01/08/2026",
+              "ket": "Setoran Tunai Kasir Toko",
+              "bank": 15000000,
+              "buku": 15000000,
+              "selisih": "?",
+              "status": "?"
+            }
+          },
+          {
+            "rowNumber": 3,
+            "values": {
+              "tgl": "03/08/2026",
+              "ket": "Kliring Cek Vendor Supplier",
+              "bank": 8500000,
+              "buku": 8500000,
+              "selisih": "?",
+              "status": "?"
+            }
+          },
+          {
+            "rowNumber": 4,
+            "values": {
+              "tgl": "05/08/2026",
+              "ket": "Biaya Administrasi Bank Bulanan",
+              "bank": 25000,
+              "buku": 0,
+              "selisih": "?",
+              "status": "?"
+            }
+          },
+          {
+            "rowNumber": 5,
+            "values": {
+              "tgl": "07/08/2026",
+              "ket": "Pendapatan Jasa Giro Bunga",
+              "bank": 180000,
+              "buku": 0,
+              "selisih": "?",
+              "status": "?"
+            }
+          }
+        ],
+        "targetColumns": [
+          {
+            "key": "selisih",
+            "letter": "E",
+            "label": "Selisih (Rp)",
+            "description": "Hitung selisih mutasi bank dan buku kas perusahaan.",
+            "expectedRowAnswers": {
+              "2": 0,
+              "3": 0,
+              "4": 25000,
+              "5": 180000
+            }
+          }
+        ]
+      }
+    ],
+    "passingScore": 70,
+    "solutionBlueprints": [
+      {
+        "columnLabel": "Selisih (Rp)",
+        "formula": "=ABS(C2-D2)",
+        "explanation": "Hitung selisih mutasi bank dan buku kas perusahaan."
+      }
+    ]
+  },
+  {
+    "id": "EX-029",
+    "number": 29,
+    "code": "#SBEM029",
+    "title": "Pengolahan Nilai Rapor & Beasiswa Prestasi Siswa (Studi Kasus #29)",
+    "category": "Logika",
+    "difficulty": "MENENGAH",
+    "difficultyStars": 3,
+    "tags": [
+      "Cek Otomatis",
+      "Studi Kasus",
+      "Logika"
+    ],
+    "instructions": {
+      "title": "MENENGAH Level - Pengolahan Nilai Rapor & Beasiswa Prestasi Siswa",
+      "description": "Hitung nilai akhir berbobot 30% Tugas + 30% UTS + 40% UAS.",
+      "points": [
+        "1. Periksa data pada tabel di bawah ini.",
+        "2. Tuliskan formula pada kolom target (F) sesuai aturan yang ditentukan.",
+        "3. Pastikan formula dapat diterapkan ke seluruh baris data.",
+        "4. Klik tombol \"Cek Hasil Jawaban\" untuk mengevaluasi kelulusan kasus."
+      ],
+      "helperTable": {
+        "title": "Ketentuan Rumus",
+        "headers": [
+          "Target Kolom",
+          "Formula Acuan"
+        ],
+        "rows": [
+          [
+            "Nilai Akhir",
+            "=C2*0.3 + D2*0.3 + E2*0.4"
+          ]
+        ]
+      },
+      "notice": "Tulis rumus kalkulasi pada kolom yang telah disediakan."
+    },
+    "sheets": [
+      {
+        "id": "sheet_29",
+        "name": "Rapor Siswa",
+        "columns": [
+          {
+            "key": "nis",
+            "label": "NIS",
+            "letter": "A"
+          },
+          {
+            "key": "nama",
+            "label": "Nama Siswa",
+            "letter": "B"
+          },
+          {
+            "key": "tugas",
+            "label": "Nilai Tugas (30%)",
+            "letter": "C"
+          },
+          {
+            "key": "uts",
+            "label": "Nilai UTS (30%)",
+            "letter": "D"
+          },
+          {
+            "key": "uas",
+            "label": "Nilai UAS (40%)",
+            "letter": "E"
+          },
+          {
+            "key": "akhir",
+            "label": "Nilai Akhir",
+            "letter": "F"
+          },
+          {
+            "key": "beasiswa",
+            "label": "Status Beasiswa",
+            "letter": "G"
+          }
+        ],
+        "rows": [
+          {
+            "rowNumber": 2,
+            "values": {
+              "nis": "202601",
+              "nama": "Fajar Nugraha",
+              "tugas": 85,
+              "uts": 90,
+              "uas": 92,
+              "akhir": "?",
+              "beasiswa": "?"
+            }
+          },
+          {
+            "rowNumber": 3,
+            "values": {
+              "nis": "202602",
+              "nama": "Gita Larasati",
+              "tugas": 75,
+              "uts": 80,
+              "uas": 78,
+              "akhir": "?",
+              "beasiswa": "?"
+            }
+          },
+          {
+            "rowNumber": 4,
+            "values": {
+              "nis": "202603",
+              "nama": "Hendra Gunawan",
+              "tugas": 90,
+              "uts": 95,
+              "uas": 94,
+              "akhir": "?",
+              "beasiswa": "?"
+            }
+          },
+          {
+            "rowNumber": 5,
+            "values": {
+              "nis": "202604",
+              "nama": "Indah Permatasari",
+              "tugas": 60,
+              "uts": 65,
+              "uas": 70,
+              "akhir": "?",
+              "beasiswa": "?"
+            }
+          }
+        ],
+        "targetColumns": [
+          {
+            "key": "akhir",
+            "letter": "F",
+            "label": "Nilai Akhir",
+            "description": "Hitung nilai akhir berbobot 30% Tugas + 30% UTS + 40% UAS.",
+            "expectedRowAnswers": {
+              "2": 89.3,
+              "3": 77.7,
+              "4": 93.1,
+              "5": 65.5
+            }
+          }
+        ]
+      }
+    ],
+    "passingScore": 70,
+    "solutionBlueprints": [
+      {
+        "columnLabel": "Nilai Akhir",
+        "formula": "=C2*0.3 + D2*0.3 + E2*0.4",
+        "explanation": "Hitung nilai akhir berbobot 30% Tugas + 30% UTS + 40% UAS."
+      }
+    ]
+  },
+  {
+    "id": "EX-030",
+    "number": 30,
+    "code": "#SBEM030",
+    "title": "Simulasi Angsuran Kredit Rumah KPR (Bank PMT) (Studi Kasus #30)",
+    "category": "Keuangan",
+    "difficulty": "MAHIR",
+    "difficultyStars": 4,
+    "tags": [
+      "Cek Otomatis",
+      "Studi Kasus",
+      "Keuangan"
+    ],
+    "instructions": {
+      "title": "MAHIR Level - Simulasi Angsuran Kredit Rumah KPR (Bank PMT)",
+      "description": "Hitung cicilan per bulan menggunakan fungsi PMT.",
+      "points": [
+        "1. Periksa data pada tabel di bawah ini.",
+        "2. Tuliskan formula pada kolom target (E) sesuai aturan yang ditentukan.",
+        "3. Pastikan formula dapat diterapkan ke seluruh baris data.",
+        "4. Klik tombol \"Cek Hasil Jawaban\" untuk mengevaluasi kelulusan kasus."
+      ],
+      "helperTable": {
+        "title": "Ketentuan Rumus",
+        "headers": [
+          "Target Kolom",
+          "Formula Acuan"
+        ],
+        "rows": [
+          [
+            "Angsuran / Bulan (PMT)",
+            "=PMT(C2/12, D2*12, -B2)"
+          ]
+        ]
+      },
+      "notice": "Tulis rumus kalkulasi pada kolom yang telah disediakan."
+    },
+    "sheets": [
+      {
+        "id": "sheet_30",
+        "name": "Simulasi KPR",
+        "columns": [
+          {
+            "key": "deb",
+            "label": "Nama Debitur",
+            "letter": "A"
+          },
+          {
+            "key": "plafon",
+            "label": "Plafon Pinjaman (Rp)",
+            "letter": "B"
+          },
+          {
+            "key": "bunga",
+            "label": "Bunga Tahunan (%)",
+            "letter": "C"
+          },
+          {
+            "key": "tenor",
+            "label": "Tenor (Tahun)",
+            "letter": "D"
+          },
+          {
+            "key": "angsuran",
+            "label": "Angsuran / Bulan (PMT)",
+            "letter": "E"
+          }
+        ],
+        "rows": [
+          {
+            "rowNumber": 2,
+            "values": {
+              "deb": "Andi Pratama",
+              "plafon": 500000000,
+              "bunga": 0.08,
+              "tenor": 15,
+              "angsuran": "?"
+            }
+          },
+          {
+            "rowNumber": 3,
+            "values": {
+              "deb": "Citra Kirana",
+              "plafon": 350000000,
+              "bunga": 0.075,
+              "tenor": 10,
+              "angsuran": "?"
+            }
+          },
+          {
+            "rowNumber": 4,
+            "values": {
+              "deb": "Dimas Anggara",
+              "plafon": 800000000,
+              "bunga": 0.085,
+              "tenor": 20,
+              "angsuran": "?"
+            }
+          },
+          {
+            "rowNumber": 5,
+            "values": {
+              "deb": "Eka Saputra",
+              "plafon": 250000000,
+              "bunga": 0.07,
+              "tenor": 5,
+              "angsuran": "?"
+            }
+          }
+        ],
+        "targetColumns": [
+          {
+            "key": "angsuran",
+            "letter": "E",
+            "label": "Angsuran / Bulan (PMT)",
+            "description": "Hitung cicilan per bulan menggunakan fungsi PMT.",
+            "expectedRowAnswers": {
+              "2": 4778260,
+              "3": 4153835,
+              "4": 6942621,
+              "5": 4950371
+            }
+          }
+        ]
+      }
+    ],
+    "passingScore": 70,
+    "solutionBlueprints": [
+      {
+        "columnLabel": "Angsuran / Bulan (PMT)",
+        "formula": "=PMT(C2/12, D2*12, -B2)",
+        "explanation": "Hitung cicilan per bulan menggunakan fungsi PMT."
+      }
+    ]
+  },
+  {
+    "id": "EX-031",
+    "number": 31,
+    "code": "#SBEM031",
+    "title": "Rekonsiliasi Bank & Buku Kas Perusahaan (Studi Kasus #31)",
+    "category": "Kombinasi",
+    "difficulty": "EXTREME",
+    "difficultyStars": 5,
+    "tags": [
+      "Cek Otomatis",
+      "Studi Kasus",
+      "Kombinasi"
+    ],
+    "instructions": {
+      "title": "EXTREME Level - Rekonsiliasi Bank & Buku Kas Perusahaan",
+      "description": "Hitung selisih mutasi bank dan buku kas perusahaan.",
+      "points": [
+        "1. Periksa data pada tabel di bawah ini.",
+        "2. Tuliskan formula pada kolom target (E) sesuai aturan yang ditentukan.",
+        "3. Pastikan formula dapat diterapkan ke seluruh baris data.",
+        "4. Klik tombol \"Cek Hasil Jawaban\" untuk mengevaluasi kelulusan kasus."
+      ],
+      "helperTable": {
+        "title": "Ketentuan Rumus",
+        "headers": [
+          "Target Kolom",
+          "Formula Acuan"
+        ],
+        "rows": [
+          [
+            "Selisih (Rp)",
+            "=ABS(C2-D2)"
+          ]
+        ]
+      },
+      "notice": "Tulis rumus kalkulasi pada kolom yang telah disediakan."
+    },
+    "sheets": [
+      {
+        "id": "sheet_31",
+        "name": "Rekonsiliasi Kas",
+        "columns": [
+          {
+            "key": "tgl",
+            "label": "Tanggal",
+            "letter": "A"
+          },
+          {
+            "key": "ket",
+            "label": "Keterangan Transaksi",
+            "letter": "B"
+          },
+          {
+            "key": "bank",
+            "label": "Mutasi Bank (Rp)",
+            "letter": "C"
+          },
+          {
+            "key": "buku",
+            "label": "Buku Kas (Rp)",
+            "letter": "D"
+          },
+          {
+            "key": "selisih",
+            "label": "Selisih (Rp)",
+            "letter": "E"
+          },
+          {
+            "key": "status",
+            "label": "Status Audit",
+            "letter": "F"
+          }
+        ],
+        "rows": [
+          {
+            "rowNumber": 2,
+            "values": {
+              "tgl": "01/08/2026",
+              "ket": "Setoran Tunai Kasir Toko",
+              "bank": 15000000,
+              "buku": 15000000,
+              "selisih": "?",
+              "status": "?"
+            }
+          },
+          {
+            "rowNumber": 3,
+            "values": {
+              "tgl": "03/08/2026",
+              "ket": "Kliring Cek Vendor Supplier",
+              "bank": 8500000,
+              "buku": 8500000,
+              "selisih": "?",
+              "status": "?"
+            }
+          },
+          {
+            "rowNumber": 4,
+            "values": {
+              "tgl": "05/08/2026",
+              "ket": "Biaya Administrasi Bank Bulanan",
+              "bank": 25000,
+              "buku": 0,
+              "selisih": "?",
+              "status": "?"
+            }
+          },
+          {
+            "rowNumber": 5,
+            "values": {
+              "tgl": "07/08/2026",
+              "ket": "Pendapatan Jasa Giro Bunga",
+              "bank": 180000,
+              "buku": 0,
+              "selisih": "?",
+              "status": "?"
+            }
+          }
+        ],
+        "targetColumns": [
+          {
+            "key": "selisih",
+            "letter": "E",
+            "label": "Selisih (Rp)",
+            "description": "Hitung selisih mutasi bank dan buku kas perusahaan.",
+            "expectedRowAnswers": {
+              "2": 0,
+              "3": 0,
+              "4": 25000,
+              "5": 180000
+            }
+          }
+        ]
+      }
+    ],
+    "passingScore": 70,
+    "solutionBlueprints": [
+      {
+        "columnLabel": "Selisih (Rp)",
+        "formula": "=ABS(C2-D2)",
+        "explanation": "Hitung selisih mutasi bank dan buku kas perusahaan."
+      }
+    ]
+  },
+  {
+    "id": "EX-032",
+    "number": 32,
+    "code": "#SBEM032",
+    "title": "Pengolahan Nilai Rapor & Beasiswa Prestasi Siswa (Studi Kasus #32)",
+    "category": "Logika",
+    "difficulty": "MENENGAH",
+    "difficultyStars": 3,
+    "tags": [
+      "Cek Otomatis",
+      "Studi Kasus",
+      "Logika"
+    ],
+    "instructions": {
+      "title": "MENENGAH Level - Pengolahan Nilai Rapor & Beasiswa Prestasi Siswa",
+      "description": "Hitung nilai akhir berbobot 30% Tugas + 30% UTS + 40% UAS.",
+      "points": [
+        "1. Periksa data pada tabel di bawah ini.",
+        "2. Tuliskan formula pada kolom target (F) sesuai aturan yang ditentukan.",
+        "3. Pastikan formula dapat diterapkan ke seluruh baris data.",
+        "4. Klik tombol \"Cek Hasil Jawaban\" untuk mengevaluasi kelulusan kasus."
+      ],
+      "helperTable": {
+        "title": "Ketentuan Rumus",
+        "headers": [
+          "Target Kolom",
+          "Formula Acuan"
+        ],
+        "rows": [
+          [
+            "Nilai Akhir",
+            "=C2*0.3 + D2*0.3 + E2*0.4"
+          ]
+        ]
+      },
+      "notice": "Tulis rumus kalkulasi pada kolom yang telah disediakan."
+    },
+    "sheets": [
+      {
+        "id": "sheet_32",
+        "name": "Rapor Siswa",
+        "columns": [
+          {
+            "key": "nis",
+            "label": "NIS",
+            "letter": "A"
+          },
+          {
+            "key": "nama",
+            "label": "Nama Siswa",
+            "letter": "B"
+          },
+          {
+            "key": "tugas",
+            "label": "Nilai Tugas (30%)",
+            "letter": "C"
+          },
+          {
+            "key": "uts",
+            "label": "Nilai UTS (30%)",
+            "letter": "D"
+          },
+          {
+            "key": "uas",
+            "label": "Nilai UAS (40%)",
+            "letter": "E"
+          },
+          {
+            "key": "akhir",
+            "label": "Nilai Akhir",
+            "letter": "F"
+          },
+          {
+            "key": "beasiswa",
+            "label": "Status Beasiswa",
+            "letter": "G"
+          }
+        ],
+        "rows": [
+          {
+            "rowNumber": 2,
+            "values": {
+              "nis": "202601",
+              "nama": "Fajar Nugraha",
+              "tugas": 85,
+              "uts": 90,
+              "uas": 92,
+              "akhir": "?",
+              "beasiswa": "?"
+            }
+          },
+          {
+            "rowNumber": 3,
+            "values": {
+              "nis": "202602",
+              "nama": "Gita Larasati",
+              "tugas": 75,
+              "uts": 80,
+              "uas": 78,
+              "akhir": "?",
+              "beasiswa": "?"
+            }
+          },
+          {
+            "rowNumber": 4,
+            "values": {
+              "nis": "202603",
+              "nama": "Hendra Gunawan",
+              "tugas": 90,
+              "uts": 95,
+              "uas": 94,
+              "akhir": "?",
+              "beasiswa": "?"
+            }
+          },
+          {
+            "rowNumber": 5,
+            "values": {
+              "nis": "202604",
+              "nama": "Indah Permatasari",
+              "tugas": 60,
+              "uts": 65,
+              "uas": 70,
+              "akhir": "?",
+              "beasiswa": "?"
+            }
+          }
+        ],
+        "targetColumns": [
+          {
+            "key": "akhir",
+            "letter": "F",
+            "label": "Nilai Akhir",
+            "description": "Hitung nilai akhir berbobot 30% Tugas + 30% UTS + 40% UAS.",
+            "expectedRowAnswers": {
+              "2": 89.3,
+              "3": 77.7,
+              "4": 93.1,
+              "5": 65.5
+            }
+          }
+        ]
+      }
+    ],
+    "passingScore": 70,
+    "solutionBlueprints": [
+      {
+        "columnLabel": "Nilai Akhir",
+        "formula": "=C2*0.3 + D2*0.3 + E2*0.4",
+        "explanation": "Hitung nilai akhir berbobot 30% Tugas + 30% UTS + 40% UAS."
+      }
+    ]
+  },
+  {
+    "id": "EX-033",
+    "number": 33,
+    "code": "#SBEM033",
+    "title": "Simulasi Angsuran Kredit Rumah KPR (Bank PMT) (Studi Kasus #33)",
+    "category": "Keuangan",
+    "difficulty": "MAHIR",
+    "difficultyStars": 4,
+    "tags": [
+      "Cek Otomatis",
+      "Studi Kasus",
+      "Keuangan"
+    ],
+    "instructions": {
+      "title": "MAHIR Level - Simulasi Angsuran Kredit Rumah KPR (Bank PMT)",
+      "description": "Hitung cicilan per bulan menggunakan fungsi PMT.",
+      "points": [
+        "1. Periksa data pada tabel di bawah ini.",
+        "2. Tuliskan formula pada kolom target (E) sesuai aturan yang ditentukan.",
+        "3. Pastikan formula dapat diterapkan ke seluruh baris data.",
+        "4. Klik tombol \"Cek Hasil Jawaban\" untuk mengevaluasi kelulusan kasus."
+      ],
+      "helperTable": {
+        "title": "Ketentuan Rumus",
+        "headers": [
+          "Target Kolom",
+          "Formula Acuan"
+        ],
+        "rows": [
+          [
+            "Angsuran / Bulan (PMT)",
+            "=PMT(C2/12, D2*12, -B2)"
+          ]
+        ]
+      },
+      "notice": "Tulis rumus kalkulasi pada kolom yang telah disediakan."
+    },
+    "sheets": [
+      {
+        "id": "sheet_33",
+        "name": "Simulasi KPR",
+        "columns": [
+          {
+            "key": "deb",
+            "label": "Nama Debitur",
+            "letter": "A"
+          },
+          {
+            "key": "plafon",
+            "label": "Plafon Pinjaman (Rp)",
+            "letter": "B"
+          },
+          {
+            "key": "bunga",
+            "label": "Bunga Tahunan (%)",
+            "letter": "C"
+          },
+          {
+            "key": "tenor",
+            "label": "Tenor (Tahun)",
+            "letter": "D"
+          },
+          {
+            "key": "angsuran",
+            "label": "Angsuran / Bulan (PMT)",
+            "letter": "E"
+          }
+        ],
+        "rows": [
+          {
+            "rowNumber": 2,
+            "values": {
+              "deb": "Andi Pratama",
+              "plafon": 500000000,
+              "bunga": 0.08,
+              "tenor": 15,
+              "angsuran": "?"
+            }
+          },
+          {
+            "rowNumber": 3,
+            "values": {
+              "deb": "Citra Kirana",
+              "plafon": 350000000,
+              "bunga": 0.075,
+              "tenor": 10,
+              "angsuran": "?"
+            }
+          },
+          {
+            "rowNumber": 4,
+            "values": {
+              "deb": "Dimas Anggara",
+              "plafon": 800000000,
+              "bunga": 0.085,
+              "tenor": 20,
+              "angsuran": "?"
+            }
+          },
+          {
+            "rowNumber": 5,
+            "values": {
+              "deb": "Eka Saputra",
+              "plafon": 250000000,
+              "bunga": 0.07,
+              "tenor": 5,
+              "angsuran": "?"
+            }
+          }
+        ],
+        "targetColumns": [
+          {
+            "key": "angsuran",
+            "letter": "E",
+            "label": "Angsuran / Bulan (PMT)",
+            "description": "Hitung cicilan per bulan menggunakan fungsi PMT.",
+            "expectedRowAnswers": {
+              "2": 4778260,
+              "3": 4153835,
+              "4": 6942621,
+              "5": 4950371
+            }
+          }
+        ]
+      }
+    ],
+    "passingScore": 70,
+    "solutionBlueprints": [
+      {
+        "columnLabel": "Angsuran / Bulan (PMT)",
+        "formula": "=PMT(C2/12, D2*12, -B2)",
+        "explanation": "Hitung cicilan per bulan menggunakan fungsi PMT."
+      }
+    ]
+  },
+  {
+    "id": "EX-034",
+    "number": 34,
+    "code": "#SBEM034",
+    "title": "Rekonsiliasi Bank & Buku Kas Perusahaan (Studi Kasus #34)",
+    "category": "Kombinasi",
+    "difficulty": "EXTREME",
+    "difficultyStars": 5,
+    "tags": [
+      "Cek Otomatis",
+      "Studi Kasus",
+      "Kombinasi"
+    ],
+    "instructions": {
+      "title": "EXTREME Level - Rekonsiliasi Bank & Buku Kas Perusahaan",
+      "description": "Hitung selisih mutasi bank dan buku kas perusahaan.",
+      "points": [
+        "1. Periksa data pada tabel di bawah ini.",
+        "2. Tuliskan formula pada kolom target (E) sesuai aturan yang ditentukan.",
+        "3. Pastikan formula dapat diterapkan ke seluruh baris data.",
+        "4. Klik tombol \"Cek Hasil Jawaban\" untuk mengevaluasi kelulusan kasus."
+      ],
+      "helperTable": {
+        "title": "Ketentuan Rumus",
+        "headers": [
+          "Target Kolom",
+          "Formula Acuan"
+        ],
+        "rows": [
+          [
+            "Selisih (Rp)",
+            "=ABS(C2-D2)"
+          ]
+        ]
+      },
+      "notice": "Tulis rumus kalkulasi pada kolom yang telah disediakan."
+    },
+    "sheets": [
+      {
+        "id": "sheet_34",
+        "name": "Rekonsiliasi Kas",
+        "columns": [
+          {
+            "key": "tgl",
+            "label": "Tanggal",
+            "letter": "A"
+          },
+          {
+            "key": "ket",
+            "label": "Keterangan Transaksi",
+            "letter": "B"
+          },
+          {
+            "key": "bank",
+            "label": "Mutasi Bank (Rp)",
+            "letter": "C"
+          },
+          {
+            "key": "buku",
+            "label": "Buku Kas (Rp)",
+            "letter": "D"
+          },
+          {
+            "key": "selisih",
+            "label": "Selisih (Rp)",
+            "letter": "E"
+          },
+          {
+            "key": "status",
+            "label": "Status Audit",
+            "letter": "F"
+          }
+        ],
+        "rows": [
+          {
+            "rowNumber": 2,
+            "values": {
+              "tgl": "01/08/2026",
+              "ket": "Setoran Tunai Kasir Toko",
+              "bank": 15000000,
+              "buku": 15000000,
+              "selisih": "?",
+              "status": "?"
+            }
+          },
+          {
+            "rowNumber": 3,
+            "values": {
+              "tgl": "03/08/2026",
+              "ket": "Kliring Cek Vendor Supplier",
+              "bank": 8500000,
+              "buku": 8500000,
+              "selisih": "?",
+              "status": "?"
+            }
+          },
+          {
+            "rowNumber": 4,
+            "values": {
+              "tgl": "05/08/2026",
+              "ket": "Biaya Administrasi Bank Bulanan",
+              "bank": 25000,
+              "buku": 0,
+              "selisih": "?",
+              "status": "?"
+            }
+          },
+          {
+            "rowNumber": 5,
+            "values": {
+              "tgl": "07/08/2026",
+              "ket": "Pendapatan Jasa Giro Bunga",
+              "bank": 180000,
+              "buku": 0,
+              "selisih": "?",
+              "status": "?"
+            }
+          }
+        ],
+        "targetColumns": [
+          {
+            "key": "selisih",
+            "letter": "E",
+            "label": "Selisih (Rp)",
+            "description": "Hitung selisih mutasi bank dan buku kas perusahaan.",
+            "expectedRowAnswers": {
+              "2": 0,
+              "3": 0,
+              "4": 25000,
+              "5": 180000
+            }
+          }
+        ]
+      }
+    ],
+    "passingScore": 70,
+    "solutionBlueprints": [
+      {
+        "columnLabel": "Selisih (Rp)",
+        "formula": "=ABS(C2-D2)",
+        "explanation": "Hitung selisih mutasi bank dan buku kas perusahaan."
+      }
+    ]
+  },
+  {
+    "id": "EX-035",
+    "number": 35,
+    "code": "#SBEM035",
+    "title": "Pengolahan Nilai Rapor & Beasiswa Prestasi Siswa (Studi Kasus #35)",
+    "category": "Logika",
+    "difficulty": "MENENGAH",
+    "difficultyStars": 3,
+    "tags": [
+      "Cek Otomatis",
+      "Studi Kasus",
+      "Logika"
+    ],
+    "instructions": {
+      "title": "MENENGAH Level - Pengolahan Nilai Rapor & Beasiswa Prestasi Siswa",
+      "description": "Hitung nilai akhir berbobot 30% Tugas + 30% UTS + 40% UAS.",
+      "points": [
+        "1. Periksa data pada tabel di bawah ini.",
+        "2. Tuliskan formula pada kolom target (F) sesuai aturan yang ditentukan.",
+        "3. Pastikan formula dapat diterapkan ke seluruh baris data.",
+        "4. Klik tombol \"Cek Hasil Jawaban\" untuk mengevaluasi kelulusan kasus."
+      ],
+      "helperTable": {
+        "title": "Ketentuan Rumus",
+        "headers": [
+          "Target Kolom",
+          "Formula Acuan"
+        ],
+        "rows": [
+          [
+            "Nilai Akhir",
+            "=C2*0.3 + D2*0.3 + E2*0.4"
+          ]
+        ]
+      },
+      "notice": "Tulis rumus kalkulasi pada kolom yang telah disediakan."
+    },
+    "sheets": [
+      {
+        "id": "sheet_35",
+        "name": "Rapor Siswa",
+        "columns": [
+          {
+            "key": "nis",
+            "label": "NIS",
+            "letter": "A"
+          },
+          {
+            "key": "nama",
+            "label": "Nama Siswa",
+            "letter": "B"
+          },
+          {
+            "key": "tugas",
+            "label": "Nilai Tugas (30%)",
+            "letter": "C"
+          },
+          {
+            "key": "uts",
+            "label": "Nilai UTS (30%)",
+            "letter": "D"
+          },
+          {
+            "key": "uas",
+            "label": "Nilai UAS (40%)",
+            "letter": "E"
+          },
+          {
+            "key": "akhir",
+            "label": "Nilai Akhir",
+            "letter": "F"
+          },
+          {
+            "key": "beasiswa",
+            "label": "Status Beasiswa",
+            "letter": "G"
+          }
+        ],
+        "rows": [
+          {
+            "rowNumber": 2,
+            "values": {
+              "nis": "202601",
+              "nama": "Fajar Nugraha",
+              "tugas": 85,
+              "uts": 90,
+              "uas": 92,
+              "akhir": "?",
+              "beasiswa": "?"
+            }
+          },
+          {
+            "rowNumber": 3,
+            "values": {
+              "nis": "202602",
+              "nama": "Gita Larasati",
+              "tugas": 75,
+              "uts": 80,
+              "uas": 78,
+              "akhir": "?",
+              "beasiswa": "?"
+            }
+          },
+          {
+            "rowNumber": 4,
+            "values": {
+              "nis": "202603",
+              "nama": "Hendra Gunawan",
+              "tugas": 90,
+              "uts": 95,
+              "uas": 94,
+              "akhir": "?",
+              "beasiswa": "?"
+            }
+          },
+          {
+            "rowNumber": 5,
+            "values": {
+              "nis": "202604",
+              "nama": "Indah Permatasari",
+              "tugas": 60,
+              "uts": 65,
+              "uas": 70,
+              "akhir": "?",
+              "beasiswa": "?"
+            }
+          }
+        ],
+        "targetColumns": [
+          {
+            "key": "akhir",
+            "letter": "F",
+            "label": "Nilai Akhir",
+            "description": "Hitung nilai akhir berbobot 30% Tugas + 30% UTS + 40% UAS.",
+            "expectedRowAnswers": {
+              "2": 89.3,
+              "3": 77.7,
+              "4": 93.1,
+              "5": 65.5
+            }
+          }
+        ]
+      }
+    ],
+    "passingScore": 70,
+    "solutionBlueprints": [
+      {
+        "columnLabel": "Nilai Akhir",
+        "formula": "=C2*0.3 + D2*0.3 + E2*0.4",
+        "explanation": "Hitung nilai akhir berbobot 30% Tugas + 30% UTS + 40% UAS."
+      }
+    ]
+  },
+  {
+    "id": "EX-036",
+    "number": 36,
+    "code": "#SBEM036",
+    "title": "Simulasi Angsuran Kredit Rumah KPR (Bank PMT) (Studi Kasus #36)",
+    "category": "Keuangan",
+    "difficulty": "MAHIR",
+    "difficultyStars": 4,
+    "tags": [
+      "Cek Otomatis",
+      "Studi Kasus",
+      "Keuangan"
+    ],
+    "instructions": {
+      "title": "MAHIR Level - Simulasi Angsuran Kredit Rumah KPR (Bank PMT)",
+      "description": "Hitung cicilan per bulan menggunakan fungsi PMT.",
+      "points": [
+        "1. Periksa data pada tabel di bawah ini.",
+        "2. Tuliskan formula pada kolom target (E) sesuai aturan yang ditentukan.",
+        "3. Pastikan formula dapat diterapkan ke seluruh baris data.",
+        "4. Klik tombol \"Cek Hasil Jawaban\" untuk mengevaluasi kelulusan kasus."
+      ],
+      "helperTable": {
+        "title": "Ketentuan Rumus",
+        "headers": [
+          "Target Kolom",
+          "Formula Acuan"
+        ],
+        "rows": [
+          [
+            "Angsuran / Bulan (PMT)",
+            "=PMT(C2/12, D2*12, -B2)"
+          ]
+        ]
+      },
+      "notice": "Tulis rumus kalkulasi pada kolom yang telah disediakan."
+    },
+    "sheets": [
+      {
+        "id": "sheet_36",
+        "name": "Simulasi KPR",
+        "columns": [
+          {
+            "key": "deb",
+            "label": "Nama Debitur",
+            "letter": "A"
+          },
+          {
+            "key": "plafon",
+            "label": "Plafon Pinjaman (Rp)",
+            "letter": "B"
+          },
+          {
+            "key": "bunga",
+            "label": "Bunga Tahunan (%)",
+            "letter": "C"
+          },
+          {
+            "key": "tenor",
+            "label": "Tenor (Tahun)",
+            "letter": "D"
+          },
+          {
+            "key": "angsuran",
+            "label": "Angsuran / Bulan (PMT)",
+            "letter": "E"
+          }
+        ],
+        "rows": [
+          {
+            "rowNumber": 2,
+            "values": {
+              "deb": "Andi Pratama",
+              "plafon": 500000000,
+              "bunga": 0.08,
+              "tenor": 15,
+              "angsuran": "?"
+            }
+          },
+          {
+            "rowNumber": 3,
+            "values": {
+              "deb": "Citra Kirana",
+              "plafon": 350000000,
+              "bunga": 0.075,
+              "tenor": 10,
+              "angsuran": "?"
+            }
+          },
+          {
+            "rowNumber": 4,
+            "values": {
+              "deb": "Dimas Anggara",
+              "plafon": 800000000,
+              "bunga": 0.085,
+              "tenor": 20,
+              "angsuran": "?"
+            }
+          },
+          {
+            "rowNumber": 5,
+            "values": {
+              "deb": "Eka Saputra",
+              "plafon": 250000000,
+              "bunga": 0.07,
+              "tenor": 5,
+              "angsuran": "?"
+            }
+          }
+        ],
+        "targetColumns": [
+          {
+            "key": "angsuran",
+            "letter": "E",
+            "label": "Angsuran / Bulan (PMT)",
+            "description": "Hitung cicilan per bulan menggunakan fungsi PMT.",
+            "expectedRowAnswers": {
+              "2": 4778260,
+              "3": 4153835,
+              "4": 6942621,
+              "5": 4950371
+            }
+          }
+        ]
+      }
+    ],
+    "passingScore": 70,
+    "solutionBlueprints": [
+      {
+        "columnLabel": "Angsuran / Bulan (PMT)",
+        "formula": "=PMT(C2/12, D2*12, -B2)",
+        "explanation": "Hitung cicilan per bulan menggunakan fungsi PMT."
+      }
+    ]
+  },
+  {
+    "id": "EX-037",
+    "number": 37,
+    "code": "#SBEM037",
+    "title": "Rekonsiliasi Bank & Buku Kas Perusahaan (Studi Kasus #37)",
+    "category": "Kombinasi",
+    "difficulty": "EXTREME",
+    "difficultyStars": 5,
+    "tags": [
+      "Cek Otomatis",
+      "Studi Kasus",
+      "Kombinasi"
+    ],
+    "instructions": {
+      "title": "EXTREME Level - Rekonsiliasi Bank & Buku Kas Perusahaan",
+      "description": "Hitung selisih mutasi bank dan buku kas perusahaan.",
+      "points": [
+        "1. Periksa data pada tabel di bawah ini.",
+        "2. Tuliskan formula pada kolom target (E) sesuai aturan yang ditentukan.",
+        "3. Pastikan formula dapat diterapkan ke seluruh baris data.",
+        "4. Klik tombol \"Cek Hasil Jawaban\" untuk mengevaluasi kelulusan kasus."
+      ],
+      "helperTable": {
+        "title": "Ketentuan Rumus",
+        "headers": [
+          "Target Kolom",
+          "Formula Acuan"
+        ],
+        "rows": [
+          [
+            "Selisih (Rp)",
+            "=ABS(C2-D2)"
+          ]
+        ]
+      },
+      "notice": "Tulis rumus kalkulasi pada kolom yang telah disediakan."
+    },
+    "sheets": [
+      {
+        "id": "sheet_37",
+        "name": "Rekonsiliasi Kas",
+        "columns": [
+          {
+            "key": "tgl",
+            "label": "Tanggal",
+            "letter": "A"
+          },
+          {
+            "key": "ket",
+            "label": "Keterangan Transaksi",
+            "letter": "B"
+          },
+          {
+            "key": "bank",
+            "label": "Mutasi Bank (Rp)",
+            "letter": "C"
+          },
+          {
+            "key": "buku",
+            "label": "Buku Kas (Rp)",
+            "letter": "D"
+          },
+          {
+            "key": "selisih",
+            "label": "Selisih (Rp)",
+            "letter": "E"
+          },
+          {
+            "key": "status",
+            "label": "Status Audit",
+            "letter": "F"
+          }
+        ],
+        "rows": [
+          {
+            "rowNumber": 2,
+            "values": {
+              "tgl": "01/08/2026",
+              "ket": "Setoran Tunai Kasir Toko",
+              "bank": 15000000,
+              "buku": 15000000,
+              "selisih": "?",
+              "status": "?"
+            }
+          },
+          {
+            "rowNumber": 3,
+            "values": {
+              "tgl": "03/08/2026",
+              "ket": "Kliring Cek Vendor Supplier",
+              "bank": 8500000,
+              "buku": 8500000,
+              "selisih": "?",
+              "status": "?"
+            }
+          },
+          {
+            "rowNumber": 4,
+            "values": {
+              "tgl": "05/08/2026",
+              "ket": "Biaya Administrasi Bank Bulanan",
+              "bank": 25000,
+              "buku": 0,
+              "selisih": "?",
+              "status": "?"
+            }
+          },
+          {
+            "rowNumber": 5,
+            "values": {
+              "tgl": "07/08/2026",
+              "ket": "Pendapatan Jasa Giro Bunga",
+              "bank": 180000,
+              "buku": 0,
+              "selisih": "?",
+              "status": "?"
+            }
+          }
+        ],
+        "targetColumns": [
+          {
+            "key": "selisih",
+            "letter": "E",
+            "label": "Selisih (Rp)",
+            "description": "Hitung selisih mutasi bank dan buku kas perusahaan.",
+            "expectedRowAnswers": {
+              "2": 0,
+              "3": 0,
+              "4": 25000,
+              "5": 180000
+            }
+          }
+        ]
+      }
+    ],
+    "passingScore": 70,
+    "solutionBlueprints": [
+      {
+        "columnLabel": "Selisih (Rp)",
+        "formula": "=ABS(C2-D2)",
+        "explanation": "Hitung selisih mutasi bank dan buku kas perusahaan."
+      }
+    ]
+  },
+  {
+    "id": "EX-038",
+    "number": 38,
+    "code": "#SBEM038",
+    "title": "Pengolahan Nilai Rapor & Beasiswa Prestasi Siswa (Studi Kasus #38)",
+    "category": "Logika",
+    "difficulty": "MENENGAH",
+    "difficultyStars": 3,
+    "tags": [
+      "Cek Otomatis",
+      "Studi Kasus",
+      "Logika"
+    ],
+    "instructions": {
+      "title": "MENENGAH Level - Pengolahan Nilai Rapor & Beasiswa Prestasi Siswa",
+      "description": "Hitung nilai akhir berbobot 30% Tugas + 30% UTS + 40% UAS.",
+      "points": [
+        "1. Periksa data pada tabel di bawah ini.",
+        "2. Tuliskan formula pada kolom target (F) sesuai aturan yang ditentukan.",
+        "3. Pastikan formula dapat diterapkan ke seluruh baris data.",
+        "4. Klik tombol \"Cek Hasil Jawaban\" untuk mengevaluasi kelulusan kasus."
+      ],
+      "helperTable": {
+        "title": "Ketentuan Rumus",
+        "headers": [
+          "Target Kolom",
+          "Formula Acuan"
+        ],
+        "rows": [
+          [
+            "Nilai Akhir",
+            "=C2*0.3 + D2*0.3 + E2*0.4"
+          ]
+        ]
+      },
+      "notice": "Tulis rumus kalkulasi pada kolom yang telah disediakan."
+    },
+    "sheets": [
+      {
+        "id": "sheet_38",
+        "name": "Rapor Siswa",
+        "columns": [
+          {
+            "key": "nis",
+            "label": "NIS",
+            "letter": "A"
+          },
+          {
+            "key": "nama",
+            "label": "Nama Siswa",
+            "letter": "B"
+          },
+          {
+            "key": "tugas",
+            "label": "Nilai Tugas (30%)",
+            "letter": "C"
+          },
+          {
+            "key": "uts",
+            "label": "Nilai UTS (30%)",
+            "letter": "D"
+          },
+          {
+            "key": "uas",
+            "label": "Nilai UAS (40%)",
+            "letter": "E"
+          },
+          {
+            "key": "akhir",
+            "label": "Nilai Akhir",
+            "letter": "F"
+          },
+          {
+            "key": "beasiswa",
+            "label": "Status Beasiswa",
+            "letter": "G"
+          }
+        ],
+        "rows": [
+          {
+            "rowNumber": 2,
+            "values": {
+              "nis": "202601",
+              "nama": "Fajar Nugraha",
+              "tugas": 85,
+              "uts": 90,
+              "uas": 92,
+              "akhir": "?",
+              "beasiswa": "?"
+            }
+          },
+          {
+            "rowNumber": 3,
+            "values": {
+              "nis": "202602",
+              "nama": "Gita Larasati",
+              "tugas": 75,
+              "uts": 80,
+              "uas": 78,
+              "akhir": "?",
+              "beasiswa": "?"
+            }
+          },
+          {
+            "rowNumber": 4,
+            "values": {
+              "nis": "202603",
+              "nama": "Hendra Gunawan",
+              "tugas": 90,
+              "uts": 95,
+              "uas": 94,
+              "akhir": "?",
+              "beasiswa": "?"
+            }
+          },
+          {
+            "rowNumber": 5,
+            "values": {
+              "nis": "202604",
+              "nama": "Indah Permatasari",
+              "tugas": 60,
+              "uts": 65,
+              "uas": 70,
+              "akhir": "?",
+              "beasiswa": "?"
+            }
+          }
+        ],
+        "targetColumns": [
+          {
+            "key": "akhir",
+            "letter": "F",
+            "label": "Nilai Akhir",
+            "description": "Hitung nilai akhir berbobot 30% Tugas + 30% UTS + 40% UAS.",
+            "expectedRowAnswers": {
+              "2": 89.3,
+              "3": 77.7,
+              "4": 93.1,
+              "5": 65.5
+            }
+          }
+        ]
+      }
+    ],
+    "passingScore": 70,
+    "solutionBlueprints": [
+      {
+        "columnLabel": "Nilai Akhir",
+        "formula": "=C2*0.3 + D2*0.3 + E2*0.4",
+        "explanation": "Hitung nilai akhir berbobot 30% Tugas + 30% UTS + 40% UAS."
+      }
+    ]
+  },
+  {
+    "id": "EX-039",
+    "number": 39,
+    "code": "#SBEM039",
+    "title": "Simulasi Angsuran Kredit Rumah KPR (Bank PMT) (Studi Kasus #39)",
+    "category": "Keuangan",
+    "difficulty": "MAHIR",
+    "difficultyStars": 4,
+    "tags": [
+      "Cek Otomatis",
+      "Studi Kasus",
+      "Keuangan"
+    ],
+    "instructions": {
+      "title": "MAHIR Level - Simulasi Angsuran Kredit Rumah KPR (Bank PMT)",
+      "description": "Hitung cicilan per bulan menggunakan fungsi PMT.",
+      "points": [
+        "1. Periksa data pada tabel di bawah ini.",
+        "2. Tuliskan formula pada kolom target (E) sesuai aturan yang ditentukan.",
+        "3. Pastikan formula dapat diterapkan ke seluruh baris data.",
+        "4. Klik tombol \"Cek Hasil Jawaban\" untuk mengevaluasi kelulusan kasus."
+      ],
+      "helperTable": {
+        "title": "Ketentuan Rumus",
+        "headers": [
+          "Target Kolom",
+          "Formula Acuan"
+        ],
+        "rows": [
+          [
+            "Angsuran / Bulan (PMT)",
+            "=PMT(C2/12, D2*12, -B2)"
+          ]
+        ]
+      },
+      "notice": "Tulis rumus kalkulasi pada kolom yang telah disediakan."
+    },
+    "sheets": [
+      {
+        "id": "sheet_39",
+        "name": "Simulasi KPR",
+        "columns": [
+          {
+            "key": "deb",
+            "label": "Nama Debitur",
+            "letter": "A"
+          },
+          {
+            "key": "plafon",
+            "label": "Plafon Pinjaman (Rp)",
+            "letter": "B"
+          },
+          {
+            "key": "bunga",
+            "label": "Bunga Tahunan (%)",
+            "letter": "C"
+          },
+          {
+            "key": "tenor",
+            "label": "Tenor (Tahun)",
+            "letter": "D"
+          },
+          {
+            "key": "angsuran",
+            "label": "Angsuran / Bulan (PMT)",
+            "letter": "E"
+          }
+        ],
+        "rows": [
+          {
+            "rowNumber": 2,
+            "values": {
+              "deb": "Andi Pratama",
+              "plafon": 500000000,
+              "bunga": 0.08,
+              "tenor": 15,
+              "angsuran": "?"
+            }
+          },
+          {
+            "rowNumber": 3,
+            "values": {
+              "deb": "Citra Kirana",
+              "plafon": 350000000,
+              "bunga": 0.075,
+              "tenor": 10,
+              "angsuran": "?"
+            }
+          },
+          {
+            "rowNumber": 4,
+            "values": {
+              "deb": "Dimas Anggara",
+              "plafon": 800000000,
+              "bunga": 0.085,
+              "tenor": 20,
+              "angsuran": "?"
+            }
+          },
+          {
+            "rowNumber": 5,
+            "values": {
+              "deb": "Eka Saputra",
+              "plafon": 250000000,
+              "bunga": 0.07,
+              "tenor": 5,
+              "angsuran": "?"
+            }
+          }
+        ],
+        "targetColumns": [
+          {
+            "key": "angsuran",
+            "letter": "E",
+            "label": "Angsuran / Bulan (PMT)",
+            "description": "Hitung cicilan per bulan menggunakan fungsi PMT.",
+            "expectedRowAnswers": {
+              "2": 4778260,
+              "3": 4153835,
+              "4": 6942621,
+              "5": 4950371
+            }
+          }
+        ]
+      }
+    ],
+    "passingScore": 70,
+    "solutionBlueprints": [
+      {
+        "columnLabel": "Angsuran / Bulan (PMT)",
+        "formula": "=PMT(C2/12, D2*12, -B2)",
+        "explanation": "Hitung cicilan per bulan menggunakan fungsi PMT."
+      }
+    ]
+  },
+  {
+    "id": "EX-040",
+    "number": 40,
+    "code": "#SBEM040",
+    "title": "Rekonsiliasi Bank & Buku Kas Perusahaan (Studi Kasus #40)",
+    "category": "Kombinasi",
+    "difficulty": "EXTREME",
+    "difficultyStars": 5,
+    "tags": [
+      "Cek Otomatis",
+      "Studi Kasus",
+      "Kombinasi"
+    ],
+    "instructions": {
+      "title": "EXTREME Level - Rekonsiliasi Bank & Buku Kas Perusahaan",
+      "description": "Hitung selisih mutasi bank dan buku kas perusahaan.",
+      "points": [
+        "1. Periksa data pada tabel di bawah ini.",
+        "2. Tuliskan formula pada kolom target (E) sesuai aturan yang ditentukan.",
+        "3. Pastikan formula dapat diterapkan ke seluruh baris data.",
+        "4. Klik tombol \"Cek Hasil Jawaban\" untuk mengevaluasi kelulusan kasus."
+      ],
+      "helperTable": {
+        "title": "Ketentuan Rumus",
+        "headers": [
+          "Target Kolom",
+          "Formula Acuan"
+        ],
+        "rows": [
+          [
+            "Selisih (Rp)",
+            "=ABS(C2-D2)"
+          ]
+        ]
+      },
+      "notice": "Tulis rumus kalkulasi pada kolom yang telah disediakan."
+    },
+    "sheets": [
+      {
+        "id": "sheet_40",
+        "name": "Rekonsiliasi Kas",
+        "columns": [
+          {
+            "key": "tgl",
+            "label": "Tanggal",
+            "letter": "A"
+          },
+          {
+            "key": "ket",
+            "label": "Keterangan Transaksi",
+            "letter": "B"
+          },
+          {
+            "key": "bank",
+            "label": "Mutasi Bank (Rp)",
+            "letter": "C"
+          },
+          {
+            "key": "buku",
+            "label": "Buku Kas (Rp)",
+            "letter": "D"
+          },
+          {
+            "key": "selisih",
+            "label": "Selisih (Rp)",
+            "letter": "E"
+          },
+          {
+            "key": "status",
+            "label": "Status Audit",
+            "letter": "F"
+          }
+        ],
+        "rows": [
+          {
+            "rowNumber": 2,
+            "values": {
+              "tgl": "01/08/2026",
+              "ket": "Setoran Tunai Kasir Toko",
+              "bank": 15000000,
+              "buku": 15000000,
+              "selisih": "?",
+              "status": "?"
+            }
+          },
+          {
+            "rowNumber": 3,
+            "values": {
+              "tgl": "03/08/2026",
+              "ket": "Kliring Cek Vendor Supplier",
+              "bank": 8500000,
+              "buku": 8500000,
+              "selisih": "?",
+              "status": "?"
+            }
+          },
+          {
+            "rowNumber": 4,
+            "values": {
+              "tgl": "05/08/2026",
+              "ket": "Biaya Administrasi Bank Bulanan",
+              "bank": 25000,
+              "buku": 0,
+              "selisih": "?",
+              "status": "?"
+            }
+          },
+          {
+            "rowNumber": 5,
+            "values": {
+              "tgl": "07/08/2026",
+              "ket": "Pendapatan Jasa Giro Bunga",
+              "bank": 180000,
+              "buku": 0,
+              "selisih": "?",
+              "status": "?"
+            }
+          }
+        ],
+        "targetColumns": [
+          {
+            "key": "selisih",
+            "letter": "E",
+            "label": "Selisih (Rp)",
+            "description": "Hitung selisih mutasi bank dan buku kas perusahaan.",
+            "expectedRowAnswers": {
+              "2": 0,
+              "3": 0,
+              "4": 25000,
+              "5": 180000
+            }
+          }
+        ]
+      }
+    ],
+    "passingScore": 70,
+    "solutionBlueprints": [
+      {
+        "columnLabel": "Selisih (Rp)",
+        "formula": "=ABS(C2-D2)",
+        "explanation": "Hitung selisih mutasi bank dan buku kas perusahaan."
+      }
+    ]
+  },
+  {
+    "id": "EX-041",
+    "number": 41,
+    "code": "#SBEM041",
+    "title": "Pengolahan Nilai Rapor & Beasiswa Prestasi Siswa (Studi Kasus #41)",
+    "category": "Logika",
+    "difficulty": "MENENGAH",
+    "difficultyStars": 3,
+    "tags": [
+      "Cek Otomatis",
+      "Studi Kasus",
+      "Logika"
+    ],
+    "instructions": {
+      "title": "MENENGAH Level - Pengolahan Nilai Rapor & Beasiswa Prestasi Siswa",
+      "description": "Hitung nilai akhir berbobot 30% Tugas + 30% UTS + 40% UAS.",
+      "points": [
+        "1. Periksa data pada tabel di bawah ini.",
+        "2. Tuliskan formula pada kolom target (F) sesuai aturan yang ditentukan.",
+        "3. Pastikan formula dapat diterapkan ke seluruh baris data.",
+        "4. Klik tombol \"Cek Hasil Jawaban\" untuk mengevaluasi kelulusan kasus."
+      ],
+      "helperTable": {
+        "title": "Ketentuan Rumus",
+        "headers": [
+          "Target Kolom",
+          "Formula Acuan"
+        ],
+        "rows": [
+          [
+            "Nilai Akhir",
+            "=C2*0.3 + D2*0.3 + E2*0.4"
+          ]
+        ]
+      },
+      "notice": "Tulis rumus kalkulasi pada kolom yang telah disediakan."
+    },
+    "sheets": [
+      {
+        "id": "sheet_41",
+        "name": "Rapor Siswa",
+        "columns": [
+          {
+            "key": "nis",
+            "label": "NIS",
+            "letter": "A"
+          },
+          {
+            "key": "nama",
+            "label": "Nama Siswa",
+            "letter": "B"
+          },
+          {
+            "key": "tugas",
+            "label": "Nilai Tugas (30%)",
+            "letter": "C"
+          },
+          {
+            "key": "uts",
+            "label": "Nilai UTS (30%)",
+            "letter": "D"
+          },
+          {
+            "key": "uas",
+            "label": "Nilai UAS (40%)",
+            "letter": "E"
+          },
+          {
+            "key": "akhir",
+            "label": "Nilai Akhir",
+            "letter": "F"
+          },
+          {
+            "key": "beasiswa",
+            "label": "Status Beasiswa",
+            "letter": "G"
+          }
+        ],
+        "rows": [
+          {
+            "rowNumber": 2,
+            "values": {
+              "nis": "202601",
+              "nama": "Fajar Nugraha",
+              "tugas": 85,
+              "uts": 90,
+              "uas": 92,
+              "akhir": "?",
+              "beasiswa": "?"
+            }
+          },
+          {
+            "rowNumber": 3,
+            "values": {
+              "nis": "202602",
+              "nama": "Gita Larasati",
+              "tugas": 75,
+              "uts": 80,
+              "uas": 78,
+              "akhir": "?",
+              "beasiswa": "?"
+            }
+          },
+          {
+            "rowNumber": 4,
+            "values": {
+              "nis": "202603",
+              "nama": "Hendra Gunawan",
+              "tugas": 90,
+              "uts": 95,
+              "uas": 94,
+              "akhir": "?",
+              "beasiswa": "?"
+            }
+          },
+          {
+            "rowNumber": 5,
+            "values": {
+              "nis": "202604",
+              "nama": "Indah Permatasari",
+              "tugas": 60,
+              "uts": 65,
+              "uas": 70,
+              "akhir": "?",
+              "beasiswa": "?"
+            }
+          }
+        ],
+        "targetColumns": [
+          {
+            "key": "akhir",
+            "letter": "F",
+            "label": "Nilai Akhir",
+            "description": "Hitung nilai akhir berbobot 30% Tugas + 30% UTS + 40% UAS.",
+            "expectedRowAnswers": {
+              "2": 89.3,
+              "3": 77.7,
+              "4": 93.1,
+              "5": 65.5
+            }
+          }
+        ]
+      }
+    ],
+    "passingScore": 70,
+    "solutionBlueprints": [
+      {
+        "columnLabel": "Nilai Akhir",
+        "formula": "=C2*0.3 + D2*0.3 + E2*0.4",
+        "explanation": "Hitung nilai akhir berbobot 30% Tugas + 30% UTS + 40% UAS."
+      }
+    ]
+  },
+  {
+    "id": "EX-042",
+    "number": 42,
+    "code": "#SBEM042",
+    "title": "Simulasi Angsuran Kredit Rumah KPR (Bank PMT) (Studi Kasus #42)",
+    "category": "Keuangan",
+    "difficulty": "MAHIR",
+    "difficultyStars": 4,
+    "tags": [
+      "Cek Otomatis",
+      "Studi Kasus",
+      "Keuangan"
+    ],
+    "instructions": {
+      "title": "MAHIR Level - Simulasi Angsuran Kredit Rumah KPR (Bank PMT)",
+      "description": "Hitung cicilan per bulan menggunakan fungsi PMT.",
+      "points": [
+        "1. Periksa data pada tabel di bawah ini.",
+        "2. Tuliskan formula pada kolom target (E) sesuai aturan yang ditentukan.",
+        "3. Pastikan formula dapat diterapkan ke seluruh baris data.",
+        "4. Klik tombol \"Cek Hasil Jawaban\" untuk mengevaluasi kelulusan kasus."
+      ],
+      "helperTable": {
+        "title": "Ketentuan Rumus",
+        "headers": [
+          "Target Kolom",
+          "Formula Acuan"
+        ],
+        "rows": [
+          [
+            "Angsuran / Bulan (PMT)",
+            "=PMT(C2/12, D2*12, -B2)"
+          ]
+        ]
+      },
+      "notice": "Tulis rumus kalkulasi pada kolom yang telah disediakan."
+    },
+    "sheets": [
+      {
+        "id": "sheet_42",
+        "name": "Simulasi KPR",
+        "columns": [
+          {
+            "key": "deb",
+            "label": "Nama Debitur",
+            "letter": "A"
+          },
+          {
+            "key": "plafon",
+            "label": "Plafon Pinjaman (Rp)",
+            "letter": "B"
+          },
+          {
+            "key": "bunga",
+            "label": "Bunga Tahunan (%)",
+            "letter": "C"
+          },
+          {
+            "key": "tenor",
+            "label": "Tenor (Tahun)",
+            "letter": "D"
+          },
+          {
+            "key": "angsuran",
+            "label": "Angsuran / Bulan (PMT)",
+            "letter": "E"
+          }
+        ],
+        "rows": [
+          {
+            "rowNumber": 2,
+            "values": {
+              "deb": "Andi Pratama",
+              "plafon": 500000000,
+              "bunga": 0.08,
+              "tenor": 15,
+              "angsuran": "?"
+            }
+          },
+          {
+            "rowNumber": 3,
+            "values": {
+              "deb": "Citra Kirana",
+              "plafon": 350000000,
+              "bunga": 0.075,
+              "tenor": 10,
+              "angsuran": "?"
+            }
+          },
+          {
+            "rowNumber": 4,
+            "values": {
+              "deb": "Dimas Anggara",
+              "plafon": 800000000,
+              "bunga": 0.085,
+              "tenor": 20,
+              "angsuran": "?"
+            }
+          },
+          {
+            "rowNumber": 5,
+            "values": {
+              "deb": "Eka Saputra",
+              "plafon": 250000000,
+              "bunga": 0.07,
+              "tenor": 5,
+              "angsuran": "?"
+            }
+          }
+        ],
+        "targetColumns": [
+          {
+            "key": "angsuran",
+            "letter": "E",
+            "label": "Angsuran / Bulan (PMT)",
+            "description": "Hitung cicilan per bulan menggunakan fungsi PMT.",
+            "expectedRowAnswers": {
+              "2": 4778260,
+              "3": 4153835,
+              "4": 6942621,
+              "5": 4950371
+            }
+          }
+        ]
+      }
+    ],
+    "passingScore": 70,
+    "solutionBlueprints": [
+      {
+        "columnLabel": "Angsuran / Bulan (PMT)",
+        "formula": "=PMT(C2/12, D2*12, -B2)",
+        "explanation": "Hitung cicilan per bulan menggunakan fungsi PMT."
+      }
+    ]
+  },
+  {
+    "id": "EX-043",
+    "number": 43,
+    "code": "#SBEM043",
+    "title": "Rekonsiliasi Bank & Buku Kas Perusahaan (Studi Kasus #43)",
+    "category": "Kombinasi",
+    "difficulty": "EXTREME",
+    "difficultyStars": 5,
+    "tags": [
+      "Cek Otomatis",
+      "Studi Kasus",
+      "Kombinasi"
+    ],
+    "instructions": {
+      "title": "EXTREME Level - Rekonsiliasi Bank & Buku Kas Perusahaan",
+      "description": "Hitung selisih mutasi bank dan buku kas perusahaan.",
+      "points": [
+        "1. Periksa data pada tabel di bawah ini.",
+        "2. Tuliskan formula pada kolom target (E) sesuai aturan yang ditentukan.",
+        "3. Pastikan formula dapat diterapkan ke seluruh baris data.",
+        "4. Klik tombol \"Cek Hasil Jawaban\" untuk mengevaluasi kelulusan kasus."
+      ],
+      "helperTable": {
+        "title": "Ketentuan Rumus",
+        "headers": [
+          "Target Kolom",
+          "Formula Acuan"
+        ],
+        "rows": [
+          [
+            "Selisih (Rp)",
+            "=ABS(C2-D2)"
+          ]
+        ]
+      },
+      "notice": "Tulis rumus kalkulasi pada kolom yang telah disediakan."
+    },
+    "sheets": [
+      {
+        "id": "sheet_43",
+        "name": "Rekonsiliasi Kas",
+        "columns": [
+          {
+            "key": "tgl",
+            "label": "Tanggal",
+            "letter": "A"
+          },
+          {
+            "key": "ket",
+            "label": "Keterangan Transaksi",
+            "letter": "B"
+          },
+          {
+            "key": "bank",
+            "label": "Mutasi Bank (Rp)",
+            "letter": "C"
+          },
+          {
+            "key": "buku",
+            "label": "Buku Kas (Rp)",
+            "letter": "D"
+          },
+          {
+            "key": "selisih",
+            "label": "Selisih (Rp)",
+            "letter": "E"
+          },
+          {
+            "key": "status",
+            "label": "Status Audit",
+            "letter": "F"
+          }
+        ],
+        "rows": [
+          {
+            "rowNumber": 2,
+            "values": {
+              "tgl": "01/08/2026",
+              "ket": "Setoran Tunai Kasir Toko",
+              "bank": 15000000,
+              "buku": 15000000,
+              "selisih": "?",
+              "status": "?"
+            }
+          },
+          {
+            "rowNumber": 3,
+            "values": {
+              "tgl": "03/08/2026",
+              "ket": "Kliring Cek Vendor Supplier",
+              "bank": 8500000,
+              "buku": 8500000,
+              "selisih": "?",
+              "status": "?"
+            }
+          },
+          {
+            "rowNumber": 4,
+            "values": {
+              "tgl": "05/08/2026",
+              "ket": "Biaya Administrasi Bank Bulanan",
+              "bank": 25000,
+              "buku": 0,
+              "selisih": "?",
+              "status": "?"
+            }
+          },
+          {
+            "rowNumber": 5,
+            "values": {
+              "tgl": "07/08/2026",
+              "ket": "Pendapatan Jasa Giro Bunga",
+              "bank": 180000,
+              "buku": 0,
+              "selisih": "?",
+              "status": "?"
+            }
+          }
+        ],
+        "targetColumns": [
+          {
+            "key": "selisih",
+            "letter": "E",
+            "label": "Selisih (Rp)",
+            "description": "Hitung selisih mutasi bank dan buku kas perusahaan.",
+            "expectedRowAnswers": {
+              "2": 0,
+              "3": 0,
+              "4": 25000,
+              "5": 180000
+            }
+          }
+        ]
+      }
+    ],
+    "passingScore": 70,
+    "solutionBlueprints": [
+      {
+        "columnLabel": "Selisih (Rp)",
+        "formula": "=ABS(C2-D2)",
+        "explanation": "Hitung selisih mutasi bank dan buku kas perusahaan."
+      }
+    ]
+  },
+  {
+    "id": "EX-044",
+    "number": 44,
+    "code": "#SBEM044",
+    "title": "Pengolahan Nilai Rapor & Beasiswa Prestasi Siswa (Studi Kasus #44)",
+    "category": "Logika",
+    "difficulty": "MENENGAH",
+    "difficultyStars": 3,
+    "tags": [
+      "Cek Otomatis",
+      "Studi Kasus",
+      "Logika"
+    ],
+    "instructions": {
+      "title": "MENENGAH Level - Pengolahan Nilai Rapor & Beasiswa Prestasi Siswa",
+      "description": "Hitung nilai akhir berbobot 30% Tugas + 30% UTS + 40% UAS.",
+      "points": [
+        "1. Periksa data pada tabel di bawah ini.",
+        "2. Tuliskan formula pada kolom target (F) sesuai aturan yang ditentukan.",
+        "3. Pastikan formula dapat diterapkan ke seluruh baris data.",
+        "4. Klik tombol \"Cek Hasil Jawaban\" untuk mengevaluasi kelulusan kasus."
+      ],
+      "helperTable": {
+        "title": "Ketentuan Rumus",
+        "headers": [
+          "Target Kolom",
+          "Formula Acuan"
+        ],
+        "rows": [
+          [
+            "Nilai Akhir",
+            "=C2*0.3 + D2*0.3 + E2*0.4"
+          ]
+        ]
+      },
+      "notice": "Tulis rumus kalkulasi pada kolom yang telah disediakan."
+    },
+    "sheets": [
+      {
+        "id": "sheet_44",
+        "name": "Rapor Siswa",
+        "columns": [
+          {
+            "key": "nis",
+            "label": "NIS",
+            "letter": "A"
+          },
+          {
+            "key": "nama",
+            "label": "Nama Siswa",
+            "letter": "B"
+          },
+          {
+            "key": "tugas",
+            "label": "Nilai Tugas (30%)",
+            "letter": "C"
+          },
+          {
+            "key": "uts",
+            "label": "Nilai UTS (30%)",
+            "letter": "D"
+          },
+          {
+            "key": "uas",
+            "label": "Nilai UAS (40%)",
+            "letter": "E"
+          },
+          {
+            "key": "akhir",
+            "label": "Nilai Akhir",
+            "letter": "F"
+          },
+          {
+            "key": "beasiswa",
+            "label": "Status Beasiswa",
+            "letter": "G"
+          }
+        ],
+        "rows": [
+          {
+            "rowNumber": 2,
+            "values": {
+              "nis": "202601",
+              "nama": "Fajar Nugraha",
+              "tugas": 85,
+              "uts": 90,
+              "uas": 92,
+              "akhir": "?",
+              "beasiswa": "?"
+            }
+          },
+          {
+            "rowNumber": 3,
+            "values": {
+              "nis": "202602",
+              "nama": "Gita Larasati",
+              "tugas": 75,
+              "uts": 80,
+              "uas": 78,
+              "akhir": "?",
+              "beasiswa": "?"
+            }
+          },
+          {
+            "rowNumber": 4,
+            "values": {
+              "nis": "202603",
+              "nama": "Hendra Gunawan",
+              "tugas": 90,
+              "uts": 95,
+              "uas": 94,
+              "akhir": "?",
+              "beasiswa": "?"
+            }
+          },
+          {
+            "rowNumber": 5,
+            "values": {
+              "nis": "202604",
+              "nama": "Indah Permatasari",
+              "tugas": 60,
+              "uts": 65,
+              "uas": 70,
+              "akhir": "?",
+              "beasiswa": "?"
+            }
+          }
+        ],
+        "targetColumns": [
+          {
+            "key": "akhir",
+            "letter": "F",
+            "label": "Nilai Akhir",
+            "description": "Hitung nilai akhir berbobot 30% Tugas + 30% UTS + 40% UAS.",
+            "expectedRowAnswers": {
+              "2": 89.3,
+              "3": 77.7,
+              "4": 93.1,
+              "5": 65.5
+            }
+          }
+        ]
+      }
+    ],
+    "passingScore": 70,
+    "solutionBlueprints": [
+      {
+        "columnLabel": "Nilai Akhir",
+        "formula": "=C2*0.3 + D2*0.3 + E2*0.4",
+        "explanation": "Hitung nilai akhir berbobot 30% Tugas + 30% UTS + 40% UAS."
+      }
+    ]
+  },
+  {
+    "id": "EX-045",
+    "number": 45,
+    "code": "#SBEM045",
+    "title": "Simulasi Angsuran Kredit Rumah KPR (Bank PMT) (Studi Kasus #45)",
+    "category": "Keuangan",
+    "difficulty": "MAHIR",
+    "difficultyStars": 4,
+    "tags": [
+      "Cek Otomatis",
+      "Studi Kasus",
+      "Keuangan"
+    ],
+    "instructions": {
+      "title": "MAHIR Level - Simulasi Angsuran Kredit Rumah KPR (Bank PMT)",
+      "description": "Hitung cicilan per bulan menggunakan fungsi PMT.",
+      "points": [
+        "1. Periksa data pada tabel di bawah ini.",
+        "2. Tuliskan formula pada kolom target (E) sesuai aturan yang ditentukan.",
+        "3. Pastikan formula dapat diterapkan ke seluruh baris data.",
+        "4. Klik tombol \"Cek Hasil Jawaban\" untuk mengevaluasi kelulusan kasus."
+      ],
+      "helperTable": {
+        "title": "Ketentuan Rumus",
+        "headers": [
+          "Target Kolom",
+          "Formula Acuan"
+        ],
+        "rows": [
+          [
+            "Angsuran / Bulan (PMT)",
+            "=PMT(C2/12, D2*12, -B2)"
+          ]
+        ]
+      },
+      "notice": "Tulis rumus kalkulasi pada kolom yang telah disediakan."
+    },
+    "sheets": [
+      {
+        "id": "sheet_45",
+        "name": "Simulasi KPR",
+        "columns": [
+          {
+            "key": "deb",
+            "label": "Nama Debitur",
+            "letter": "A"
+          },
+          {
+            "key": "plafon",
+            "label": "Plafon Pinjaman (Rp)",
+            "letter": "B"
+          },
+          {
+            "key": "bunga",
+            "label": "Bunga Tahunan (%)",
+            "letter": "C"
+          },
+          {
+            "key": "tenor",
+            "label": "Tenor (Tahun)",
+            "letter": "D"
+          },
+          {
+            "key": "angsuran",
+            "label": "Angsuran / Bulan (PMT)",
+            "letter": "E"
+          }
+        ],
+        "rows": [
+          {
+            "rowNumber": 2,
+            "values": {
+              "deb": "Andi Pratama",
+              "plafon": 500000000,
+              "bunga": 0.08,
+              "tenor": 15,
+              "angsuran": "?"
+            }
+          },
+          {
+            "rowNumber": 3,
+            "values": {
+              "deb": "Citra Kirana",
+              "plafon": 350000000,
+              "bunga": 0.075,
+              "tenor": 10,
+              "angsuran": "?"
+            }
+          },
+          {
+            "rowNumber": 4,
+            "values": {
+              "deb": "Dimas Anggara",
+              "plafon": 800000000,
+              "bunga": 0.085,
+              "tenor": 20,
+              "angsuran": "?"
+            }
+          },
+          {
+            "rowNumber": 5,
+            "values": {
+              "deb": "Eka Saputra",
+              "plafon": 250000000,
+              "bunga": 0.07,
+              "tenor": 5,
+              "angsuran": "?"
+            }
+          }
+        ],
+        "targetColumns": [
+          {
+            "key": "angsuran",
+            "letter": "E",
+            "label": "Angsuran / Bulan (PMT)",
+            "description": "Hitung cicilan per bulan menggunakan fungsi PMT.",
+            "expectedRowAnswers": {
+              "2": 4778260,
+              "3": 4153835,
+              "4": 6942621,
+              "5": 4950371
+            }
+          }
+        ]
+      }
+    ],
+    "passingScore": 70,
+    "solutionBlueprints": [
+      {
+        "columnLabel": "Angsuran / Bulan (PMT)",
+        "formula": "=PMT(C2/12, D2*12, -B2)",
+        "explanation": "Hitung cicilan per bulan menggunakan fungsi PMT."
+      }
+    ]
+  },
+  {
+    "id": "EX-046",
+    "number": 46,
+    "code": "#SBEM046",
+    "title": "Rekonsiliasi Bank & Buku Kas Perusahaan (Studi Kasus #46)",
+    "category": "Kombinasi",
+    "difficulty": "EXTREME",
+    "difficultyStars": 5,
+    "tags": [
+      "Cek Otomatis",
+      "Studi Kasus",
+      "Kombinasi"
+    ],
+    "instructions": {
+      "title": "EXTREME Level - Rekonsiliasi Bank & Buku Kas Perusahaan",
+      "description": "Hitung selisih mutasi bank dan buku kas perusahaan.",
+      "points": [
+        "1. Periksa data pada tabel di bawah ini.",
+        "2. Tuliskan formula pada kolom target (E) sesuai aturan yang ditentukan.",
+        "3. Pastikan formula dapat diterapkan ke seluruh baris data.",
+        "4. Klik tombol \"Cek Hasil Jawaban\" untuk mengevaluasi kelulusan kasus."
+      ],
+      "helperTable": {
+        "title": "Ketentuan Rumus",
+        "headers": [
+          "Target Kolom",
+          "Formula Acuan"
+        ],
+        "rows": [
+          [
+            "Selisih (Rp)",
+            "=ABS(C2-D2)"
+          ]
+        ]
+      },
+      "notice": "Tulis rumus kalkulasi pada kolom yang telah disediakan."
+    },
+    "sheets": [
+      {
+        "id": "sheet_46",
+        "name": "Rekonsiliasi Kas",
+        "columns": [
+          {
+            "key": "tgl",
+            "label": "Tanggal",
+            "letter": "A"
+          },
+          {
+            "key": "ket",
+            "label": "Keterangan Transaksi",
+            "letter": "B"
+          },
+          {
+            "key": "bank",
+            "label": "Mutasi Bank (Rp)",
+            "letter": "C"
+          },
+          {
+            "key": "buku",
+            "label": "Buku Kas (Rp)",
+            "letter": "D"
+          },
+          {
+            "key": "selisih",
+            "label": "Selisih (Rp)",
+            "letter": "E"
+          },
+          {
+            "key": "status",
+            "label": "Status Audit",
+            "letter": "F"
+          }
+        ],
+        "rows": [
+          {
+            "rowNumber": 2,
+            "values": {
+              "tgl": "01/08/2026",
+              "ket": "Setoran Tunai Kasir Toko",
+              "bank": 15000000,
+              "buku": 15000000,
+              "selisih": "?",
+              "status": "?"
+            }
+          },
+          {
+            "rowNumber": 3,
+            "values": {
+              "tgl": "03/08/2026",
+              "ket": "Kliring Cek Vendor Supplier",
+              "bank": 8500000,
+              "buku": 8500000,
+              "selisih": "?",
+              "status": "?"
+            }
+          },
+          {
+            "rowNumber": 4,
+            "values": {
+              "tgl": "05/08/2026",
+              "ket": "Biaya Administrasi Bank Bulanan",
+              "bank": 25000,
+              "buku": 0,
+              "selisih": "?",
+              "status": "?"
+            }
+          },
+          {
+            "rowNumber": 5,
+            "values": {
+              "tgl": "07/08/2026",
+              "ket": "Pendapatan Jasa Giro Bunga",
+              "bank": 180000,
+              "buku": 0,
+              "selisih": "?",
+              "status": "?"
+            }
+          }
+        ],
+        "targetColumns": [
+          {
+            "key": "selisih",
+            "letter": "E",
+            "label": "Selisih (Rp)",
+            "description": "Hitung selisih mutasi bank dan buku kas perusahaan.",
+            "expectedRowAnswers": {
+              "2": 0,
+              "3": 0,
+              "4": 25000,
+              "5": 180000
+            }
+          }
+        ]
+      }
+    ],
+    "passingScore": 70,
+    "solutionBlueprints": [
+      {
+        "columnLabel": "Selisih (Rp)",
+        "formula": "=ABS(C2-D2)",
+        "explanation": "Hitung selisih mutasi bank dan buku kas perusahaan."
+      }
+    ]
+  },
+  {
+    "id": "EX-047",
+    "number": 47,
+    "code": "#SBEM047",
+    "title": "Pengolahan Nilai Rapor & Beasiswa Prestasi Siswa (Studi Kasus #47)",
+    "category": "Logika",
+    "difficulty": "MENENGAH",
+    "difficultyStars": 3,
+    "tags": [
+      "Cek Otomatis",
+      "Studi Kasus",
+      "Logika"
+    ],
+    "instructions": {
+      "title": "MENENGAH Level - Pengolahan Nilai Rapor & Beasiswa Prestasi Siswa",
+      "description": "Hitung nilai akhir berbobot 30% Tugas + 30% UTS + 40% UAS.",
+      "points": [
+        "1. Periksa data pada tabel di bawah ini.",
+        "2. Tuliskan formula pada kolom target (F) sesuai aturan yang ditentukan.",
+        "3. Pastikan formula dapat diterapkan ke seluruh baris data.",
+        "4. Klik tombol \"Cek Hasil Jawaban\" untuk mengevaluasi kelulusan kasus."
+      ],
+      "helperTable": {
+        "title": "Ketentuan Rumus",
+        "headers": [
+          "Target Kolom",
+          "Formula Acuan"
+        ],
+        "rows": [
+          [
+            "Nilai Akhir",
+            "=C2*0.3 + D2*0.3 + E2*0.4"
+          ]
+        ]
+      },
+      "notice": "Tulis rumus kalkulasi pada kolom yang telah disediakan."
+    },
+    "sheets": [
+      {
+        "id": "sheet_47",
+        "name": "Rapor Siswa",
+        "columns": [
+          {
+            "key": "nis",
+            "label": "NIS",
+            "letter": "A"
+          },
+          {
+            "key": "nama",
+            "label": "Nama Siswa",
+            "letter": "B"
+          },
+          {
+            "key": "tugas",
+            "label": "Nilai Tugas (30%)",
+            "letter": "C"
+          },
+          {
+            "key": "uts",
+            "label": "Nilai UTS (30%)",
+            "letter": "D"
+          },
+          {
+            "key": "uas",
+            "label": "Nilai UAS (40%)",
+            "letter": "E"
+          },
+          {
+            "key": "akhir",
+            "label": "Nilai Akhir",
+            "letter": "F"
+          },
+          {
+            "key": "beasiswa",
+            "label": "Status Beasiswa",
+            "letter": "G"
+          }
+        ],
+        "rows": [
+          {
+            "rowNumber": 2,
+            "values": {
+              "nis": "202601",
+              "nama": "Fajar Nugraha",
+              "tugas": 85,
+              "uts": 90,
+              "uas": 92,
+              "akhir": "?",
+              "beasiswa": "?"
+            }
+          },
+          {
+            "rowNumber": 3,
+            "values": {
+              "nis": "202602",
+              "nama": "Gita Larasati",
+              "tugas": 75,
+              "uts": 80,
+              "uas": 78,
+              "akhir": "?",
+              "beasiswa": "?"
+            }
+          },
+          {
+            "rowNumber": 4,
+            "values": {
+              "nis": "202603",
+              "nama": "Hendra Gunawan",
+              "tugas": 90,
+              "uts": 95,
+              "uas": 94,
+              "akhir": "?",
+              "beasiswa": "?"
+            }
+          },
+          {
+            "rowNumber": 5,
+            "values": {
+              "nis": "202604",
+              "nama": "Indah Permatasari",
+              "tugas": 60,
+              "uts": 65,
+              "uas": 70,
+              "akhir": "?",
+              "beasiswa": "?"
+            }
+          }
+        ],
+        "targetColumns": [
+          {
+            "key": "akhir",
+            "letter": "F",
+            "label": "Nilai Akhir",
+            "description": "Hitung nilai akhir berbobot 30% Tugas + 30% UTS + 40% UAS.",
+            "expectedRowAnswers": {
+              "2": 89.3,
+              "3": 77.7,
+              "4": 93.1,
+              "5": 65.5
+            }
+          }
+        ]
+      }
+    ],
+    "passingScore": 70,
+    "solutionBlueprints": [
+      {
+        "columnLabel": "Nilai Akhir",
+        "formula": "=C2*0.3 + D2*0.3 + E2*0.4",
+        "explanation": "Hitung nilai akhir berbobot 30% Tugas + 30% UTS + 40% UAS."
       }
     ]
   },
   {
     "id": "EX-048",
     "number": 48,
-    "code": "#SBEC047",
-    "title": "Championship Level: Model Valuasi Finansial Startup",
-    "category": "Kombinasi",
-    "difficulty": "CHAMPIONSHIP",
-    "difficultyStars": 5,
+    "code": "#SBEM048",
+    "title": "Simulasi Angsuran Kredit Rumah KPR (Bank PMT) (Studi Kasus #48)",
+    "category": "Keuangan",
+    "difficulty": "MAHIR",
+    "difficultyStars": 4,
     "tags": [
-      "Financial Model",
       "Cek Otomatis",
-      "Spreadsheet Kasus"
+      "Studi Kasus",
+      "Keuangan"
     ],
     "instructions": {
-      "title": "CHAMPIONSHIP Level - Championship Level: Model Valuasi Finansial Startup",
-      "description": "Selesaikan lembar kerja kasus Championship Level: Model Valuasi Finansial Startup. Buka sheet utama untuk mengisi formula target sesuai data acuan pada sheet referensi.",
+      "title": "MAHIR Level - Simulasi Angsuran Kredit Rumah KPR (Bank PMT)",
+      "description": "Hitung cicilan per bulan menggunakan fungsi PMT.",
       "points": [
-        "1. Periksa sheet \"Data Master\" untuk melihat tabel acuan harga/kategori/nama.",
-        "2. Tulis rumus Excel dinamis pada kolom target (Answer) di sheet \"XL-Test\".",
-        "3. Gunakan formula yang dapat diterapkan ke seluruh baris data.",
-        "4. Klik tombol \"Cek Hasil Jawaban\" di pojok kanan atas untuk mengevaluasi kelulusan."
+        "1. Periksa data pada tabel di bawah ini.",
+        "2. Tuliskan formula pada kolom target (E) sesuai aturan yang ditentukan.",
+        "3. Pastikan formula dapat diterapkan ke seluruh baris data.",
+        "4. Klik tombol \"Cek Hasil Jawaban\" untuk mengevaluasi kelulusan kasus."
       ],
       "helperTable": {
-        "title": "Bantuan Referensi Standar",
+        "title": "Ketentuan Rumus",
         "headers": [
-          "Kategori Data",
-          "Formula Saran"
+          "Target Kolom",
+          "Formula Acuan"
         ],
         "rows": [
           [
-            "Pencarian Rujukan",
-            "VLOOKUP / XLOOKUP / INDEX-MATCH"
-          ],
-          [
-            "Kondisi & Logika",
-            "IF / IFS"
-          ],
-          [
-            "Perhitungan Angka",
-            "Operator Aritmatika / SUMIF / PMT"
+            "Angsuran / Bulan (PMT)",
+            "=PMT(C2/12, D2*12, -B2)"
           ]
         ]
       },
-      "notice": "Dilarang mengubah tabel acuan. Tulis formula langsung pada tabel pengerjaan yang tersedia."
+      "notice": "Tulis rumus kalkulasi pada kolom yang telah disediakan."
     },
     "sheets": [
       {
-        "id": "sheet_main",
-        "name": "XL-Test",
+        "id": "sheet_48",
+        "name": "Simulasi KPR",
         "columns": [
           {
-            "key": "no",
-            "label": "No",
+            "key": "deb",
+            "label": "Nama Debitur",
             "letter": "A"
           },
           {
-            "key": "item",
-            "label": "Item / Subjek",
+            "key": "plafon",
+            "label": "Plafon Pinjaman (Rp)",
             "letter": "B"
           },
           {
-            "key": "param1",
-            "label": "Parameter 1",
+            "key": "bunga",
+            "label": "Bunga Tahunan (%)",
             "letter": "C"
           },
           {
-            "key": "param2",
-            "label": "Parameter 2",
+            "key": "tenor",
+            "label": "Tenor (Tahun)",
             "letter": "D"
           },
           {
-            "key": "target_val",
-            "label": "Target Answer (Formula)",
+            "key": "angsuran",
+            "label": "Angsuran / Bulan (PMT)",
             "letter": "E"
-          },
-          {
-            "key": "status",
-            "label": "Status Verifikasi",
-            "letter": "F"
           }
         ],
         "rows": [
           {
             "rowNumber": 2,
             "values": {
-              "no": 1,
-              "item": "Kasus Uji Alpha",
-              "param1": 5000000,
-              "param2": 3500000,
-              "target_val": "?",
-              "status": "?"
+              "deb": "Andi Pratama",
+              "plafon": 500000000,
+              "bunga": 0.08,
+              "tenor": 15,
+              "angsuran": "?"
             }
           },
           {
             "rowNumber": 3,
             "values": {
-              "no": 2,
-              "item": "Kasus Uji Beta",
-              "param1": 8500000,
-              "param2": 7200000,
-              "target_val": "?",
-              "status": "?"
+              "deb": "Citra Kirana",
+              "plafon": 350000000,
+              "bunga": 0.075,
+              "tenor": 10,
+              "angsuran": "?"
             }
           },
           {
             "rowNumber": 4,
             "values": {
-              "no": 3,
-              "item": "Kasus Uji Gamma",
-              "param1": 6000000,
-              "param2": 5500000,
-              "target_val": "?",
-              "status": "?"
+              "deb": "Dimas Anggara",
+              "plafon": 800000000,
+              "bunga": 0.085,
+              "tenor": 20,
+              "angsuran": "?"
             }
           },
           {
             "rowNumber": 5,
             "values": {
-              "no": 4,
-              "item": "Kasus Uji Delta",
-              "param1": 3000000,
-              "param2": 2400000,
-              "target_val": "?",
-              "status": "?"
-            }
-          },
-          {
-            "rowNumber": 6,
-            "values": {
-              "no": 5,
-              "item": "Kasus Uji Epsilon",
-              "param1": 2500000,
-              "param2": 2100000,
-              "target_val": "?",
-              "status": "?"
+              "deb": "Eka Saputra",
+              "plafon": 250000000,
+              "bunga": 0.07,
+              "tenor": 5,
+              "angsuran": "?"
             }
           }
         ],
         "targetColumns": [
           {
-            "key": "target_val",
+            "key": "angsuran",
             "letter": "E",
-            "label": "Target Answer",
-            "description": "Kalkulasi selisih / rujukan: =C2-D2",
+            "label": "Angsuran / Bulan (PMT)",
+            "description": "Hitung cicilan per bulan menggunakan fungsi PMT.",
             "expectedRowAnswers": {
-              "2": 1500000,
-              "3": 1300000,
-              "4": 500000,
-              "5": 600000,
-              "6": 400000
-            }
-          },
-          {
-            "key": "status",
-            "letter": "F",
-            "label": "Status Verifikasi",
-            "description": "Jika target >= 500000 LULUS: =IF(E2>=500000, \"LULUS\", \"TIDAK LULUS\")",
-            "expectedRowAnswers": {
-              "2": "LULUS",
-              "3": "LULUS",
-              "4": "LULUS",
-              "5": "LULUS",
-              "6": "TIDAK LULUS"
-            }
-          }
-        ]
-      },
-      {
-        "id": "sheet_master",
-        "name": "Data Master",
-        "columns": [
-          {
-            "key": "kode",
-            "label": "Kode Referensi",
-            "letter": "A"
-          },
-          {
-            "key": "nama_ref",
-            "label": "Nama Rujukan",
-            "letter": "B"
-          },
-          {
-            "key": "bobot",
-            "label": "Bobot Standar",
-            "letter": "C"
-          }
-        ],
-        "rows": [
-          {
-            "rowNumber": 2,
-            "values": {
-              "kode": "REF-01",
-              "nama_ref": "Kategori Standar 1",
-              "bobot": 1500000
-            }
-          },
-          {
-            "rowNumber": 3,
-            "values": {
-              "kode": "REF-02",
-              "nama_ref": "Kategori Standar 2",
-              "bobot": 1300000
-            }
-          },
-          {
-            "rowNumber": 4,
-            "values": {
-              "kode": "REF-03",
-              "nama_ref": "Kategori Standar 3",
-              "bobot": 500000
+              "2": 4778260,
+              "3": 4153835,
+              "4": 6942621,
+              "5": 4950371
             }
           }
         ]
@@ -12638,96 +9019,82 @@ export const CASE_EXAMS: CaseExamData[] = [
     "passingScore": 70,
     "solutionBlueprints": [
       {
-        "columnLabel": "Target Answer",
-        "formula": "=C2-D2",
-        "explanation": "Menghitung nilai selisih antara Parameter 1 dan Parameter 2"
-      },
-      {
-        "columnLabel": "Status Verifikasi",
-        "formula": "=IF(E2>=500000, \"LULUS\", \"TIDAK LULUS\")",
-        "explanation": "Menguji kondisi kelayakan batas nilai 500.000"
+        "columnLabel": "Angsuran / Bulan (PMT)",
+        "formula": "=PMT(C2/12, D2*12, -B2)",
+        "explanation": "Hitung cicilan per bulan menggunakan fungsi PMT."
       }
     ]
   },
   {
     "id": "EX-049",
     "number": 49,
-    "code": "#SBEC048",
-    "title": "Championship Level: Optimasi Rute Pengiriman Logistik",
+    "code": "#SBEM049",
+    "title": "Rekonsiliasi Bank & Buku Kas Perusahaan (Studi Kasus #49)",
     "category": "Kombinasi",
-    "difficulty": "CHAMPIONSHIP",
+    "difficulty": "EXTREME",
     "difficultyStars": 5,
     "tags": [
-      "Supply Chain",
-      "Matrix",
       "Cek Otomatis",
-      "Spreadsheet Kasus"
+      "Studi Kasus",
+      "Kombinasi"
     ],
     "instructions": {
-      "title": "CHAMPIONSHIP Level - Championship Level: Optimasi Rute Pengiriman Logistik",
-      "description": "Selesaikan lembar kerja kasus Championship Level: Optimasi Rute Pengiriman Logistik. Buka sheet utama untuk mengisi formula target sesuai data acuan pada sheet referensi.",
+      "title": "EXTREME Level - Rekonsiliasi Bank & Buku Kas Perusahaan",
+      "description": "Hitung selisih mutasi bank dan buku kas perusahaan.",
       "points": [
-        "1. Periksa sheet \"Data Master\" untuk melihat tabel acuan harga/kategori/nama.",
-        "2. Tulis rumus Excel dinamis pada kolom target (Answer) di sheet \"XL-Test\".",
-        "3. Gunakan formula yang dapat diterapkan ke seluruh baris data.",
-        "4. Klik tombol \"Cek Hasil Jawaban\" di pojok kanan atas untuk mengevaluasi kelulusan."
+        "1. Periksa data pada tabel di bawah ini.",
+        "2. Tuliskan formula pada kolom target (E) sesuai aturan yang ditentukan.",
+        "3. Pastikan formula dapat diterapkan ke seluruh baris data.",
+        "4. Klik tombol \"Cek Hasil Jawaban\" untuk mengevaluasi kelulusan kasus."
       ],
       "helperTable": {
-        "title": "Bantuan Referensi Standar",
+        "title": "Ketentuan Rumus",
         "headers": [
-          "Kategori Data",
-          "Formula Saran"
+          "Target Kolom",
+          "Formula Acuan"
         ],
         "rows": [
           [
-            "Pencarian Rujukan",
-            "VLOOKUP / XLOOKUP / INDEX-MATCH"
-          ],
-          [
-            "Kondisi & Logika",
-            "IF / IFS"
-          ],
-          [
-            "Perhitungan Angka",
-            "Operator Aritmatika / SUMIF / PMT"
+            "Selisih (Rp)",
+            "=ABS(C2-D2)"
           ]
         ]
       },
-      "notice": "Dilarang mengubah tabel acuan. Tulis formula langsung pada tabel pengerjaan yang tersedia."
+      "notice": "Tulis rumus kalkulasi pada kolom yang telah disediakan."
     },
     "sheets": [
       {
-        "id": "sheet_main",
-        "name": "XL-Test",
+        "id": "sheet_49",
+        "name": "Rekonsiliasi Kas",
         "columns": [
           {
-            "key": "no",
-            "label": "No",
+            "key": "tgl",
+            "label": "Tanggal",
             "letter": "A"
           },
           {
-            "key": "item",
-            "label": "Item / Subjek",
+            "key": "ket",
+            "label": "Keterangan Transaksi",
             "letter": "B"
           },
           {
-            "key": "param1",
-            "label": "Parameter 1",
+            "key": "bank",
+            "label": "Mutasi Bank (Rp)",
             "letter": "C"
           },
           {
-            "key": "param2",
-            "label": "Parameter 2",
+            "key": "buku",
+            "label": "Buku Kas (Rp)",
             "letter": "D"
           },
           {
-            "key": "target_val",
-            "label": "Target Answer (Formula)",
+            "key": "selisih",
+            "label": "Selisih (Rp)",
             "letter": "E"
           },
           {
             "key": "status",
-            "label": "Status Verifikasi",
+            "label": "Status Audit",
             "letter": "F"
           }
         ],
@@ -12735,131 +9102,59 @@ export const CASE_EXAMS: CaseExamData[] = [
           {
             "rowNumber": 2,
             "values": {
-              "no": 1,
-              "item": "Kasus Uji Alpha",
-              "param1": 5000000,
-              "param2": 3500000,
-              "target_val": "?",
+              "tgl": "01/08/2026",
+              "ket": "Setoran Tunai Kasir Toko",
+              "bank": 15000000,
+              "buku": 15000000,
+              "selisih": "?",
               "status": "?"
             }
           },
           {
             "rowNumber": 3,
             "values": {
-              "no": 2,
-              "item": "Kasus Uji Beta",
-              "param1": 8500000,
-              "param2": 7200000,
-              "target_val": "?",
+              "tgl": "03/08/2026",
+              "ket": "Kliring Cek Vendor Supplier",
+              "bank": 8500000,
+              "buku": 8500000,
+              "selisih": "?",
               "status": "?"
             }
           },
           {
             "rowNumber": 4,
             "values": {
-              "no": 3,
-              "item": "Kasus Uji Gamma",
-              "param1": 6000000,
-              "param2": 5500000,
-              "target_val": "?",
+              "tgl": "05/08/2026",
+              "ket": "Biaya Administrasi Bank Bulanan",
+              "bank": 25000,
+              "buku": 0,
+              "selisih": "?",
               "status": "?"
             }
           },
           {
             "rowNumber": 5,
             "values": {
-              "no": 4,
-              "item": "Kasus Uji Delta",
-              "param1": 3000000,
-              "param2": 2400000,
-              "target_val": "?",
-              "status": "?"
-            }
-          },
-          {
-            "rowNumber": 6,
-            "values": {
-              "no": 5,
-              "item": "Kasus Uji Epsilon",
-              "param1": 2500000,
-              "param2": 2100000,
-              "target_val": "?",
+              "tgl": "07/08/2026",
+              "ket": "Pendapatan Jasa Giro Bunga",
+              "bank": 180000,
+              "buku": 0,
+              "selisih": "?",
               "status": "?"
             }
           }
         ],
         "targetColumns": [
           {
-            "key": "target_val",
+            "key": "selisih",
             "letter": "E",
-            "label": "Target Answer",
-            "description": "Kalkulasi selisih / rujukan: =C2-D2",
+            "label": "Selisih (Rp)",
+            "description": "Hitung selisih mutasi bank dan buku kas perusahaan.",
             "expectedRowAnswers": {
-              "2": 1500000,
-              "3": 1300000,
-              "4": 500000,
-              "5": 600000,
-              "6": 400000
-            }
-          },
-          {
-            "key": "status",
-            "letter": "F",
-            "label": "Status Verifikasi",
-            "description": "Jika target >= 500000 LULUS: =IF(E2>=500000, \"LULUS\", \"TIDAK LULUS\")",
-            "expectedRowAnswers": {
-              "2": "LULUS",
-              "3": "LULUS",
-              "4": "LULUS",
-              "5": "LULUS",
-              "6": "TIDAK LULUS"
-            }
-          }
-        ]
-      },
-      {
-        "id": "sheet_master",
-        "name": "Data Master",
-        "columns": [
-          {
-            "key": "kode",
-            "label": "Kode Referensi",
-            "letter": "A"
-          },
-          {
-            "key": "nama_ref",
-            "label": "Nama Rujukan",
-            "letter": "B"
-          },
-          {
-            "key": "bobot",
-            "label": "Bobot Standar",
-            "letter": "C"
-          }
-        ],
-        "rows": [
-          {
-            "rowNumber": 2,
-            "values": {
-              "kode": "REF-01",
-              "nama_ref": "Kategori Standar 1",
-              "bobot": 1500000
-            }
-          },
-          {
-            "rowNumber": 3,
-            "values": {
-              "kode": "REF-02",
-              "nama_ref": "Kategori Standar 2",
-              "bobot": 1300000
-            }
-          },
-          {
-            "rowNumber": 4,
-            "values": {
-              "kode": "REF-03",
-              "nama_ref": "Kategori Standar 3",
-              "bobot": 500000
+              "2": 0,
+              "3": 0,
+              "4": 25000,
+              "5": 180000
             }
           }
         ]
@@ -12868,228 +9163,151 @@ export const CASE_EXAMS: CaseExamData[] = [
     "passingScore": 70,
     "solutionBlueprints": [
       {
-        "columnLabel": "Target Answer",
-        "formula": "=C2-D2",
-        "explanation": "Menghitung nilai selisih antara Parameter 1 dan Parameter 2"
-      },
-      {
-        "columnLabel": "Status Verifikasi",
-        "formula": "=IF(E2>=500000, \"LULUS\", \"TIDAK LULUS\")",
-        "explanation": "Menguji kondisi kelayakan batas nilai 500.000"
+        "columnLabel": "Selisih (Rp)",
+        "formula": "=ABS(C2-D2)",
+        "explanation": "Hitung selisih mutasi bank dan buku kas perusahaan."
       }
     ]
   },
   {
     "id": "EX-050",
     "number": 50,
-    "code": "#SBEC049",
-    "title": "Championship Level: Analisis Sensitivitas Laba Multi-Variabel",
-    "category": "Kombinasi",
-    "difficulty": "CHAMPIONSHIP",
-    "difficultyStars": 5,
+    "code": "#SBEM050",
+    "title": "Pengolahan Nilai Rapor & Beasiswa Prestasi Siswa (Studi Kasus #50)",
+    "category": "Logika",
+    "difficulty": "MENENGAH",
+    "difficultyStars": 3,
     "tags": [
-      "CFO",
-      "Analysis",
       "Cek Otomatis",
-      "Spreadsheet Kasus"
+      "Studi Kasus",
+      "Logika"
     ],
     "instructions": {
-      "title": "CHAMPIONSHIP Level - Championship Level: Analisis Sensitivitas Laba Multi-Variabel",
-      "description": "Selesaikan lembar kerja kasus Championship Level: Analisis Sensitivitas Laba Multi-Variabel. Buka sheet utama untuk mengisi formula target sesuai data acuan pada sheet referensi.",
+      "title": "MENENGAH Level - Pengolahan Nilai Rapor & Beasiswa Prestasi Siswa",
+      "description": "Hitung nilai akhir berbobot 30% Tugas + 30% UTS + 40% UAS.",
       "points": [
-        "1. Periksa sheet \"Data Master\" untuk melihat tabel acuan harga/kategori/nama.",
-        "2. Tulis rumus Excel dinamis pada kolom target (Answer) di sheet \"XL-Test\".",
-        "3. Gunakan formula yang dapat diterapkan ke seluruh baris data.",
-        "4. Klik tombol \"Cek Hasil Jawaban\" di pojok kanan atas untuk mengevaluasi kelulusan."
+        "1. Periksa data pada tabel di bawah ini.",
+        "2. Tuliskan formula pada kolom target (F) sesuai aturan yang ditentukan.",
+        "3. Pastikan formula dapat diterapkan ke seluruh baris data.",
+        "4. Klik tombol \"Cek Hasil Jawaban\" untuk mengevaluasi kelulusan kasus."
       ],
       "helperTable": {
-        "title": "Bantuan Referensi Standar",
+        "title": "Ketentuan Rumus",
         "headers": [
-          "Kategori Data",
-          "Formula Saran"
+          "Target Kolom",
+          "Formula Acuan"
         ],
         "rows": [
           [
-            "Pencarian Rujukan",
-            "VLOOKUP / XLOOKUP / INDEX-MATCH"
-          ],
-          [
-            "Kondisi & Logika",
-            "IF / IFS"
-          ],
-          [
-            "Perhitungan Angka",
-            "Operator Aritmatika / SUMIF / PMT"
+            "Nilai Akhir",
+            "=C2*0.3 + D2*0.3 + E2*0.4"
           ]
         ]
       },
-      "notice": "Dilarang mengubah tabel acuan. Tulis formula langsung pada tabel pengerjaan yang tersedia."
+      "notice": "Tulis rumus kalkulasi pada kolom yang telah disediakan."
     },
     "sheets": [
       {
-        "id": "sheet_main",
-        "name": "XL-Test",
+        "id": "sheet_50",
+        "name": "Rapor Siswa",
         "columns": [
           {
-            "key": "no",
-            "label": "No",
+            "key": "nis",
+            "label": "NIS",
             "letter": "A"
           },
           {
-            "key": "item",
-            "label": "Item / Subjek",
+            "key": "nama",
+            "label": "Nama Siswa",
             "letter": "B"
           },
           {
-            "key": "param1",
-            "label": "Parameter 1",
+            "key": "tugas",
+            "label": "Nilai Tugas (30%)",
             "letter": "C"
           },
           {
-            "key": "param2",
-            "label": "Parameter 2",
+            "key": "uts",
+            "label": "Nilai UTS (30%)",
             "letter": "D"
           },
           {
-            "key": "target_val",
-            "label": "Target Answer (Formula)",
+            "key": "uas",
+            "label": "Nilai UAS (40%)",
             "letter": "E"
           },
           {
-            "key": "status",
-            "label": "Status Verifikasi",
+            "key": "akhir",
+            "label": "Nilai Akhir",
             "letter": "F"
+          },
+          {
+            "key": "beasiswa",
+            "label": "Status Beasiswa",
+            "letter": "G"
           }
         ],
         "rows": [
           {
             "rowNumber": 2,
             "values": {
-              "no": 1,
-              "item": "Kasus Uji Alpha",
-              "param1": 5000000,
-              "param2": 3500000,
-              "target_val": "?",
-              "status": "?"
+              "nis": "202601",
+              "nama": "Fajar Nugraha",
+              "tugas": 85,
+              "uts": 90,
+              "uas": 92,
+              "akhir": "?",
+              "beasiswa": "?"
             }
           },
           {
             "rowNumber": 3,
             "values": {
-              "no": 2,
-              "item": "Kasus Uji Beta",
-              "param1": 8500000,
-              "param2": 7200000,
-              "target_val": "?",
-              "status": "?"
+              "nis": "202602",
+              "nama": "Gita Larasati",
+              "tugas": 75,
+              "uts": 80,
+              "uas": 78,
+              "akhir": "?",
+              "beasiswa": "?"
             }
           },
           {
             "rowNumber": 4,
             "values": {
-              "no": 3,
-              "item": "Kasus Uji Gamma",
-              "param1": 6000000,
-              "param2": 5500000,
-              "target_val": "?",
-              "status": "?"
+              "nis": "202603",
+              "nama": "Hendra Gunawan",
+              "tugas": 90,
+              "uts": 95,
+              "uas": 94,
+              "akhir": "?",
+              "beasiswa": "?"
             }
           },
           {
             "rowNumber": 5,
             "values": {
-              "no": 4,
-              "item": "Kasus Uji Delta",
-              "param1": 3000000,
-              "param2": 2400000,
-              "target_val": "?",
-              "status": "?"
-            }
-          },
-          {
-            "rowNumber": 6,
-            "values": {
-              "no": 5,
-              "item": "Kasus Uji Epsilon",
-              "param1": 2500000,
-              "param2": 2100000,
-              "target_val": "?",
-              "status": "?"
+              "nis": "202604",
+              "nama": "Indah Permatasari",
+              "tugas": 60,
+              "uts": 65,
+              "uas": 70,
+              "akhir": "?",
+              "beasiswa": "?"
             }
           }
         ],
         "targetColumns": [
           {
-            "key": "target_val",
-            "letter": "E",
-            "label": "Target Answer",
-            "description": "Kalkulasi selisih / rujukan: =C2-D2",
-            "expectedRowAnswers": {
-              "2": 1500000,
-              "3": 1300000,
-              "4": 500000,
-              "5": 600000,
-              "6": 400000
-            }
-          },
-          {
-            "key": "status",
+            "key": "akhir",
             "letter": "F",
-            "label": "Status Verifikasi",
-            "description": "Jika target >= 500000 LULUS: =IF(E2>=500000, \"LULUS\", \"TIDAK LULUS\")",
+            "label": "Nilai Akhir",
+            "description": "Hitung nilai akhir berbobot 30% Tugas + 30% UTS + 40% UAS.",
             "expectedRowAnswers": {
-              "2": "LULUS",
-              "3": "LULUS",
-              "4": "LULUS",
-              "5": "LULUS",
-              "6": "TIDAK LULUS"
-            }
-          }
-        ]
-      },
-      {
-        "id": "sheet_master",
-        "name": "Data Master",
-        "columns": [
-          {
-            "key": "kode",
-            "label": "Kode Referensi",
-            "letter": "A"
-          },
-          {
-            "key": "nama_ref",
-            "label": "Nama Rujukan",
-            "letter": "B"
-          },
-          {
-            "key": "bobot",
-            "label": "Bobot Standar",
-            "letter": "C"
-          }
-        ],
-        "rows": [
-          {
-            "rowNumber": 2,
-            "values": {
-              "kode": "REF-01",
-              "nama_ref": "Kategori Standar 1",
-              "bobot": 1500000
-            }
-          },
-          {
-            "rowNumber": 3,
-            "values": {
-              "kode": "REF-02",
-              "nama_ref": "Kategori Standar 2",
-              "bobot": 1300000
-            }
-          },
-          {
-            "rowNumber": 4,
-            "values": {
-              "kode": "REF-03",
-              "nama_ref": "Kategori Standar 3",
-              "bobot": 500000
+              "2": 89.3,
+              "3": 77.7,
+              "4": 93.1,
+              "5": 65.5
             }
           }
         ]
@@ -13098,244 +9316,9 @@ export const CASE_EXAMS: CaseExamData[] = [
     "passingScore": 70,
     "solutionBlueprints": [
       {
-        "columnLabel": "Target Answer",
-        "formula": "=C2-D2",
-        "explanation": "Menghitung nilai selisih antara Parameter 1 dan Parameter 2"
-      },
-      {
-        "columnLabel": "Status Verifikasi",
-        "formula": "=IF(E2>=500000, \"LULUS\", \"TIDAK LULUS\")",
-        "explanation": "Menguji kondisi kelayakan batas nilai 500.000"
-      }
-    ]
-  },
-  {
-    "id": "EX-051",
-    "number": 51,
-    "code": "#SBEC050",
-    "title": "Championship Master: Dashboard Eksekutif Lengkap Perusahaan",
-    "category": "Kombinasi",
-    "difficulty": "CHAMPIONSHIP",
-    "difficultyStars": 5,
-    "tags": [
-      "Executive",
-      "Master",
-      "Cek Otomatis",
-      "Spreadsheet Kasus"
-    ],
-    "instructions": {
-      "title": "CHAMPIONSHIP Level - Championship Master: Dashboard Eksekutif Lengkap Perusahaan",
-      "description": "Selesaikan lembar kerja kasus Championship Master: Dashboard Eksekutif Lengkap Perusahaan. Buka sheet utama untuk mengisi formula target sesuai data acuan pada sheet referensi.",
-      "points": [
-        "1. Periksa sheet \"Data Master\" untuk melihat tabel acuan harga/kategori/nama.",
-        "2. Tulis rumus Excel dinamis pada kolom target (Answer) di sheet \"XL-Test\".",
-        "3. Gunakan formula yang dapat diterapkan ke seluruh baris data.",
-        "4. Klik tombol \"Cek Hasil Jawaban\" di pojok kanan atas untuk mengevaluasi kelulusan."
-      ],
-      "helperTable": {
-        "title": "Bantuan Referensi Standar",
-        "headers": [
-          "Kategori Data",
-          "Formula Saran"
-        ],
-        "rows": [
-          [
-            "Pencarian Rujukan",
-            "VLOOKUP / XLOOKUP / INDEX-MATCH"
-          ],
-          [
-            "Kondisi & Logika",
-            "IF / IFS"
-          ],
-          [
-            "Perhitungan Angka",
-            "Operator Aritmatika / SUMIF / PMT"
-          ]
-        ]
-      },
-      "notice": "Dilarang mengubah tabel acuan. Tulis formula langsung pada tabel pengerjaan yang tersedia."
-    },
-    "sheets": [
-      {
-        "id": "sheet_main",
-        "name": "XL-Test",
-        "columns": [
-          {
-            "key": "no",
-            "label": "No",
-            "letter": "A"
-          },
-          {
-            "key": "item",
-            "label": "Item / Subjek",
-            "letter": "B"
-          },
-          {
-            "key": "param1",
-            "label": "Parameter 1",
-            "letter": "C"
-          },
-          {
-            "key": "param2",
-            "label": "Parameter 2",
-            "letter": "D"
-          },
-          {
-            "key": "target_val",
-            "label": "Target Answer (Formula)",
-            "letter": "E"
-          },
-          {
-            "key": "status",
-            "label": "Status Verifikasi",
-            "letter": "F"
-          }
-        ],
-        "rows": [
-          {
-            "rowNumber": 2,
-            "values": {
-              "no": 1,
-              "item": "Kasus Uji Alpha",
-              "param1": 5000000,
-              "param2": 3500000,
-              "target_val": "?",
-              "status": "?"
-            }
-          },
-          {
-            "rowNumber": 3,
-            "values": {
-              "no": 2,
-              "item": "Kasus Uji Beta",
-              "param1": 8500000,
-              "param2": 7200000,
-              "target_val": "?",
-              "status": "?"
-            }
-          },
-          {
-            "rowNumber": 4,
-            "values": {
-              "no": 3,
-              "item": "Kasus Uji Gamma",
-              "param1": 6000000,
-              "param2": 5500000,
-              "target_val": "?",
-              "status": "?"
-            }
-          },
-          {
-            "rowNumber": 5,
-            "values": {
-              "no": 4,
-              "item": "Kasus Uji Delta",
-              "param1": 3000000,
-              "param2": 2400000,
-              "target_val": "?",
-              "status": "?"
-            }
-          },
-          {
-            "rowNumber": 6,
-            "values": {
-              "no": 5,
-              "item": "Kasus Uji Epsilon",
-              "param1": 2500000,
-              "param2": 2100000,
-              "target_val": "?",
-              "status": "?"
-            }
-          }
-        ],
-        "targetColumns": [
-          {
-            "key": "target_val",
-            "letter": "E",
-            "label": "Target Answer",
-            "description": "Kalkulasi selisih / rujukan: =C2-D2",
-            "expectedRowAnswers": {
-              "2": 1500000,
-              "3": 1300000,
-              "4": 500000,
-              "5": 600000,
-              "6": 400000
-            }
-          },
-          {
-            "key": "status",
-            "letter": "F",
-            "label": "Status Verifikasi",
-            "description": "Jika target >= 500000 LULUS: =IF(E2>=500000, \"LULUS\", \"TIDAK LULUS\")",
-            "expectedRowAnswers": {
-              "2": "LULUS",
-              "3": "LULUS",
-              "4": "LULUS",
-              "5": "LULUS",
-              "6": "TIDAK LULUS"
-            }
-          }
-        ]
-      },
-      {
-        "id": "sheet_master",
-        "name": "Data Master",
-        "columns": [
-          {
-            "key": "kode",
-            "label": "Kode Referensi",
-            "letter": "A"
-          },
-          {
-            "key": "nama_ref",
-            "label": "Nama Rujukan",
-            "letter": "B"
-          },
-          {
-            "key": "bobot",
-            "label": "Bobot Standar",
-            "letter": "C"
-          }
-        ],
-        "rows": [
-          {
-            "rowNumber": 2,
-            "values": {
-              "kode": "REF-01",
-              "nama_ref": "Kategori Standar 1",
-              "bobot": 1500000
-            }
-          },
-          {
-            "rowNumber": 3,
-            "values": {
-              "kode": "REF-02",
-              "nama_ref": "Kategori Standar 2",
-              "bobot": 1300000
-            }
-          },
-          {
-            "rowNumber": 4,
-            "values": {
-              "kode": "REF-03",
-              "nama_ref": "Kategori Standar 3",
-              "bobot": 500000
-            }
-          }
-        ]
-      }
-    ],
-    "passingScore": 70,
-    "solutionBlueprints": [
-      {
-        "columnLabel": "Target Answer",
-        "formula": "=C2-D2",
-        "explanation": "Menghitung nilai selisih antara Parameter 1 dan Parameter 2"
-      },
-      {
-        "columnLabel": "Status Verifikasi",
-        "formula": "=IF(E2>=500000, \"LULUS\", \"TIDAK LULUS\")",
-        "explanation": "Menguji kondisi kelayakan batas nilai 500.000"
+        "columnLabel": "Nilai Akhir",
+        "formula": "=C2*0.3 + D2*0.3 + E2*0.4",
+        "explanation": "Hitung nilai akhir berbobot 30% Tugas + 30% UTS + 40% UAS."
       }
     ]
   }
