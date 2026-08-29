@@ -124,11 +124,13 @@ export interface UserAccount {
   displayName: string;
   passwordHash: string;
   createdAt: string;
+  isMaster?: boolean;
 }
 
 export interface UserSession {
   username: string;
   displayName: string;
+  isMaster?: boolean;
 }
 
 export interface ExamQuestion {

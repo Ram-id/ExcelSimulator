@@ -17,6 +17,8 @@ import {
   Search,
   Briefcase,
   Star,
+  Crown,
+  Sparkles,
 } from 'lucide-react';
 
 interface ExamSelectorProps {
@@ -24,6 +26,7 @@ interface ExamSelectorProps {
   examResults: Record<string, ExamResult>;
   completedModuleIds: number[];
   chapterModuleCounts: Record<number, { total: number; completed: number }>;
+  isMaster?: boolean;
   onStartExam: (examId: string) => void;
   onViewResult: (examId: string) => void;
   onViewCertificate: (examId: string) => void;
@@ -37,6 +40,7 @@ export const ExamSelector: React.FC<ExamSelectorProps> = ({
   examResults,
   completedModuleIds,
   chapterModuleCounts,
+  isMaster = false,
   onStartExam,
   onViewResult,
   onViewCertificate,
@@ -45,11 +49,13 @@ export const ExamSelector: React.FC<ExamSelectorProps> = ({
   const finalExam = exams.find((e) => e.chapterId === 0);
 
   const isChapterUnlocked = (chapterId: number): boolean => {
+    if (isMaster) return true; // Master bypass
     const counts = chapterModuleCounts[chapterId];
     return counts ? counts.completed >= counts.total : false;
   };
 
   const isFinalUnlocked = (): boolean => {
+    if (isMaster) return true; // Master bypass
     return chapterExams.every((e) => {
       const result = examResults[e.id];
       return result && result.passed;
@@ -72,6 +78,26 @@ export const ExamSelector: React.FC<ExamSelectorProps> = ({
 
   return (
     <div className="space-y-5">
+      {/* Master Mode Banner */}
+      {isMaster && (
+        <div className="bg-gradient-to-r from-amber-500 via-amber-400 to-emerald-500 text-slate-900 px-4 py-3 rounded-xl shadow-md flex items-center justify-between gap-2 border border-amber-300">
+          <div className="flex items-center gap-2">
+            <Crown className="w-5 h-5 text-amber-900 shrink-0" />
+            <div>
+              <span className="font-bold text-xs uppercase tracking-wider block text-amber-950">
+                Akses Master Aktif
+              </span>
+              <p className="text-xs text-amber-900">
+                Semua 7 ujian dan Ujian Akhir terbuka bebas tanpa batasan prasyarat!
+              </p>
+            </div>
+          </div>
+          <span className="bg-amber-900/20 text-amber-950 px-2.5 py-1 rounded-lg text-[11px] font-bold shrink-0 hidden sm:inline">
+            Akses Penuh
+          </span>
+        </div>
+      )}
+
       {/* Header */}
       <div className="bg-white rounded-xl border border-gray-200 p-5 shadow-sm">
         <h2 className="text-lg font-bold text-gray-900 flex items-center gap-2">
@@ -79,7 +105,9 @@ export const ExamSelector: React.FC<ExamSelectorProps> = ({
           Sistem Ujian ExcelSimulator
         </h2>
         <p className="text-xs text-gray-500 mt-1">
-          Selesaikan semua modul di setiap bab untuk membuka ujian. Skor minimal <strong>70%</strong> untuk lulus.
+          {isMaster
+            ? 'Sebagai Akun Master, Anda dapat langsung mengerjakan ujian bab mana saja atau langsung Ujian Akhir.'
+            : 'Selesaikan semua modul di setiap bab untuk membuka ujian. Skor minimal 70% untuk lulus.'}
         </p>
       </div>
 

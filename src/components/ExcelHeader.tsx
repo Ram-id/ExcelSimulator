@@ -1,8 +1,21 @@
 'use client';
 
-import React from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { AppMode, UserSession, getUserLevel, getLevelEmoji } from '@/types/simulator';
-import { Table, BookOpen, RotateCcw, GraduationCap, Sparkles, BarChart3, FileText, LogOut, User } from 'lucide-react';
+import {
+  Table,
+  BookOpen,
+  RotateCcw,
+  GraduationCap,
+  Sparkles,
+  BarChart3,
+  FileText,
+  LogOut,
+  Crown,
+  CheckCheck,
+  Award,
+  ChevronDown,
+} from 'lucide-react';
 
 interface ExcelHeaderProps {
   mode: AppMode;
@@ -13,6 +26,8 @@ interface ExcelHeaderProps {
   onOpenCheatSheet: () => void;
   onResetProgress: () => void;
   onLogout: () => void;
+  onUnlockAllModules?: () => void;
+  onUnlockAllExams?: () => void;
 }
 
 export const ExcelHeader: React.FC<ExcelHeaderProps> = ({
@@ -24,7 +39,12 @@ export const ExcelHeader: React.FC<ExcelHeaderProps> = ({
   onOpenCheatSheet,
   onResetProgress,
   onLogout,
+  onUnlockAllModules,
+  onUnlockAllExams,
 }) => {
+  const [isMasterMenuOpen, setIsMasterMenuOpen] = useState(false);
+  const masterMenuRef = useRef<HTMLDivElement>(null);
+
   const level = getUserLevel(completedCount, totalModules);
   const levelEmoji = getLevelEmoji(level);
   const percentage = totalModules > 0 ? Math.round((completedCount / totalModules) * 100) : 0;
@@ -37,6 +57,17 @@ export const ExcelHeader: React.FC<ExcelHeaderProps> = ({
   ];
 
   const initial = session.displayName.charAt(0).toUpperCase();
+
+  // Close master menu on outside click
+  useEffect(() => {
+    const handleClickOutside = (e: MouseEvent) => {
+      if (masterMenuRef.current && !masterMenuRef.current.contains(e.target as Node)) {
+        setIsMasterMenuOpen(false);
+      }
+    };
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
 
   return (
     <header className="border-b border-gray-200 bg-white sticky top-0 z-30 shadow-xs">
@@ -71,10 +102,64 @@ export const ExcelHeader: React.FC<ExcelHeaderProps> = ({
 
         {/* Right Section */}
         <div className="flex items-center gap-1.5 shrink-0">
+          {/* Master Tools Menu (Only for Master Account) */}
+          {session.isMaster && (
+            <div className="relative" ref={masterMenuRef}>
+              <button
+                onClick={() => setIsMasterMenuOpen(!isMasterMenuOpen)}
+                className="flex items-center gap-1 bg-amber-400 hover:bg-amber-300 text-slate-900 font-bold text-[10px] sm:text-[11px] px-2.5 py-1.5 rounded-lg shadow-sm transition-all"
+                title="Fitur Khusus Master Admin"
+              >
+                <Crown className="w-3.5 h-3.5 text-amber-900 fill-amber-900" />
+                <span className="hidden sm:inline">Master Tools</span>
+                <ChevronDown className="w-3 h-3 ml-0.5" />
+              </button>
+
+              {isMasterMenuOpen && (
+                <div className="absolute right-0 top-full mt-1.5 w-60 bg-white text-slate-800 rounded-xl shadow-2xl border border-amber-200 py-1.5 z-50 text-xs animate-fade-in divide-y divide-gray-100">
+                  <div className="px-3 py-1.5 bg-amber-50 text-amber-950 font-bold flex items-center gap-1.5 text-[11px]">
+                    <Crown className="w-3.5 h-3.5 text-amber-600" />
+                    <span>Akses Penuh Master</span>
+                  </div>
+
+                  <div className="py-1">
+                    <button
+                      onClick={() => {
+                        onUnlockAllModules?.();
+                        setIsMasterMenuOpen(false);
+                      }}
+                      className="w-full px-3 py-2 text-left hover:bg-emerald-50 text-emerald-900 flex items-center gap-2 transition-colors font-medium"
+                    >
+                      <CheckCheck className="w-4 h-4 text-emerald-600 shrink-0" />
+                      <div>
+                        <div>Buka Semua 40 Modul</div>
+                        <div className="text-[10px] text-gray-500 font-normal">Tandai 40 modul selesai instan</div>
+                      </div>
+                    </button>
+
+                    <button
+                      onClick={() => {
+                        onUnlockAllExams?.();
+                        setIsMasterMenuOpen(false);
+                      }}
+                      className="w-full px-3 py-2 text-left hover:bg-amber-50 text-amber-900 flex items-center gap-2 transition-colors font-medium"
+                    >
+                      <Award className="w-4 h-4 text-amber-600 shrink-0" />
+                      <div>
+                        <div>Luluskan Semua 7 Ujian</div>
+                        <div className="text-[10px] text-gray-500 font-normal">Dapatkan semua sertifikat (skor 100%)</div>
+                      </div>
+                    </button>
+                  </div>
+                </div>
+              )}
+            </div>
+          )}
+
           {/* Kamus Rumus */}
           <button
             onClick={onOpenCheatSheet}
-            className="flex items-center gap-1 bg-yellow-400 hover:bg-yellow-300 text-slate-900 font-bold text-[10px] sm:text-[11px] px-2 py-1.5 rounded-lg shadow-xs transition-all"
+            className="flex items-center gap-1 bg-emerald-800 hover:bg-emerald-700 text-white font-semibold text-[10px] sm:text-[11px] px-2 py-1.5 rounded-lg border border-emerald-600 transition-all"
           >
             <BookOpen className="w-3.5 h-3.5" />
             <span className="hidden lg:inline">Kamus</span>
@@ -89,10 +174,12 @@ export const ExcelHeader: React.FC<ExcelHeaderProps> = ({
           {/* User Menu */}
           <div className="flex items-center gap-1 bg-emerald-900/50 border border-emerald-700/40 rounded-lg overflow-hidden">
             <div className="flex items-center gap-1.5 px-2 py-1.5">
-              <div className="w-5 h-5 rounded-full bg-emerald-300 text-emerald-900 flex items-center justify-center text-[10px] font-bold">
-                {initial}
+              <div className={`w-5 h-5 rounded-full flex items-center justify-center text-[10px] font-bold ${
+                session.isMaster ? 'bg-amber-400 text-amber-950 ring-1 ring-amber-300' : 'bg-emerald-300 text-emerald-900'
+              }`}>
+                {session.isMaster ? '👑' : initial}
               </div>
-              <span className="text-[10px] font-medium text-emerald-100 hidden md:inline max-w-[80px] truncate">
+              <span className="text-[10px] font-medium text-emerald-100 hidden md:inline max-w-[90px] truncate">
                 {session.displayName}
               </span>
             </div>

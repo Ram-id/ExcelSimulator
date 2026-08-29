@@ -98,6 +98,44 @@ export default function HomePage() {
     setUserData(session.username, 'exams', results);
   }, [session]);
 
+  // Master Actions (Only available for Master Account)
+  const handleUnlockAllModules = useCallback(() => {
+    if (!session?.isMaster) return;
+    const allIds = MODULES.map((m) => m.id);
+    saveModules(allIds);
+    try {
+      confetti({ particleCount: 150, spread: 100, origin: { y: 0.5 } });
+    } catch { /* ignore */ }
+    alert('👑 Akses Master: Seluruh 40 modul pembelajaran telah dibuka & ditandai selesai!');
+  }, [session, saveModules]);
+
+  const handleUnlockAllExams = useCallback(() => {
+    if (!session?.isMaster) return;
+    const results: Record<string, ExamResult> = {};
+    EXAMS.forEach((exam) => {
+      results[exam.id] = {
+        examId: exam.id,
+        score: exam.totalPoints,
+        totalPoints: exam.totalPoints,
+        percentage: 100,
+        passed: true,
+        answers: exam.questions.map((q) => ({
+          questionId: q.id,
+          answer: String(q.correctAnswer),
+          isCorrect: true,
+          pointsEarned: q.points,
+        })),
+        completedAt: new Date().toISOString(),
+        predikat: 'Sangat Baik',
+      };
+    });
+    saveExamResults(results);
+    try {
+      confetti({ particleCount: 200, spread: 120, origin: { y: 0.5 } });
+    } catch { /* ignore */ }
+    alert('👑 Akses Master: Seluruh 7 ujian (termasuk Ujian Akhir) telah lulus dengan skor 100% dan sertifikat siap diunduh!');
+  }, [session, saveExamResults]);
+
   // Auth handlers
   const handleAuthSuccess = (s: UserSession) => {
     setSession(s);
@@ -227,7 +265,7 @@ export default function HomePage() {
   };
 
   const handleResetProgress = () => {
-    if (confirm('Reset seluruh progres? (modul & ujian)')) {
+    if (confirm('Reset seluruh progres akun ini? (modul & ujian)')) {
       saveModules([]);
       saveExamResults({});
       setResult({ status: 'idle', message: '' });
@@ -319,6 +357,8 @@ export default function HomePage() {
         onOpenCheatSheet={() => setIsCheatSheetOpen(true)}
         onResetProgress={handleResetProgress}
         onLogout={handleLogout}
+        onUnlockAllModules={handleUnlockAllModules}
+        onUnlockAllExams={handleUnlockAllExams}
       />
 
       <div className="flex-1 max-w-7xl w-full mx-auto p-3 sm:p-4 flex flex-col gap-3">
@@ -344,6 +384,7 @@ export default function HomePage() {
                 examResults={examResults}
                 completedModuleIds={completedModules}
                 chapterModuleCounts={chapterModuleCounts}
+                isMaster={session.isMaster}
                 onStartExam={handleStartExam}
                 onViewResult={handleViewResult}
                 onViewCertificate={(examId) => setCertificateExamId(examId)}
@@ -451,7 +492,7 @@ export default function HomePage() {
       </div>
 
       <footer className="bg-white border-t border-gray-200 py-2 text-center text-[11px] text-gray-400 mt-auto">
-        ExcelSimulator v4.0 © {new Date().getFullYear()} • {session.displayName} • 40 Modul • 7 Ujian • Sertifikat
+        ExcelSimulator v4.0 © {new Date().getFullYear()} • {session.displayName} {session.isMaster ? '👑' : ''} • 40 Modul • 7 Ujian • Sertifikat
       </footer>
 
       <CheatSheetModal isOpen={isCheatSheetOpen} onClose={() => setIsCheatSheetOpen(false)} />

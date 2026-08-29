@@ -1,9 +1,9 @@
 'use client';
 
 import React, { useState } from 'react';
-import { registerUser, loginUser } from '@/lib/auth';
+import { registerUser, loginUser, MASTER_EMAIL, MASTER_PASSWORD } from '@/lib/auth';
 import { UserSession } from '@/types/simulator';
-import { Table, LogIn, UserPlus, Eye, EyeOff, Loader2 } from 'lucide-react';
+import { Table, LogIn, UserPlus, Eye, EyeOff, Loader2, Crown, Sparkles } from 'lucide-react';
 
 interface AuthScreenProps {
   onAuthSuccess: (session: UserSession) => void;
@@ -42,10 +42,21 @@ export const AuthScreen: React.FC<AuthScreenProps> = ({ onAuthSuccess }) => {
     setLoading(false);
 
     if (result.success) {
-      onAuthSuccess({ username: username.trim().toLowerCase(), displayName: displayName.trim() });
+      onAuthSuccess({
+        username: username.trim().toLowerCase(),
+        displayName: displayName.trim(),
+        isMaster: false,
+      });
     } else {
       setError(result.error || 'Registrasi gagal.');
     }
+  };
+
+  const fillMasterAccount = () => {
+    setTab('login');
+    setUsername(MASTER_EMAIL);
+    setPassword(MASTER_PASSWORD);
+    setError('');
   };
 
   const switchTab = (newTab: 'login' | 'register') => {
@@ -98,14 +109,16 @@ export const AuthScreen: React.FC<AuthScreenProps> = ({ onAuthSuccess }) => {
 
           {/* Form */}
           <form onSubmit={tab === 'login' ? handleLogin : handleRegister} className="p-6 space-y-4">
-            {/* Username */}
+            {/* Username / Email */}
             <div>
-              <label className="block text-xs font-semibold text-gray-700 mb-1">Username</label>
+              <label className="block text-xs font-semibold text-gray-700 mb-1">
+                {tab === 'login' ? 'Username / Email' : 'Username / Email'}
+              </label>
               <input
                 type="text"
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
-                placeholder="contoh: budi_santoso"
+                placeholder={tab === 'login' ? 'daniganteng@gmail.com / budi' : 'contoh: budi atau nama@email.com'}
                 className="w-full px-3 py-2.5 text-sm border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#107c41] focus:border-transparent bg-gray-50 text-gray-900"
                 required
                 autoComplete="username"
@@ -181,16 +194,21 @@ export const AuthScreen: React.FC<AuthScreenProps> = ({ onAuthSuccess }) => {
             </button>
           </form>
 
-          {/* Footer hint */}
-          <div className="px-6 pb-4 text-center text-[11px] text-gray-400">
-            {tab === 'login'
-              ? 'Belum punya akun? Klik tab "Daftar Baru" di atas.'
-              : 'Sudah punya akun? Klik tab "Masuk" di atas.'}
+          {/* Master quick login button helper */}
+          <div className="px-6 pb-4">
+            <button
+              type="button"
+              onClick={fillMasterAccount}
+              className="w-full py-2 px-3 bg-amber-50 hover:bg-amber-100 border border-amber-300 rounded-xl text-amber-900 text-xs font-semibold flex items-center justify-center gap-1.5 transition-colors"
+            >
+              <Crown className="w-3.5 h-3.5 text-amber-600" />
+              <span>Isi Akun Master (daniganteng@gmail.com)</span>
+            </button>
           </div>
         </div>
 
         <p className="text-center text-[11px] text-gray-400 mt-4">
-          Data akun tersimpan di browser ini. Gratis, tanpa email.
+          Setiap akun memiliki server/data lokal tersendiri & tidak saling bertubrukan.
         </p>
       </div>
     </div>
